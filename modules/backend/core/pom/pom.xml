@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.appverse.web.framework.poms.modules.backend.core</groupId>
+		<artifactId>appverse-web-modules-backend-core-pom</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.appverse.web.framework.poms.modules.backend.core.parent</groupId>
+	<artifactId>appverse-web-modules-backend-core-parent-pom</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Appverse Web Framework Modules Backend Core Backend POM</name>
+	<description>Appverse Web Framework Modules Backend Core Backend POM</description>
+	
+	<licenses>
+		<license>
+			<comments>
+	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+			
+			 This Source Code Form is subject to the terms of the Appverse Public License 
+			 Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+			 file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+			
+			 Redistribution and use in source and binary forms, with or without modification, 
+			 are permitted provided that the conditions of the AppVerse Public License v2.0 
+			 are met.
+			
+			 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+			 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+			 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+			 DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+			 SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+			 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+			 LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+			 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+			 WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
+			 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+			 POSSIBILITY OF SUCH DAMAGE.
+			</comments>
+		</license>
+	</licenses>
+
+	<build>
+		<defaultGoal>clean package tomcat:deploy-only </defaultGoal>
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>gwt</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack-GWT-frontend</id>
+								<goals>
+									<goal>unpack-dependencies</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+									<includeGroupIds>${main.group}.${main.name}.gwtfrontend</includeGroupIds>
+									<includeArtifacIds>${main.name}-gwtfrontend</includeArtifacIds>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>flex</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>rename-swf-html</id>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<phase>prepare-package</phase>
+								<configuration>
+									<target name="Rename SWF">
+										<move
+											file="${project.build.directory}/${project.build.finalName}/${main.name}-flexfrontend-shell-${project.version}.swf"
+											tofile="${project.build.directory}/${project.build.finalName}/${movie.name}.swf" />
+										<move
+											file="${project.build.directory}/war/work/wrapped-template/${main.name}-backend-${project.version}.html"
+											tofile="${project.build.directory}/war/work/wrapped-template/${movie.name}.html" />
+										<copy
+											file="${project.build.directory}/war/work/wrapped-template/${movie.name}.html"
+											tofile="${project.build.directory}/${project.build.finalName}/${movie.name}.html" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack-blazeds-config</id>
+								<goals>
+									<goal>unpack-dependencies</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>org.appverse.web
+									<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes/flex</outputDirectory>
+									<includeGroupIds>org.appverse.web.${main.name}.flexfrontend</includeGroupIds>
+									<includeArtifacIds>${main.name}-flexfrontend-config</includeArtifacIds>
+									<includeClassifiers>BlazeDS-Configuration</includeClassifiers>
+								</configuration>
+							</execution>
+							<execution>
+								<id>unpack-flex-frontend</id>
+								<goals>
+									<goal>unpack-dependencies</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+									<includeGroupIds>org.appverse.web.${main.name}.flexfrontend</includeGroupIds>
+									<includeArtifacIds>${main.name}-flexfrontend-config</includeArtifacIds>
+									<includeClassifiers>WebApp-Resources</includeClassifiers>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.sonatype.flexmojos</groupId>
+						<artifactId>flexmojos-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-and-copy-flex-resources</id>
+								<goals>
+									<goal>wrapper</goal>
+									<goal>copy-flex-resources</goal>
+								</goals>
+								<phase>generate-resources</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>aspectj</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>aspectj-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>compile</goal>
+									<goal>test-compile</goal>
+								</goals>
+								<phase>process-sources</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<aspectLibraries>
+								<aspectLibrary>
+									<groupId>org.appverse.web.framework.poms.modules.backend.core</groupId>
+									<artifactId>appverse-web-modules-backend-core-pom</artifactId>
+								</aspectLibrary>
+							</aspectLibraries>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

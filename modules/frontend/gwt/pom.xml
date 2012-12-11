@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.appverse.web.framework.poms.modules.frontend</groupId>
+		<artifactId>appverse-web-modules-frontend-pom</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.appverse.web.framework.poms.modules.frontend.gwt</groupId>
+	<artifactId>appverse-web-modules-frontend-gwt-pom</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Appverse Web Framework Modules GWT Frontend POM</name>
+	<description>Appverse Web Framework Modules GWT Frontend POM</description>
+
+	<licenses>
+		<license>
+			<comments>
+	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+			
+			 This Source Code Form is subject to the terms of the Appverse Public License 
+			 Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+			 file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+			
+			 Redistribution and use in source and binary forms, with or without modification, 
+			 are permitted provided that the conditions of the AppVerse Public License v2.0 
+			 are met.
+			
+			 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+			 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+			 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+			 DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+			 SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+			 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+			 LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+			 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+			 WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
+			 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+			 POSSIBILITY OF SUCH DAMAGE.
+			</comments>
+		</license>
+	</licenses>
+
+	<modules>
+		<module>api</module>
+		<module>pom</module>
+	</modules>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.java</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>Generate Services Async Interfaces and Compile GWT Code</id>
+						<goals>
+							<goal>compile</goal>
+							<goal>generateAsync</goal>
+							<goal>resources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<classpathContainers>
+						<classpathContainer>com.google.gwt.eclipse.core.GWT_CONTAINER</classpathContainer>
+					</classpathContainers>
+					<buildcommands>
+						<buildcommand>com.google.gdt.eclipse.core.webAppProjectValidator</buildcommand>
+						<buildcommand>com.google.gwt.eclipse.core.gwtProjectValidator</buildcommand>
+					</buildcommands>
+					<additionalProjectnatures>
+						<projectnature>com.google.gwt.eclipse.core.gwtNature</projectnature>
+					</additionalProjectnatures>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>gwt</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+			<properties>
+				<gwt.version>2.4.0</gwt.version>
+				<gxt.version>3.0.1</gxt.version>
+				<mvp4.version>1.4.0</mvp4.version>
+			</properties>
+
+			<dependencies>
+				<dependency>
+					<groupId>com.google.gwt</groupId>
+					<artifactId>gwt-servlet</artifactId>
+					<version>${gwt.version}</version>
+					<scope>provided</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>com.google.gwt</groupId>
+					<artifactId>gwt-user</artifactId>
+					<version>${gwt.version}</version>
+					<scope>provided</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>com.sencha.gxt</groupId>
+					<artifactId>gxt</artifactId>
+					<version>${gxt.version}</version>
+					<scope>provided</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>com.sencha.gxt</groupId>
+					<artifactId>uibinder-bridge</artifactId>
+					<version>${gwt.version}</version>
+					<scope>provided</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>com.googlecode.mvp4g</groupId>
+					<artifactId>mvp4g</artifactId>
+					<version>${mvp4.version}</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+</project>
