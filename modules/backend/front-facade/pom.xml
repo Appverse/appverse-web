@@ -45,7 +45,6 @@
 	</licenses>
 
 	<modules>
-		<module>adk</module>
 		<module>flex</module>
 		<module>gxt</module>
 	</modules>
