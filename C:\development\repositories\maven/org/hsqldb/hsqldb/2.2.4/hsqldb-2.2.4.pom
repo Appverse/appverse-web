@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.hsqldb</groupId>
+  <artifactId>hsqldb</artifactId>
+  <packaging>jar</packaging>
+  <name>HSQLDB Database</name>
+  <version>2.2.4</version>
+  <url>http://hsqldb.org/</url>
+  <description>Lightweight 100% Java SQL Database Engine</description>
+  <licenses>
+    <license>
+      <name>HSQLDB License, a BSD open source license</name>
+      <url>http://hsqldb.org/web/hsqlLicense.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <organization>
+      <name>The HSQL Development Group</name>
+      <url>http://hsqldb.org</url>
+  </organization>
+  <inceptionYear>2001</inceptionYear>
+  <scm>
+    <url>http://hsqldb.svn.sourceforge.net/viewvc/hsqldb/base/tags/2.2.4</url>
+    <connection>scm:svn:http://hsqldb.svn.sourceforge.net/svnroot/hsqldb/base</connection>
+    <developerConnection>scm:svn:https://unsaved@hsqldb.svn.sourceforge.net/svnroot/hsqldb/base/trunk</developerConnection>
+    <tag>2.2.4</tag>
+  </scm>
+</project>

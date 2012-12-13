@@ -18,7 +18,7 @@
 	
 	<modules>
 		<module>maven-plugin</module>
-		<module>maven-plugin-test</module>
+	<!--<module>maven-plugin-test</module>-->
 	</modules>
 
 	<licenses>

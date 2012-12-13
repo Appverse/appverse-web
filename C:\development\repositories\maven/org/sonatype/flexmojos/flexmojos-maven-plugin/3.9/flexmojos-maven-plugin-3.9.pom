@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!--
+
+    Copyright 2008 Marvin Herman Froeder Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+    governing permissions and limitations under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sonatype.flexmojos</groupId>
+    <artifactId>flexmojos-parent</artifactId>
+    <version>3.9</version>
+    <relativePath>../flexmojos-parent/pom.xml</relativePath>
+  </parent>
+
+  <artifactId>flexmojos-maven-plugin</artifactId>
+
+  <packaging>maven-plugin</packaging>
+
+  <name>Flexmojos Maven Plugin</name>
+  <description>With this maven plugin Flex3/AS3 sources can be compiled into a SWC or SWF package.</description>
+
+  <prerequisites>
+    <maven>${maven.version}</maven>
+  </prerequisites>
+
+  <developers>
+    <developer>
+      <id>velo</id>
+      <name>Marvin Herman Froeder</name>
+      <email>velo.br at gmail.com</email>
+      <roles>
+        <role>Author Developer</role>
+      </roles>
+      <timezone>-3</timezone>
+    </developer>
+  </developers>
+
+  <contributors>
+    <contributor>
+      <name>Vladimir Krivosheev</name>
+    </contributor>
+    <contributor>
+      <name>Marla Bonar</name>
+      <email>Marla_Bonar@Intuit.com</email>
+    </contributor>
+    <contributor>
+      <name>David Rom</name>
+      <email>david.s.rom@gmail.com</email>
+    </contributor>
+    <contributor>
+      <name>Lance</name>
+      <email>llinder@gmail.com</email>
+    </contributor>
+    <contributor>
+      <name>Juraj Burian</name>
+      <email>jurajburian@gmail.com</email>
+    </contributor>
+    <contributor>
+      <name>Ken Wong </name>
+      <email>amuro@comcast.net</email>
+    </contributor>
+    <contributor>
+      <name>Marcello Teodori</name>
+      <email>marcello.teodori@gmail.com</email>
+    </contributor>
+	<contributor>
+	  <name>Nordin Haouari</name>
+	  <email>nordin.haouari@gmail.com</email>
+	</contributor>
+	<contributor>
+	  <name>Eric Citaire</name>
+	</contributor>
+  </contributors>
+
+  <build>
+    <resources>
+      <resource>
+        <filtering>true</filtering>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>flexmojos.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <filtering>false</filtering>
+        <directory>src/main/resources</directory>
+        <excludes>
+          <exclude>flexmojos.properties</exclude>
+        </excludes>
+      </resource>
+    </resources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>aspectj-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-component-metadata</artifactId>
+        <executions>
+          <execution>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>generate-metadata</goal>
+              <goal>merge-metadata</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}</outputDirectory>
+              <descriptors>
+                <descriptor>${project.build.directory}/components.xml</descriptor>
+                <descriptor>${basedir}/src/main/resources/components.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.ops4j</groupId>
+        <artifactId>maven-inherit-plugin</artifactId>
+      </plugin>
+
+      <!--
+        <plugin> <groupId>org.jvnet</groupId> <artifactId>animal-sniffer</artifactId> <version>1.3-SNAPSHOT</version> <executions> <execution> <goals> <goal>check</goal> </goals> <configuration> <signature> <groupId>com.adobe.flex.compiler</groupId>
+        <artifactId>flex-compiler-oem</artifactId> <version>3.0.0.477</version> </signature> <inclusions> <include>flex2/tools/oem/*</include> </inclusions> </configuration> </execution> </executions> </plugin>
+      -->
+
+      <!--
+        <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-enforcer-plugin</artifactId> <version>1.0-beta-2-SNAPSHOT</version> <executions> <execution> <goals> <goal>enforce</goal> </goals> <configuration> <rules> <bannedPlugins>
+        <message>maven-invoker-plugin isn't allowed, add tests on flexmojos-test-harness instead</message> <excludes> <exclude>*:maven-invoker-plugin</exclude> </excludes> </bannedPlugins> </rules> </configuration> </execution> </executions> </plugin>
+      -->
+
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>flexmojos-generator-api</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>flexmojos-generator-graniteds-2.1.0</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>flexmojos-generator-constraints</artifactId>
+      <version>${pom.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>flexmojos-generator-maven-plugin</artifactId>
+      <version>${pom.version}</version>
+      <type>maven-plugin</type>
+    </dependency>
+
+    <dependency>
+      <groupId>com.adobe.flex</groupId>
+      <artifactId>compiler</artifactId>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>com.adobe.flex</groupId>
+      <artifactId>adt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.adobe.flex.compiler</groupId>
+      <artifactId>asdoc</artifactId>
+      <type>zip</type>
+      <classifier>template</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+    </dependency>
+    <dependency> <!-- required by unit tests -->
+      <groupId>jaxen</groupId>
+      <artifactId>jaxen</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <classifier>jdk15</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-eclipse-plugin</artifactId>
+      <type>maven-plugin</type>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-impl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-source-plugin</artifactId>
+      <type>maven-plugin</type>
+    </dependency>
+    <dependency>
+      <groupId>com.uwyn</groupId>
+      <artifactId>jhighlight</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>eu.cedarsoft.utils</groupId>
+      <artifactId>zip</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-component-annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jvnet</groupId>
+      <artifactId>animal-sniffer-annotation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>flexmojos-tester</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+    </dependency>
+
+    <dependency>
+      <!-- Workaround to get DITA asdoc, flexmojos doesn't need that -->
+      <groupId>net.sf.saxon</groupId>
+      <artifactId>saxon-dom</artifactId>
+      <version>9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-common-artifact-filters</artifactId>
+      <version>1.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jgoogleanalytics</groupId>
+      <artifactId>jgoogleanalytics</artifactId>
+      <version>0.2</version>
+    </dependency>
+  </dependencies>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+
+</project>
