@@ -8,7 +8,7 @@ This is the main repository of the Appverse Web architecture for JSON Services, 
 * **About this project**: <http://appverse.github.com/appverse-web>
 * **About licenses & groups**: <http://appverse.github.com>
 * **About The Appverse Project**: <http://appverse.org>
-* 
+
 ## License
 
     Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
