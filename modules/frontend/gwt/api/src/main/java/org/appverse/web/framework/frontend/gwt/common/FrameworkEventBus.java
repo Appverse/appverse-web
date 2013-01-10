@@ -29,9 +29,9 @@ import org.appverse.web.framework.frontend.gwt.commands.impl.live.Authentication
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.mvp4g.client.annotation.Event;
 import com.mvp4g.client.annotation.Start;
-import com.mvp4g.client.event.EventBus;
+import com.mvp4g.client.event.EventBusWithLookup;
 
-public interface FrameworkEventBus extends EventBus {
+public interface FrameworkEventBus extends EventBusWithLookup {
 
 	@Start
 	@Event(handlers = { AuthenticationRpcCommandImpl.class })

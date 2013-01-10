@@ -115,6 +115,7 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	private String modelSearchField;
 	// minNumchars to fire load event
 	private int minNumChars = -1;
+	private boolean ignoreCase = true;
 
 	/**
 	 * Creates a new Suggest with value providers.
@@ -168,9 +169,20 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 			// + PresentationDataFilter.WILDCARD_ALL);
 			// dataFilter.getColumns().add(getModelSearchField());
 			// dataFilter.getLikes().add(true);
-			dataFilter.addLikeCondition(getModelSearchField(),
-					PresentationDataFilter.WILDCARD_ALL + searchText.getText()
-							+ PresentationDataFilter.WILDCARD_ALL);
+			
+			if (isIgnoreCase()) {
+				dataFilter.addLikeConditionIgnoreCase(
+						getModelSearchField(),
+						PresentationDataFilter.WILDCARD_ALL
+								+ searchText.getText()
+								+ PresentationDataFilter.WILDCARD_ALL);
+			} else {
+				dataFilter.addLikeCondition(
+						getModelSearchField(),
+						PresentationDataFilter.WILDCARD_ALL
+								+ searchText.getText()
+								+ PresentationDataFilter.WILDCARD_ALL);
+			}
 		}
 
 		return dataFilter;
@@ -314,6 +326,10 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 		initWidget(uiBinder.createAndBindUi(this));
 		initLoaders();
 	}
+	
+	public boolean isIgnoreCase() {
+		return ignoreCase;
+	}	
 
 	public void setClickSelectionMethod(final String clickSelectionMethod) {
 		this.clickSelectionMethod = clickSelectionMethod;
@@ -328,6 +344,10 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	@Override
 	public void setEnabled(boolean enabled) {
 		searchText.setEnabled(enabled);
+	}
+
+	public void setIgnoreCase(boolean ignoreCase) {
+		this.ignoreCase = ignoreCase;
 	}
 
 	public void setLoadDataMethod(final String loadDataMethod) {

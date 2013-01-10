@@ -52,6 +52,10 @@
   		<b is-accessible="true">likes</b>  		
 	</field>
 	<field>
+  		<a is-accessible="true">ignoreCase</a>
+  		<b is-accessible="true">ignoreCase</b>  		
+	</field>	
+	<field>
   		<a is-accessible="true">equalsOrGreaterThan</a>
   		<b is-accessible="true">equalsOrGreaterThan</b>  		
 	</field>
@@ -111,6 +115,10 @@
   		<a is-accessible="true">likes</a>
   		<b is-accessible="true">likes</b>  		
 	</field>
+	<field>
+  		<a is-accessible="true">ignoreCase</a>
+  		<b is-accessible="true">ignoreCase</b>  		
+	</field>	
 	<field>
   		<a is-accessible="true">equalsOrGreaterThan</a>
   		<b is-accessible="true">equalsOrGreaterThan</b>  		
