@@ -44,7 +44,7 @@
 	</licenses>
 	
 	<modules>
-		<module>flex</module>
+		<!-- <module>flex</module> -->
 		<module>gwt</module>
 	</modules>
 

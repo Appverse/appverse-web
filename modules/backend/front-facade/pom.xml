@@ -45,7 +45,7 @@
 	</licenses>
 
 	<modules>
-		<module>flex</module>
+		<!-- <module>flex</module> -->
 		<module>gxt</module>
 	</modules>
 

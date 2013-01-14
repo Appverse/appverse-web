@@ -93,11 +93,11 @@
 			<version>2.6.10</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>ar.com.fdvs</groupId>
-			<artifactId>DynamicJasper-core-fonts</artifactId>
-			<version>1.0</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>ar.com.fdvs</groupId> -->
+<!-- 			<artifactId>DynamicJasper-core-fonts</artifactId> -->
+<!-- 			<version>1.0</version> -->
+<!-- 		</dependency> -->
 
 	</dependencies>
 
