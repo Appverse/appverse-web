@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+
+ This Source Code Form is subject to the terms of the Appverse Public License 
+ Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+ file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+
+ Redistribution and use in source and binary forms, with or without modification, 
+ are permitted provided that the conditions of the AppVerse Public License v2.0 
+ are met.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+ SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ POSSIBILITY OF SUCH DAMAGE.
+ -->  
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+<!-- Presentation to Business Mappings (Sort in alphabetical order)-->
+
+  <!--   DataFilter converter mappings -->
+  <mapping map-id="gwtDataFilter-p2b"> 
+    <class-a>org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationDataFilter</class-a>   
+    <class-b>org.appverse.web.framework.backend.api.model.business.BusinessDataFilter</class-b>
+	<field custom-converter="org.appverse.web.framework.backend.api.converters.custom.ObjectListToObjectListConverter">
+  		<a is-accessible="true">values</a>
+  		<b is-accessible="true">values</b>
+  		<a-hint>java.util.List</a-hint>
+  		<b-hint>java.util.List</b-hint>   		
+	</field> 
+        <field>
+  		<a is-accessible="true">columns</a>
+  		<b is-accessible="true">columns</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">negates</a>
+  		<b is-accessible="true">negates</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">likes</a>
+  		<b is-accessible="true">likes</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">equalsOrGreaterThan</a>
+  		<b is-accessible="true">equalsOrGreaterThan</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">equalsOrLessThan</a>
+  		<b is-accessible="true">equalsOrLessThan</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">booleanConditions</a>
+  		<b is-accessible="true">booleanConditions</b>  		
+	</field>	
+	<field>
+  		<a is-accessible="true">columnsIsNull</a>
+  		<b is-accessible="true">columnsIsNull</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">negatesIsNull</a>
+  		<b is-accessible="true">negatesIsNull</b>  		
+	</field>	
+	<field>
+  		<a is-accessible="true">booleanConditionsIsNull</a>
+  		<b is-accessible="true">booleanConditionsIsNull</b>  		
+	</field>	
+	<field>
+  		<a is-accessible="true">defaultBooleanCondition</a>
+  		<b is-accessible="true">defaultBooleanCondition</b>  		
+	</field> 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+	<field>
+  		<a is-accessible="true">columnsToSort</a>
+  		<b is-accessible="true">columnsToSort</b>  		
+	</field> 
+	<field>
+  		<a is-accessible="true">sortingDirections</a>
+  		<b is-accessible="true">sortingDirections</b>  		
+	</field>    
+  </mapping>
+  
+  <!--   DataPaginatedFilter converter mappings -->
+  <mapping map-id="gwtPaginatedDataFilter-p2b"> 
+    <class-a>org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter</class-a>   
+    <class-b>org.appverse.web.framework.backend.api.model.business.BusinessPaginatedDataFilter</class-b>
+	<field custom-converter="org.appverse.web.framework.backend.api.converters.custom.ObjectListToObjectListConverter">
+  		<a is-accessible="true">values</a>
+  		<b is-accessible="true">values</b>
+  		<a-hint>java.util.List</a-hint>
+  		<b-hint>java.util.List</b-hint>   		
+	</field> 
+        <field>
+  		<a is-accessible="true">columns</a>
+  		<b is-accessible="true">columns</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">negates</a>
+  		<b is-accessible="true">negates</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">likes</a>
+  		<b is-accessible="true">likes</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">equalsOrGreaterThan</a>
+  		<b is-accessible="true">equalsOrGreaterThan</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">equalsOrLessThan</a>
+  		<b is-accessible="true">equalsOrLessThan</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">booleanConditions</a>
+  		<b is-accessible="true">booleanConditions</b>  		
+	</field>	
+	<field>
+  		<a is-accessible="true">columnsIsNull</a>
+  		<b is-accessible="true">columnsIsNull</b>  		
+	</field>
+	<field>
+  		<a is-accessible="true">negatesIsNull</a>
+  		<b is-accessible="true">negatesIsNull</b>  		
+	</field>	
+	<field>
+  		<a is-accessible="true">booleanConditionsIsNull</a>
+  		<b is-accessible="true">booleanConditionsIsNull</b>  		
+	</field>	
+	<field>
+  		<a is-accessible="true">defaultBooleanCondition</a>
+  		<b is-accessible="true">defaultBooleanCondition</b>  		
+	</field> 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+	<field>
+  		<a is-accessible="true">columnsToSort</a>
+  		<b is-accessible="true">columnsToSort</b>  		
+	</field> 
+	<field>
+  		<a is-accessible="true">sortingDirections</a>
+  		<b is-accessible="true">sortingDirections</b>  		
+	</field>    
+  </mapping>  
+  
+</mappings>
