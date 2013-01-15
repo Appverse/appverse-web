@@ -53,7 +53,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.plugin.api.version>3.0.3</maven.plugin.api.version>
-		<eclipselink.version>2.2.0</eclipselink.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<slf4j.version>1.6.4</slf4j.version>
 
@@ -75,28 +74,14 @@
 
 			<dependency>
 				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>eclipselink</artifactId>
+				<version>2.2.0</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
 				<artifactId>javax.persistence</artifactId>
 				<version>2.0.3</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.persistence</groupId>
-				<artifactId>org.eclipse.persistence.core</artifactId>
-				<version>${eclipselink.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.persistence</groupId>
-				<artifactId>org.eclipse.persistence.jpa</artifactId>
-				<version>${eclipselink.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.persistence</groupId>
-				<artifactId>org.eclipse.persistence.asm</artifactId>
-				<version>${eclipselink.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.persistence</groupId>
-				<artifactId>org.eclipse.persistence.antlr</artifactId>
-				<version>${eclipselink.version}</version>
 			</dependency>
 
 			<dependency>
