@@ -10,9 +10,8 @@
 <listEntry value="artifactId=appverse-web-tools-jpa-ddl-generator-pom"/>
 <listEntry value="version=1.0-SNAPSHOT"/>
 <listEntry value="packaging=pom"/>
-<listEntry value="file=${resource_loc:/AppverseWeb/tools/pom.xml}"/>
+<listEntry value="file=${resource_loc:/appverse-web/tools/pom.xml}"/>
 </listAttribute>
-<stringAttribute key="M2_RUNTIME" value="C:\development\tools\maven"/>
 <booleanAttribute key="M2_SKIP_TESTS" value="false"/>
 <booleanAttribute key="M2_UPDATE_SNAPSHOTS" value="false"/>
 <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
