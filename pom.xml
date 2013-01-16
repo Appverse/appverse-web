@@ -2,6 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+    <parent>
+      <groupId>org.sonatype.oss</groupId>
+      <artifactId>oss-parent</artifactId>
+      <version>7</version>
+    </parent>
+  
 	<groupId>org.appverse.web.framework.poms</groupId>
 	<artifactId>appverse-web-superpom</artifactId>
 	<version>1.0-SNAPSHOT</version>
@@ -9,9 +15,38 @@
 
 	<name>Appverse Web Framework Backend Super POM</name>
 	<description>Appverse Web Framework Backend Super POM</description>
+	<url>http://appverse.org/projects/appverse-web/</url>
 
+	<licenses>
+		<license>
+			<comments>
+	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+			
+			 This Source Code Form is subject to the terms of the Appverse Public License 
+			 Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+			 file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+			
+			 Redistribution and use in source and binary forms, with or without modification, 
+			 are permitted provided that the conditions of the AppVerse Public License v2.0 
+			 are met.
+			
+			 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+			 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+			 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+			 DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+			 SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+			 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+			 LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+			 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+			 WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
+			 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+			 POSSIBILITY OF SUCH DAMAGE.
+			</comments>
+		</license>
+	</licenses>
+	
 	<properties>
-		<framework.version>1.0-SNAPSHOT</framework.version>
+		<framework.version>1.0</framework.version>
 		<main.name>appverse</main.name>
 		<app.context.root>${main.name}</app.context.root>
 		<movie.name>${main.name}</movie.name>
@@ -19,9 +54,10 @@
 	</properties>
 
 	<scm>
-		<connection>todefine</connection>
-		<developerConnection>todefine</developerConnection>
-	</scm>
+		<connection>scm:git:https://github.com/Appverse/appverse-web.git</connection>
+		<developerConnection>scm:git:https://github.com/Appverse/appverse-web.git</developerConnection>
+	  <tag>appverse-web-superpom-1.0</tag>
+  </scm>
 	
 	<modules>
 		<module>modules</module>
@@ -259,7 +295,7 @@
 						<wrapperArtifact>
 							<groupId>org.appverse.web.${main.name}.flexfrontend</groupId>
 							<artifactId>${main.name}-flexfrontend-shell</artifactId>
-							<version>1.0-SNAPSHOT</version>
+							<version>1.0</version>
 						</wrapperArtifact>
 						<templateInclusions>
 							<String>index.template.html</String>
@@ -445,7 +481,7 @@
 		<repository>
 			<id>Appverse-Actifacts-Repository</id>
 			<name>Appverse Artifacts Repository</name>
-			<url>todefine</url>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
 		</repository>
 	</distributionManagement>
 
