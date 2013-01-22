@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" 
+    xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="${newProjectName}">
+  <requiredProperties>
+    <requiredProperty key="newProjectName" >
+      <defaultValue/>
+    </requiredProperty>
+  </requiredProperties>
+  <fileSets>
+    <fileSet encoding="UTF-8">
+      <directory>.settings</directory>
+      <includes>
+        <include>**/*.prefs</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory></directory>
+      <includes>
+        <include>.project</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+      <directory></directory>
+      <includes>
+        <include>Create Archetype.launch</include>
+        <include>Install Archetype.launch</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+  <modules>
+    <module id="${rootArtifactId}-backend" dir="__rootArtifactId__-backend" name="${newProjectName}-backend">
+      <fileSets>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory>src/main/filters</directory>
+          <includes>
+            <include>**/*.properties</include>
+          </includes>
+        </fileSet>      
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/converters/b2i</directory>
+        </fileSet>
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/converters/p2b</directory>
+        </fileSet>    
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/model/business</directory>
+        </fileSet>
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/model/integration</directory>
+        </fileSet>         
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/services/business/impl/live</directory>
+        </fileSet>
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/services/business/impl/mock</directory>
+        </fileSet>    
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/services/integration/impl/live</directory>
+        </fileSet>
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/services/integration/impl/mock</directory>
+        </fileSet>       
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/services/presentation/impl/live</directory>
+        </fileSet>
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/services/presentation/impl/mock</directory>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory>src/main/resources</directory>
+          <includes>
+            <include>**/*.xml</include>
+            <include>**/*.properties</include>
+          </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory>src/main/resources/messages</directory>
+        </fileSet>
+        <fileSet filtered="true"  encoding="UTF-8">
+          <directory>src/main/resources/properties</directory>
+        </fileSet>                                 
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory>src/main/webapp</directory>
+          <includes>
+            <include>**/*.xml</include>
+          </includes>
+        </fileSet>
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/test/java/backend/services/integration/impl/test</directory>
+        </fileSet>       
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/test/java/backend/services/presentation/impl/test</directory>
+        </fileSet>
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/test/java/backend/services/presentation/impl/test</directory>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory>.settings</directory>
+          <includes>
+            <include>**/*.xml</include>
+          </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+          <directory>.settings</directory>
+          <includes>
+            <include>**/*.prefs</include>
+            <include>**/*.component</include>
+            <include>**/*.container</include>
+            <include>**/*.name</include>
+            <include>**/*.jsdtscope</include>
+          </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory></directory>
+          <includes>
+            <include>.classpath</include>
+            <include>.project</include>
+          </includes>
+        </fileSet>
+      </fileSets>
+    </module>
+    <module id="${rootArtifactId}-gwtfrontend" dir="__rootArtifactId__-gwtfrontend" name="${newProjectName}-gwtfrontend">
+      <fileSets>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory>src/main/assembly</directory>
+          <includes>
+            <include>**/*.xml</include>
+          </includes>
+        </fileSet>
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java</directory>
+          <includes>
+            <include>**/*.me</include>
+          </includes>
+        </fileSet>
+
+        <fileSet encoding="UTF-8">
+          <directory>src/main/webapp</directory>
+          <includes>
+            <include>**/*.me</include>
+          </includes>
+        </fileSet>
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/resources/main/images</directory>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory>.settings</directory>
+          <includes>
+            <include>**/*.xml</include>
+          </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+          <directory>.settings</directory>
+          <includes>
+            <include>**/*.prefs</include>
+          </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory></directory>
+          <includes>
+            <include>.classpath</include>
+            <include>.project</include>
+          </includes>
+        </fileSet>
+      </fileSets>
+    </module>
+    <module id="${rootArtifactId}-gwtshared" dir="__rootArtifactId__-gwtshared" name="${newProjectName}-gwtshared">
+      <fileSets>
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/model/presentation</directory>
+        </fileSet>
+        <fileSet packaged="true" encoding="UTF-8">
+          <directory>src/main/java/backend/services/presentation</directory>
+        </fileSet> 
+        <fileSet packaged="true" filtered="true" encoding="UTF-8">
+          <directory>src/main/resources</directory>
+          <includes>
+            <include>**/*.xml</include>
+          </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory>.settings</directory>
+          <includes>
+            <include>**/*.xml</include>
+          </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+          <directory>.settings</directory>
+          <includes>
+            <include>**/*.prefs</include>
+            <include>**/*.component</include>
+          </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory></directory>
+          <includes>
+            <include>.classpath</include>
+            <include>.project</include>
+          </includes>
+        </fileSet>
+      </fileSets>
+    </module>
+  </modules>
+</archetype-descriptor>
