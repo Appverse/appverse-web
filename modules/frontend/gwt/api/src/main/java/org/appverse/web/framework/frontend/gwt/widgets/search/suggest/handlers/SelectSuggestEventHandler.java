@@ -23,11 +23,13 @@
  */
 package org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers;
 
+import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTAbstractPresentationBean;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events.SelectSuggestEvent;
 
 import com.google.gwt.event.shared.EventHandler;
 
-public interface SelectSuggestEventHandler extends EventHandler {
+public interface SelectSuggestEventHandler<M extends GWTAbstractPresentationBean>
+		extends EventHandler {
 
-	public void onSelect(SelectSuggestEvent event);
+	public void onSelect(SelectSuggestEvent<M> event);
 }

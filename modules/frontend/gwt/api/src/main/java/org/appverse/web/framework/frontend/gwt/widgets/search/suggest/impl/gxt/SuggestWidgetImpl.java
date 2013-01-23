@@ -39,6 +39,7 @@ import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.model.Sugg
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.event.shared.HandlerManager;
@@ -63,11 +64,13 @@ import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoader;
 import com.sencha.gxt.widget.core.client.Composite;
 import com.sencha.gxt.widget.core.client.ListView;
+import com.sencha.gxt.widget.core.client.event.BlurEvent;
+import com.sencha.gxt.widget.core.client.event.BlurEvent.BlurHandler;
 import com.sencha.gxt.widget.core.client.form.ComboBox;
 
 @Singleton
 public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
-		Composite implements IsWidget {
+		Composite implements IsWidget, LeafValueEditor<M> {
 
 	/*
 	 * interface Bundle extends ClientBundle {
@@ -102,6 +105,8 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	@UiField(provided = true)
 	ComboBox<M> searchText;
 
+	private M value;
+
 	private String loadDataMethod;
 	private String clickSelectionMethod;
 
@@ -116,6 +121,7 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	// minNumchars to fire load event
 	private int minNumChars = -1;
 	private boolean ignoreCase = true;
+	private boolean forceSelection = false;
 
 	/**
 	 * Creates a new Suggest with value providers.
@@ -145,7 +151,7 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	}
 
 	public HandlerRegistration addSuggestEventHandler(
-			final SelectSuggestEventHandler handler) {
+			final SelectSuggestEventHandler<M> handler) {
 		HandlerRegistration reg = null;
 		reg = handlerManager.addHandler(SelectSuggestEvent.TYPE, handler);
 		return reg;
@@ -162,14 +168,14 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 		// dataFilter.getValues().clear();
 		dataFilter.resetConditions();
 
-		if (searchText.getText().trim() != null
-				&& searchText.getText().trim().length() > 0) {
+		if ((searchText.getText().trim() != null)
+				&& (searchText.getText().trim().length() > 0)) {
 			// dataFilter.getValues().add(
 			// PresentationDataFilter.WILDCARD_ALL + searchText.getText()
 			// + PresentationDataFilter.WILDCARD_ALL);
 			// dataFilter.getColumns().add(getModelSearchField());
 			// dataFilter.getLikes().add(true);
-			
+
 			if (isIgnoreCase()) {
 				dataFilter.addLikeConditionIgnoreCase(
 						getModelSearchField(),
@@ -213,6 +219,8 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 			public void load(final PagingLoadConfig loadConfig,
 					final AsyncCallback<PagingLoadResult<M>> callback) {
 				GWT.log("Proxy load method called");
+				// We clean any possible previously selected value
+				value = null;
 				callbackSuggest = new AsyncCallback<GWTPresentationPaginatedResult<M>>() {
 					@Override
 					public void onFailure(final Throwable caught) {
@@ -260,9 +268,19 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 				event.cancel();
 				M model = searchText.getListView().getSelectionModel()
 						.getSelectedItem();
-				String name = props.name().getValue(model);
-				searchText.setText(name);
-				handlerManager.fireEvent(new SelectSuggestEvent());
+				setValue(model);
+				handlerManager.fireEvent(new SelectSuggestEvent<M>(model));
+			}
+		});
+
+		searchText.addBlurHandler(new BlurHandler() {
+			@Override
+			public void onBlur(final BlurEvent event) {
+				// If no value has been selected and force selection flag is
+				// true, we clear the field
+				if (isForceSelection() && value == null) {
+					clear();
+				}
 			}
 		});
 
@@ -317,7 +335,7 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 		searchText = new ComboBox<M>(cell);
 		searchText.setHideTrigger(true);
 		searchText.setTriggerAction(ComboBoxCell.TriggerAction.ALL);
-
+		searchText.setForceSelection(true);
 	}
 
 	public void initWidget() {
@@ -326,10 +344,14 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 		initWidget(uiBinder.createAndBindUi(this));
 		initLoaders();
 	}
-	
+
 	public boolean isIgnoreCase() {
 		return ignoreCase;
-	}	
+	}
+
+	public boolean isForceSelection() {
+		return forceSelection;
+	}
 
 	public void setClickSelectionMethod(final String clickSelectionMethod) {
 		this.clickSelectionMethod = clickSelectionMethod;
@@ -369,4 +391,39 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	public void setText(final String text) {
 		searchText.setText(text);
 	}
+
+	@Override
+	public void setValue(M value) {
+		clear();
+		if (value != null) {
+			String name = props.name().getValue(value);
+			if (name != null) {
+				searchText.setText(name);
+				this.value = value;
+			}
+		}
+	}
+
+	/**
+	 * Sets whether the combo's value is restricted to one of the values in the
+	 * list, false to allow the user to set arbitrary text into the field
+	 * (defaults to false).
+	 * 
+	 * @param forceSelection
+	 *            true to force selection
+	 */
+	public void setForceSelection(boolean forceSelection) {
+		this.forceSelection = forceSelection;
+	}
+
+	public void clear() {
+		searchText.setText("");
+		this.value = null;
+	}
+
+	@Override
+	public M getValue() {
+		return value;
+	}
+
 }

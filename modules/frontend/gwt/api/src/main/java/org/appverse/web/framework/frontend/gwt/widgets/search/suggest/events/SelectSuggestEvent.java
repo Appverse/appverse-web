@@ -23,20 +23,20 @@
  */
 package org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events;
 
+import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTAbstractPresentationBean;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.SelectSuggestEventHandler;
 
 import com.google.gwt.event.shared.GwtEvent;
 
-public class SelectSuggestEvent extends GwtEvent<SelectSuggestEventHandler> {
+public class SelectSuggestEvent<M extends GWTAbstractPresentationBean> extends
+		GwtEvent<SelectSuggestEventHandler> {
 
 	public static Type<SelectSuggestEventHandler> TYPE = new Type<SelectSuggestEventHandler>();
 
-	public SelectSuggestEvent() {
-	}
+	private M selectedObject;
 
-	@Override
-	protected void dispatch(final SelectSuggestEventHandler handler) {
-		handler.onSelect(this);
+	public SelectSuggestEvent(M selectedObject) {
+		this.selectedObject = selectedObject;
 	}
 
 	@Override
@@ -44,4 +44,12 @@ public class SelectSuggestEvent extends GwtEvent<SelectSuggestEventHandler> {
 		return TYPE;
 	}
 
+	@Override
+	protected void dispatch(final SelectSuggestEventHandler handler) {
+		handler.onSelect(this);
+	}
+
+	public M getSelectedObject() {
+		return selectedObject;
+	}
 }
