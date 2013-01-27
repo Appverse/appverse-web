@@ -24,29 +24,33 @@
 package org.appverse.web.framework.tools.jpagenerator.plugin;
 
 public class DDLParameters {
+
 	private String persistenceUnitName;
 	private String persistenceUnitFile;
 	private String ddlOutputDir;
 	private String ddlCreateFileName;
 	private String ddlDropFileName;
-	private String ddlGenerationMode;
-	private String ddlGenerationLoggingLevel;
 	private String targetDbPlatform;
 
+	public DDLParameters(String persistenceUnitName,
+			String persistenceUnitFile, String ddlOutputDir,
+			String ddlCreateFileName, String ddlDropFileName,
+			String targetDbPlatform) {
+		super();
+		this.persistenceUnitName = persistenceUnitName;
+		this.persistenceUnitFile = persistenceUnitFile;
+		this.ddlOutputDir = ddlOutputDir;
+		this.ddlCreateFileName = ddlCreateFileName;
+		this.ddlDropFileName = ddlDropFileName;
+		this.targetDbPlatform = targetDbPlatform;
+	}
+	
 	public String getDdlCreateFileName() {
 		return ddlCreateFileName;
 	}
 
 	public String getDdlDropFileName() {
 		return ddlDropFileName;
-	}
-
-	public String getDdlGenerationLoggingLevel() {
-		return ddlGenerationLoggingLevel;
-	}
-
-	public String getDdlGenerationMode() {
-		return ddlGenerationMode;
 	}
 
 	public String getDdlOutputDir() {
@@ -71,14 +75,6 @@ public class DDLParameters {
 
 	public void setDdlDropFileName(String ddlDropFileName) {
 		this.ddlDropFileName = ddlDropFileName;
-	}
-
-	public void setDdlGenerationLoggingLevel(String ddlGenerationLoggingLevel) {
-		this.ddlGenerationLoggingLevel = ddlGenerationLoggingLevel;
-	}
-
-	public void setDdlGenerationMode(String ddlGenerationMode) {
-		this.ddlGenerationMode = ddlGenerationMode;
 	}
 
 	public void setDdlOutputDir(String ddlOutputDir) {

@@ -1,4 +1,4 @@
-package com.gft.storefront.gwtfrontend.common;
+package ${package}.gwtfrontend.common;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;

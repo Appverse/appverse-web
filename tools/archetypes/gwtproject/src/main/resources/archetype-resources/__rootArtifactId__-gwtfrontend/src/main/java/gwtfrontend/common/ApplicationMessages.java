@@ -1,4 +1,4 @@
-package com.gft.storefront.gwtfrontend.common;
+package ${package}.gwtfrontend.common;
 
 import org.appverse.web.framework.frontend.gwt.common.FrameworkMessages;
 

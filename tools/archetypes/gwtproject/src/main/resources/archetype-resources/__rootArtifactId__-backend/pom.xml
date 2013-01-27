@@ -14,6 +14,11 @@
 	<packaging>war</packaging>
 	<name>${newProjectName} GWT Backend Module</name>
 
+	<properties>
+		<main.name>${rootArtifactId}</main.name>
+		<main.group>${groupId}</main.group>
+	</properties>
+
 	<build>
 		<filters>
 			<filter>src/main/filters/${env}.properties</filter>
@@ -30,31 +35,6 @@
 			<plugin>
 				<groupId>org.appverse.web.framework.poms.tools.jpaddlgenerator.plugin</groupId>
 				<artifactId>appverse-web-tools-jpa-ddl-generator-plugin</artifactId>
-				<version>1.0.1</version>
-				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<id>generate-schema</id>
-						<goals>
-							<goal>generate-schema</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<goalPrefix>jpa-ddl</goalPrefix>
-					<targetDbPlatform>MySQLPlatform</targetDbPlatform>
-					<persistenceUnitName>persistence-unit</persistenceUnitName>
-					<persistenceUnitFile>META-INF/persistence.xml</persistenceUnitFile>
-					<ddlCreateFileName>createDDL.sql</ddlCreateFileName>
-					<ddlDropFileName>dropDDL.sql</ddlDropFileName>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
-						<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
-						<version>${framework.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
