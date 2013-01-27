@@ -1,12 +1,11 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.appverse.web.framework.poms.modules.frontend</groupId>
 		<artifactId>appverse-web-modules-frontend-pom</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0.1</version>
 	</parent>
 
 	<groupId>org.appverse.web.framework.poms.modules.frontend.gwt</groupId>
@@ -49,22 +48,14 @@
 		<module>pom</module>
 	</modules>
 
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>**/*.java</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<includes>
-					<include>**/*</include>
-				</includes>
-			</resource>
-		</resources>
+	<properties>
+		<gwt.version>2.4.0</gwt.version>
+		<gxt.version>3.0.1</gxt.version>
+		<mvp4.version>1.4.0</mvp4.version>
+	</properties>
 
+
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -97,58 +88,62 @@
 					</additionalProjectnatures>
 				</configuration>
 			</plugin>
-		</plugins>
-	</build>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>target/generated-sources/gwt</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>		
+	</build>		
 
-	<profiles>
-		<profile>
-			<id>gwt</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
-			<properties>
-				<gwt.version>2.4.0</gwt.version>
-				<gxt.version>3.0.1</gxt.version>
-				<mvp4.version>1.4.0</mvp4.version>
-			</properties>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
-			<dependencies>
-				<dependency>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-servlet</artifactId>
-					<version>${gwt.version}</version>
-					<scope>provided</scope>
-				</dependency>
+		<dependency>
+			<groupId>com.sencha.gxt</groupId>
+			<artifactId>gxt</artifactId>
+			<version>${gxt.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
-				<dependency>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-user</artifactId>
-					<version>${gwt.version}</version>
-					<scope>provided</scope>
-				</dependency>
+		<dependency>
+			<groupId>com.sencha.gxt</groupId>
+			<artifactId>uibinder-bridge</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
-				<dependency>
-					<groupId>com.sencha.gxt</groupId>
-					<artifactId>gxt</artifactId>
-					<version>${gxt.version}</version>
-					<scope>provided</scope>
-				</dependency>
-
-				<dependency>
-					<groupId>com.sencha.gxt</groupId>
-					<artifactId>uibinder-bridge</artifactId>
-					<version>${gwt.version}</version>
-					<scope>provided</scope>
-				</dependency>
-
-				<dependency>
-					<groupId>com.googlecode.mvp4g</groupId>
-					<artifactId>mvp4g</artifactId>
-					<version>${mvp4.version}</version>
-					<scope>provided</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
+		<dependency>
+			<groupId>com.googlecode.mvp4g</groupId>
+			<artifactId>mvp4g</artifactId>
+			<version>${mvp4.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 </project>
