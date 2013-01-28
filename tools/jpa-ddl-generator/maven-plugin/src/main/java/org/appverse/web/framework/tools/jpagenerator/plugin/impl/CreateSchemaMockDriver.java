@@ -36,12 +36,16 @@ import java.util.logging.Logger;
 
 public class CreateSchemaMockDriver implements Driver {
 
+	/**
+	 * Proxy handler for {@link Connection} which does nothing.
+	 */
 	class ConnectionHandler implements InvocationHandler {
 
 		@Override
 		public Object invoke(Object arg0, Method arg1, Object[] arg2) throws Throwable {
 			return null;
 		}
+
 	}
 
 	static {
@@ -75,6 +79,12 @@ public class CreateSchemaMockDriver implements Driver {
 		return 0;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.sql.Driver#getParentLogger()
+	 */
+	// @Override (Only in JDK > 6
 	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
 		throw new SQLFeatureNotSupportedException("Parent logger not supported");
 	}

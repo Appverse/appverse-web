@@ -26,42 +26,67 @@ package org.appverse.web.framework.tools.jpagenerator.plugin;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.appverse.web.framework.tools.jpagenerator.plugin.impl.DDLClassLoader;
 import org.appverse.web.framework.tools.jpagenerator.plugin.impl.DDLGeneratorTool;
+import org.eclipse.persistence.config.PersistenceUnitProperties;
+import org.eclipse.persistence.logging.SessionLog;
 
-@Mojo(name="generate-schema")
 public class JpaDdlMojo extends AbstractMojo {
 
-	@Parameter(property="persistenceUnitName",defaultValue="persistence-unit")
-	private String persistenceUnitName;
-	@Parameter(property="persistenceUnitFile",defaultValue="META-INF/persistence-ddl.xml")
-	private String persistenceUnitFile;
-	@Parameter(property="ddlOutputDir",defaultValue="src/main/resources/sql")
-	private String ddlOutputDir;
-	@Parameter(property="ddlCreateFileName",defaultValue="schema-create.sql")
+	private static final String ECLIPSELINK_PLATFORM_PACKAGE = "org.eclipse.persistence.platform.database";
+
+	private static boolean isEmptyParameter(String s) {
+		return s == null || s.trim().length() == 0;
+	}
+
+	private final String persistenceUnitName = "";
+	private final String persistenceUnitFile = "META-INF/ddl-persistence.xml";
+	private final String ddlOutputDir = "";
 	private String ddlCreateFileName;
-	@Parameter(property="ddlDropFileName",defaultValue="schema-drop.sql")
 	private String ddlDropFileName;
-	@Parameter(property="targetDbPlatform",defaultValue="HSQLPlatform")
-	private String targetDbPlatform;
-	@Parameter(readonly=true,property="project")
-	private MavenProject project; 
-	
+	private final String ddlGenerationMode = PersistenceUnitProperties.DROP_AND_CREATE;
+	private final String ddlGenerationLoggingLevel = SessionLog.FINEST_LABEL;
+	private final String targetDbPlatform = "";
+
+	private MavenProject project;
+
 	@Override
 	public void execute() throws MojoExecutionException {
 		Log logger = getLog();
+
 		try {
-			ddlCreateFileName=targetDbPlatform+"-"+ddlCreateFileName;
-			ddlDropFileName=targetDbPlatform+"-"+ddlDropFileName;
-			DDLParameters parameters = new DDLParameters(persistenceUnitName,persistenceUnitFile,ddlOutputDir,ddlCreateFileName,ddlDropFileName,"org.eclipse.persistence.platform.database." + targetDbPlatform);
-			DDLClassLoader classLoader = DDLClassLoader.create(this.getClass().getClassLoader(), project);
-			DDLGeneratorTool tooling = new DDLGeneratorTool(parameters, classLoader, logger);
+			DDLParameters params = makeParams();
+			DDLClassLoader classLoader = DDLClassLoader.create(this.getClass().getClassLoader(), project, params);
+
+			DDLGeneratorTool tooling = new DDLGeneratorTool(params, classLoader, logger);
 			tooling.generateSchema();
 		} catch (Throwable e) {
 			throw new MojoExecutionException("Error while generating schema", e);
 		}
+	}
+
+	private DDLParameters makeParams() {
+		DDLParameters parameters = new DDLParameters();
+
+		parameters.setPersistenceUnitName(persistenceUnitName);
+		parameters.setPersistenceUnitFile(persistenceUnitFile);
+		parameters.setDdlOutputDir(ddlOutputDir);
+
+		if (isEmptyParameter(ddlCreateFileName)) {
+			ddlCreateFileName = String.format("%s-ddl-create.sql", persistenceUnitName);
+		}
+		parameters.setDdlCreateFileName(ddlCreateFileName);
+
+		if (isEmptyParameter(ddlDropFileName)) {
+			ddlDropFileName = String.format("%s-ddl-drop.sql", persistenceUnitName);
+		}
+		parameters.setDdlDropFileName(ddlDropFileName);
+
+		parameters.setDdlGenerationMode(ddlGenerationMode);
+		parameters.setDdlGenerationLoggingLevel(ddlGenerationLoggingLevel);
+		parameters.setTargetDbPlatform(ECLIPSELINK_PLATFORM_PACKAGE + "." + targetDbPlatform);
+
+		return parameters;
 	}
 }
