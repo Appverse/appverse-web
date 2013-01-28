@@ -1,0 +1,8 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+    xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container">
+
+	<container:Viewport ui:field="panel"/>
+	   
+</ui:UiBinder>

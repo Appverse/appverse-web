@@ -6,6 +6,7 @@
 		<groupId>org.appverse.web.framework.poms.modules.frontend.gwt.parent</groupId>
 		<artifactId>appverse-web-modules-frontend-gwt-parent-pom</artifactId>
 		<version>1.0.1</version>
+        <relativePath></relativePath>		
 	</parent>
 
 	<groupId>${groupId}.gwtfrontend</groupId>
@@ -28,14 +29,4 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>

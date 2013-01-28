@@ -1,6 +1,6 @@
-package com.gft.storefront.gwtfrontend.main;
+package ${package}.gwtfrontend.main;
 
-import com.gft.storefront.gwtfrontend.common.ApplicationConstants;
+import ${package}.gwtfrontend.common.ApplicationConstants;
 
 public interface MainConstants extends ApplicationConstants {
 

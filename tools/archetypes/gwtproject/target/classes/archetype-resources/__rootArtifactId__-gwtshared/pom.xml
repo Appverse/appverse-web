@@ -6,6 +6,7 @@
 		<groupId>org.appverse.web.framework.poms.modules.frontend.gwt</groupId>
 		<artifactId>appverse-web-modules-frontend-gwt-pom</artifactId>	
 		<version>1.0.1</version>
+        <relativePath></relativePath>		
 	</parent>
 
 	<groupId>${groupId}.shared</groupId>
@@ -20,28 +21,5 @@
 			<version>${project.parent.version}</version>
 			<scope>provided</scope>
 		</dependency>
-	</dependencies>
-	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>target/generated-sources/gwt</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-			
+	</dependencies>	
 </project>
