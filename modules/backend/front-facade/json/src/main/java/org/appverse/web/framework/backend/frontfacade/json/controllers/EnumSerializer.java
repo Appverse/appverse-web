@@ -24,40 +24,22 @@
 package org.appverse.web.framework.backend.frontfacade.json.controllers;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
-import org.codehaus.jackson.map.ser.std.SerializerBase;
-import org.codehaus.jackson.type.JavaType;
+import org.springframework.stereotype.Component;
 
-public class EnumSerializer extends SerializerBase<Enum<?>> {
 
-	public EnumSerializer(Class<?> t, boolean dummy) {
-		super(t, dummy);
-	}
+@Component 
+public class EnumSerializer extends JsonSerializer<Enum<?>> { 
 
-	public EnumSerializer(Class<Enum<?>> t) {
-		super(t);
-	}
+        @Override 
+        public void serialize(Enum<?> t, JsonGenerator jg, SerializerProvider sp) throws IOException, 
+                        JsonGenerationException { 
+                jg.writeNumber(t.ordinal()); 
+        } 
 
-	public EnumSerializer(JavaType type) {
-		super(type);
-	}
+} 
 
-	@Override
-	public JsonNode getSchema(SerializerProvider sp, Type type)
-			throws JsonMappingException {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	@Override
-	public void serialize(Enum<?> t, JsonGenerator jg, SerializerProvider sp)
-			throws IOException, JsonGenerationException {
-		jg.writeNumber(t.ordinal());
-	}
-
-}

@@ -120,13 +120,15 @@ public class JSONController {
 				throw new IllegalArgumentException("Requested Method" + methodName + " for serviceFacade "
 						+ serviceName + " only accepts 0 or 1 parameter");
 			}
+			Object parameter = null;
 			if (parameterTypes.length > 0) {
 				parameterType = parameterTypes[0];
+				parameter = customMappingJacksonHttpMessageConverter.readInternal(parameterType, payload);
 			}
-			Object parameter = customMappingJacksonHttpMessageConverter.readInternal(parameterType, payload);
 			Object result = method.invoke(presentationService, parameter);
 			ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(response);
 			customMappingJacksonHttpMessageConverter.write(result, MediaType.APPLICATION_JSON, outputMessage);
+			addDefaultResponseHeaders(response);
 			return "";
 		} else if (presentationService instanceof AuthenticationServiceFacade
 				&& methodName.equals(AuthenticationServiceFacade.class.getMethod("getXSRFSessionToken"))) {
@@ -135,4 +137,11 @@ public class JSONController {
 		}
 		return null;
 	}
+    private void addDefaultResponseHeaders(HttpServletResponse response) { 
+        // Add headers to prevent Cross-site ajax calls issues 
+        response.addHeader("Content-Type", "application/json; charset=UTF-8"); 
+        response.addHeader("Access-Control-Allow-Origin", "*"); 
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type,X-Requested-With"); 
+} 
+
 }
