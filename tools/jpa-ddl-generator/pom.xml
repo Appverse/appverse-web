@@ -1,20 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms.tools.jpaddlgenerator</groupId>
-		<artifactId>appverse-web-tools-jpa-ddl-generator-pom</artifactId>
+		<groupId>org.appverse.web.framework.poms.tools</groupId>
+		<artifactId>appverse-web-tools-pom</artifactId>
 		<version>1.0.2-SNAPSHOT</version>
 	</parent>
 
-	<groupId>org.appverse.web.framework.poms.tools.jpaddlgenerator.plugin</groupId>
-	<artifactId>appverse-web-tools-jpa-ddl-generator-plugin</artifactId>
-	<packaging>maven-plugin</packaging>
+	<groupId>org.appverse.web.framework.poms.tools.jpaddlgenerator</groupId>
+	<artifactId>appverse-web-tools-jpa-ddl-generator-pom</artifactId>
+	<packaging>pom</packaging>
 	
-	<name>Appverse Web Framework Tools JPA DLL Generator Plugin</name>
-	<description>Appverse Web Framework Tools JPA DLL Generator Plugin</description>
+	<name>Appverse Web Framework Tools JPA DLL Generator POM</name>
+	<description>Appverse Web Framework Tools JPA DLL Generator POM</description>
 	
+	<modules>
+		<module>maven-plugin</module>
+	</modules>
+
 	<licenses>
 		<license>
 			<comments>
@@ -42,55 +46,207 @@
 			</comments>
 		</license>
 	</licenses>
-	
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.plugin.api.version>3.0.3</maven.plugin.api.version>
+		<spring.version>3.0.5.RELEASE</spring.version>
+		<slf4j.version>1.6.4</slf4j.version>
+
+		<googlecode.svn>https://jpa-ddl-maven-plugin.googlecode.com/svn</googlecode.svn>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-plugin-api</artifactId>
+				<version>${maven.plugin.api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-project</artifactId>
+				<version>2.2.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>eclipselink</artifactId>
+				<version>2.2.0</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>javax.persistence</artifactId>
+				<version>2.0.3</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>1</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.annotation</groupId>
+				<artifactId>jsr250-api</artifactId>
+				<version>1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>1.6.11</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+				<exclusions>
+					<exclusion> 
+						<artifactId>commons-logging</artifactId>
+						<groupId>commons-logging</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-jpa</artifactId>
+				<version>1.0.3.RELEASE</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-instrument</artifactId>
+				<version>${spring.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<version>1.8.5</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.9</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>2.2</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>xmlunit</groupId>
+				<artifactId>xmlunit</artifactId>
+				<version>1.3</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>commons-dbcp</groupId>
+				<artifactId>commons-dbcp</artifactId>
+				<version>1.4</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.3.160</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.16</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
-    	<plugins>
-      		<plugin>
-        		<groupId>org.apache.maven.plugins</groupId>
-        		<artifactId>maven-plugin-plugin</artifactId>
-        		<version>3.2</version>
-        		<configuration>
-          			<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
-        		</configuration>
-        		<executions>
-	          		<execution>
-	            		<id>mojo-descriptor</id>
-	            		<goals>
-	              			<goal>descriptor</goal>
-	            		</goals>
-	          		</execution>
-        		</executions>
-      		</plugin>
-    	</plugins>
+		<finalName>${project.artifactId}</finalName>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.12</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.7</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.appverse.web.framework.poms.tools.jpaddlgenerator
+										</groupId>
+										<artifactId>
+											appverse-web-tools-jpa-ddl-generator-pom
+										</artifactId>
+										<versionRange>
+											[1.0.1,)
+										</versionRange>
+										<goals>
+											<goal>generate-schema</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
-	
-	<dependencies>
-	    <dependency>
-	      <groupId>org.apache.maven.plugin-tools</groupId>
-	      <artifactId>maven-plugin-annotations</artifactId>
-	      <version>3.2</version>
-	      <scope>provided</scope>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.codehaus.plexus</groupId>
-	      <artifactId>plexus-utils</artifactId>
-	      <version>3.0.1</version>
-	    </dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-plugin-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-project</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>eclipselink</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>javax.persistence</artifactId>
-		</dependency>		
-	</dependencies>
+
 </project>

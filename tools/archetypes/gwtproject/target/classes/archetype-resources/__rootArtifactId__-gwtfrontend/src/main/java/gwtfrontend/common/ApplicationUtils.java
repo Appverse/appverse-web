@@ -1,4 +1,4 @@
-package com.gft.storefront.gwtfrontend.common;
+package ${package}.gwtfrontend.common;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;

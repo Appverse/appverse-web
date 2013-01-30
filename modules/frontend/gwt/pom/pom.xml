@@ -63,6 +63,7 @@
 							</goals>
 							<phase>package</phase>
 							<configuration>
+								<ignoreMissingDescriptor>true</ignoreMissingDescriptor>
 								<descriptors>
 									<descriptor>src/main/assembly/resources.xml</descriptor>
 								</descriptors>
