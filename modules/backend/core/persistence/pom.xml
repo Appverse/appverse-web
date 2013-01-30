@@ -64,9 +64,12 @@
 					<artifactId>maven-antrun-plugin</artifactId>
 					<executions>
 						<execution>
-							<phase>generate-resources</phase>
+							<phase>process-classes</phase>
 							<configuration>
 								<tasks>
+									<java classname="org.eclipse.persistence.tools.weaving.jpa.StaticWeave" classpathref="maven.runtime.classpath" fork="true">
+										<arg line="-loglevel WARNING target/classes target/classes" />
+									</java>
 								</tasks>
 							</configuration>
 							<goals>
