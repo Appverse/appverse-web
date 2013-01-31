@@ -476,6 +476,7 @@ public class IntegrationDataFilter extends AbstractIntegrationBean {
 	public void reset() {
 		resetConditions();
 		resetSortingColumns();
+		resetIsNullConditions();
 	}
 
 	public void resetConditions() {
