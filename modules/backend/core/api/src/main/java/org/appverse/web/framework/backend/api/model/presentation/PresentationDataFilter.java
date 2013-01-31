@@ -476,6 +476,7 @@ public class PresentationDataFilter extends AbstractPresentationBean {
 	public void reset() {
 		resetConditions();
 		resetSortingColumns();
+		resetIsNullConditions();
 	}
 
 	public void resetConditions() {
