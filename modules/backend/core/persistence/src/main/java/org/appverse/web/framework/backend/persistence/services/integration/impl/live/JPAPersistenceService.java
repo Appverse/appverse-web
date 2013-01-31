@@ -49,7 +49,23 @@ import org.appverse.web.framework.backend.persistence.services.integration.helpe
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.orm.jpa.JpaTemplate;
+import org.springframework.util.StringUtils;
 
+/**
+ * This class provides an API based on Spring <code>JpaTemplate</code> for basic
+ * JPA database operations. It supports DataFilters for remote pagination
+ * support and strictly very easy ordering and filtering conditions. Take into
+ * account that the use of this service is restricted to the aforementioned
+ * cases and more complex queries need to be built by means a custom JPA query.
+ * 
+ * This service support only support automatic generation of JPA queries
+ * filtering by <T> object first level attributes that would NOT imply express
+ * JOIN indication in the generated JPQL and only allows sorting by first level
+ * attributes in the root <T> object.
+ * 
+ * @param <T>
+ *            Abstract integration Bean the persistence service will deal with
+ */
 public class JPAPersistenceService<T extends AbstractIntegrationBean> extends AbstractIntegrationService<T> implements
 		IJPAPersistenceService<T> {
 
@@ -60,7 +76,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 	// according to your setup in a property files.
 	// If the field is declared as "final", Maven it is not able to override
 	// this value.
-	private final String BEAN_PK_NAME = "pk";
+	private String BEAN_PK_NAME = "pk";
 
 	private JpaTemplate jpaTemplate;
 
@@ -83,6 +99,10 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 	}
 
 	protected StringBuilder buildQueryString(final IntegrationDataFilter filter, final boolean isCount) {
+		
+		checkMaxFilterConditionsColumnsDeep(filter);
+		checkMaxFilterColumnsToSortDeep(filter);
+
 		final StringBuilder queryString = new StringBuilder();
 
 		if (isCount) {
@@ -467,6 +487,58 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 	public final void setEntityManagerFactory(final EntityManagerFactory entityManagerFactory) {
 		if (this.jpaTemplate == null || entityManagerFactory != this.jpaTemplate.getEntityManagerFactory()) {
 			this.jpaTemplate = createJpaTemplate(entityManagerFactory);
+		}
+	}
+	
+	private void checkMaxFilterConditionsColumnsDeep(
+			final IntegrationDataFilter filter) {
+		int columnsDeep = 0;
+		// Get maximum deep in "columns"
+		for (String columnPath : filter.getColumns()) {
+			columnsDeep = Math.max(
+					StringUtils.countOccurrencesOf(columnPath, "."),
+					columnsDeep);
+		}
+		// Get maximum deep in "columnsIsNull"
+		for (String columnPath : filter.getColumnsIsNull()) {
+			columnsDeep = Math.max(
+					StringUtils.countOccurrencesOf(columnPath, "."),
+					columnsDeep);
+		}
+		if (columnsDeep > 1) {
+			StringBuffer e = new StringBuffer();
+			e.append(
+					PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_CONDITIONS_COLUMNS)
+					.append(getClassP().getSimpleName())
+					.append(".")
+					.append(filter.toString())
+					.append(".")
+					.append(PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_ADVIDE);
+			logger.error(e.toString());
+			throw new PersistenceException(e.toString());
+		}
+	}
+
+	private void checkMaxFilterColumnsToSortDeep(
+			final IntegrationDataFilter filter) {
+		// Get maximum deep in "columnsToSort"
+		int columnsDeep = 0;
+		for (String columnPath : filter.getColumnsToSort()) {
+			columnsDeep = Math.max(
+					StringUtils.countOccurrencesOf(columnPath, "."),
+					columnsDeep);
+		}
+		if (columnsDeep > 0) {
+			StringBuffer e = new StringBuffer();
+			e.append(
+					PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_ORDERING_COLUMNS)
+					.append(getClassP().getSimpleName())
+					.append(".")
+					.append(filter.toString())
+					.append(".")
+					.append(PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_ADVIDE);
+			logger.error(e.toString());
+			throw new PersistenceException(e.toString());
 		}
 	}
 }
