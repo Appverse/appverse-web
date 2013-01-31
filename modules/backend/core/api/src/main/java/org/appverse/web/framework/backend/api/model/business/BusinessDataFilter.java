@@ -476,6 +476,7 @@ public class BusinessDataFilter extends AbstractBusinessBean {
 	public void reset() {
 		resetConditions();
 		resetSortingColumns();
+		resetIsNullConditions();
 	}
 
 	public void resetConditions() {
