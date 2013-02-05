@@ -164,6 +164,6 @@ public class ApplicationAsyncCallback<T> implements AsyncCallback<T> {
 	}
 
 	@Override
-	public void onSuccess(final T paramT) {
+	public void onSuccess(final T paramT) { 
 	}
 }
