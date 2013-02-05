@@ -5,6 +5,8 @@ import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.user.client.Window;
 
 public class GWTUtils {
+	
+	public static final String DEFAULT_HISTORY_TOKEN = "#";
 
 	public static String getModuleIndependentBaseURL() {
 		String moduleBaseUrl = GWT.getModuleBaseURL();
@@ -43,7 +45,7 @@ public class GWTUtils {
 	public static String checkInitPlaceEvent() {
 		String hash = Window.Location.getHash();
 		if (hash != null && hash.trim().length() > 0) {
-			int pos = hash.indexOf('#');
+			int pos = hash.indexOf(DEFAULT_HISTORY_TOKEN);
 			if (pos != -1)
 				hash = hash.substring(pos + 1);
 			return hash;
