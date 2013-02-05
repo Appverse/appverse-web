@@ -25,15 +25,16 @@ package org.appverse.web.framework.frontend.gwt.commands;
 
 import java.util.Date;
 
+import org.appverse.web.framework.frontend.gwt.common.utils.GWTUtils;
 import org.appverse.web.framework.frontend.gwt.helpers.security.XsrfRpcRequestBuilder;
 import org.appverse.web.framework.frontend.gwt.managers.NotificationManager;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
-import com.mvp4g.client.event.EventBus;
+import com.mvp4g.client.event.EventBusWithLookup;
 
-public abstract class AbstractRpcCommand<E extends EventBus> extends
+public abstract class AbstractRpcCommand<E extends EventBusWithLookup> extends
 		AbstractCommand<E> {
 
 	private static XsrfRpcRequestBuilder xsrfRpcRequestBuilder = new XsrfRpcRequestBuilder();
@@ -67,5 +68,18 @@ public abstract class AbstractRpcCommand<E extends EventBus> extends
 		};
 
 		return internalCallback;
+	}
+
+	/**
+	 * Check hash (#) in URL to detect place event on module loading. If
+	 * detected, dispatch eventBus to that event. This should be used with
+	 * eventBus historyOnStart = false
+	 * 
+	 */
+	protected void checkInitPlaceEvent() {
+		String initPlaceEvent = GWTUtils.checkInitPlaceEvent();
+		if (initPlaceEvent != null && initPlaceEvent.trim().length() > 0) {
+			eventBus.dispatch(initPlaceEvent);
+		}
 	}
 }
