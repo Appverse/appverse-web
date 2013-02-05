@@ -66,8 +66,8 @@ import org.springframework.util.StringUtils;
  * @param <T>
  *            Abstract integration Bean the persistence service will deal with
  */
-public class JPAPersistenceService<T extends AbstractIntegrationBean> extends AbstractIntegrationService<T> implements
-		IJPAPersistenceService<T> {
+public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
+		AbstractIntegrationService<T> implements IJPAPersistenceService<T> {
 
 	@Value("${db.pkName}")
 	// IMPORTANT NOTE: Take care that Eclipse "saveActions" (or the IDE you are
@@ -98,19 +98,24 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 		return buildQueryString(filter, false);
 	}
 
-	protected StringBuilder buildQueryString(final IntegrationDataFilter filter, final boolean isCount) {
-		
-		checkMaxFilterConditionsColumnsDeep(filter);
-		checkMaxFilterColumnsToSortDeep(filter);
+	protected StringBuilder buildQueryString(
+			final IntegrationDataFilter filter, final boolean isCount) {
+
+		if (filter != null) {
+			checkMaxFilterConditionsColumnsDeep(filter);
+			checkMaxFilterColumnsToSortDeep(filter);
+		}
 
 		final StringBuilder queryString = new StringBuilder();
 
 		if (isCount) {
 			// We are interested just in the total rows number
-			queryString.append("select count(distinct(p)) from ").append(getClassP().getSimpleName()).append(" p");
+			queryString.append("select count(distinct(p)) from ")
+					.append(getClassP().getSimpleName()).append(" p");
 		} else {
 			// It is a select
-			queryString.append("select p from ").append(getClassP().getSimpleName()).append(" p");
+			queryString.append("select p from ")
+					.append(getClassP().getSimpleName()).append(" p");
 		}
 
 		boolean whereClauseAdded = false;
@@ -122,31 +127,49 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 						whereClauseAdded = true;
 					} else {
 						// Add "AND" or "OR" condition
-						if (filter.getBooleanConditions() != null && filter.getBooleanConditions().size() > i
+						if (filter.getBooleanConditions() != null
+								&& filter.getBooleanConditions().size() > i
 								&& filter.getBooleanConditions().get(i) != null) {
-							queryString.append(" ").append(filter.getBooleanConditions().get(i)).append(" ");
+							queryString
+									.append(" ")
+									.append(filter.getBooleanConditions()
+											.get(i)).append(" ");
 						} else {
-							queryString.append(" ").append(filter.getDefaultConditionOperation()).append(" ");
+							queryString
+									.append(" ")
+									.append(filter
+											.getDefaultConditionOperation())
+									.append(" ");
 						}
 					}
 					String symbol = "=";
-					if (filter.getNegates() != null && filter.getNegates().size() > i
-							&& filter.getNegates().get(i) != null && filter.getNegates().get(i)) {
+					if (filter.getNegates() != null
+							&& filter.getNegates().size() > i
+							&& filter.getNegates().get(i) != null
+							&& filter.getNegates().get(i)) {
 						symbol = "!=";
-					} else if (filter.getLikes() != null && filter.getLikes().size() > i
-							&& filter.getLikes().get(i) != null && filter.getLikes().get(i)) {
+					} else if (filter.getLikes() != null
+							&& filter.getLikes().size() > i
+							&& filter.getLikes().get(i) != null
+							&& filter.getLikes().get(i)) {
 						symbol = "like";
-					} else if (filter.getEqualsOrGreaterThan() != null && filter.getEqualsOrGreaterThan().size() > i
+					} else if (filter.getEqualsOrGreaterThan() != null
+							&& filter.getEqualsOrGreaterThan().size() > i
 							&& filter.getEqualsOrGreaterThan().get(i) != null
-							&& filter.getEqualsOrGreaterThan().get(i).booleanValue()) {
+							&& filter.getEqualsOrGreaterThan().get(i)
+									.booleanValue()) {
 						symbol = ">=";
-					} else if (filter.getEqualsOrLessThan() != null && filter.getEqualsOrLessThan().size() > i
+					} else if (filter.getEqualsOrLessThan() != null
+							&& filter.getEqualsOrLessThan().size() > i
 							&& filter.getEqualsOrLessThan().get(i) != null
-							&& filter.getEqualsOrLessThan().get(i).booleanValue()) {
+							&& filter.getEqualsOrLessThan().get(i)
+									.booleanValue()) {
 						symbol = "<=";
 					}
-					boolean ignoreCase = filter.getIgnoreCase() != null && filter.getIgnoreCase().size() > i
-							&& filter.getIgnoreCase().get(i) != null && filter.getIgnoreCase().get(i);
+					boolean ignoreCase = filter.getIgnoreCase() != null
+							&& filter.getIgnoreCase().size() > i
+							&& filter.getIgnoreCase().get(i) != null
+							&& filter.getIgnoreCase().get(i);
 
 					// build the query string
 					if (ignoreCase) {
@@ -179,15 +202,26 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 						} else {
 							// Add "AND" or "OR" condition
 							if (filter.getBooleanConditionsIsNull() != null
-									&& filter.getBooleanConditionsIsNull().size() > i
-									&& filter.getBooleanConditionsIsNull().get(i) != null) {
-								queryString.append(" ").append(filter.getBooleanConditionsIsNull().get(i)).append(" ");
+									&& filter.getBooleanConditionsIsNull()
+											.size() > i
+									&& filter.getBooleanConditionsIsNull().get(
+											i) != null) {
+								queryString
+										.append(" ")
+										.append(filter
+												.getBooleanConditionsIsNull()
+												.get(i)).append(" ");
 							} else {
-								queryString.append(" ").append(filter.getDefaultConditionOperation()).append(" ");
+								queryString
+										.append(" ")
+										.append(filter
+												.getDefaultConditionOperation())
+										.append(" ");
 							}
 						}
 						String symbol = "";
-						if (filter.getNegates() != null && filter.getNegatesIsNull().size() > i
+						if (filter.getNegates() != null
+								&& filter.getNegatesIsNull().size() > i
 								&& filter.getNegatesIsNull().get(i) != null) {
 							if (filter.getNegatesIsNull().get(i) == false) {
 								symbol = " IS NULL ";
@@ -197,7 +231,8 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 						}
 
 						// build the query string
-						queryString.append("p.").append(filter.getColumnsIsNull().get(i));
+						queryString.append("p.").append(
+								filter.getColumnsIsNull().get(i));
 						queryString.append(" ").append(symbol).append(" ");
 					}
 				}
@@ -211,7 +246,9 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 					} else {
 						queryString.append(", ");
 					}
-					queryString.append("p.").append(filter.getColumnsToSort().get(i)).append(" ")
+					queryString.append("p.")
+							.append(filter.getColumnsToSort().get(i))
+							.append(" ")
 							.append(filter.getSortingDirections().get(i));
 				}
 			}
@@ -235,7 +272,8 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 	 * @return the new JpaTemplate instance
 	 * @see #setEntityManagerFactory
 	 */
-	protected JpaTemplate createJpaTemplate(final EntityManagerFactory entityManagerFactory) {
+	protected JpaTemplate createJpaTemplate(
+			final EntityManagerFactory entityManagerFactory) {
 		return new JpaTemplate(entityManagerFactory);
 	}
 
@@ -250,20 +288,25 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 		logger.trace(PersistenceMessageBundle.MSG_DAO_REMOVEALL, getClassP());
 
 		final StringBuilder queryString = new StringBuilder();
-		queryString.append("delete from ").append(getClassP().getSimpleName()).append(" p ");
-		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(queryString.toString());
+		queryString.append("delete from ").append(getClassP().getSimpleName())
+				.append(" p ");
+		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(
+				queryString.toString());
 		this.jpaTemplate.execute(query);
 	}
 
 	@Override
 	public List<T> execute(final String queryString) throws Exception {
-		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString, true);
+		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
+				true);
 		return getJpaTemplate().execute(query);
 	}
 
 	@Override
-	public List<T> execute(final String queryString, final Map<String, Object> parameters) throws Exception {
-		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString, true);
+	public List<T> execute(final String queryString,
+			final Map<String, Object> parameters) throws Exception {
+		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
+				true);
 		query.setNamedParameters(parameters);
 		final List<T> list = getJpaTemplate().execute(query);
 		for (final T item : list) {
@@ -274,9 +317,11 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 		return list;
 	}
 
-	public List<T> execute(final String queryString, final Map<String, Object> parameters, final int maxRecords,
+	public List<T> execute(final String queryString,
+			final Map<String, Object> parameters, final int maxRecords,
 			final int firstResult) throws Exception {
-		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString, true);
+		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
+				true);
 		query.setNamedParameters(parameters);
 		query.setFirstResult(firstResult);
 		query.setMaxRecords(maxRecords);
@@ -284,29 +329,38 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 	}
 
 	@Override
-	public int executeCount(final IntegrationDataFilter filter) throws Exception {
+	public int executeCount(final IntegrationDataFilter filter)
+			throws Exception {
 		final StringBuilder queryString = buildQueryString(filter, true);
-		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString.toString(), true);
+		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
+				queryString.toString(), true);
 		query.setIndexedParameters(filter.getValues().toArray());
-		return query.countInJpa(getJpaTemplate().getEntityManagerFactory().createEntityManager());
+		return query.countInJpa(getJpaTemplate().getEntityManagerFactory()
+				.createEntityManager());
 	}
 
 	@Override
-	public int executeCount(final String queryString, final Map<String, Object> parameters) throws Exception {
-		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString, true);
+	public int executeCount(final String queryString,
+			final Map<String, Object> parameters) throws Exception {
+		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
+				true);
 		query.setNamedParameters(parameters);
-		return query.countInJpa(getJpaTemplate().getEntityManagerFactory().createEntityManager());
+		return query.countInJpa(getJpaTemplate().getEntityManagerFactory()
+				.createEntityManager());
 	}
 
 	@Override
 	public void executeUpdate(final String queryString) throws Exception {
-		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(queryString.toString());
+		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(
+				queryString.toString());
 		this.jpaTemplate.execute(query);
 	}
 
 	@Override
-	public void executeUpdate(final String queryString, final Map<String, Object> parameters) throws Exception {
-		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(queryString.toString());
+	public void executeUpdate(final String queryString,
+			final Map<String, Object> parameters) throws Exception {
+		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(
+				queryString.toString());
 		query.setNamedParameters(parameters);
 		this.jpaTemplate.execute(query);
 	}
@@ -327,14 +381,20 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 			if (pType.getActualTypeArguments()[0] instanceof Class) {
 				classP = (Class<T>) pType.getActualTypeArguments()[0];
 			} else {
-				logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERTYPE, this.getClass());
-				throw new PersistenceException(this.getClass().getSimpleName()
-						+ PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERTYPE);
+				logger.error(
+						PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERTYPE,
+						this.getClass());
+				throw new PersistenceException(
+						this.getClass().getSimpleName()
+								+ PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERTYPE);
 			}
 		} else {
-			logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERPATTERN, this.getClass());
-			throw new PersistenceException(this.getClass()
-					+ PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERPATTERN);
+			logger.error(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERPATTERN,
+					this.getClass());
+			throw new PersistenceException(
+					this.getClass()
+							+ PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERPATTERN);
 
 		}
 
@@ -357,8 +417,10 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 		try {
 			beanId = (Long) PropertyUtils.getProperty(bean, this.BEAN_PK_NAME);
 		} catch (final Exception ex) {
-			logger.error(PersistenceMessageBundle.MSG_DAO_PERSIST_IDNOTFOUND, getClass().getName());
-			throw new PersistenceException(PersistenceMessageBundle.MSG_DAO_PERSIST_IDNOTFOUND);
+			logger.error(PersistenceMessageBundle.MSG_DAO_PERSIST_IDNOTFOUND,
+					getClass().getName());
+			throw new PersistenceException(
+					PersistenceMessageBundle.MSG_DAO_PERSIST_IDNOTFOUND);
 		}
 		if (beanId == 0) {
 			// new
@@ -406,8 +468,12 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 			beanId = PropertyUtils.getProperty(beanP, this.BEAN_PK_NAME);
 			return (T) this.jpaTemplate.find(beanP.getClass(), beanId);
 		} catch (final Exception e) {
-			logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN_ERROR_P1, this.BEAN_PK_NAME);
-			throw new PersistenceException(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN + this.BEAN_PK_NAME);
+			logger.error(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN_ERROR_P1,
+					this.BEAN_PK_NAME);
+			throw new PersistenceException(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN
+							+ this.BEAN_PK_NAME);
 		}
 	}
 
@@ -417,28 +483,37 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 	}
 
 	@Override
-	public List<T> retrieveAll(final IntegrationDataFilter filter) throws Exception {
-		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED, new Object[] { getClassP(), filter });
+	public List<T> retrieveAll(final IntegrationDataFilter filter)
+			throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED,
+				new Object[] { getClassP(), filter });
 		try {
 			final StringBuilder queryString = buildQueryString(filter);
-			final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString.toString(), false);
+			final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
+					queryString.toString(), false);
 			query.setIndexedParameters(filter.getValues().toArray());
 
 			return this.jpaTemplate.execute(query);
 		} catch (final Throwable e) {
-			logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR, new Object[] { filter.toString(),
-					getClassP() });
-			throw new PersistenceException(PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR_P1
-					+ filter.toString() + PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR_P2 + getClassP(), e);
+			logger.error(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR,
+					new Object[] { filter.toString(), getClassP() });
+			throw new PersistenceException(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR_P1
+							+ filter.toString()
+							+ PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR_P2
+							+ getClassP(), e);
 		}
 	}
 
 	@Override
-	public List<T> retrieveAll(final IntegrationPaginatedDataFilter filter) throws Exception {
+	public List<T> retrieveAll(final IntegrationPaginatedDataFilter filter)
+			throws Exception {
 		return retrieveAll(new ArrayList<QueryJpaCallbackHint>(), filter);
 	}
 
-	protected List<T> retrieveAll(List<QueryJpaCallbackHint> hints, final IntegrationPaginatedDataFilter filter)
+	protected List<T> retrieveAll(List<QueryJpaCallbackHint> hints,
+			final IntegrationPaginatedDataFilter filter)
 			throws PersistenceException {
 		final Class<T> classP = getClassP();
 
@@ -457,7 +532,8 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 		}
 		hints.add(QueryJpaCallbackHint.FETCH_SIZE_1024);
 
-		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString.toString(), true);
+		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
+				queryString.toString(), true);
 		// query.setNamedParameters(parameters);
 		query.setHints(hints);
 
@@ -471,7 +547,8 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 	}
 
 	@Override
-	public List<T> retrieveAll(final QueryJpaCallbackHint[] hintArray) throws Exception {
+	public List<T> retrieveAll(final QueryJpaCallbackHint[] hintArray)
+			throws Exception {
 		final List<QueryJpaCallbackHint> hints = new ArrayList<QueryJpaCallbackHint>();
 		Collections.addAll(hints, hintArray);
 		return retrieveAll(hints, null);
@@ -484,26 +561,33 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends Ab
 	 * @see #createJpaTemplate
 	 */
 	@Override
-	public final void setEntityManagerFactory(final EntityManagerFactory entityManagerFactory) {
-		if (this.jpaTemplate == null || entityManagerFactory != this.jpaTemplate.getEntityManagerFactory()) {
+	public final void setEntityManagerFactory(
+			final EntityManagerFactory entityManagerFactory) {
+		if (this.jpaTemplate == null
+				|| entityManagerFactory != this.jpaTemplate
+						.getEntityManagerFactory()) {
 			this.jpaTemplate = createJpaTemplate(entityManagerFactory);
 		}
 	}
-	
+
 	private void checkMaxFilterConditionsColumnsDeep(
 			final IntegrationDataFilter filter) {
 		int columnsDeep = 0;
 		// Get maximum deep in "columns"
-		for (String columnPath : filter.getColumns()) {
-			columnsDeep = Math.max(
-					StringUtils.countOccurrencesOf(columnPath, "."),
-					columnsDeep);
+		if (filter.getColumns() != null) {
+			for (String columnPath : filter.getColumns()) {
+				columnsDeep = Math.max(
+						StringUtils.countOccurrencesOf(columnPath, "."),
+						columnsDeep);
+			}
 		}
 		// Get maximum deep in "columnsIsNull"
-		for (String columnPath : filter.getColumnsIsNull()) {
-			columnsDeep = Math.max(
-					StringUtils.countOccurrencesOf(columnPath, "."),
-					columnsDeep);
+		if (filter.getColumnsIsNull() != null) {
+			for (String columnPath : filter.getColumnsIsNull()) {
+				columnsDeep = Math.max(
+						StringUtils.countOccurrencesOf(columnPath, "."),
+						columnsDeep);
+			}
 		}
 		if (columnsDeep > 1) {
 			StringBuffer e = new StringBuffer();
