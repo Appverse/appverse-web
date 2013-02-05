@@ -28,10 +28,16 @@ import java.util.Date;
 import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
 import org.appverse.web.framework.frontend.gwt.managers.NotificationManager;
 
+import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.StatusCodeException;
 
 public class ApplicationAsyncCallback<T> implements AsyncCallback<T> {
+
+	public static final int CUSTOM_SESSION_EXPIRED_CODE = 901;
+	public static final String CUSTOM_EXPIRED_JSP = "login.jsp?sessionExpired=true";
 
 	// TODO: See how to do this so that we can have a ExceptionTranslator (with
 	// property files in the application) but
@@ -92,6 +98,18 @@ public class ApplicationAsyncCallback<T> implements AsyncCallback<T> {
 	}
 
 	/**
+	 * This method produces client url redirection. This is the default treatment for expired session 
+	 * (or unauthorized), but can be overriden
+	 */
+	public void handleExpiredSessionException()
+	{
+		UrlBuilder builder = Window.Location.createUrlBuilder();
+		builder.setPath(CUSTOM_EXPIRED_JSP);
+
+		Window.Location.assign(builder.buildString());
+	}
+
+	/**
 	 * Default Presentation Exception treatment. Default treatment will not
 	 * close the browser tab This method can be overriden (without calling
 	 * super()) to implement a particular treatment
@@ -114,7 +132,9 @@ public class ApplicationAsyncCallback<T> implements AsyncCallback<T> {
 	 * the exception code to a message and showing a dialog to the user without
 	 * closing the browser tab. handleApplicationException can be overriden if
 	 * we want to implement especific PresentationException treatment or just
-	 * close the broser tab.
+	 * close the browser tab.
+	 * If receive StatusCodeException, check expired session and call 
+	 * handleExpiredSessionException(), which can be overridden
 	 * 
 	 * @param Throwable
 	 *            Exception to handle.
@@ -124,6 +144,14 @@ public class ApplicationAsyncCallback<T> implements AsyncCallback<T> {
 		GWTPresentationException pex = null;
 		if (ex instanceof GWTPresentationException) {
 			pex = (GWTPresentationException) ex;
+		} else if (ex instanceof StatusCodeException) {
+			if (((StatusCodeException) ex).getStatusCode() == CUSTOM_SESSION_EXPIRED_CODE)
+			{
+				handleExpiredSessionException();
+				return;
+			}
+			else
+				return;
 			// Application exception (with an application code)
 		} else {
 			// We should not receive exceptions different from
