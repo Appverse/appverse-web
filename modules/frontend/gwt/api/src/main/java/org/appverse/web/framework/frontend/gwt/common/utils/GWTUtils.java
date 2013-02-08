@@ -24,7 +24,6 @@
 package org.appverse.web.framework.frontend.gwt.common.utils;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.user.client.Window;
 
 public class GWTUtils {
@@ -53,18 +52,73 @@ public class GWTUtils {
 		return !isUserAgentChrome() && getUserAgent().contains("Safari");
 	}
 
-	public static void goToModuleUrl(final String moduleStartHtml,
+	/**
+	 * This method allows to call other GWT modules passing the full URL and a
+	 * initial 'place' to go in the application (the module called has to
+	 * translate this initial 'place' to an event). This method keep the
+	 * parameters in the original URL (current Window.Location) by default.
+	 */
+	public static void goToModuleUrl(final String urlToStartHtml,
 			final String placeEventName) {
-		UrlBuilder builder = Window.Location.createUrlBuilder();
-		builder.setPath(moduleStartHtml);
-		builder.setHash(placeEventName);
-		Window.Location.replace(builder.buildString());
+		goToModuleUrl(urlToStartHtml, placeEventName, true);
 	}
 
 	/**
-	 * Check hash (#) in URL to detect place event on module loading.
-	 * This should be used with eventBus historyOnStart = false
-	 */	
+	 * This method allows to call other GWT modules passing the full URL and a
+	 * initial 'place' to go in the application (the module called has to
+	 * translate this initial 'place' to an event). You can specify whether you
+	 * want to keep the query string or not.
+	 * 
+	 */
+	public static void goToModuleUrl(final String urlToStartHtml,
+			final String placeEventName, boolean keepQueryString) {
+		String fullUrl = urlToStartHtml;
+		if (keepQueryString) {
+			fullUrl += Window.Location.getQueryString();
+		}
+		if (placeEventName != null && !"".equals(placeEventName)) {
+			fullUrl += "#" + placeEventName;
+		}
+		Window.Location.replace(fullUrl);
+	}
+
+	/**
+	 * This method allows to call other GWT modules in the same application
+	 * context path indicating the bootstrap module HTML page and a initial
+	 * 'place' to go in the application (your module has to translate this
+	 * initial 'place' to an event). This method keep the parameters in the
+	 * original URL (current Window.Location) by default.
+	 */
+	public static void goToModuleUrlInSameApplicationContextPath(
+			final String moduleStartHtml, final String placeEventName) {
+		goToModuleUrlInSameApplicationContextPath(moduleStartHtml,
+				placeEventName, true);
+	}
+
+	/**
+	 * This method allows to call other GWT modules in the same application
+	 * context path indicating the bootstrap module HTML page and a initial
+	 * 'place' to go in the application (your module has to translate this
+	 * initial 'place' to an event). This method keeps the parameters in the
+	 * original URL (current Window.Location).
+	 */
+	public static void goToModuleUrlInSameApplicationContextPath(
+			final String moduleStartHtml, final String placeEventName,
+			boolean keepQueryString) {
+		String fullUrl = getModuleIndependentBaseURL() + moduleStartHtml;
+		if (keepQueryString) {
+			fullUrl += Window.Location.getQueryString();
+		}
+		if (placeEventName != null && !"".equals(placeEventName)) {
+			fullUrl += "#" + placeEventName;
+		}
+		Window.Location.replace(fullUrl);
+	}
+
+	/**
+	 * Check hash (#) in URL to detect place event on module loading. This
+	 * should be used with eventBus historyOnStart = false
+	 */
 	public static String checkInitPlaceEvent() {
 		String hash = Window.Location.getHash();
 		if (hash != null && hash.trim().length() > 0) {
