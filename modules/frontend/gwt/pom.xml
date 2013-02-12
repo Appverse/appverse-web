@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.appverse.web.framework.poms.modules.frontend</groupId>
 		<artifactId>appverse-web-modules-frontend-pom</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<version>1.0.2</version>
 	</parent>
 
 	<groupId>org.appverse.web.framework.poms.modules.frontend.gwt</groupId>
@@ -118,7 +118,7 @@
 	                            <phase>generate-resources</phase> 
 	                            <configuration> 
 	                                    <target name="Create async dir"> 
-	                                            <mkdir dir="target/generated-sources/gwt"/>
+	                                            <mkdir dir="target/generated-sources/gwt" />
 	                                    </target> 
 	                            </configuration> 
 	                    </execution> 
