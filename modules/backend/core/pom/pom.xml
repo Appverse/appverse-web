@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.appverse.web.framework.poms.modules.backend.core</groupId>
 		<artifactId>appverse-web-modules-backend-core-pom</artifactId>
-		<version>1.0.3-SNAPSHOT/version>
+		<version>1.0.3-SNAPSHOT</version> 
 	</parent>
 
 	<groupId>org.appverse.web.framework.poms.modules.backend.core.parent</groupId>
@@ -92,7 +92,7 @@
 								<phase>generate-resources</phase>
 								<configuration>
 									<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
-									<includeGroupIds>${main.group}.${main.name}.gwtfrontend</includeGroupIds>
+									<includeGroupIds>${main.group}.gwtfrontend</includeGroupIds>
 									<includeArtifacIds>${main.name}-gwtfrontend</includeArtifacIds>
 								</configuration>
 							</execution>
