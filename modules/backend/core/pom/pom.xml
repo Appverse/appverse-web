@@ -94,7 +94,7 @@
 									<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
 									<includeGroupIds>${main.group}.gwtfrontend</includeGroupIds>
 									<includeArtifacIds>${main.name}-gwtfrontend</includeArtifacIds>
-								</configuration>
+								</configuration> 
 							</execution>
 						</executions>
 					</plugin>
