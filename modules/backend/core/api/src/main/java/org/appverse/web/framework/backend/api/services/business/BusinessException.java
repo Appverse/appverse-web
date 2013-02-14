@@ -35,6 +35,59 @@ public class BusinessException extends AbstractException {
 		super();
 	}
 
+	public BusinessException(HashMap<String, String> parameters) {
+		super(parameters);
+	}
+
+	public BusinessException(HashMap<String, String> parameters, String message) {
+		super(parameters, message);
+	}
+
+	public BusinessException(HashMap<String, String> parameters,
+			String message, Throwable cause) {
+		super(parameters, message, cause);
+	}
+
+	public BusinessException(HashMap<String, String> parameters, Throwable cause) {
+		super(parameters, cause);
+
+	}
+
+	public BusinessException(long code) {
+		super(code);
+	}
+
+	public BusinessException(long code, HashMap<String, String> parameters) {
+		super(code, parameters);
+	}
+
+	public BusinessException(long code, HashMap<String, String> parameters,
+			String message) {
+		super(code, parameters, message);
+	}
+
+	public BusinessException(long code, HashMap<String, String> parameters,
+			String message, Throwable cause) {
+		super(code, parameters, message, cause);
+	}
+
+	public BusinessException(long code, HashMap<String, String> parameters,
+			Throwable cause) {
+		super(code, parameters, cause);
+	}
+
+	public BusinessException(long code, String message) {
+		super(code, message);
+	}
+
+	public BusinessException(long code, String message, Throwable cause) {
+		super(code, message, cause);
+	}
+
+	public BusinessException(long code, Throwable cause) {
+		super(code, cause);
+	}
+
 	public BusinessException(final Long code,
 			final HashMap<String, String> parameters) {
 		super(code, parameters);

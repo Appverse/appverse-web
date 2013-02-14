@@ -35,6 +35,60 @@ public class IntegrationException extends AbstractException {
 
 	}
 
+	public IntegrationException(HashMap<String, String> parameters) {
+		super(parameters);
+	}
+
+	public IntegrationException(HashMap<String, String> parameters,
+			String message) {
+		super(parameters, message);
+	}
+
+	public IntegrationException(HashMap<String, String> parameters,
+			String message, Throwable cause) {
+		super(parameters, message, cause);
+	}
+
+	public IntegrationException(HashMap<String, String> parameters,
+			Throwable cause) {
+		super(parameters, cause);
+	}
+
+	public IntegrationException(long code) {
+		super(code);
+	}
+
+	public IntegrationException(long code, HashMap<String, String> parameters) {
+		super(code, parameters);
+	}
+
+	public IntegrationException(long code, HashMap<String, String> parameters,
+			String message) {
+		super(code, parameters, message);
+	}
+
+	public IntegrationException(long code, HashMap<String, String> parameters,
+			String message, Throwable cause) {
+		super(code, parameters, message, cause);
+	}
+
+	public IntegrationException(long code, HashMap<String, String> parameters,
+			Throwable cause) {
+		super(code, parameters, cause);
+	}
+
+	public IntegrationException(long code, String message) {
+		super(code, message);
+	}
+
+	public IntegrationException(long code, String message, Throwable cause) {
+		super(code, message, cause);
+	}
+
+	public IntegrationException(long code, Throwable cause) {
+		super(code, cause);
+	}
+
 	public IntegrationException(final Long code,
 			final HashMap<String, String> parameters) {
 		super(code, parameters);

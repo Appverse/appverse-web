@@ -35,6 +35,62 @@ public class PresentationException extends AbstractException {
 		super();
 	}
 
+	public PresentationException(HashMap<String, String> parameters) {
+		super(parameters);
+	}
+
+	public PresentationException(HashMap<String, String> parameters,
+			String message) {
+		super(parameters, message);
+	}
+
+	public PresentationException(HashMap<String, String> parameters,
+			String message, Throwable cause) {
+		super(parameters, message, cause);
+	}
+
+	public PresentationException(HashMap<String, String> parameters,
+			Throwable cause) {
+		super(parameters, cause);
+	}
+
+	public PresentationException(long code) {
+		super(code);
+	}
+
+	public PresentationException(long code, HashMap<String, String> parameters) {
+		super(code, parameters);
+	}
+
+	public PresentationException(long code, HashMap<String, String> parameters,
+			String message) {
+		super(code, parameters, message);
+	}
+
+	public PresentationException(long code, HashMap<String, String> parameters,
+			String message, Throwable cause) {
+		super(code, parameters, message, cause);
+	}
+
+	public PresentationException(long code, HashMap<String, String> parameters,
+			Throwable cause) {
+		super(code, parameters, cause);
+	}
+
+	public PresentationException(long code, String message) {
+		super(code, message);
+		// TODO Auto-generated constructor stub
+	}
+
+	public PresentationException(long code, String message, Throwable cause) {
+		super(code, message, cause);
+	}
+
+	public PresentationException(long code, Throwable cause) {
+		super(code, cause);
+		// TODO Auto-generated constructor stub
+	}
+
 	public PresentationException(final Long code,
 			final HashMap<String, String> parameters) {
 		super(code, parameters);
