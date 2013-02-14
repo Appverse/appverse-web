@@ -128,22 +128,22 @@
           <directory>src/main/java/__packageInPathFormat__/gwtfrontend/common/widgets</directory>
         </fileSet>          
    	    <fileSet encoding="UTF-8">
-          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/main/commands/impl/live</directory>
+          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/commands/impl/live</directory>
         </fileSet> 
    	    <fileSet encoding="UTF-8">
-          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/main/editors/impl/live</directory>
+          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/editors/impl/live</directory>
         </fileSet>
    	    <fileSet encoding="UTF-8">
-          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/main/layout/impl/live</directory>
+          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/layout/impl/live</directory>
         </fileSet>        
    	    <fileSet encoding="UTF-8">
-          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/main/presenters/impl/live</directory>
+          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/presenters/impl/live</directory>
         </fileSet> 
    	    <fileSet encoding="UTF-8">
-          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/main/views/impl/live</directory>
+          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/views/impl/live</directory>
         </fileSet>       
     	<fileSet encoding="UTF-8">
-          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/main/widgets</directory>
+          <directory>src/main/java/__packageInPathFormat__/gwtfrontend/main/widgets</directory>
         </fileSet>             
         <fileSet packaged="true" filtered="true" encoding="UTF-8">
           <directory>src/main/resources</directory>
