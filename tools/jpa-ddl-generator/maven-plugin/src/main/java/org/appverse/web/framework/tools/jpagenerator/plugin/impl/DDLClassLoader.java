@@ -35,7 +35,7 @@ import org.appverse.web.framework.tools.jpagenerator.plugin.DDLParameters;
 
 public class DDLClassLoader extends URLClassLoader {
 
-	public static DDLClassLoader create(ClassLoader pluginClassLoader, MavenProject project, DDLParameters params) {
+	public static DDLClassLoader create(ClassLoader pluginClassLoader, MavenProject project) {
 		List<URL> urls = new ArrayList<URL>();
 		try {
 			File classDir = null;
