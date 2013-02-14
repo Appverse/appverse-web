@@ -118,8 +118,6 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	private final SuggestAppearance<M> appearance;
 	// Model Field to search for
 	private String modelSearchField;
-	// minNumchars to fire load event
-	private int minNumChars = -1;
 	private boolean ignoreCase = true;
 	private boolean forceSelection = false;
 
@@ -196,10 +194,6 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 
 	public String getLoadDataMethod() {
 		return loadDataMethod;
-	}
-
-	public int getMinNumChars() {
-		return this.minNumChars;
 	}
 
 	public String getModelSearchField() {
@@ -284,7 +278,6 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 			}
 		});
 
-		searchText.setMinChars(this.getMinNumChars());
 		/**************************************************************/
 		/* setPageSize MUST be called AFTER setting loader in combobox. */
 		/**************************************************************/
@@ -364,11 +357,11 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	 *            the enabled state
 	 */
 	@Override
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(final boolean enabled) {
 		searchText.setEnabled(enabled);
 	}
 
-	public void setIgnoreCase(boolean ignoreCase) {
+	public void setIgnoreCase(final boolean ignoreCase) {
 		this.ignoreCase = ignoreCase;
 	}
 
@@ -381,7 +374,8 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	}
 
 	public void setNumChars(final int minNum) {
-		this.minNumChars = minNum;
+		searchText.setMinChars(minNum);
+
 	}
 
 	public void setTemplate(final SuggestTemplate<M> template) {
@@ -393,7 +387,7 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	}
 
 	@Override
-	public void setValue(M value) {
+	public void setValue(final M value) {
 		clear();
 		if (value != null) {
 			String name = props.name().getValue(value);
@@ -412,7 +406,7 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	 * @param forceSelection
 	 *            true to force selection
 	 */
-	public void setForceSelection(boolean forceSelection) {
+	public void setForceSelection(final boolean forceSelection) {
 		this.forceSelection = forceSelection;
 	}
 
