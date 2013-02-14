@@ -60,13 +60,10 @@ public class DDLGeneratorTool {
 	}
 
 	private void fixSqlLineTerminators(String ddlOutputDir, String ddlFileName) {
-		log.debug(String.format("Fixing %s ...", ddlFileName));
 		File inputFile = new File(ddlOutputDir + File.separator + ddlFileName);
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(inputFile));
-
 			File outFile = File.createTempFile("fix_", ".tmp");
-			log.debug(String.format("Creating work file %s ...", outFile));
 			BufferedWriter bw = new BufferedWriter(new FileWriter(outFile));
 
 			String line = null;
@@ -76,67 +73,43 @@ public class DDLGeneratorTool {
 					bw.append(";");
 				}
 				bw.append("\n");
-				System.out.println(line);
 			}
 			br.close();
 			bw.flush();
 			bw.close();
-
 			inputFile.delete();
 			outFile.renameTo(inputFile);
-			log.debug(String.format("Done fixing %s!", ddlFileName));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
 	}
 
 	public void generateSchema() {
-		log.info(String.format("Generating SQL schema for persistence unit %s (%s) ...",
-				parameters.getPersistenceUnitName(), parameters.getTargetDbPlatform()));
-
-		String ddlOutputDir = parameters.getDdlOutputDir();
-		String ddlCreateFileName = parameters.getDdlCreateFileName();
-		String ddlDropFileName = parameters.getDdlDropFileName();
-
 		Map<String, Object> properties = new HashMap<String, Object>();
-
-		properties.put(PersistenceUnitProperties.LOGGING_LEVEL, parameters.getDdlGenerationLoggingLevel());
-		properties.put(PersistenceUnitProperties.CATEGORY_LOGGING_LEVEL_ + SessionLog.EJB_OR_METADATA,
-				SessionLog.WARNING_LABEL);
-
 		properties.put(PersistenceUnitProperties.JDBC_DRIVER, CreateSchemaMockDriver.class.getName());
 		properties.put(PersistenceUnitProperties.JDBC_URL, "emulate:dummy");
-		properties.put(PersistenceUnitProperties.CONNECTION_POOL_MIN, "0");
-
-		properties.put(PersistenceUnitProperties.DDL_GENERATION, parameters.getDdlGenerationMode());
-		properties.put(PersistenceUnitProperties.DDL_GENERATION_MODE,
-				PersistenceUnitProperties.DDL_SQL_SCRIPT_GENERATION);
-		properties.put(PersistenceUnitProperties.CREATE_JDBC_DDL_FILE, ddlCreateFileName);
-		properties.put(PersistenceUnitProperties.DROP_JDBC_DDL_FILE, ddlDropFileName);
-		properties.put(PersistenceUnitProperties.APP_LOCATION, ddlOutputDir);
-
+		properties.put(PersistenceUnitProperties.DDL_GENERATION, PersistenceUnitProperties.DROP_AND_CREATE);
+		properties.put(PersistenceUnitProperties.DDL_GENERATION_MODE,PersistenceUnitProperties.DDL_SQL_SCRIPT_GENERATION);
+		properties.put(PersistenceUnitProperties.CREATE_JDBC_DDL_FILE, parameters.getDdlCreateFileName());
+		properties.put(PersistenceUnitProperties.DROP_JDBC_DDL_FILE, parameters.getDdlDropFileName());
+		properties.put(PersistenceUnitProperties.APP_LOCATION, parameters.getDdlOutputDir());
 		properties.put(PersistenceUnitProperties.ECLIPSELINK_PERSISTENCE_XML, parameters.getPersistenceUnitFile());
 		properties.put(PersistenceUnitProperties.TARGET_DATABASE, parameters.getTargetDbPlatform());
 		properties.put(PersistenceUnitProperties.CLASSLOADER, ddlClassLoader);
-
 		ensureOutputDirectoryExists();
-
+		
 		ClassLoader tccl = Thread.currentThread().getContextClassLoader();
 		try {
 			Thread.currentThread().setContextClassLoader(ddlClassLoader);
-
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory(parameters.getPersistenceUnitName(),
 					properties);
 			EntityManager em = emf.createEntityManager();
 			em.close();
 			emf.close();
-
-			fixSqlLineTerminators(ddlOutputDir, ddlCreateFileName);
-			fixSqlLineTerminators(ddlOutputDir, ddlDropFileName);
+			fixSqlLineTerminators(parameters.getDdlOutputDir(), parameters.getDdlCreateFileName());
+			fixSqlLineTerminators(parameters.getDdlOutputDir(), parameters.getDdlDropFileName());
 		} finally {
 			Thread.currentThread().setContextClassLoader(tccl);
 		}
-
-		log.info("SQL schema generation tenerminated succesfully.");
 	}
 }
