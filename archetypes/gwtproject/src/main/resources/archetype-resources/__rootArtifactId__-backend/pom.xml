@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.appverse.web.framework.poms.modules.backend.core.parent</groupId>
+		<artifactId>appverse-web-modules-backend-core-parent-pom</artifactId>
+		<version>1.0.3-SNAPSHOT</version>
+        <relativePath></relativePath>		
+	</parent>
+
+	<groupId>${groupId}.backend</groupId>
+	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
+	<packaging>war</packaging>
+	<name>${newProjectName} GWT Backend Module</name>
+
+	<properties>
+		<main.name>${rootArtifactId}</main.name>
+		<main.group>${groupId}</main.group>
+	</properties>
+
+	<build>
+		<filters>
+			<filter>src/main/filters/${env}.properties</filter>
+		</filters>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.appverse.web.framework.poms.tools.jpaddlgenerator.plugin</groupId>
+				<artifactId>appverse-web-tools-jpa-ddl-generator-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
+			<artifactId>appverse-web-modules-backend-core-api</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gxt</groupId>
+			<artifactId>appverse-web-modules-backend-frontfacade-gxt</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
+			<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>${groupId}.shared</groupId>
+			<artifactId>${rootArtifactId}-gwtshared</artifactId>
+			<version>${version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>${groupId}.gwtfrontend</groupId>
+			<artifactId>${rootArtifactId}-gwtfrontend</artifactId>
+			<version>${version}</version>
+			<classifier>GWT-Frontend-Resources</classifier>
+			<type>zip</type>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+</project>
