@@ -1,4 +1,4 @@
-package ${package}.gwtfrontend.main.main.views.impl.live;
+package ${package}.gwtfrontend.main.views.impl.live;
 import org.appverse.web.framework.frontend.gwt.rmvp.ReverseComposite;
 import org.appverse.web.framework.frontend.gwt.views.LayoutManagerView;
 

@@ -5,13 +5,13 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="appverse-web-modules-backend-core-api-1.0.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/appverse-web-modules-backend-core-api/appverse-web-modules-backend-core-api">
+        <dependent-module archiveName="appverse-web-modules-backend-core-api-1.0.3-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/appverse-web-modules-backend-core-api/appverse-web-modules-backend-core-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="appverse-web-modules-backend-frontfacade-gxt-1.0.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/appverse-web-modules-backend-frontfacade-gxt/appverse-web-modules-backend-frontfacade-gxt">
+        <dependent-module archiveName="appverse-web-modules-backend-frontfacade-gxt-1.0.3-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/appverse-web-modules-backend-frontfacade-gxt/appverse-web-modules-backend-frontfacade-gxt">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="appverse-web-modules-backend-core-persistence-1.0.2-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/appverse-web-modules-backend-core-persistence/appverse-web-modules-backend-core-persistence">
+        <dependent-module archiveName="appverse-web-modules-backend-core-persistence-1.0.3-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/appverse-web-modules-backend-core-persistence/appverse-web-modules-backend-core-persistence">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="storefront-gwtshared-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/storefront-gwtshared/storefront-gwtshared">

@@ -1,7 +1,7 @@
-package ${package}.gwtfrontend.main.main.presenters.impl.live;
+package ${package}.gwtfrontend.main.presenters.impl.live;
 
 import ${package}.gwtfrontend.main.MainEventBus;
-import ${package}.gwtfrontend.main.main.views.impl.live.MainModuleLayoutManagerView;
+import ${package}.gwtfrontend.main.views.impl.live.MainModuleLayoutManagerView;
 import org.appverse.web.framework.frontend.gwt.presenters.LayoutManagerPresenter;
 
 import com.google.gwt.user.client.ui.IsWidget;
