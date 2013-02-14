@@ -43,7 +43,6 @@
 	</licenses>
 
 	<modules>
-		<module>archetypes</module>
 		<module>jpa-ddl-generator</module>
 	</modules>
 

@@ -63,6 +63,7 @@
 	<modules>
 		<module>modules</module>
 		<module>tools</module>
+		<module>archetypes</module>
 	</modules>
 
 	<build>
@@ -486,13 +487,5 @@
 		</repository>	
 		
 	</repositories>
-
-	<distributionManagement>
-		<repository>
-			<id>Appverse-Actifacts-Repository</id>
-			<name>Appverse Artifacts Repository</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-		</repository>
-	</distributionManagement>
 
 </project>
