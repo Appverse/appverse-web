@@ -29,28 +29,56 @@ public abstract class AbstractException extends Exception {
 
 	private static final long serialVersionUID = -6584979637647322656L;
 
-	private Long code;
+	private long code;
 	private HashMap<String, String> parameters;
 
 	public AbstractException() {
 		super();
 	}
 
-	public AbstractException(final Long code,
+	public AbstractException(final HashMap<String, String> parameters) {
+		super();
+		this.parameters = parameters;
+	}
+
+	public AbstractException(final HashMap<String, String> parameters,
+			final String message) {
+		super(message);
+		this.parameters = parameters;
+	}
+
+	public AbstractException(final HashMap<String, String> parameters,
+			final String message, final Throwable cause) {
+		super(message, cause);
+		this.parameters = parameters;
+	}
+
+	public AbstractException(final HashMap<String, String> parameters,
+			final Throwable cause) {
+		super(cause);
+		this.parameters = parameters;
+	}
+
+	public AbstractException(final long code) {
+		super();
+		this.code = code;
+	}
+
+	public AbstractException(final long code,
 			final HashMap<String, String> parameters) {
 		super();
 		this.code = code;
 		this.parameters = parameters;
 	}
 
-	public AbstractException(final Long code,
+	public AbstractException(long code,
 			final HashMap<String, String> parameters, final String message) {
 		super(message);
 		this.code = code;
 		this.parameters = parameters;
 	}
 
-	public AbstractException(final Long code,
+	public AbstractException(final long code,
 			final HashMap<String, String> parameters, final String message,
 			final Throwable cause) {
 		super(message, cause);
@@ -58,11 +86,27 @@ public abstract class AbstractException extends Exception {
 		this.parameters = parameters;
 	}
 
-	public AbstractException(final Long code,
+	public AbstractException(final long code,
 			final HashMap<String, String> parameters, final Throwable cause) {
 		super(cause);
 		this.code = code;
 		this.parameters = parameters;
+	}
+
+	public AbstractException(final long code, final String message) {
+		super(message);
+		this.code = code;
+	}
+
+	public AbstractException(final long code, final String message,
+			final Throwable cause) {
+		super(message, cause);
+		this.code = code;
+	}
+
+	public AbstractException(final long code, final Throwable cause) {
+		super(cause);
+		this.code = code;
 	}
 
 	public AbstractException(final String message) {
