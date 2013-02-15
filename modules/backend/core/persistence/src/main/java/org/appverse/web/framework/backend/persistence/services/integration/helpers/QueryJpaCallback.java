@@ -1,12 +1,12 @@
 /*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
- This Source Code Form is subject to the terms of the Appverse Public License 
- Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+ This Source Code Form is subject to the terms of the Appverse Public License
+ Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this
  file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
 
- Redistribution and use in source and binary forms, with or without modification, 
- are permitted provided that the conditions of the AppVerse Public License v2.0 
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the conditions of the AppVerse Public License v2.0
  are met.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
@@ -17,8 +17,8 @@
  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE)
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
 package org.appverse.web.framework.backend.persistence.services.integration.helpers;
@@ -35,7 +35,7 @@ import org.springframework.orm.jpa.JpaCallback;
 
 public class QueryJpaCallback<T> implements JpaCallback<List<T>> {
 
-	private final String queryString;
+	private String queryString;
 	private List<QueryJpaCallbackParameter> namedParameters;
 	private Object[] indexedParameters;
 	private List<QueryJpaCallbackHint> hints;
@@ -43,12 +43,25 @@ public class QueryJpaCallback<T> implements JpaCallback<List<T>> {
 	private int maxRecords = -1;
 	private int firstResult = -1;
 
+	public QueryJpaCallback() {
+		super();
+	}
+
+	public QueryJpaCallback(boolean standardHints) {
+		super();
+		if (standardHints) {
+			hints = new ArrayList<QueryJpaCallbackHint>();
+			hints.add(QueryJpaCallbackHint.FETCH_SIZE_1024);
+		}
+	}
+
 	public QueryJpaCallback(String queryString, boolean standardHints) {
+		super();
 		this.queryString = queryString;
 		namedParameters = null;
 		indexedParameters = null;
 		if (standardHints) {
-			List<QueryJpaCallbackHint> hints = new ArrayList<QueryJpaCallbackHint>();
+			hints = new ArrayList<QueryJpaCallbackHint>();
 			hints.add(QueryJpaCallbackHint.FETCH_SIZE_1024);
 		} else {
 			hints = null;
@@ -98,8 +111,8 @@ public class QueryJpaCallback<T> implements JpaCallback<List<T>> {
 		}
 
 		// set query hints
-		if (hints != null) {
-			for (QueryJpaCallbackHint hint : hints) {
+		if (getHints() != null) {
+			for (QueryJpaCallbackHint hint : getHints()) {
 				query.setHint(hint.getHint(), hint.getValue());
 			}
 		}
@@ -109,6 +122,10 @@ public class QueryJpaCallback<T> implements JpaCallback<List<T>> {
 
 	public int getFirstResult() {
 		return firstResult;
+	}
+
+	public List<QueryJpaCallbackHint> getHints() {
+		return hints;
 	}
 
 	public int getMaxRecords() {

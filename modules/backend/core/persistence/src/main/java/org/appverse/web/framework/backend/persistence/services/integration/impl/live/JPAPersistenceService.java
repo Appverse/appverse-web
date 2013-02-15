@@ -1,12 +1,12 @@
 /*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
- This Source Code Form is subject to the terms of the Appverse Public License 
- Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+ This Source Code Form is subject to the terms of the Appverse Public License
+ Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this
  file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
 
- Redistribution and use in source and binary forms, with or without modification, 
- are permitted provided that the conditions of the AppVerse Public License v2.0 
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the conditions of the AppVerse Public License v2.0
  are met.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
@@ -17,8 +17,8 @@
  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE)
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
 package org.appverse.web.framework.backend.persistence.services.integration.impl.live;
@@ -26,11 +26,9 @@ package org.appverse.web.framework.backend.persistence.services.integration.impl
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 
@@ -57,12 +55,12 @@ import org.springframework.util.StringUtils;
  * support and strictly very easy ordering and filtering conditions. Take into
  * account that the use of this service is restricted to the aforementioned
  * cases and more complex queries need to be built by means a custom JPA query.
- * 
+ *
  * This service support only support automatic generation of JPA queries
  * filtering by <T> object first level attributes that would NOT imply express
  * JOIN indication in the generated JPQL and only allows sorting by first level
  * attributes in the root <T> object.
- * 
+ *
  * @param <T>
  *            Abstract integration Bean the persistence service will deal with
  */
@@ -83,22 +81,12 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	@AutowiredLogger
 	private static Logger logger;
 
-	// @Override
-	// public int countAll() throws Exception {
-	// final Class<T> classP = getClassP();
-	// String queryString = "select count(p."+BEAN_PK_NAME+") from " +
-	// classP.getSimpleName() + " p";
-	// final QueryJpaCallback<Integer> query = new
-	// QueryJpaCallback<Integer>(queryString, true);
-	// return
-	// query.countInJpa(getJpaTemplate().getEntityManagerFactory().createEntityManager());
-	// }
 
 	private StringBuilder buildQueryString(final IntegrationDataFilter filter) {
 		return buildQueryString(filter, false);
 	}
 
-	protected StringBuilder buildQueryString(
+	private StringBuilder buildQueryString(
 			final IntegrationDataFilter filter, final boolean isCount) {
 
 		if (filter != null) {
@@ -256,8 +244,60 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return queryString;
 	}
 
-	protected JpaTemplate createJpaTemplate(final EntityManager entityManager) {
-		return new JpaTemplate(entityManager);
+	private void checkMaxFilterColumnsToSortDeep(
+			final IntegrationDataFilter filter) {
+		// Get maximum deep in "columnsToSort"
+		int columnsDeep = 0;
+		for (String columnPath : filter.getColumnsToSort()) {
+			columnsDeep = Math.max(
+					StringUtils.countOccurrencesOf(columnPath, "."),
+					columnsDeep);
+		}
+		if (columnsDeep > 0) {
+			StringBuffer e = new StringBuffer();
+			e.append(
+					PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_ORDERING_COLUMNS)
+					.append(getClassP().getSimpleName())
+					.append(".")
+					.append(filter.toString())
+					.append(".")
+					.append(PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_ADVIDE);
+			logger.error(e.toString());
+			throw new PersistenceException(e.toString());
+		}
+	}
+
+	private void checkMaxFilterConditionsColumnsDeep(
+			final IntegrationDataFilter filter) {
+		int columnsDeep = 0;
+		// Get maximum deep in "columns"
+		if (filter.getColumns() != null) {
+			for (String columnPath : filter.getColumns()) {
+				columnsDeep = Math.max(
+						StringUtils.countOccurrencesOf(columnPath, "."),
+						columnsDeep);
+			}
+		}
+		// Get maximum deep in "columnsIsNull"
+		if (filter.getColumnsIsNull() != null) {
+			for (String columnPath : filter.getColumnsIsNull()) {
+				columnsDeep = Math.max(
+						StringUtils.countOccurrencesOf(columnPath, "."),
+						columnsDeep);
+			}
+		}
+		if (columnsDeep > 1) {
+			StringBuffer e = new StringBuffer();
+			e.append(
+					PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_CONDITIONS_COLUMNS)
+					.append(getClassP().getSimpleName())
+					.append(".")
+					.append(filter.toString())
+					.append(".")
+					.append(PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_ADVIDE);
+			logger.error(e.toString());
+			throw new PersistenceException(e.toString());
+		}
 	}
 
 	/**
@@ -266,13 +306,13 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * <p>
 	 * Can be overridden in subclasses to provide a JpaTemplate instance with
 	 * different configuration, or a custom JpaTemplate subclass.
-	 * 
+	 *
 	 * @param entityManagerFactory
 	 *            the JPA EntityManagerFactory to create a JpaTemplate for
 	 * @return the new JpaTemplate instance
 	 * @see #setEntityManagerFactory
 	 */
-	protected JpaTemplate createJpaTemplate(
+	private JpaTemplate createJpaTemplate(
 			final EntityManagerFactory entityManagerFactory) {
 		return new JpaTemplate(entityManagerFactory);
 	}
@@ -296,10 +336,27 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	}
 
 	@Override
+	public List<T> execute(QueryJpaCallback<T> query) throws Exception {
+		final List<T> list = getJpaTemplate().execute(query);
+		for (final T item : list) {
+			if (item instanceof AbstractIntegrationBean) {
+				getJpaTemplate().refresh(item);
+			}
+		}
+		return list;
+	}
+
+	@Override
 	public List<T> execute(final String queryString) throws Exception {
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
 				true);
-		return getJpaTemplate().execute(query);
+		final List<T> list = getJpaTemplate().execute(query);
+		for (final T item : list) {
+			if (item instanceof AbstractIntegrationBean) {
+				getJpaTemplate().refresh(item);
+			}
+		}
+		return list;
 	}
 
 	@Override
@@ -317,6 +374,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return list;
 	}
 
+	@Override
 	public List<T> execute(final String queryString,
 			final Map<String, Object> parameters, final int maxRecords,
 			final int firstResult) throws Exception {
@@ -325,7 +383,13 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.setNamedParameters(parameters);
 		query.setFirstResult(firstResult);
 		query.setMaxRecords(maxRecords);
-		return getJpaTemplate().execute(query);
+		final List<T> list = getJpaTemplate().execute(query);
+		for (final T item : list) {
+			if (item instanceof AbstractIntegrationBean) {
+				getJpaTemplate().refresh(item);
+			}
+		}
+		return list;
 	}
 
 	@Override
@@ -372,7 +436,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Class<T> getClassP() throws PersistenceException {
+	private Class<T> getClassP() throws PersistenceException {
 
 		Class<T> classP = null;
 		final Type type = this.getClass().getGenericSuperclass();
@@ -401,13 +465,8 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return classP;
 	}
 
-	protected JpaTemplate getJpaTemplate() {
+	private JpaTemplate getJpaTemplate() {
 		return this.jpaTemplate;
-	}
-
-	@Override
-	public boolean isVersionStale(final T bean) throws Exception {
-		return false;
 	}
 
 	@Override
@@ -512,7 +571,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return retrieveAll(new ArrayList<QueryJpaCallbackHint>(), filter);
 	}
 
-	protected List<T> retrieveAll(List<QueryJpaCallbackHint> hints,
+	private List<T> retrieveAll(List<QueryJpaCallbackHint> hints,
 			final IntegrationPaginatedDataFilter filter)
 			throws PersistenceException {
 		final Class<T> classP = getClassP();
@@ -546,18 +605,10 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return this.jpaTemplate.execute(query);
 	}
 
-	@Override
-	public List<T> retrieveAll(final QueryJpaCallbackHint[] hintArray)
-			throws Exception {
-		final List<QueryJpaCallbackHint> hints = new ArrayList<QueryJpaCallbackHint>();
-		Collections.addAll(hints, hintArray);
-		return retrieveAll(hints, null);
-	}
-
 	/**
 	 * Set the JPA EntityManagerFactory to be used by this DAO. Will
 	 * automatically create a JpaTemplate for the given EntityManagerFactory.
-	 * 
+	 *
 	 * @see #createJpaTemplate
 	 */
 	@Override
@@ -567,62 +618,6 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 				|| entityManagerFactory != this.jpaTemplate
 						.getEntityManagerFactory()) {
 			this.jpaTemplate = createJpaTemplate(entityManagerFactory);
-		}
-	}
-
-	private void checkMaxFilterConditionsColumnsDeep(
-			final IntegrationDataFilter filter) {
-		int columnsDeep = 0;
-		// Get maximum deep in "columns"
-		if (filter.getColumns() != null) {
-			for (String columnPath : filter.getColumns()) {
-				columnsDeep = Math.max(
-						StringUtils.countOccurrencesOf(columnPath, "."),
-						columnsDeep);
-			}
-		}
-		// Get maximum deep in "columnsIsNull"
-		if (filter.getColumnsIsNull() != null) {
-			for (String columnPath : filter.getColumnsIsNull()) {
-				columnsDeep = Math.max(
-						StringUtils.countOccurrencesOf(columnPath, "."),
-						columnsDeep);
-			}
-		}
-		if (columnsDeep > 1) {
-			StringBuffer e = new StringBuffer();
-			e.append(
-					PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_CONDITIONS_COLUMNS)
-					.append(getClassP().getSimpleName())
-					.append(".")
-					.append(filter.toString())
-					.append(".")
-					.append(PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_ADVIDE);
-			logger.error(e.toString());
-			throw new PersistenceException(e.toString());
-		}
-	}
-
-	private void checkMaxFilterColumnsToSortDeep(
-			final IntegrationDataFilter filter) {
-		// Get maximum deep in "columnsToSort"
-		int columnsDeep = 0;
-		for (String columnPath : filter.getColumnsToSort()) {
-			columnsDeep = Math.max(
-					StringUtils.countOccurrencesOf(columnPath, "."),
-					columnsDeep);
-		}
-		if (columnsDeep > 0) {
-			StringBuffer e = new StringBuffer();
-			e.append(
-					PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_ORDERING_COLUMNS)
-					.append(getClassP().getSimpleName())
-					.append(".")
-					.append(filter.toString())
-					.append(".")
-					.append(PersistenceMessageBundle.MSG_DAO_INVALID_FILTER_ADVIDE);
-			logger.error(e.toString());
-			throw new PersistenceException(e.toString());
 		}
 	}
 }
