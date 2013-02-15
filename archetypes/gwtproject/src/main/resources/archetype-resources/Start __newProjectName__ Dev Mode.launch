@@ -1,0 +1,20 @@
+#set( $symbol_dollar = '$')
+#set( $symbol_pound = '#')
+#set( $symbol_ampersand = '&')
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.google.gdt.eclipse.suite.webapp">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/${artifactId}-gwtfrontend"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gdt.eclipse.maven.mavenClasspathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.dev.DevMode"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-remoteUI &quot;${symbol_dollar}{gwt_remote_ui_server_port}:${symbol_dollar}{unique_id}${symbol_dollar}quot; -logLevel INFO -codeServerPort 9997 -port 8888 ${groupId}.gwtfrontend.Main"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="${artifactId}-gwtfrontend"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx512m"/>
+</launchConfiguration>
