@@ -11,8 +11,8 @@
 <listAttribute key="M2_PROPERTIES"/>
 <booleanAttribute key="M2_SKIP_TESTS" value="true"/>
 <booleanAttribute key="M2_UPDATE_SNAPSHOTS" value="false"/>
-<booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
-<stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${symbol_dollar}{working_set::${symbol_ampersand}lt;?xml version=:${symbol_ampersand}quot;1.0:${symbol_ampersand}quot; encoding=:${symbol_ampersand}quot;UTF-8:${symbol_ampersand}quot;?:${symbol_ampersand}gt;:${symbol_ampersand}${symbol_pound}13;:${symbol_ampersand}${symbol_pound}10;:${symbol_ampersand}lt;resources:${symbol_ampersand}gt;:${symbol_ampersand}${symbol_pound}13;:${symbol_ampersand}${symbol_pound}10;:${symbol_ampersand}lt;item path=:${symbol_ampersand}quot;/example:${symbol_ampersand}quot; type=:${symbol_ampersand}quot;4:${symbol_ampersand}quot;/:${symbol_ampersand}gt;:${symbol_ampersand}${symbol_pound}13;:${symbol_ampersand}${symbol_pound}10;:${symbol_ampersand}lt;item path=:${symbol_ampersand}quot;/example-backend:${symbol_ampersand}quot; type=:${symbol_ampersand}quot;4:${symbol_ampersand}quot;/:${symbol_ampersand}gt;:${symbol_ampersand}${symbol_pound}13;:${symbol_ampersand}${symbol_pound}10;:${symbol_ampersand}lt;item path=:${symbol_ampersand}quot;/example-gwtfrontend:${symbol_ampersand}quot; type=:${symbol_ampersand}quot;4:${symbol_ampersand}quot;/:${symbol_ampersand}gt;:${symbol_ampersand}${symbol_pound}13;:${symbol_ampersand}${symbol_pound}10;:${symbol_ampersand}lt;item path=:${symbol_ampersand}quot;/example-gwtshared:${symbol_ampersand}quot; type=:${symbol_ampersand}quot;4:${symbol_ampersand}quot;/:${symbol_ampersand}gt;:${symbol_ampersand}${symbol_pound}13;:${symbol_ampersand}${symbol_pound}10;:${symbol_ampersand}lt;/resources:${symbol_ampersand}gt;}"/>
+<booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="true"/>
+<stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${project}"/>
 <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
