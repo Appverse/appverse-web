@@ -89,12 +89,6 @@
 			<artifactId>gwt-servlet</artifactId>
 			<version>${gwt.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.sencha.gxt</groupId>
-			<artifactId>gxt</artifactId>
-			<version>${gxt.version}</version>
-		</dependency>
 	</dependencies>
 
 	<profiles>
