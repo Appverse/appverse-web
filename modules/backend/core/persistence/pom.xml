@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.appverse.web.framework.poms.modules.backend.core</groupId>
 		<artifactId>appverse-web-modules-backend-core-pom</artifactId>
-		<version>1.0.3-SNAPSHOT</version>
+		<version>1.0.3-SNAPSHOT</version>  
 	</parent>
 
 	<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
@@ -13,9 +13,9 @@
 	<packaging>jar</packaging>
 
 	<name>Appverse Web Framework Backend Core Persistence Module</name>
-	<description>Appverse Web Framework Backend Core Persistence Module</description>
+	<description>Appverse Web Framework Backend Core Persistence Module</description> 
 
-	<licenses>
+	<licenses>   
 		<license>
 			<comments>
 	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
@@ -110,31 +110,37 @@
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>javax.persistence</artifactId>
-			<version>2.0.3</version>
+			<version>2.0.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>eclipselink</artifactId>
-			<version>2.2.0</version>
+			<artifactId>org.eclipse.persistence.jpa</artifactId>
+			<version>2.4.1</version>
 		</dependency>
 
 		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.oracle</artifactId>
+			<version>2.4.1</version>
+		</dependency>		
+		 
+		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.0.5</version>
+			<version>3.1.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
-			<version>1.0.1</version>
+			<version>1.1.1</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-jms_1.1_spec</artifactId>
-			<version>1.1.1</version>
+			<groupId>javax.jms</groupId>
+			<artifactId>jms</artifactId>
+			<version>1.1</version>
 		</dependency>
 
 	</dependencies>
@@ -157,5 +163,5 @@
 			</build>
 		</profile>
 	</profiles>
-
+     
 </project>
