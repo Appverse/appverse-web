@@ -44,7 +44,7 @@
 	</licenses>
 	
 	<properties>
-		<gwt.version>2.4.0</gwt.version>
+		<gwt.version>2.5.0</gwt.version>
 	</properties>
 	
 	<build>
@@ -61,17 +61,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
@@ -83,23 +72,4 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-
-	<profiles>
-		<profile>
-			<id>development</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<defaultGoal>clean deploy</defaultGoal>
-			</build>
-		</profile>
-
-		<profile>
-			<id>integration</id>
-			<build>
-				<defaultGoal>clean install</defaultGoal>
-			</build>
-		</profile>
-	</profiles>
 </project>
