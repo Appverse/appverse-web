@@ -338,11 +338,6 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	@Override
 	public List<T> execute(QueryJpaCallback<T> query) throws Exception {
 		final List<T> list = getJpaTemplate().execute(query);
-		for (final T item : list) {
-			if (item instanceof AbstractIntegrationBean) {
-				getJpaTemplate().refresh(item);
-			}
-		}
 		return list;
 	}
 
@@ -351,11 +346,6 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
 				true);
 		final List<T> list = getJpaTemplate().execute(query);
-		for (final T item : list) {
-			if (item instanceof AbstractIntegrationBean) {
-				getJpaTemplate().refresh(item);
-			}
-		}
 		return list;
 	}
 
@@ -366,11 +356,6 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 				true);
 		query.setNamedParameters(parameters);
 		final List<T> list = getJpaTemplate().execute(query);
-		for (final T item : list) {
-			if (item instanceof AbstractIntegrationBean) {
-				getJpaTemplate().refresh(item);
-			}
-		}
 		return list;
 	}
 
@@ -384,11 +369,6 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.setFirstResult(firstResult);
 		query.setMaxRecords(maxRecords);
 		final List<T> list = getJpaTemplate().execute(query);
-		for (final T item : list) {
-			if (item instanceof AbstractIntegrationBean) {
-				getJpaTemplate().refresh(item);
-			}
-		}
 		return list;
 	}
 
@@ -604,6 +584,12 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 		return this.jpaTemplate.execute(query);
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List findByNamedQuery(final String queryName, final Object... values) throws Exception{
+		return getJpaTemplate().findByNamedQuery(queryName, values);
+	}	
 
 	/**
 	 * Set the JPA EntityManagerFactory to be used by this DAO. Will
