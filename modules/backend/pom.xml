@@ -139,12 +139,6 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.3.1.Final</version>
-			<exclusions>
-				<exclusion>
-			    	<groupId>org.jboss.logging</groupId>
-   					<artifactId>jboss-logging</artifactId>
-   				</exclusion>	 
-			</exclusions>
 		</dependency>
 
 		<!-- Velocity Profile -->
