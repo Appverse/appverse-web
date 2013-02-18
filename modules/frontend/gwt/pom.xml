@@ -148,5 +148,12 @@
 			<version>${gxt.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.mvp4g</groupId>
+			<artifactId>mvp4g</artifactId>
+			<version>${mvp4.version}</version>
+			<scope>provided</scope>
+		</dependency>		
 	</dependencies>		
 </project>
