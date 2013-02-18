@@ -78,6 +78,9 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 
 	List<T> retrieveAll(final IntegrationPaginatedDataFilter filter)
 			throws Exception;
+	
+	@SuppressWarnings("rawtypes")
+	List findByNamedQuery(final String queryName, final Object... values) throws Exception;
 
 	void setEntityManagerFactory(EntityManagerFactory entityManagerFactory);
 }
