@@ -52,23 +52,25 @@ public class JSONController {
 	@Autowired
 	CustomMappingJacksonHttpMessageConverter customMappingJacksonHttpMessageConverter;
 
+	private void addDefaultResponseHeaders(HttpServletResponse response) {
+		// Add headers to prevent Cross-site ajax calls issues
+		response.addHeader("Content-Type", "application/json; charset=UTF-8");
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Headers",
+				"Content-Type,X-Requested-With");
+	}
+
 	@PostConstruct
 	public void bindMessageConverters() {
-		customMappingJacksonHttpMessageConverter.setObjectMapper(new ObjectMapper());
+		customMappingJacksonHttpMessageConverter
+				.setObjectMapper(new ObjectMapper());
 	}
 
-	private void checkXSRFToken(final HttpServletRequest request) throws IOException {
-		String requestValue = request.getHeader("X-XSRF-Cookie");
-		String sessionValue = (String) request.getSession().getAttribute("X-XSRF-Cookie");
-		if (sessionValue != null && !sessionValue.equals(requestValue)) {
-			throw new PreAuthenticatedCredentialsNotFoundException("XSRF attribute not found in session.");
-
-		}
-	}
-
-	private String createXSRFToken(final HttpServletRequest request) throws IOException {
+	private String createXSRFToken(final HttpServletRequest request)
+			throws IOException {
 		HttpSession session = request.getSession();
-		String xsrfSessionToken = (String) session.getAttribute("X-XSRF-Cookie");
+		String xsrfSessionToken = (String) session
+				.getAttribute("X-XSRF-Cookie");
 		if (xsrfSessionToken == null) {
 			Random r = new Random(System.currentTimeMillis());
 			long value = System.currentTimeMillis() + r.nextLong();
@@ -82,22 +84,42 @@ public class JSONController {
 		return xsrfSessionToken;
 	}
 
-	@RequestMapping(value = "/*.json")
-	public String handleRequest(final HttpServletRequest request, final HttpServletResponse response,
-			@RequestBody String payload) throws Exception {
-		String path = request.getServletPath();
-		String serviceMehtodName = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
-		String serviceName = serviceMehtodName.substring(0, serviceMehtodName.indexOf('-'));
-		if (serviceName == null || serviceMehtodName.isEmpty()) {
-			throw new IllegalArgumentException("ServiceFacade requested is empty");
+	@SuppressWarnings("unused")
+	private void checkXSRFToken(final HttpServletRequest request)
+			throws IOException {
+		String requestValue = request.getHeader("X-XSRF-Cookie");
+		String sessionValue = (String) request.getSession().getAttribute(
+				"X-XSRF-Cookie");
+		if (sessionValue != null && !sessionValue.equals(requestValue)) {
+			throw new PreAuthenticatedCredentialsNotFoundException(
+					"XSRF attribute not found in session.");
+
 		}
-		String methodName = serviceMehtodName.substring(serviceMehtodName.indexOf('-') + 1);
+	}
+
+	@RequestMapping(value = "/*.json")
+	public String handleRequest(final HttpServletRequest request,
+			final HttpServletResponse response, @RequestBody String payload)
+			throws Exception {
+		String path = request.getServletPath();
+		String serviceMehtodName = path.substring(path.lastIndexOf('/') + 1,
+				path.lastIndexOf('.'));
+		String serviceName = serviceMehtodName.substring(0,
+				serviceMehtodName.indexOf('-'));
+		if (serviceName == null || serviceMehtodName.isEmpty()) {
+			throw new IllegalArgumentException(
+					"ServiceFacade requested is empty");
+		}
+		String methodName = serviceMehtodName.substring(serviceMehtodName
+				.indexOf('-') + 1);
 		if (methodName == null || methodName.isEmpty()) {
-			throw new IllegalArgumentException("Mehtod requested is empty for serviceFacade" + serviceName);
+			throw new IllegalArgumentException(
+					"Mehtod requested is empty for serviceFacade" + serviceName);
 		}
 		Object presentationService = applicationContext.getBean(serviceName);
 		if (presentationService == null) {
-			throw new IllegalArgumentException("Requested ServiceFacade don't exists " + serviceName);
+			throw new IllegalArgumentException(
+					"Requested ServiceFacade don't exists " + serviceName);
 		}
 		if (!(presentationService instanceof AuthenticationServiceFacade)) {
 			// checkXSRFToken(request);
@@ -110,38 +132,37 @@ public class JSONController {
 				}
 			}
 			if (method == null) {
-				throw new IllegalArgumentException("Requested Method don't exists " + methodName
-						+ " for serviceFacade " + serviceName);
+				throw new IllegalArgumentException(
+						"Requested Method don't exists " + methodName
+								+ " for serviceFacade " + serviceName);
 			}
-			Class<?> returnType = method.getReturnType();
 			Class<?>[] parameterTypes = method.getParameterTypes();
 			Class<?> parameterType = null;
 			if (parameterTypes.length > 1) {
-				throw new IllegalArgumentException("Requested Method" + methodName + " for serviceFacade "
-						+ serviceName + " only accepts 0 or 1 parameter");
+				throw new IllegalArgumentException("Requested Method"
+						+ methodName + " for serviceFacade " + serviceName
+						+ " only accepts 0 or 1 parameter");
 			}
 			Object parameter = null;
 			if (parameterTypes.length > 0) {
 				parameterType = parameterTypes[0];
-				parameter = customMappingJacksonHttpMessageConverter.readInternal(parameterType, payload);
+				parameter = customMappingJacksonHttpMessageConverter
+						.readInternal(parameterType, payload);
 			}
 			Object result = method.invoke(presentationService, parameter);
-			ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(response);
-			customMappingJacksonHttpMessageConverter.write(result, MediaType.APPLICATION_JSON, outputMessage);
+			ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
+					response);
+			customMappingJacksonHttpMessageConverter.write(result,
+					MediaType.APPLICATION_JSON, outputMessage);
 			addDefaultResponseHeaders(response);
 			return "";
 		} else if (presentationService instanceof AuthenticationServiceFacade
-				&& methodName.equals(AuthenticationServiceFacade.class.getMethod("getXSRFSessionToken"))) {
+				&& methodName.equals(AuthenticationServiceFacade.class
+						.getMethod("getXSRFSessionToken"))) {
 			createXSRFToken(request);
 			return "";
 		}
 		return null;
 	}
-    private void addDefaultResponseHeaders(HttpServletResponse response) { 
-        // Add headers to prevent Cross-site ajax calls issues 
-        response.addHeader("Content-Type", "application/json; charset=UTF-8"); 
-        response.addHeader("Access-Control-Allow-Origin", "*"); 
-        response.addHeader("Access-Control-Allow-Headers", "Content-Type,X-Requested-With"); 
-} 
 
 }

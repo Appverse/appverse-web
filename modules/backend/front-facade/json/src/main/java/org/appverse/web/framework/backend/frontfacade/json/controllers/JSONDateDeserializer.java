@@ -24,9 +24,7 @@
 package org.appverse.web.framework.backend.frontfacade.json.controllers;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;

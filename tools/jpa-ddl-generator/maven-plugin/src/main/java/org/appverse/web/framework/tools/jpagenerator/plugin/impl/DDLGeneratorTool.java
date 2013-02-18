@@ -38,7 +38,6 @@ import javax.persistence.Persistence;
 import org.apache.maven.plugin.logging.Log;
 import org.appverse.web.framework.tools.jpagenerator.plugin.DDLParameters;
 import org.eclipse.persistence.config.PersistenceUnitProperties;
-import org.eclipse.persistence.logging.SessionLog;
 
 public class DDLGeneratorTool {
 
@@ -46,7 +45,8 @@ public class DDLGeneratorTool {
 	private final DDLClassLoader ddlClassLoader;
 	private final Log log;
 
-	public DDLGeneratorTool(DDLParameters parameters, DDLClassLoader classLoader, Log logger) {
+	public DDLGeneratorTool(DDLParameters parameters,
+			DDLClassLoader classLoader, Log logger) {
 		this.log = logger;
 		this.parameters = parameters;
 		this.ddlClassLoader = classLoader;
@@ -86,28 +86,38 @@ public class DDLGeneratorTool {
 
 	public void generateSchema() {
 		Map<String, Object> properties = new HashMap<String, Object>();
-		properties.put(PersistenceUnitProperties.JDBC_DRIVER, CreateSchemaMockDriver.class.getName());
+		properties.put(PersistenceUnitProperties.JDBC_DRIVER,
+				CreateSchemaMockDriver.class.getName());
 		properties.put(PersistenceUnitProperties.JDBC_URL, "emulate:dummy");
-		properties.put(PersistenceUnitProperties.DDL_GENERATION, PersistenceUnitProperties.DROP_AND_CREATE);
-		properties.put(PersistenceUnitProperties.DDL_GENERATION_MODE,PersistenceUnitProperties.DDL_SQL_SCRIPT_GENERATION);
-		properties.put(PersistenceUnitProperties.CREATE_JDBC_DDL_FILE, parameters.getDdlCreateFileName());
-		properties.put(PersistenceUnitProperties.DROP_JDBC_DDL_FILE, parameters.getDdlDropFileName());
-		properties.put(PersistenceUnitProperties.APP_LOCATION, parameters.getDdlOutputDir());
-		properties.put(PersistenceUnitProperties.ECLIPSELINK_PERSISTENCE_XML, parameters.getPersistenceUnitFile());
-		properties.put(PersistenceUnitProperties.TARGET_DATABASE, parameters.getTargetDbPlatform());
+		properties.put(PersistenceUnitProperties.DDL_GENERATION,
+				PersistenceUnitProperties.DROP_AND_CREATE);
+		properties.put(PersistenceUnitProperties.DDL_GENERATION_MODE,
+				PersistenceUnitProperties.DDL_SQL_SCRIPT_GENERATION);
+		properties.put(PersistenceUnitProperties.CREATE_JDBC_DDL_FILE,
+				parameters.getDdlCreateFileName());
+		properties.put(PersistenceUnitProperties.DROP_JDBC_DDL_FILE,
+				parameters.getDdlDropFileName());
+		properties.put(PersistenceUnitProperties.APP_LOCATION,
+				parameters.getDdlOutputDir());
+		properties.put(PersistenceUnitProperties.ECLIPSELINK_PERSISTENCE_XML,
+				parameters.getPersistenceUnitFile());
+		properties.put(PersistenceUnitProperties.TARGET_DATABASE,
+				parameters.getTargetDbPlatform());
 		properties.put(PersistenceUnitProperties.CLASSLOADER, ddlClassLoader);
 		ensureOutputDirectoryExists();
-		
+
 		ClassLoader tccl = Thread.currentThread().getContextClassLoader();
 		try {
 			Thread.currentThread().setContextClassLoader(ddlClassLoader);
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory(parameters.getPersistenceUnitName(),
-					properties);
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory(
+					parameters.getPersistenceUnitName(), properties);
 			EntityManager em = emf.createEntityManager();
 			em.close();
 			emf.close();
-			fixSqlLineTerminators(parameters.getDdlOutputDir(), parameters.getDdlCreateFileName());
-			fixSqlLineTerminators(parameters.getDdlOutputDir(), parameters.getDdlDropFileName());
+			fixSqlLineTerminators(parameters.getDdlOutputDir(),
+					parameters.getDdlCreateFileName());
+			fixSqlLineTerminators(parameters.getDdlOutputDir(),
+					parameters.getDdlDropFileName());
 		} finally {
 			Thread.currentThread().setContextClassLoader(tccl);
 		}

@@ -46,9 +46,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 @Component
-public class CustomMappingJacksonHttpMessageConverter extends AbstractHttpMessageConverter<Object> {
+public class CustomMappingJacksonHttpMessageConverter extends
+		AbstractHttpMessageConverter<Object> {
 
-	private final Logger logger = LoggerFactory.getLogger(CustomMappingJacksonHttpMessageConverter.class);
+	private final Logger logger = LoggerFactory
+			.getLogger(CustomMappingJacksonHttpMessageConverter.class);
 
 	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
@@ -78,9 +80,11 @@ public class CustomMappingJacksonHttpMessageConverter extends AbstractHttpMessag
 	protected Long getContentLength(Object o, MediaType contentType) {
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			JsonGenerator baosjsonGenerator = this.objectMapper.getJsonFactory().createJsonGenerator(baos);
+			JsonGenerator baosjsonGenerator = this.objectMapper
+					.getJsonFactory().createJsonGenerator(baos);
 			this.objectMapper.writeValue(baosjsonGenerator, o);
-			ByteArrayOutputStream os = (ByteArrayOutputStream) baosjsonGenerator.getOutputTarget();
+			ByteArrayOutputStream os = (ByteArrayOutputStream) baosjsonGenerator
+					.getOutputTarget();
 			return new Long(os.size());
 		} catch (Exception e) {
 			return new Long(0);
@@ -128,10 +132,10 @@ public class CustomMappingJacksonHttpMessageConverter extends AbstractHttpMessag
 	}
 
 	@Override
-	protected Object readInternal(Class<?> clazz, HttpInputMessage inputMessage) throws IOException,
-			HttpMessageNotReadableException {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputMessage.getBody(),
-				DEFAULT_CHARSET));
+	protected Object readInternal(Class<?> clazz, HttpInputMessage inputMessage)
+			throws IOException, HttpMessageNotReadableException {
+		BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(inputMessage.getBody(), DEFAULT_CHARSET));
 		StringBuilder stringBuilder = new StringBuilder();
 		String line = null;
 
@@ -139,15 +143,17 @@ public class CustomMappingJacksonHttpMessageConverter extends AbstractHttpMessag
 			stringBuilder.append(line + " ");
 		}
 
-		logger.debug("Middleware recieves " + clazz.getName() + " " + stringBuilder.toString());
+		logger.debug("Middleware recieves " + clazz.getName() + " "
+				+ stringBuilder.toString());
 		JavaType javaType = getJavaType(clazz);
 		return this.objectMapper.readValue(stringBuilder.toString(), javaType);
 	}
 
-	protected Object readInternal(Class<?> clazz, String inputMessage) throws IOException,
-			HttpMessageNotReadableException {
+	protected Object readInternal(Class<?> clazz, String inputMessage)
+			throws IOException, HttpMessageNotReadableException {
 
-		logger.debug("Middleware recieves " + clazz.getName() + " " + inputMessage);
+		logger.debug("Middleware recieves " + clazz.getName() + " "
+				+ inputMessage);
 		JavaType javaType = getJavaType(clazz);
 		return this.objectMapper.readValue(inputMessage, javaType);
 	}
@@ -190,21 +196,22 @@ public class CustomMappingJacksonHttpMessageConverter extends AbstractHttpMessag
 	}
 
 	@Override
-	protected void writeInternal(Object o, HttpOutputMessage outputMessage) throws IOException,
-			HttpMessageNotWritableException {
-		JsonEncoding encoding = getEncoding(outputMessage.getHeaders().getContentType());
-		JsonGenerator jsonGenerator = this.objectMapper.getJsonFactory().createJsonGenerator(outputMessage.getBody(),
-				encoding);
+	protected void writeInternal(Object o, HttpOutputMessage outputMessage)
+			throws IOException, HttpMessageNotWritableException {
+		JsonEncoding encoding = getEncoding(outputMessage.getHeaders()
+				.getContentType());
+		JsonGenerator jsonGenerator = this.objectMapper.getJsonFactory()
+				.createJsonGenerator(outputMessage.getBody(), encoding);
 		if (this.prefixJson) {
 			jsonGenerator.writeRaw("{} && ");
 		}
 		this.objectMapper.writeValue(jsonGenerator, o);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		JsonGenerator baosjsonGenerator = this.objectMapper.getJsonFactory().createJsonGenerator(baos, encoding);
+		JsonGenerator baosjsonGenerator = this.objectMapper.getJsonFactory()
+				.createJsonGenerator(baos, encoding);
 		this.objectMapper.writeValue(baosjsonGenerator, o);
-		ByteArrayOutputStream os = (ByteArrayOutputStream) baosjsonGenerator.getOutputTarget();
-		long length = os.size();
-		logger.debug("Middleware returns " + o.getClass().getName() + " " + baos.toString());
+		logger.debug("Middleware returns " + o.getClass().getName() + " "
+				+ baos.toString());
 	}
 
 }

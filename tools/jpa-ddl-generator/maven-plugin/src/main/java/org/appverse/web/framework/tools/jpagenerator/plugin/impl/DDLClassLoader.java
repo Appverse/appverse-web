@@ -31,11 +31,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.project.MavenProject;
-import org.appverse.web.framework.tools.jpagenerator.plugin.DDLParameters;
 
 public class DDLClassLoader extends URLClassLoader {
 
-	public static DDLClassLoader create(ClassLoader pluginClassLoader, MavenProject project) {
+	public static DDLClassLoader create(ClassLoader pluginClassLoader,
+			MavenProject project) {
 		List<URL> urls = new ArrayList<URL>();
 		try {
 			File classDir = null;
