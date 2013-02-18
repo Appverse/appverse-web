@@ -115,15 +115,9 @@
 
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>org.eclipse.persistence.jpa</artifactId>
+			<artifactId>eclipselink</artifactId>
 			<version>2.4.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>org.eclipse.persistence.oracle</artifactId>
-			<version>2.4.1</version>
-		</dependency>		
+		</dependency>	
 		 
 		<dependency>
 			<groupId>org.mybatis</groupId>
