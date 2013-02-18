@@ -56,18 +56,20 @@
 			<version>5.0.1</version>
 			<exclusions>
 				<exclusion>
-					<groupId>org.apache.xmlbeans</groupId>
-					<artifactId>xmlbeans</artifactId>
+					<artifactId>bcmail-jdk14</artifactId>
+					<groupId>org.bouncycastle</groupId>
 				</exclusion>
 				<exclusion>
-					<groupId>xml-apis</groupId>
-					<artifactId>xml-apis</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.geronimo.specs</groupId>
-					<artifactId>geronimo-stax-api_1.0_spec</artifactId>
+					<artifactId>bcmail-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.6</version>
 		</dependency>
 
 		<dependency>
