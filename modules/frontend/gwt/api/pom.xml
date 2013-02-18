@@ -6,7 +6,7 @@
 		<groupId>org.appverse.web.framework.poms.modules.frontend.gwt.parent</groupId>
 		<artifactId>appverse-web-modules-frontend-gwt-parent-pom</artifactId>
 		<version>1.0.3-SNAPSHOT</version>
-		<relativePath>../pom</relativePath>
+	    <relativePath>../pom</relativePath>
 	</parent>
 
 	<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
