@@ -31,9 +31,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
-import org.springframework.orm.jpa.JpaCallback;
-
-public class UpdateJpaCallback<T> implements JpaCallback<Object> {
+public class UpdateJpaCallback<T> {
 
 	private final String queryString;
 	private List<QueryJpaCallbackParameter> namedParameters;
@@ -47,7 +45,6 @@ public class UpdateJpaCallback<T> implements JpaCallback<Object> {
 		hints = null;
 	}
 
-	@Override
 	public Object doInJpa(EntityManager em) throws PersistenceException {
 
 		// create query

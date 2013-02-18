@@ -31,9 +31,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
-import org.springframework.orm.jpa.JpaCallback;
-
-public class QueryJpaCallback<T> implements JpaCallback<List<T>> {
+public class QueryJpaCallback<T> {
 
 	private String queryString;
 	private List<QueryJpaCallbackParameter> namedParameters;
@@ -86,7 +84,6 @@ public class QueryJpaCallback<T> implements JpaCallback<List<T>> {
 		return total;
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
 	public List<T> doInJpa(EntityManager em) throws PersistenceException {
 

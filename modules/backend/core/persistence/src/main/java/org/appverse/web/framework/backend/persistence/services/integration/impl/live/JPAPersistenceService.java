@@ -25,12 +25,13 @@ package org.appverse.web.framework.backend.persistence.services.integration.impl
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
@@ -42,11 +43,9 @@ import org.appverse.web.framework.backend.api.services.integration.NotUniqueResu
 import org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService;
 import org.appverse.web.framework.backend.persistence.services.integration.helpers.PersistenceMessageBundle;
 import org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback;
-import org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallbackHint;
 import org.appverse.web.framework.backend.persistence.services.integration.helpers.UpdateJpaCallback;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.orm.jpa.JpaTemplate;
 import org.springframework.util.StringUtils;
 
 /**
@@ -55,12 +54,12 @@ import org.springframework.util.StringUtils;
  * support and strictly very easy ordering and filtering conditions. Take into
  * account that the use of this service is restricted to the aforementioned
  * cases and more complex queries need to be built by means a custom JPA query.
- *
+ * 
  * This service support only support automatic generation of JPA queries
  * filtering by <T> object first level attributes that would NOT imply express
  * JOIN indication in the generated JPQL and only allows sorting by first level
  * attributes in the root <T> object.
- *
+ * 
  * @param <T>
  *            Abstract integration Bean the persistence service will deal with
  */
@@ -76,18 +75,18 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	// this value.
 	private String BEAN_PK_NAME = "pk";
 
-	private JpaTemplate jpaTemplate;
+	@PersistenceContext
+	private EntityManager em;
 
 	@AutowiredLogger
 	private static Logger logger;
-
 
 	private StringBuilder buildQueryString(final IntegrationDataFilter filter) {
 		return buildQueryString(filter, false);
 	}
 
-	private StringBuilder buildQueryString(
-			final IntegrationDataFilter filter, final boolean isCount) {
+	private StringBuilder buildQueryString(final IntegrationDataFilter filter,
+			final boolean isCount) {
 
 		if (filter != null) {
 			checkMaxFilterConditionsColumnsDeep(filter);
@@ -300,27 +299,10 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		}
 	}
 
-	/**
-	 * Create a JpaTemplate for the given EntityManagerFactory. Only invoked if
-	 * populating the DAO with a EntityManagerFactory reference!
-	 * <p>
-	 * Can be overridden in subclasses to provide a JpaTemplate instance with
-	 * different configuration, or a custom JpaTemplate subclass.
-	 *
-	 * @param entityManagerFactory
-	 *            the JPA EntityManagerFactory to create a JpaTemplate for
-	 * @return the new JpaTemplate instance
-	 * @see #setEntityManagerFactory
-	 */
-	private JpaTemplate createJpaTemplate(
-			final EntityManagerFactory entityManagerFactory) {
-		return new JpaTemplate(entityManagerFactory);
-	}
-
 	@Override
 	public void delete(final T beanP) throws Exception {
 		logger.trace(PersistenceMessageBundle.MSG_DAO_REMOVE);
-		this.jpaTemplate.remove(beanP);
+		em.remove(beanP);
 	}
 
 	@Override
@@ -332,12 +314,12 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 				.append(" p ");
 		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(
 				queryString.toString());
-		this.jpaTemplate.execute(query);
+		query.doInJpa(em);
 	}
 
 	@Override
 	public List<T> execute(QueryJpaCallback<T> query) throws Exception {
-		final List<T> list = getJpaTemplate().execute(query);
+		final List<T> list = query.doInJpa(em);
 		return list;
 	}
 
@@ -345,7 +327,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	public List<T> execute(final String queryString) throws Exception {
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
 				true);
-		final List<T> list = getJpaTemplate().execute(query);
+		final List<T> list = query.doInJpa(em);
 		return list;
 	}
 
@@ -355,7 +337,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
 				true);
 		query.setNamedParameters(parameters);
-		final List<T> list = getJpaTemplate().execute(query);
+		final List<T> list = query.doInJpa(em);
 		return list;
 	}
 
@@ -368,7 +350,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.setNamedParameters(parameters);
 		query.setFirstResult(firstResult);
 		query.setMaxRecords(maxRecords);
-		final List<T> list = getJpaTemplate().execute(query);
+		final List<T> list = query.doInJpa(em);
 		return list;
 	}
 
@@ -379,8 +361,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
 				queryString.toString(), true);
 		query.setIndexedParameters(filter.getValues().toArray());
-		return query.countInJpa(getJpaTemplate().getEntityManagerFactory()
-				.createEntityManager());
+		return query.countInJpa(em);
 	}
 
 	@Override
@@ -389,15 +370,14 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
 				true);
 		query.setNamedParameters(parameters);
-		return query.countInJpa(getJpaTemplate().getEntityManagerFactory()
-				.createEntityManager());
+		return query.countInJpa(em);
 	}
 
 	@Override
 	public void executeUpdate(final String queryString) throws Exception {
 		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(
 				queryString.toString());
-		this.jpaTemplate.execute(query);
+		query.doInJpa(em);
 	}
 
 	@Override
@@ -406,13 +386,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(
 				queryString.toString());
 		query.setNamedParameters(parameters);
-		this.jpaTemplate.execute(query);
-	}
-
-	@Override
-	public void flush() throws Exception {
-		logger.trace(PersistenceMessageBundle.MSG_DAO_FLUSH);
-		this.jpaTemplate.flush();
+		query.doInJpa(em);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -445,10 +419,6 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return classP;
 	}
 
-	private JpaTemplate getJpaTemplate() {
-		return this.jpaTemplate;
-	}
-
 	@Override
 	public long persist(final T bean) throws Exception {
 		logger.trace(PersistenceMessageBundle.MSG_DAO_PERSIST);
@@ -463,19 +433,14 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		}
 		if (beanId == 0) {
 			// new
-			this.jpaTemplate.persist(bean);
+			em.persist(bean);
 			beanId = (Long) PropertyUtils.getProperty(bean, this.BEAN_PK_NAME);
 		} else {
 			// update
-			this.jpaTemplate.merge(bean);
+			em.merge(bean);
 		}
 		PropertyUtils.setProperty(bean, this.BEAN_PK_NAME, beanId);
 		return beanId;
-	}
-
-	@Override
-	public void refresh(final T beanP) throws PersistenceException {
-		getJpaTemplate().refresh(beanP);
 	}
 
 	@Override
@@ -492,33 +457,40 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	@Override
 	public T retrieve(final long pk) throws Exception {
-		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEBY, pk);
 		final Class<T> classP = getClassP();
-		return this.jpaTemplate.find(classP, pk);
+		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK,
+				new Object[] { classP, this.BEAN_PK_NAME });
+		try {
+			return em.find(classP, pk);
+		} catch (final Exception e) {
+			logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK_ERROR,
+					new Object[] { classP, this.BEAN_PK_NAME });
+			throw new PersistenceException(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK_ERROR
+							+ this.BEAN_PK_NAME);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public T retrieve(final T beanP) throws Exception {
-		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN_ERROR_P2,
+		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN,
 				new Object[] { beanP, this.BEAN_PK_NAME });
 		Object beanId;
 		try {
 			beanId = PropertyUtils.getProperty(beanP, this.BEAN_PK_NAME);
-			return (T) this.jpaTemplate.find(beanP.getClass(), beanId);
+			return (T) em.find(beanP.getClass(), beanId);
 		} catch (final Exception e) {
-			logger.error(
-					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN_ERROR_P1,
-					this.BEAN_PK_NAME);
+			logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN,
+					new Object[] { beanP, this.BEAN_PK_NAME });
 			throw new PersistenceException(
-					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN
-							+ this.BEAN_PK_NAME);
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN);
 		}
 	}
 
 	@Override
 	public List<T> retrieveAll() throws Exception {
-		return retrieveAll(new ArrayList<QueryJpaCallbackHint>(), null);
+		return retrieveAll(null);
 	}
 
 	@Override
@@ -530,10 +502,17 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 			final StringBuilder queryString = buildQueryString(filter);
 			final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
 					queryString.toString(), false);
-			query.setIndexedParameters(filter.getValues().toArray());
+			if (filter != null) {
+				query.setIndexedParameters(filter.getValues().toArray());
+				if (filter instanceof IntegrationPaginatedDataFilter) {
+					IntegrationPaginatedDataFilter iFilter = (IntegrationPaginatedDataFilter) filter;
+					query.setFirstResult(iFilter.getOffset());
+					query.setMaxRecords(iFilter.getLimit());
+				}
+			}
 
-			return this.jpaTemplate.execute(query);
-		} catch (final Throwable e) {
+			return query.doInJpa(em);
+		} catch (final Exception e) {
 			logger.error(
 					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR,
 					new Object[] { filter.toString(), getClassP() });
@@ -545,65 +524,17 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		}
 	}
 
-	@Override
-	public List<T> retrieveAll(final IntegrationPaginatedDataFilter filter)
-			throws Exception {
-		return retrieveAll(new ArrayList<QueryJpaCallbackHint>(), filter);
-	}
-
-	private List<T> retrieveAll(List<QueryJpaCallbackHint> hints,
-			final IntegrationPaginatedDataFilter filter)
-			throws PersistenceException {
-		final Class<T> classP = getClassP();
-
-		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEALL, classP);
-		// final List<QueryJpaCallbackParameter> parameters = new
-		// ArrayList<QueryJpaCallbackParameter>();
-		final StringBuilder queryString = buildQueryString(filter);
-
-		// final StringBuilder queryString = new StringBuilder();
-		//
-		// queryString.append("select p from ").append(classP.getSimpleName())
-		// .append(" p");
-
-		if (hints == null) {
-			hints = new ArrayList<QueryJpaCallbackHint>();
-		}
-		hints.add(QueryJpaCallbackHint.FETCH_SIZE_1024);
-
-		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
-				queryString.toString(), true);
-		// query.setNamedParameters(parameters);
-		query.setHints(hints);
-
-		if (filter != null) {
-			query.setIndexedParameters(filter.getValues().toArray());
-			query.setFirstResult(filter.getOffset());
-			query.setMaxRecords(filter.getLimit());
-		}
-
-		return this.jpaTemplate.execute(query);
-	}
-	
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List findByNamedQuery(final String queryName, final Object... values) throws Exception{
-		return getJpaTemplate().findByNamedQuery(queryName, values);
-	}	
-
-	/**
-	 * Set the JPA EntityManagerFactory to be used by this DAO. Will
-	 * automatically create a JpaTemplate for the given EntityManagerFactory.
-	 *
-	 * @see #createJpaTemplate
-	 */
-	@Override
-	public final void setEntityManagerFactory(
-			final EntityManagerFactory entityManagerFactory) {
-		if (this.jpaTemplate == null
-				|| entityManagerFactory != this.jpaTemplate
-						.getEntityManagerFactory()) {
-			this.jpaTemplate = createJpaTemplate(entityManagerFactory);
+	public List retrieveAll(final String queryName, final Object... values)
+			throws Exception {
+		Query query = em.createNamedQuery(queryName);
+		int i = 0;
+		for (Object value : values) {
+			query.setParameter(i, value);
+			i++;
 		}
+		return query.getResultList();
 	}
+
 }

@@ -28,9 +28,10 @@ public class PersistenceMessageBundle {
 	/**
 	 * DAO Message Constants
 	 */
-	public static final String MSG_DAO_RETRIEVEBYBEAN = "Error retrieving bean by Id fieldName ";
-	public static final String MSG_DAO_RETRIEVEBYBEAN_ERROR_P1 = "Error retrieving bean by Id fieldName {0}";
-	public static final String MSG_DAO_RETRIEVEBYBEAN_ERROR_P2 = "Executing retrieveByBean for {0} with PK field {1}";
+	public static final String MSG_DAO_RETRIEVEBYPK = "Executing retrieving bean of class {0} by pk with PK field {1}";
+	public static final String MSG_DAO_RETRIEVEBYBEAN = "Executing retrieving bean {0} by bean with PK field {1}";
+	public static final String MSG_DAO_RETRIEVEBYPK_ERROR = "Error retrieving bean {0} by pk with PK field {1}";
+	public static final String MSG_DAO_RETRIEVEBYBEAN_ERROR = "Error retrieving bean of class {0} by bean with PK field {1}";
 	public static final String MSG_DAO_PERSIST = "Executing persist.";
 	public static final String MSG_DAO_REFRESH = "Executing refresh.";
 	public static final String MSG_DAO_PERSIST_IDNOTFOUND = "Persist PK with name 'id' does not exist.";
@@ -39,7 +40,6 @@ public class PersistenceMessageBundle {
 	public static final String MSG_DAO_REMOVEALL = "Executing deleteAll for {0}";
 	public static final String MSG_DAO_COUNTALL = "Executing countAll for {0}";
 	public static final String MSG_DAO_RETRIEVEALL = "Executing retrieveAll for {0}";
-	public static final String MSG_DAO_RETRIEVEBY = "Executing retrieveByPk for {0}";
 	public static final String MSG_DAO_RETRIEVEBY_ERROR_PARAMETERPATTERN = "{0} does not adhere to parameterized pattern.";
 	public static final String MSG_DAO_RETRIEVEBY_ERROR_PARAMETERTYPE = "{0} does not have a simple parameterized type.";
 	public static final String MSG_DAO_RETRIEVEFILTERED = "Executing retrieveByFilter for {0} with filter {1}";

@@ -26,11 +26,8 @@ package org.appverse.web.framework.backend.persistence.services.integration;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityManagerFactory;
-
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter;
-import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
 import org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback;
 
 public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
@@ -60,11 +57,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	void executeUpdate(String queryString, Map<String, Object> parameters)
 			throws Exception;
 
-	void flush() throws Exception;
-
 	long persist(T bean) throws Exception;
-
-	void refresh(T beanP);
 
 	T retrieve(final IntegrationDataFilter filter) throws Exception;
 
@@ -76,11 +69,8 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 
 	List<T> retrieveAll(IntegrationDataFilter filter) throws Exception;
 
-	List<T> retrieveAll(final IntegrationPaginatedDataFilter filter)
-			throws Exception;
-	
 	@SuppressWarnings("rawtypes")
-	List findByNamedQuery(final String queryName, final Object... values) throws Exception;
+	List retrieveAll(final String queryName, final Object... values)
+			throws Exception;
 
-	void setEntityManagerFactory(EntityManagerFactory entityManagerFactory);
 }
