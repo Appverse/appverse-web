@@ -43,6 +43,10 @@
 		</license>
 	</licenses>
 
+	<properties>
+		<gwt.version>2.5.0</gwt.version>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -54,17 +58,6 @@
 						<goals>
 							<goal>resources</goal>
 							<goal>generateAsync</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -82,7 +75,7 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
-			<version>2.5.0</version>
+			<version>${gwt.version}</version>
 		</dependency>
 	</dependencies>
 </project>
