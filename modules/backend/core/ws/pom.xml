@@ -43,25 +43,7 @@
 		</license>
 	</licenses>
 
-
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-
 	<dependencies>
-		
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
@@ -85,25 +67,5 @@
 			<artifactId>axis2-transport-local</artifactId>
 			<version>1.6.2</version>
 		</dependency>  		
-
 	</dependencies>
-
-	<profiles>
-		<profile>
-			<id>development</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<defaultGoal>clean deploy</defaultGoal>
-			</build>
-		</profile>
-
-		<profile>
-			<id>integration</id>
-			<build>
-				<defaultGoal>clean install</defaultGoal>
-			</build>
-		</profile>
-	</profiles>
 </project>

@@ -32,7 +32,6 @@
 
 	<!-- GXT -->
 	<inherits name='com.sencha.gxt.ui.GXT' />
-	<inherits name='com.sencha.gwt.uibinder.UiBinder' />
 	<inherits name="com.sencha.gxt.theme.blue.Blue"/>
 
 	<!-- MVP4G Framework Module -->

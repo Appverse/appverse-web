@@ -76,18 +76,6 @@
 					</buildcommands>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
@@ -104,24 +92,4 @@
 			<version>1.6.10</version>
 		</dependency>
 	</dependencies>
-
-	<profiles>
-		<profile>
-			<id>development</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<defaultGoal>clean deploy</defaultGoal>
-			</build>
-		</profile>
-
-		<profile>
-			<id>integration</id>
-			<build>
-				<defaultGoal>clean install</defaultGoal>
-			</build>
-		</profile>
-	</profiles>
-
 </project>

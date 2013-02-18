@@ -11,6 +11,9 @@
 	<artifactId>appverse-web-modules-pom</artifactId>
 	<packaging>pom</packaging>
 
+	<name>Appverse Web Framework Modules POM</name>
+	<description>Appverse Web Framework Modules POM</description>
+
 	<licenses>
 		<license>
 			<comments>
@@ -39,9 +42,6 @@
 		</license>
 	</licenses>
 	
-	<name>Appverse Web Framework Modules POM</name>
-	<description>Appverse Web Framework Modules POM</description>
-
 	<modules>
 		<module>backend</module>
 		<module>frontend</module>

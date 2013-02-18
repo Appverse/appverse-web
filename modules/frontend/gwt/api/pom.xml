@@ -6,7 +6,6 @@
 		<groupId>org.appverse.web.framework.poms.modules.frontend.gwt.parent</groupId>
 		<artifactId>appverse-web-modules-frontend-gwt-parent-pom</artifactId>
 		<version>1.0.3-SNAPSHOT</version>
-		<relativePath>../pom</relativePath>
 	</parent>
 
 	<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
@@ -14,10 +13,6 @@
 
 	<name>Appverse Web Framework Modules Frontend GWT API</name>
 	<description>Appverse Web Framework Modules Frontend GWT API</description>
-
-	<properties>
-		<framework.version>${project.version}</framework.version>
-	</properties>
 
 	<licenses>
 		<license>
@@ -70,38 +65,5 @@
 				</includes>
 			</resource>
 		</resources>
-
-		<plugins>
-			<plugin>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>development</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<defaultGoal>clean deploy</defaultGoal>
-			</build>
-		</profile>
-
-		<profile>
-			<id>integration</id>
-			<build>
-				<defaultGoal>clean install</defaultGoal>
-			</build>
-		</profile>
-	</profiles>
 </project>
