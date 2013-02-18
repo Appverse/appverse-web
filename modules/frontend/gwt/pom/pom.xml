@@ -76,6 +76,14 @@
 		</pluginManagement>
 	</build>
 	
+	<dependencies>
+		<dependency> 
+			<groupId>com.googlecode.gwt-validation</groupId> 
+			<artifactId>gwt-validation</artifactId> 
+			<version>2.1</version> 
+		</dependency> 
+	</dependencies>	
+	
 	<profiles> 
 		<profile> 
 			<id>development</id> 
