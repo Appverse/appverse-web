@@ -28,7 +28,7 @@ import java.util.List;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -54,7 +54,7 @@ public class PreAuthUserDetailsService implements
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
 		for (String externalAuthority : externalAuthorities) {
-			GrantedAuthority authority = new GrantedAuthorityImpl(
+			GrantedAuthority authority = new SimpleGrantedAuthority(
 					externalAuthority);
 			authorities.add(authority);
 		}
