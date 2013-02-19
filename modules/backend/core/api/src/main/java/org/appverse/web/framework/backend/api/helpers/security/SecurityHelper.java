@@ -33,11 +33,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class SecurityHelper {
 
+	@SuppressWarnings("unchecked")
 	public static List<String> getAuthorities() {
 		final Authentication authentication = SecurityContextHolder
 				.getContext().getAuthentication();
 		List<String> credentials = new ArrayList<String>();
-		Collection<GrantedAuthority> grantedAuthorities = authentication
+		Collection<GrantedAuthority> grantedAuthorities = (Collection<GrantedAuthority>) authentication
 				.getAuthorities();
 		for (GrantedAuthority grantedAuthority : grantedAuthorities) {
 			credentials.add(grantedAuthority.getAuthority());

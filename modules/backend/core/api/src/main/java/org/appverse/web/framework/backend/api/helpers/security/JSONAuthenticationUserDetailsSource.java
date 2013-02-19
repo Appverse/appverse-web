@@ -25,45 +25,57 @@ package org.appverse.web.framework.backend.api.helpers.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.security.core.authority.MutableGrantedAuthoritiesContainer;
-import org.springframework.security.web.authentication.preauth.j2ee.AbstractPreAuthenticatedAuthenticationDetailsSource;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.mapping.MappableAttributesRetriever;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails;
+import org.springframework.security.web.authentication.preauth.j2ee.J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource;
 
-public class JSONAuthenticationUserDetailsSource extends AbstractPreAuthenticatedAuthenticationDetailsSource {
+public class JSONAuthenticationUserDetailsSource extends
+		J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource {
 
 	private String authoritiesSessionAttribute = "REMOTE_AUTHORITIES";
 
-	/**
-	 * Build the authentication details object. If the specified authentication
-	 * details class implements {@link MutableGrantedAuthoritiesContainer}, a
-	 * list of pre-authenticated Granted Authorities will be set based on the
-	 * roles for the current user.
-	 * 
-	 * @see org.springframework.security.authentication.AuthenticationDetailsSource#buildDetails(Object)
-	 */
 	@Override
-	public Object buildDetails(Object context) {
-
-		if (((HttpServletRequest) context).getSession().getAttribute(authoritiesSessionAttribute) != null) {
-			return ((HttpServletRequest) context).getSession().getAttribute(authoritiesSessionAttribute);
+	@SuppressWarnings("unchecked")
+	public PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails buildDetails(
+			HttpServletRequest request) {
+		if (request.getSession().getAttribute(authoritiesSessionAttribute) != null) {
+			List<String> authorities = (List<String>) request.getSession()
+					.getAttribute(authoritiesSessionAttribute);
+			Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+			for (String authority : authorities) {
+				GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(
+						authority);
+				grantedAuthorities.add(grantedAuthority);
+			}
+			PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails details = new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(
+					request, grantedAuthorities);
+			return details;
 		} else {
-			List<String> list = new ArrayList<String>();
-			list.add("NO_AUTHORITY");
-			return list;
+			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(
+					"NO_AUTHORITY");
+			Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+			grantedAuthorities.add(grantedAuthority);
+			PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails details = new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(
+					request, grantedAuthorities);
+			return details;
 		}
 	}
 
-	@Override
-	protected Collection<String> getUserRoles(Object context, Set<String> mappableRoles) {
-		return null;
-	}
-
-	public void setAuthoritiesSessionAttribute(String authoritiesSessionAttribute) {
+	public void setAuthoritiesSessionAttribute(
+			String authoritiesSessionAttribute) {
 		this.authoritiesSessionAttribute = authoritiesSessionAttribute;
 	}
 
+	@Override
+	public void setMappableRolesRetriever(
+			MappableAttributesRetriever aJ2eeMappableRolesRetriever) {
+		this.j2eeMappableRoles = new HashSet<String>();
+	}
 }

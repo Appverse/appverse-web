@@ -76,6 +76,7 @@ public class GWTAuthenticationServiceFacadeImpl extends
 	 * @return AuthorizationDataFO object containing the name of the principal
 	 *         and the authorized roles.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public GWTAuthorizationDataVO authenticatePrincipal(final String username,
 			final String password) {
@@ -84,7 +85,7 @@ public class GWTAuthenticationServiceFacadeImpl extends
 		final Authentication authentication = authenticationManager
 				.authenticate(usernamePasswordAuthenticationToken);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		final Collection<GrantedAuthority> authorities = SecurityContextHolder
+		final Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) SecurityContextHolder
 				.getContext().getAuthentication().getAuthorities();
 		final List<String> grantedRoles = new ArrayList<String>();
 		for (final GrantedAuthority grantedAuthority : authorities) {
@@ -95,12 +96,13 @@ public class GWTAuthenticationServiceFacadeImpl extends
 		return new GWTAuthorizationDataVO(grantedRoles, name);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getAuthorities() {
 		final Authentication authentication = SecurityContextHolder
 				.getContext().getAuthentication();
 		List<String> credentials = new ArrayList<String>();
-		Collection<GrantedAuthority> grantedAuthorities = authentication
+		Collection<GrantedAuthority> grantedAuthorities = (Collection<GrantedAuthority>) authentication
 				.getAuthorities();
 		for (GrantedAuthority grantedAuthority : grantedAuthorities) {
 			credentials.add(grantedAuthority.getAuthority());
