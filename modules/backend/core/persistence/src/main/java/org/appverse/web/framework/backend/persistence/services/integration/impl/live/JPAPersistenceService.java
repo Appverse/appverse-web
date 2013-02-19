@@ -528,14 +528,12 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	@Override
 	public List retrieveAll(final String queryName, final Object... values)
 			throws Exception {
-		Query query = em.createNamedQuery(queryName);
-		int i = 0;
+		Query queryObject = em.createNamedQuery(queryName);
 		if (values != null) {
-			for (Object value : values) {
-				query.setParameter(i, value);
-				i++;
+			for (int i = 0; i < values.length; i++) {
+				queryObject.setParameter(i + 1, values[i]);
 			}
 		}
-		return query.getResultList();
+		return queryObject.getResultList();
 	}
 }
