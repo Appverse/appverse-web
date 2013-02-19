@@ -72,5 +72,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	@SuppressWarnings("rawtypes")
 	List retrieveAll(final String queryName, final Object... values)
 			throws Exception;
-
+	
+	@SuppressWarnings("rawtypes")
+	public List findByNamedQuery(final String queryName, final Object... values) throws Exception;
 }

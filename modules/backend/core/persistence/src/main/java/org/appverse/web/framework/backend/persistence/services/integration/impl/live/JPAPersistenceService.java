@@ -536,5 +536,16 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		}
 		return query.getResultList();
 	}
-
+	
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List findByNamedQuery(final String queryName, final Object... values) throws Exception {
+		Query queryObject = em.createNamedQuery(queryName);
+		if (values != null) {
+			for (int i = 0; i < values.length; i++) {
+				queryObject.setParameter(i + 1, values[i]);
+			}
+		}
+		return queryObject.getResultList();			
+	}		
 }
