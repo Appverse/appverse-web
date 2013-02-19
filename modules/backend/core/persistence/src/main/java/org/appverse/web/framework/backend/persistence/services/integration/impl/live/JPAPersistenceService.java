@@ -54,12 +54,12 @@ import org.springframework.util.StringUtils;
  * support and strictly very easy ordering and filtering conditions. Take into
  * account that the use of this service is restricted to the aforementioned
  * cases and more complex queries need to be built by means a custom JPA query.
- * 
+ *
  * This service support only support automatic generation of JPA queries
  * filtering by <T> object first level attributes that would NOT imply express
  * JOIN indication in the generated JPQL and only allows sorting by first level
  * attributes in the root <T> object.
- * 
+ *
  * @param <T>
  *            Abstract integration Bean the persistence service will deal with
  */
@@ -530,22 +530,12 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 			throws Exception {
 		Query query = em.createNamedQuery(queryName);
 		int i = 0;
-		for (Object value : values) {
-			query.setParameter(i, value);
-			i++;
+		if (values != null) {
+			for (Object value : values) {
+				query.setParameter(i, value);
+				i++;
+			}
 		}
 		return query.getResultList();
 	}
-	
-	@SuppressWarnings("rawtypes")
-	@Override
-	public List findByNamedQuery(final String queryName, final Object... values) throws Exception {
-		Query queryObject = em.createNamedQuery(queryName);
-		if (values != null) {
-			for (int i = 0; i < values.length; i++) {
-				queryObject.setParameter(i + 1, values[i]);
-			}
-		}
-		return queryObject.getResultList();			
-	}		
 }
