@@ -26,6 +26,7 @@ package org.appverse.web.framework.frontend.gwt.rpc;
 import java.util.Date;
 
 import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
+import org.appverse.web.framework.frontend.gwt.common.utils.GWTUtils;
 import org.appverse.web.framework.frontend.gwt.managers.NotificationManager;
 
 import com.google.gwt.http.client.UrlBuilder;
@@ -98,15 +99,14 @@ public class ApplicationAsyncCallback<T> implements AsyncCallback<T> {
 	}
 
 	/**
-	 * This method produces client url redirection. This is the default treatment for expired session 
-	 * (or unauthorized), but can be overriden
+	 * This method produces client url redirection to a custom expired JSP with a 
+	 * default name in your application context. This is the default treatment for 
+	 * expired session (or unauthorized), but can be overriden
 	 */
 	public void handleExpiredSessionException()
 	{
-		UrlBuilder builder = Window.Location.createUrlBuilder();
-		builder.setPath(CUSTOM_EXPIRED_JSP);
-
-		Window.Location.assign(builder.buildString());
+		String expiredPageUrl = GWTUtils.getModuleIndependentBaseURL() + CUSTOM_EXPIRED_JSP;
+		Window.Location.replace(expiredPageUrl);
 	}
 
 	/**
