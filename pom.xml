@@ -10,7 +10,7 @@
   
 	<groupId>org.appverse.web.framework.poms</groupId>
 	<artifactId>appverse-web-superpom</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Backend Super POM</name>
@@ -46,7 +46,7 @@
 	</licenses>
 	
 	<properties>
-		<framework.version>1.0.3-SNAPSHOT</framework.version>
+		<framework.version>1.0.3-SNAPSHOT-SNAPSHOT</framework.version>
 		<main.name>appverse</main.name>
 		<app.context.root>${main.name}</app.context.root>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
