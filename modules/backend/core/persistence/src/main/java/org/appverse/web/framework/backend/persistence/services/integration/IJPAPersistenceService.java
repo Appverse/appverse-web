@@ -28,6 +28,7 @@ import java.util.Map;
 
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter;
+import org.appverse.web.framework.backend.api.model.integration.ResultIntegrationBean;
 import org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback;
 
 public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
@@ -51,6 +52,17 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 
 	int executeCount(final String queryString,
 			final Map<String, Object> parameters) throws Exception;
+
+	<U extends ResultIntegrationBean>  List<U> executeResult(QueryJpaCallback<U> query) throws Exception;
+
+	<U extends ResultIntegrationBean>  List<U> executeResult(String queryString) throws Exception;
+
+	<U extends ResultIntegrationBean>  List<U> executeResult(String queryString, Map<String, Object> parameters)
+			throws Exception;
+
+	<U extends ResultIntegrationBean>  List<U> executeResult(final String queryString,
+			final Map<String, Object> parameters, final int maxRecords,
+			final int firstResult) throws Exception;
 
 	void executeUpdate(String queryString) throws Exception;
 

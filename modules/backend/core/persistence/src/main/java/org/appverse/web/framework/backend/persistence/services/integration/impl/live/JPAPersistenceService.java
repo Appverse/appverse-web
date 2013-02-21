@@ -38,6 +38,7 @@ import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
+import org.appverse.web.framework.backend.api.model.integration.ResultIntegrationBean;
 import org.appverse.web.framework.backend.api.services.integration.AbstractIntegrationService;
 import org.appverse.web.framework.backend.api.services.integration.NotUniqueResultFoundException;
 import org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService;
@@ -354,6 +355,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return list;
 	}
 
+
 	@Override
 	public int executeCount(final IntegrationDataFilter filter)
 			throws Exception {
@@ -371,6 +373,43 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 				true);
 		query.setNamedParameters(parameters);
 		return query.countInJpa(em);
+	}
+
+	@Override
+	public <U extends ResultIntegrationBean>  List<U> executeResult(QueryJpaCallback<U> query) throws Exception {
+		final List<U> list = query.doInJpa(em);
+		return list;
+	}
+
+	@Override
+	public <U extends ResultIntegrationBean>  List<U> executeResult(final String queryString) throws Exception {
+		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
+				true);
+		final List<U> list = query.doInJpa(em);
+		return list;
+	}
+
+	@Override
+	public <U extends ResultIntegrationBean>  List<U> executeResult(final String queryString,
+			final Map<String, Object> parameters) throws Exception {
+		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
+				true);
+		query.setNamedParameters(parameters);
+		final List<U> list = query.doInJpa(em);
+		return list;
+	}
+
+	@Override
+	public <U extends ResultIntegrationBean>  List<U> executeResult(final String queryString,
+			final Map<String, Object> parameters, final int maxRecords,
+			final int firstResult) throws Exception {
+		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
+				true);
+		query.setNamedParameters(parameters);
+		query.setFirstResult(firstResult);
+		query.setMaxRecords(maxRecords);
+		final List<U> list = query.doInJpa(em);
+		return list;
 	}
 
 	@Override
