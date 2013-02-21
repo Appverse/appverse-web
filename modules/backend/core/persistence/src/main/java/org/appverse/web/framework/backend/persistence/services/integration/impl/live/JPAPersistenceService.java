@@ -86,6 +86,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return buildQueryString(filter, false);
 	}
 
+
 	private StringBuilder buildQueryString(final IntegrationDataFilter filter,
 			final boolean isCount) {
 
@@ -387,6 +388,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return query.countInJpa(em);
 	}
 
+
 	/* (non-Javadoc)
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeCount(java.lang.String, java.util.Map)
 	 */
@@ -470,6 +472,12 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.doInJpa(em);
 	}
 
+	@Override
+	public void flush() throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_FLUSH);
+		em.flush();
+	}
+
 	@SuppressWarnings("unchecked")
 	private Class<T> getClassP() throws PersistenceException {
 
@@ -530,6 +538,12 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	/* (non-Javadoc)
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
 	 */
+	@Override
+	public void refresh(final T beanP) throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_REFRESH);
+		em.refresh(beanP);
+	}
+
 	@Override
 	public T retrieve(final IntegrationDataFilter filter) throws Exception {
 		final List<T> list = retrieveAll(filter);

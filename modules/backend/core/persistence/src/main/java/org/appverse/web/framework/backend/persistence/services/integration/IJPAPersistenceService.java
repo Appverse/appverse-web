@@ -234,6 +234,8 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	void executeUpdate(String queryString, Map<String, Object> parameters)
 			throws Exception;
 
+	void flush() throws Exception;
+
 	/**
 	 * Executes a persist of a <T> bean
 	 * 
@@ -242,6 +244,9 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @throws Exception
 	 */
 	long persist(T bean) throws Exception;
+
+ 
+	void refresh(final T beanP) throws Exception;
 
 	/**
 	 * This method allows you retrieve a <T> bean passing IntegrationDataFilter
