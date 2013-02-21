@@ -73,8 +73,6 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 
 	long persist(T bean) throws Exception;
 
-	void refresh() throws Exception;
-
 	void refresh(final T beanP) throws Exception;
 
 	T retrieve(final IntegrationDataFilter filter) throws Exception;
