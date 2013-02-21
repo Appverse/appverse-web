@@ -86,6 +86,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return buildQueryString(filter, false);
 	}
 
+
 	private StringBuilder buildQueryString(final IntegrationDataFilter filter,
 			final boolean isCount) {
 
@@ -355,7 +356,6 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return list;
 	}
 
-
 	@Override
 	public int executeCount(final IntegrationDataFilter filter)
 			throws Exception {
@@ -365,6 +365,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.setIndexedParameters(filter.getValues().toArray());
 		return query.countInJpa(em);
 	}
+
 
 	@Override
 	public int executeCount(final String queryString,
@@ -428,6 +429,12 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.doInJpa(em);
 	}
 
+	@Override
+	public void flush() throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_FLUSH);
+		em.flush();
+	}
+
 	@SuppressWarnings("unchecked")
 	private Class<T> getClassP() throws PersistenceException {
 
@@ -458,6 +465,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return classP;
 	}
 
+
 	@Override
 	public long persist(final T bean) throws Exception {
 		logger.trace(PersistenceMessageBundle.MSG_DAO_PERSIST);
@@ -480,6 +488,12 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		}
 		PropertyUtils.setProperty(bean, this.BEAN_PK_NAME, beanId);
 		return beanId;
+	}
+
+	@Override
+	public void refresh(final T beanP) throws PersistenceException {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_REFRESH);
+		em.refresh;
 	}
 
 	@Override

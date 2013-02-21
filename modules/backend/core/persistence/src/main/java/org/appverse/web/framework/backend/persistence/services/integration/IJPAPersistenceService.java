@@ -69,7 +69,11 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	void executeUpdate(String queryString, Map<String, Object> parameters)
 			throws Exception;
 
+	void flush() throws Exception;
+
 	long persist(T bean) throws Exception;
+
+	void refresh() throws Exception;
 
 	T retrieve(final IntegrationDataFilter filter) throws Exception;
 
