@@ -40,6 +40,8 @@ import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.model.Sugg
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.LeafValueEditor;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.event.shared.HandlerManager;
@@ -120,6 +122,9 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	private String modelSearchField;
 	private boolean ignoreCase = true;
 	private boolean forceSelection = false;
+	//workaround to solve keypressed event bug
+	//http://code.google.com/p/google-web-toolkit/issues/detail?id=72
+	private String oldText = "";
 
 	/**
 	 * Creates a new Suggest with value providers.
@@ -160,10 +165,6 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	}
 
 	public GWTPresentationPaginatedDataFilter getDataFilter() {
-		// TODO search automatic filter update system
-
-		// dataFilter.getColumns().clear();
-		// dataFilter.getValues().clear();
 		dataFilter.resetConditions();
 
 		if ((searchText.getText().trim() != null)
@@ -278,6 +279,18 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 			}
 		});
 
+		/* set to null selected value, since criteria has changed */
+		//workaround to solve keypressed event bug. workaround is not documented.
+		//http://code.google.com/p/google-web-toolkit/issues/detail?id=72
+		searchText.addKeyUpHandler(new KeyUpHandler() {
+			@Override
+			public void onKeyUp(final KeyUpEvent event) {
+				if (!oldText.equals(searchText.getText()))
+					setValue(null);
+			}
+
+		});
+
 		/**************************************************************/
 		/* setPageSize MUST be called AFTER setting loader in combobox. */
 		/**************************************************************/
@@ -375,7 +388,6 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 
 	public void setNumChars(final int minNum) {
 		searchText.setMinChars(minNum);
-
 	}
 
 	public void setTemplate(final SuggestTemplate<M> template) {
@@ -388,14 +400,16 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 
 	@Override
 	public void setValue(final M value) {
-		clear();
-		if (value != null) {
-			String name = props.name().getValue(value);
+		//Bugfix: delegate rendering on LabelProvider
+		this.value = value;
+		if (value != null)
+		{
+			String name = props.label().getLabel(value);
 			if (name != null) {
 				searchText.setText(name);
-				this.value = value;
 			}
 		}
+		this.oldText = searchText.getText();
 	}
 
 	/**
@@ -412,7 +426,7 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 
 	public void clear() {
 		searchText.setText("");
-		this.value = null;
+		this.setValue(null);
 	}
 
 	@Override
