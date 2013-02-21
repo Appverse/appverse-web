@@ -31,56 +31,287 @@ import org.appverse.web.framework.backend.api.model.integration.IntegrationDataF
 import org.appverse.web.framework.backend.api.model.integration.ResultIntegrationBean;
 import org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback;
 
+/**
+ * This is the interface for JPA Persistence services implementations providing
+ * support for JPA operations.
+ * 
+ * @param <T> The integration bean type managed by your integration service
+ */
 public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 
+	/**
+	 * Deletes a <T> bean
+	 * 
+	 * @param bean
+	 * @throws Exception
+	 */
 	void delete(T bean) throws Exception;
 
+	/**
+	 * Deletes all <T> beans
+	 * 
+	 * @throws Exception
+	 */
 	void deleteAll() throws Exception;
 
+	/**
+	 * This methods allows you to perform any JPA operation providing direct
+	 * access to the EntityManager by means a QueryJpaCallback<T> object for <T>
+	 * beans.
+	 * 
+	 * @param query
+	 * @return List<T> List of retrieved <T> beans
+	 * @throws Exception
+	 */
 	List<T> execute(QueryJpaCallback<T> query) throws Exception;
 
+	/**
+	 * This methods allows you to execute a JPQL query returning a List of <T>
+	 * beans.
+	 * 
+	 * @param queryString
+	 *            The JPQL query
+	 * @return List<T> List of retrieved <T> beans
+	 * @throws Exception
+	 */
 	List<T> execute(String queryString) throws Exception;
 
+	/**
+	 * This methods allows you to execute a JPQL query returning a List of <T>
+	 * beans and passing a map of parameters
+	 * 
+	 * @param queryString
+	 *            The JPQL query
+	 * @param parameters
+	 * @return List<T> List of retrieved <T> beans
+	 * @throws Exception
+	 */
 	List<T> execute(String queryString, Map<String, Object> parameters)
 			throws Exception;
 
+	/**
+	 * This method allows you to execute a JPQL query returning a List of <T>
+	 * beans and passing a map of parameters and a maximum number of objects
+	 * (<T> beans) and the position of the first object (<T> bean) of the group
+	 * of objectes to be retrieved. This method is typically used to perform
+	 * remote pagination.
+	 * 
+	 * @param queryString
+	 *            The JPQL query
+	 * @param parameters
+	 * @param maxRecords
+	 *            Maximum number of records (<T> beans) to be retrieved
+	 * @param firstResult
+	 *            Starting position of the first <T> bean of the results to be
+	 *            retrieved
+	 * @return List<T> List of retrieved <T> beans
+	 * @throws Exception
+	 */
 	List<T> execute(final String queryString,
 			final Map<String, Object> parameters, final int maxRecords,
 			final int firstResult) throws Exception;
 
+	/**
+	 * This method allows you to execute a count passing an
+	 * IntegrationDataFilter as a parameter. You can pass an
+	 * IntegrationPaginatedDataFilter as a parameter in order to perform counts
+	 * related to remote pagination. The IntegrationDataFilter allows you to
+	 * apply very simple conditions over <T> beans in order to filter the
+	 * results to be retrieved.
+	 * 
+	 * @param filter
+	 * @return int The number of records found
+	 * @throws Exception
+	 */
 	int executeCount(final IntegrationDataFilter filter) throws Exception;
 
+	/**
+	 * This method allows you to execute a count passing a JPQL query string and
+	 * a map with parameters.
+	 * 
+	 * @param queryString
+	 *            The JPQL query
+	 * @param parameters
+	 * @return int The number of records found
+	 * @throws Exception
+	 */
 	int executeCount(final String queryString,
 			final Map<String, Object> parameters) throws Exception;
 
-	<U extends ResultIntegrationBean>  List<U> executeResult(QueryJpaCallback<U> query) throws Exception;
+	/**
+	 * This methods allows you to perform any JPA operation providing direct
+	 * access to the EntityManager by means a QueryJpaCallback<U> returning <U>
+	 * beans that extend ResultIntegrationBean. Use this method when you need to
+	 * return as IntegrationBeans that does not match the type of the managed
+	 * objects of your repository <T> a result of your query. You can create
+	 * your own ResultIntegrationBean just extending this class.
+	 * 
+	 * @param query
+	 * @return <U extends ResultIntegrationBean> List<U> The list of
+	 *         ResultIntegrationBean to retrieve
+	 * @throws Exception
+	 */
+	<U extends ResultIntegrationBean> List<U> executeResult(
+			QueryJpaCallback<U> query) throws Exception;
 
-	<U extends ResultIntegrationBean>  List<U> executeResult(String queryString) throws Exception;
-
-	<U extends ResultIntegrationBean>  List<U> executeResult(String queryString, Map<String, Object> parameters)
+	/**
+	 * This methods allows you to execute a JPQL query returning a List of <T>
+	 * beans returning <U> beans that extend ResultIntegrationBean. Use this
+	 * method when you need to return as IntegrationBeans that does not match
+	 * the type of the managed objects of your repository <T> a result of your
+	 * query. You can create your own ResultIntegrationBean just extending this
+	 * class.
+	 * 
+	 * @param query
+	 *            The JPQL query
+	 * @return <U extends ResultIntegrationBean> List<U> The list of
+	 *         ResultIntegrationBean to retrieve
+	 * @throws Exception
+	 */
+	<U extends ResultIntegrationBean> List<U> executeResult(String queryString)
 			throws Exception;
 
-	<U extends ResultIntegrationBean>  List<U> executeResult(final String queryString,
-			final Map<String, Object> parameters, final int maxRecords,
-			final int firstResult) throws Exception;
+	/**
+	 * This methods allows you to execute a JPQL query returning a List of <T>
+	 * beans returning <U> beans that extend ResultIntegrationBean. Use this
+	 * method when you need to return as IntegrationBeans that does not match
+	 * the type of the managed objects of your repository <T> a result of your
+	 * query. You can create your own ResultIntegrationBean just extending this
+	 * class.
+	 * 
+	 * @param query
+	 *            The JPQL query
+	 * @param parameters
+	 * @return <U extends ResultIntegrationBean> List<U> The list of
+	 *         ResultIntegrationBean to retrieve
+	 * @throws Exception
+	 */
+	<U extends ResultIntegrationBean> List<U> executeResult(String queryString,
+			Map<String, Object> parameters) throws Exception;
 
+	/**
+	 * This method allows you to execute a JPQL query returning a List of <T>
+	 * beans returning <U> beans that extend ResultIntegrationBean and passing a
+	 * map of parameters and a maximum number of objects (<U>
+	 * ResultIntegrationbeans) and the position of the first object (<U>
+	 * ResultIntegrationBean) of the group of objects to be retrieved. Use this
+	 * method when you need to return as IntegrationBeans that does not match
+	 * the type of the managed objects of your repository <T> a result of your
+	 * query. This method is typically used to perform remote pagination.
+	 * 
+	 * @param queryString
+	 *            The JPQL query
+	 * @param parameters
+	 * @param maxRecords
+	 *            Maximum number of records (<T> beans) to be retrieved
+	 * @param firstResult
+	 *            Starting position of the first <T> bean of the results to be
+	 *            retrieved
+	 * @return List<T> List of retrieved <T> beans
+	 * @throws Exception
+	 */
+	<U extends ResultIntegrationBean> List<U> executeResult(
+			final String queryString, final Map<String, Object> parameters,
+			final int maxRecords, final int firstResult) throws Exception;
+
+	/**
+	 * Executes an update JPQL query
+	 * 
+	 * @param queryString
+	 *            The JPQL query
+	 * @throws Exception
+	 */
 	void executeUpdate(String queryString) throws Exception;
 
+	/**
+	 * Executes an update JPQL query supporting a map of parameters
+	 * 
+	 * @param queryString
+	 *            The JPQL query
+	 * @param parameters
+	 * @throws Exception
+	 */
 	void executeUpdate(String queryString, Map<String, Object> parameters)
 			throws Exception;
 
+	/**
+	 * Executes a persist of a <T> bean
+	 * 
+	 * @param bean
+	 * @return long The T bean primary key
+	 * @throws Exception
+	 */
 	long persist(T bean) throws Exception;
 
+	/**
+	 * This method allows you retrieve a <T> bean passing IntegrationDataFilter
+	 * as a parameter. You can pass an IntegrationPaginatedDataFilter as a
+	 * parameter in order to perform counts related to remote pagination. The
+	 * IntegrationDataFilter allows you to apply very simple conditions over <T>
+	 * beans in order to filter the results to be retrieved.
+	 * 
+	 * @param filter
+	 * @return The T bean retrieved
+	 * @throws Exception
+	 */
 	T retrieve(final IntegrationDataFilter filter) throws Exception;
 
+	/**
+	 * Retrieves a <T> bean using its primary key
+	 * 
+	 * @param pk
+	 *            The <T> bean primary key
+	 * @return T The T bean retrieved
+	 * @throws Exception
+	 */
 	T retrieve(long pk) throws Exception;
 
+	/**
+	 * Retrieves a <T> bean using its primary key passing the full object as a
+	 * parameter
+	 * 
+	 * @param pk
+	 *            The <T> bean primary key
+	 * @return T The T bean retrieved
+	 * @throws Exception
+	 */
 	T retrieve(T bean) throws Exception;
 
+	/**
+	 * This method retrieve all <T> beans
+	 * 
+	 * @return List<T> The list of <T> bean retrieved
+	 * @throws Exception
+	 */
 	List<T> retrieveAll() throws Exception;
 
+	/**
+	 * This method allows you retrieve a list of <T> bean passing
+	 * IntegrationDataFilter as a parameter. You can pass an
+	 * IntegrationPaginatedDataFilter as a parameter in order to perform counts
+	 * related to remote pagination. The IntegrationDataFilter allows you to
+	 * apply very simple conditions over <T> beans in order to filter the
+	 * results to be retrieved.
+	 * 
+	 * @param filter
+	 * @return List<T> The list of <T> beans retrieved
+	 * @throws Exception
+	 */
 	List<T> retrieveAll(IntegrationDataFilter filter) throws Exception;
 
+	/**
+	 * This method allows you to retrieve objects according to a JPQL query
+	 * byName and the set of parameters the query requires. Queries byName must
+	 * be added in your orm.xml file
+	 * 
+	 * @param queryName
+	 *            Name of the query in your orm.xml file
+	 * @param values
+	 *            The set of parameters the query requires
+	 * @return List The list containing all the objects your JPQL query
+	 *         retrieves.
+	 * @throws Exception
+	 */
 	@SuppressWarnings("rawtypes")
 	List retrieveAll(final String queryName, final Object... values)
 			throws Exception;
