@@ -491,9 +491,9 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	}
 
 	@Override
-	public void refresh(final T beanP) throws PersistenceException {
+	public void refresh(final T beanP) throws Exception {
 		logger.trace(PersistenceMessageBundle.MSG_DAO_REFRESH);
-		em.refresh;
+		em.refresh(beanP);
 	}
 
 	@Override
