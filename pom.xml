@@ -10,7 +10,7 @@
   
 	<groupId>org.appverse.web.framework.poms</groupId>
 	<artifactId>appverse-web-superpom</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Backend Super POM</name>
