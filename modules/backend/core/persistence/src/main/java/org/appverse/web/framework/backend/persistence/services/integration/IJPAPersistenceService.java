@@ -26,6 +26,9 @@ package org.appverse.web.framework.backend.persistence.services.integration;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
+
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter;
 import org.appverse.web.framework.backend.api.model.integration.ResultIntegrationBean;
@@ -65,7 +68,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return List<T> List of retrieved <T> beans
 	 * @throws Exception
 	 */
-	List<T> execute(QueryJpaCallback<T> query) throws Exception;
+	List<T> retrieveAll(QueryJpaCallback<T> query) throws Exception;
 
 	/**
 	 * This methods allows you to execute a JPQL query returning a List of <T>
@@ -76,7 +79,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return List<T> List of retrieved <T> beans
 	 * @throws Exception
 	 */
-	List<T> execute(String queryString) throws Exception;
+	List<T> retrieveAll(String queryString) throws Exception;
 
 	/**
 	 * This methods allows you to execute a JPQL query returning a List of <T>
@@ -88,7 +91,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return List<T> List of retrieved <T> beans
 	 * @throws Exception
 	 */
-	List<T> execute(String queryString, Map<String, Object> parameters)
+	List<T> retrieveAll(String queryString, Map<String, Object> parameters)
 			throws Exception;
 
 	/**
@@ -109,7 +112,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return List<T> List of retrieved <T> beans
 	 * @throws Exception
 	 */
-	List<T> execute(final String queryString,
+	List<T> retrieveAll(final String queryString,
 			final Map<String, Object> parameters, final int maxRecords,
 			final int firstResult) throws Exception;
 
@@ -151,6 +154,21 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 */
 	int executeCount(final String queryString,
 			final Map<String, Object> parameters) throws Exception;
+	
+	
+	/**
+	 * This method allows you to perform counts according to a JPQL query
+	 * byName and the set of parameters the query requires. Queries byName must
+	 * be added in your orm.xml file
+	 * 
+	 * @param queryName
+	 *            Name of the query in your orm.xml file
+	 * @param values
+	 * @return
+	 * @throws Exception
+	 */
+	int executeCount(final String queryName, final Object... values)
+			throws Exception;
 
 	/**
 	 * This methods allows you to perform any JPA operation providing direct
@@ -248,6 +266,10 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	void executeUpdate(String queryString, Map<String, Object> parameters)
 			throws Exception;
 
+	/**
+	 * Performs JPA flush operation
+	 * @throws Exception
+	 */
 	void flush() throws Exception;
 
 	/**
@@ -259,6 +281,11 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 */
 	long persist(T bean) throws Exception;
 
+	/**
+	 * Performs JPA refresh operation
+	 * @param beanP
+	 * @throws Exception
+	 */
 	void refresh(final T beanP) throws Exception;
 
 	/**
@@ -293,7 +320,19 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return T The T bean retrieved
 	 * @throws Exception
 	 */
-	T retrieve(T bean) throws Exception;
+	T retrieve(T bean) throws Exception;	
+	
+	/**
+	 * Retrieves a <T> bean according to a JPQL query
+	 * byName and the set of parameters the query requires. Queries byName must
+	 * be added in your orm.xml file
+	 * @param queryName Name of the query in your orm.xml file
+	 * @param values
+	 * @return
+     * @throws NoResultException if there is no result
+     * @throws NonUniqueResultException if more than one result
+	 */
+	T retrieve(final String queryName, final Object... values) throws Exception;
 
 	/**
 	 * This method retrieve all <T> beans
@@ -330,8 +369,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 *         retrieves.
 	 * @throws Exception
 	 */
-	@SuppressWarnings("rawtypes")
-	List retrieveAll(final String queryName, final Object... values)
+	List<T> retrieveAll(final String queryName, final Object... values)
 			throws Exception;
 
 }
