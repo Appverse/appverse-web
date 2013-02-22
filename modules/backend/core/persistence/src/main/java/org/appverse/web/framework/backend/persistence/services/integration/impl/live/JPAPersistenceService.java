@@ -373,7 +373,14 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		final List<T> list = query.doInJpa(em);
 		return list;
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeCount(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
+	 */
+	@Override
+	public int executeCount(QueryJpaCallback<T> query) throws Exception {
+		return query.countInJpa(em);
+	}	
 
 	/* (non-Javadoc)
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeCount(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)

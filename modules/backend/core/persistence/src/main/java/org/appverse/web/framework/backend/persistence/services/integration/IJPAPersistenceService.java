@@ -35,7 +35,8 @@ import org.appverse.web.framework.backend.persistence.services.integration.helpe
  * This is the interface for JPA Persistence services implementations providing
  * support for JPA operations.
  * 
- * @param <T> The integration bean type managed by your integration service
+ * @param <T>
+ *            The integration bean type managed by your integration service
  */
 public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 
@@ -57,7 +58,8 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	/**
 	 * This methods allows you to perform any JPA operation providing direct
 	 * access to the EntityManager by means a QueryJpaCallback<T> object for <T>
-	 * beans.
+	 * beans. If you want predefined standard hints, set QueryJPACallback
+	 * "standardHints" boolean parameter to true.
 	 * 
 	 * @param query
 	 * @return List<T> List of retrieved <T> beans
@@ -110,6 +112,18 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	List<T> execute(final String queryString,
 			final Map<String, Object> parameters, final int maxRecords,
 			final int firstResult) throws Exception;
+
+	/**
+	 * This methods allows you to perform any JPA operation providing direct
+	 * access to the EntityManager by means a QueryJpaCallback<T> object for <T>
+	 * beans for a count operation. If you want predefined standard hints, set
+	 * QueryJPACallback "standardHints" boolean parameter to true.
+	 * 
+	 * @param query
+	 * @return
+	 * @throws Exception
+	 */
+	int executeCount(QueryJpaCallback<T> query) throws Exception;
 
 	/**
 	 * This method allows you to execute a count passing an
@@ -245,7 +259,6 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 */
 	long persist(T bean) throws Exception;
 
- 
 	void refresh(final T beanP) throws Exception;
 
 	/**
