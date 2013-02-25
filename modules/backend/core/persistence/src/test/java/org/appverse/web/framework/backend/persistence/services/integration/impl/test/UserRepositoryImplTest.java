@@ -29,9 +29,12 @@ import org.appverse.web.framework.backend.persistence.model.integration.UserDTO;
 import org.appverse.web.framework.backend.persistence.services.integration.UserRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.util.Assert;
 
+@TransactionConfiguration(defaultRollback = false)
 public class UserRepositoryImplTest extends AbstractTransactionalTest implements JPATest{
+
 
 	@Autowired
 	UserRepository userRepository;
@@ -52,6 +55,10 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 	@Test
 	public void persist() throws Exception {
 		UserDTO userDTO = new UserDTO();
+		userDTO.setName("name");
+		userDTO.setLastName("lastName");
+		userDTO.setPassword("password");
+		userDTO.setEmail("email");
 		UserDTO userDTORetrieved = userRepository.retrieve(userDTO);
 		Assert.isNull(userDTORetrieved);
 		userRepository.persist(userDTO);
