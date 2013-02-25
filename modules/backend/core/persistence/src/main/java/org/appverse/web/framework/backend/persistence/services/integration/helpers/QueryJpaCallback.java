@@ -33,6 +33,7 @@ import javax.persistence.Query;
 
 public class QueryJpaCallback<T> {
 
+	private Query query;
 	private String queryString;
 	private List<QueryJpaCallbackParameter> namedParameters;
 	private Object[] indexedParameters;
@@ -41,34 +42,44 @@ public class QueryJpaCallback<T> {
 	private int maxRecords = -1;
 	private int firstResult = -1;
 
-	public QueryJpaCallback() {
-		super();
+	
+	public QueryJpaCallback(String queryString) {
+		this(queryString, true);
 	}
-
-	public QueryJpaCallback(boolean standardHints) {
-		super();
-		if (standardHints) {
-			hints = new ArrayList<QueryJpaCallbackHint>();
-			hints.add(QueryJpaCallbackHint.FETCH_SIZE_1024);
-		}
-	}
-
+	
 	public QueryJpaCallback(String queryString, boolean standardHints) {
 		super();
+		if(queryString==null || queryString.isEmpty()){
+			throw new PersistenceException("queryString cannot be null");
+		}
 		this.queryString = queryString;
-		namedParameters = null;
-		indexedParameters = null;
 		if (standardHints) {
 			hints = new ArrayList<QueryJpaCallbackHint>();
 			hints.add(QueryJpaCallbackHint.FETCH_SIZE_1024);
-		} else {
-			hints = null;
+		} 
+	}
+	
+	public QueryJpaCallback(Query query) {
+		this(query, true);
+	}
+	
+	public QueryJpaCallback(Query query, boolean standardHints) {
+		super();
+		if(query==null){
+			throw new PersistenceException("query cannot be null");
+		}
+		this.query = query;
+		if (standardHints) {
+			hints = new ArrayList<QueryJpaCallbackHint>();
+			hints.add(QueryJpaCallbackHint.FETCH_SIZE_1024);
 		}
 	}
-
+	
 	public int countInJpa(EntityManager em) throws PersistenceException {
 		// create query
-		Query query = em.createQuery(queryString.toString());
+		if(query==null){
+			query = em.createQuery(queryString);
+		}
 		// set parameters
 		if (namedParameters != null) {
 			for (QueryJpaCallbackParameter namedParameter : namedParameters) {
@@ -83,13 +94,25 @@ public class QueryJpaCallback<T> {
 		int total = ((Long) query.getSingleResult()).intValue();
 		return total;
 	}
+	
 
 	@SuppressWarnings("unchecked")
 	public List<T> doInJpa(EntityManager em) throws PersistenceException {
-
-		// create query
-		Query query = em.createQuery(queryString.toString());
-
+		prepareQuery(em);
+		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T doInJpaSingleResult(EntityManager em) throws PersistenceException {
+		prepareQuery(em);
+		return (T) query.getSingleResult();
+	}	
+	
+	private void prepareQuery(EntityManager em){
+		if(query==null){
+			query = em.createQuery(queryString);
+		}
+		
 		if (maxRecords != -1 && firstResult != -1) {
 			query.setMaxResults(maxRecords);
 			query.setFirstResult(firstResult);
@@ -112,9 +135,7 @@ public class QueryJpaCallback<T> {
 			for (QueryJpaCallbackHint hint : getHints()) {
 				query.setHint(hint.getHint(), hint.getValue());
 			}
-		}
-
-		return query.getResultList();
+		}		
 	}
 
 	public int getFirstResult() {

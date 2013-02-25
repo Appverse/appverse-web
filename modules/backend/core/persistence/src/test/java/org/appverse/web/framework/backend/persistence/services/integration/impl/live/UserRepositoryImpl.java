@@ -46,7 +46,7 @@ public class UserRepositoryImpl extends JPAPersistenceService<UserDTO>
 				.append(username).append("'");
 		final QueryJpaCallback<UserDTO> query = new QueryJpaCallback<UserDTO>(
 				queryString.toString(), false);
-		List<UserDTO> list = execute(query);
+		List<UserDTO> list = retrieveAll(query);
 
 		if (list != null && list.size() > 0) {
 			return list.get(0);

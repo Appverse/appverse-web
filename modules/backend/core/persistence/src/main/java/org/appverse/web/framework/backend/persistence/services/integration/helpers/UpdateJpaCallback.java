@@ -33,22 +33,34 @@ import javax.persistence.Query;
 
 public class UpdateJpaCallback<T> {
 
-	private final String queryString;
+	private Query query;
+	private String queryString;
 	private List<QueryJpaCallbackParameter> namedParameters;
 	private Object[] indexedParameters;
 	private List<QueryJpaCallbackHint> hints;
 
 	public UpdateJpaCallback(String queryString) {
+		super();
+		if (queryString==null || queryString.isEmpty()){
+			throw new PersistenceException("query cannot be null or empty");
+		}
 		this.queryString = queryString;
-		namedParameters = null;
-		indexedParameters = null;
-		hints = null;
 	}
+	
+	public UpdateJpaCallback(Query query) {
+		super();
+		if(query==null){
+			throw new PersistenceException("query cannot be null");
+		}
+		this.query = query;
+	}	
 
 	public Object doInJpa(EntityManager em) throws PersistenceException {
 
-		// create query
-		Query query = em.createQuery(queryString.toString());
+		// create query if it was set as a queryString
+		if(query==null){
+			query = em.createQuery(queryString);
+		}		
 
 		// set parameters
 		if (namedParameters != null) {

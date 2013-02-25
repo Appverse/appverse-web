@@ -40,7 +40,6 @@ import org.appverse.web.framework.backend.api.model.integration.IntegrationDataF
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
 import org.appverse.web.framework.backend.api.model.integration.ResultIntegrationBean;
 import org.appverse.web.framework.backend.api.services.integration.AbstractIntegrationService;
-import org.appverse.web.framework.backend.api.services.integration.NotUniqueResultFoundException;
 import org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService;
 import org.appverse.web.framework.backend.persistence.services.integration.helpers.PersistenceMessageBundle;
 import org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback;
@@ -302,6 +301,60 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	}
 
 	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#count()
+	 */
+	@Override
+	public int count() throws Exception{
+		final StringBuilder queryString = buildQueryString(null, true);
+		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
+				queryString.toString(), true);
+		return query.countInJpa(em);		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#count(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
+	 */
+	@Override
+	public int count(final IntegrationDataFilter filter)
+			throws Exception {
+		final StringBuilder queryString = buildQueryString(filter, true);
+		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
+				queryString.toString(), true);
+		query.setIndexedParameters(filter.getValues().toArray());
+		return query.countInJpa(em);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeCount(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
+	 */
+	@Override
+	public int count(QueryJpaCallback<T> query) throws Exception {
+		return query.countInJpa(em);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#count(java.lang.String, java.util.Map)
+	 */
+	@Override
+	public int count(final String queryString,
+			final Map<String, Object> parameters) throws Exception {
+		final QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(queryString);
+		queryJpaCallback.setNamedParameters(parameters);
+		return queryJpaCallback.countInJpa(em);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#count(java.lang.String, java.lang.Object[])
+	 */
+	@Override
+	public int count(final String queryName, final Object... values) throws Exception{
+		Query queryObject = em.createNamedQuery(queryName);
+		final QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(queryObject);
+		queryJpaCallback.setIndexedParameters(values);
+		return queryJpaCallback.countInJpa(em);		
+	}
+
+	/* (non-Javadoc)
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#delete(org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean)
 	 */
 	@Override
@@ -323,6 +376,233 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(
 				queryString.toString());
 		query.doInJpa(em);
+	}
+
+	
+	@Override
+	public void flush() throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_FLUSH);
+		em.flush();
+	}	
+
+	@SuppressWarnings("unchecked")
+	private Class<T> getClassP() throws PersistenceException {
+
+		Class<T> classP = null;
+		final Type type = this.getClass().getGenericSuperclass();
+		if (type instanceof ParameterizedType) {
+			final ParameterizedType pType = (ParameterizedType) type;
+			if (pType.getActualTypeArguments()[0] instanceof Class) {
+				classP = (Class<T>) pType.getActualTypeArguments()[0];
+			} else {
+				logger.error(
+						PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERTYPE,
+						this.getClass());
+				throw new PersistenceException(
+						this.getClass().getSimpleName()
+								+ PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERTYPE);
+			}
+		} else {
+			logger.error(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERPATTERN,
+					this.getClass());
+			throw new PersistenceException(
+					this.getClass()
+							+ PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERPATTERN);
+
+		}
+
+		return classP;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#persist(org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean)
+	 */
+	@Override
+	public long persist(final T bean) throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_PERSIST);
+		long beanId = -1;
+		try {
+			beanId = (Long) PropertyUtils.getProperty(bean, this.BEAN_PK_NAME);
+		} catch (final Exception ex) {
+			logger.error(PersistenceMessageBundle.MSG_DAO_PERSIST_IDNOTFOUND,
+					getClass().getName());
+			throw new PersistenceException(
+					PersistenceMessageBundle.MSG_DAO_PERSIST_IDNOTFOUND);
+		}
+		if (beanId == 0) {
+			// new
+			em.persist(bean);
+			beanId = (Long) PropertyUtils.getProperty(bean, this.BEAN_PK_NAME);
+		} else {
+			// update
+			em.merge(bean);
+		}
+		PropertyUtils.setProperty(bean, this.BEAN_PK_NAME, beanId);
+		return beanId;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
+	 */
+	@Override
+	public void refresh(final T beanP) throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_REFRESH);
+		em.refresh(beanP);
+	}
+	
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
+	 */
+	@Override
+	public T retrieve(final IntegrationDataFilter filter) throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED,
+				new Object[] { getClassP(), filter });
+		try {
+			final StringBuilder queryString = buildQueryString(filter);
+			final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
+					queryString.toString());
+			if (filter != null) {
+				query.setIndexedParameters(filter.getValues().toArray());
+				if (filter instanceof IntegrationPaginatedDataFilter) {
+					IntegrationPaginatedDataFilter iFilter = (IntegrationPaginatedDataFilter) filter;
+					query.setFirstResult(iFilter.getOffset());
+					query.setMaxRecords(iFilter.getLimit());
+				}
+			}
+			return query.doInJpaSingleResult(em);
+		} catch (final Exception e) {
+			logger.error(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR,
+					new Object[] { filter.toString(), getClassP() });
+			throw new PersistenceException(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR_P1
+							+ filter.toString()
+							+ PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR_P2
+							+ getClassP(), e);
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(long)
+	 */
+	@Override
+	public T retrieve(final long pk) throws Exception {
+		final Class<T> classP = getClassP();
+		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK,
+				new Object[] { classP, this.BEAN_PK_NAME });
+		try {
+			return em.find(classP, pk);
+		} catch (final Exception e) {
+			logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK_ERROR,
+					new Object[] { classP, this.BEAN_PK_NAME });
+			throw new PersistenceException(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK_ERROR
+							+ this.BEAN_PK_NAME);
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
+	 */
+	@Override
+	public T retrieve(QueryJpaCallback<T> query) throws Exception {
+		return query.doInJpaSingleResult(em);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(java.lang.String)
+	 */
+	@Override
+	public T retrieve(final String queryString) throws Exception {
+		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString);
+		return query.doInJpaSingleResult(em);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(java.lang.String, java.util.Map)
+	 */
+	@Override
+	public T retrieve(final String queryString,
+			final Map<String, Object> parameters) throws Exception {
+		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString);
+		query.setNamedParameters(parameters);
+		return query.doInJpaSingleResult(em);
+	}	
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(java.lang.String, java.lang.Object[])
+	 */
+	@Override
+	public T retrieve(final String queryName, final Object... values) throws Exception{
+		Query queryObject = em.createNamedQuery(queryName);
+		QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(queryObject);
+		queryJpaCallback.setIndexedParameters(values);
+		return queryJpaCallback.doInJpaSingleResult(em);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public T retrieve(final T beanP) throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN,
+				new Object[] { beanP, this.BEAN_PK_NAME });
+		Object beanId;
+		try {
+			beanId = PropertyUtils.getProperty(beanP, this.BEAN_PK_NAME);
+			return (T) em.find(beanP.getClass(), beanId);
+		} catch (final Exception e) {
+			logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN,
+					new Object[] { beanP, this.BEAN_PK_NAME });
+			throw new PersistenceException(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN);
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll()
+	 */
+	@Override
+	public List<T> retrieveAll() throws Exception {
+		IntegrationDataFilter integrationDataFilter = null;
+		return retrieveAll(integrationDataFilter);
+	}		
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
+	 */
+	@Override
+	public List<T> retrieveAll(final IntegrationDataFilter filter)
+			throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED,
+				new Object[] { getClassP(), filter });
+		try {
+			final StringBuilder queryString = buildQueryString(filter);
+			final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
+					queryString.toString());
+			if (filter != null) {
+				query.setIndexedParameters(filter.getValues().toArray());
+				if (filter instanceof IntegrationPaginatedDataFilter) {
+					IntegrationPaginatedDataFilter iFilter = (IntegrationPaginatedDataFilter) filter;
+					query.setFirstResult(iFilter.getOffset());
+					query.setMaxRecords(iFilter.getLimit());
+				}
+			}
+			return query.doInJpa(em);
+		} catch (final Exception e) {
+			logger.error(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR,
+					new Object[] { filter.toString(), getClassP() });
+			throw new PersistenceException(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR_P1
+							+ filter.toString()
+							+ PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR_P2
+							+ getClassP(), e);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -373,71 +653,33 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		final List<T> list = query.doInJpa(em);
 		return list;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeCount(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
-	 */
-	@Override
-	public int executeCount(QueryJpaCallback<T> query) throws Exception {
-		return query.countInJpa(em);
-	}	
 
 	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeCount(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll(java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public int executeCount(final IntegrationDataFilter filter)
+	public List<T> retrieveAll(final String queryName, final Object... values)
 			throws Exception {
-		final StringBuilder queryString = buildQueryString(filter, true);
-		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
-				queryString.toString(), true);
-		query.setIndexedParameters(filter.getValues().toArray());
-		return query.countInJpa(em);
-	}
-
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeCount(java.lang.String, java.util.Map)
-	 */
-	@Override
-	public int executeCount(final String queryString,
-			final Map<String, Object> parameters) throws Exception {
-		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
-				true);
-		query.setNamedParameters(parameters);
-		return query.countInJpa(em);
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeCount(java.lang.String, java.lang.Object[])
-	 */
-	@Override
-	public int executeCount(final String queryName, final Object... values) throws Exception{
 		Query queryObject = em.createNamedQuery(queryName);
-		if (values != null) {
-			for (int i = 0; i < values.length; i++) {
-				queryObject.setParameter(i + 1, values[i]);
-			}
-		}
-		int total = ((Long) queryObject.getSingleResult()).intValue();
-		return total;	
+		QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(queryObject);
+		queryJpaCallback.setIndexedParameters(values);
+		return queryJpaCallback.doInJpa(em);
 	}
 	
-
 	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeResult(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveResultType(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
 	 */
 	@Override
-	public <U extends ResultIntegrationBean>  List<U> executeResult(QueryJpaCallback<U> query) throws Exception {
+	public <U extends ResultIntegrationBean>  List<U> retrieveResultType(QueryJpaCallback<U> query) throws Exception {
 		final List<U> list = query.doInJpa(em);
 		return list;
 	}
-
+	
 	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeResult(java.lang.String)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveResultType(java.lang.String)
 	 */
 	@Override
-	public <U extends ResultIntegrationBean>  List<U> executeResult(final String queryString) throws Exception {
+	public <U extends ResultIntegrationBean>  List<U> retrieveResultType(final String queryString) throws Exception {
 		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
 				true);
 		final List<U> list = query.doInJpa(em);
@@ -445,10 +687,10 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	}
 
 	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeResult(java.lang.String, java.util.Map)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveResultType(java.lang.String, java.util.Map)
 	 */
 	@Override
-	public <U extends ResultIntegrationBean>  List<U> executeResult(final String queryString,
+	public <U extends ResultIntegrationBean>  List<U> retrieveResultType(final String queryString,
 			final Map<String, Object> parameters) throws Exception {
 		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
 				true);
@@ -456,12 +698,12 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		final List<U> list = query.doInJpa(em);
 		return list;
 	}
-
+	
 	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeResult(java.lang.String, java.util.Map, int, int)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveResultType(java.lang.String, java.util.Map, int, int)
 	 */
 	@Override
-	public <U extends ResultIntegrationBean>  List<U> executeResult(final String queryString,
+	public <U extends ResultIntegrationBean>  List<U> retrieveResultType(final String queryString,
 			final Map<String, Object> parameters, final int maxRecords,
 			final int firstResult) throws Exception {
 		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
@@ -471,24 +713,24 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.setMaxRecords(maxRecords);
 		final List<U> list = query.doInJpa(em);
 		return list;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public <U extends ResultIntegrationBean>  List<U> executeResult (final String queryName, final Object... values) throws Exception{
-		Query queryObject = em.createNamedQuery(queryName);
-		if (values != null) {
-			for (int i = 0; i < values.length; i++) {
-				queryObject.setParameter(i + 1, values[i]);
-			}
-		}
-		return queryObject.getResultList();		
 	}	
+	
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveResultType(java.lang.String, java.lang.Object[])
+	 */
+	@Override
+	public <U extends ResultIntegrationBean>  List<U> retrieveResultType (final String queryName, final Object... values) throws Exception{
+		Query queryObject = em.createNamedQuery(queryName);
+		QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(queryObject);
+		queryJpaCallback.setIndexedParameters(values);
+		return queryJpaCallback.doInJpa(em);
+	}		
 
 	/* (non-Javadoc)
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeUpdate(java.lang.String)
 	 */
 	@Override
-	public void executeUpdate(final String queryString) throws Exception {
+	public void update(final String queryString) throws Exception {
 		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(
 				queryString.toString());
 		query.doInJpa(em);
@@ -498,7 +740,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeUpdate(java.lang.String, java.util.Map)
 	 */
 	@Override
-	public void executeUpdate(final String queryString,
+	public void update(final String queryString,
 			final Map<String, Object> parameters) throws Exception {
 		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(
 				queryString.toString());
@@ -506,200 +748,66 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.doInJpa(em);
 	}
 
-	@Override
-	public void flush() throws Exception {
-		logger.trace(PersistenceMessageBundle.MSG_DAO_FLUSH);
-		em.flush();
-	}
-
-	@SuppressWarnings("unchecked")
-	private Class<T> getClassP() throws PersistenceException {
-
-		Class<T> classP = null;
-		final Type type = this.getClass().getGenericSuperclass();
-		if (type instanceof ParameterizedType) {
-			final ParameterizedType pType = (ParameterizedType) type;
-			if (pType.getActualTypeArguments()[0] instanceof Class) {
-				classP = (Class<T>) pType.getActualTypeArguments()[0];
-			} else {
-				logger.error(
-						PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERTYPE,
-						this.getClass());
-				throw new PersistenceException(
-						this.getClass().getSimpleName()
-								+ PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERTYPE);
-			}
-		} else {
-			logger.error(
-					PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERPATTERN,
-					this.getClass());
-			throw new PersistenceException(
-					this.getClass()
-							+ PersistenceMessageBundle.MSG_DAO_RETRIEVEBY_ERROR_PARAMETERPATTERN);
-
-		}
-
-		return classP;
-	}
-
 	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#persist(org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#update(org.appverse.web.framework.backend.persistence.services.integration.helpers.UpdateJpaCallback)
 	 */
 	@Override
-	public long persist(final T bean) throws Exception {
-		logger.trace(PersistenceMessageBundle.MSG_DAO_PERSIST);
-		long beanId = -1;
-		try {
-			beanId = (Long) PropertyUtils.getProperty(bean, this.BEAN_PK_NAME);
-		} catch (final Exception ex) {
-			logger.error(PersistenceMessageBundle.MSG_DAO_PERSIST_IDNOTFOUND,
-					getClass().getName());
-			throw new PersistenceException(
-					PersistenceMessageBundle.MSG_DAO_PERSIST_IDNOTFOUND);
-		}
-		if (beanId == 0) {
-			// new
-			em.persist(bean);
-			beanId = (Long) PropertyUtils.getProperty(bean, this.BEAN_PK_NAME);
-		} else {
-			// update
-			em.merge(bean);
-		}
-		PropertyUtils.setProperty(bean, this.BEAN_PK_NAME, beanId);
-		return beanId;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
-	 */
-	@Override
-	public void refresh(final T beanP) throws Exception {
-		logger.trace(PersistenceMessageBundle.MSG_DAO_REFRESH);
-		em.refresh(beanP);
-	}
-
-	@Override
-	public T retrieve(final IntegrationDataFilter filter) throws Exception {
-		final List<T> list = retrieveAll(filter);
-		if (list == null || list.size() == 0) {
-			return null;
-		} else if (list.size() == 1) {
-			return list.get(0);
-		} else {
-			throw new NotUniqueResultFoundException();
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(long)
-	 */
-	@Override
-	public T retrieve(final long pk) throws Exception {
-		final Class<T> classP = getClassP();
-		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK,
-				new Object[] { classP, this.BEAN_PK_NAME });
-		try {
-			return em.find(classP, pk);
-		} catch (final Exception e) {
-			logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK_ERROR,
-					new Object[] { classP, this.BEAN_PK_NAME });
-			throw new PersistenceException(
-					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK_ERROR
-							+ this.BEAN_PK_NAME);
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public T retrieve(final T beanP) throws Exception {
-		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN,
-				new Object[] { beanP, this.BEAN_PK_NAME });
-		Object beanId;
-		try {
-			beanId = PropertyUtils.getProperty(beanP, this.BEAN_PK_NAME);
-			return (T) em.find(beanP.getClass(), beanId);
-		} catch (final Exception e) {
-			logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN,
-					new Object[] { beanP, this.BEAN_PK_NAME });
-			throw new PersistenceException(
-					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN);
-		}
+	public void update(UpdateJpaCallback<T> query) throws Exception {
+		query.doInJpa(em);
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(java.lang.String, java.lang.Object[])
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#countResultType()
 	 */
-	@SuppressWarnings("unchecked")
-	public T retrieve(final String queryName, final Object... values) throws Exception{
+	@Override
+	public <U extends ResultIntegrationBean> int countResultType() throws Exception{
+		final StringBuilder queryString = buildQueryString(null, true);
+		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(
+				queryString.toString(), true);
+		return query.countInJpa(em);		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#countResultType(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> int countResultType(final IntegrationDataFilter filter)
+			throws Exception {
+		final StringBuilder queryString = buildQueryString(filter, true);
+		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(
+				queryString.toString(), true);
+		query.setIndexedParameters(filter.getValues().toArray());
+		return query.countInJpa(em);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#countResultType(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> int countResultType(QueryJpaCallback<U> query) throws Exception {
+		return query.countInJpa(em);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#countResultType(java.lang.String, java.util.Map)
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> int countResultType(final String queryString,
+			final Map<String, Object> parameters) throws Exception {
+		final QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(queryString);
+		queryJpaCallback.setNamedParameters(parameters);
+		return queryJpaCallback.countInJpa(em);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#countResultType(java.lang.String, java.lang.Object[])
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> int countResultType(final String queryName, final Object... values) throws Exception{
 		Query queryObject = em.createNamedQuery(queryName);
-		if (values != null) {
-			for (int i = 0; i < values.length; i++) {
-				queryObject.setParameter(i + 1, values[i]);
-			}
-		}
-		return (T) queryObject.getSingleResult();		
-	}	
+		final QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(queryObject);
+		queryJpaCallback.setIndexedParameters(values);
+		return queryJpaCallback.countInJpa(em);		
+	}
 	
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll()
-	 */
-	@Override
-	public List<T> retrieveAll() throws Exception {
-		IntegrationDataFilter integrationDataFilter = null;
-		return retrieveAll(integrationDataFilter);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
-	 */
-	@Override
-	public List<T> retrieveAll(final IntegrationDataFilter filter)
-			throws Exception {
-		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED,
-				new Object[] { getClassP(), filter });
-		try {
-			final StringBuilder queryString = buildQueryString(filter);
-			final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
-					queryString.toString(), false);
-			if (filter != null) {
-				query.setIndexedParameters(filter.getValues().toArray());
-				if (filter instanceof IntegrationPaginatedDataFilter) {
-					IntegrationPaginatedDataFilter iFilter = (IntegrationPaginatedDataFilter) filter;
-					query.setFirstResult(iFilter.getOffset());
-					query.setMaxRecords(iFilter.getLimit());
-				}
-			}
-
-			return query.doInJpa(em);
-		} catch (final Exception e) {
-			logger.error(
-					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR,
-					new Object[] { filter.toString(), getClassP() });
-			throw new PersistenceException(
-					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR_P1
-							+ filter.toString()
-							+ PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR_P2
-							+ getClassP(), e);
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll(java.lang.String, java.lang.Object[])
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> retrieveAll(final String queryName, final Object... values)
-			throws Exception {
-		Query queryObject = em.createNamedQuery(queryName);
-		if (values != null) {
-			for (int i = 0; i < values.length; i++) {
-				queryObject.setParameter(i + 1, values[i]);
-			}
-		}
-		return queryObject.getResultList();
-	}
 }
