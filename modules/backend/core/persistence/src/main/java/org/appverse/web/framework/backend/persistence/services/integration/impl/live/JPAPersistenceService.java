@@ -54,12 +54,12 @@ import org.springframework.util.StringUtils;
  * support and strictly very easy ordering and filtering conditions. Take into
  * account that the use of this service is restricted to the aforementioned
  * cases and more complex queries need to be built by means a custom JPA query.
- *
+ * 
  * This service support only support automatic generation of JPA queries
  * filtering by <T> object first level attributes that would NOT imply express
  * JOIN indication in the generated JPQL and only allows sorting by first level
  * attributes in the root <T> object.
- *
+ * 
  * @param <T>
  *            Abstract integration Bean the persistence service will deal with
  */
@@ -84,7 +84,6 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	private StringBuilder buildQueryString(final IntegrationDataFilter filter) {
 		return buildQueryString(filter, false);
 	}
-
 
 	private StringBuilder buildQueryString(final IntegrationDataFilter filter,
 			final boolean isCount) {
@@ -300,23 +299,30 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#count()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#count()
 	 */
 	@Override
-	public int count() throws Exception{
+	public int count() throws Exception {
 		final StringBuilder queryString = buildQueryString(null, true);
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
 				queryString.toString(), true);
-		return query.countInJpa(em);		
+		return query.countInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#count(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #count(org.appverse.web.framework.backend.api.model.
+	 * integration.IntegrationDataFilter)
 	 */
 	@Override
-	public int count(final IntegrationDataFilter filter)
-			throws Exception {
+	public int count(final IntegrationDataFilter filter) throws Exception {
 		final StringBuilder queryString = buildQueryString(filter, true);
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(
 				queryString.toString(), true);
@@ -324,38 +330,137 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return query.countInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeCount(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #count(org.appverse.web.framework.backend.persistence
+	 * .services.integration.helpers.QueryJpaCallback)
 	 */
 	@Override
 	public int count(QueryJpaCallback<T> query) throws Exception {
 		return query.countInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#count(java.lang.String, java.util.Map)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#count(java.lang.String, java.util.Map)
 	 */
 	@Override
 	public int count(final String queryString,
 			final Map<String, Object> parameters) throws Exception {
-		final QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(queryString);
+		final QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(
+				queryString);
 		queryJpaCallback.setNamedParameters(parameters);
 		return queryJpaCallback.countInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#count(java.lang.String, java.lang.Object[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#count(java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public int count(final String queryName, final Object... values) throws Exception{
+	public int count(final String queryName, final Object... values)
+			throws Exception {
 		Query queryObject = em.createNamedQuery(queryName);
-		final QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(queryObject);
+		final QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(
+				queryObject);
 		queryJpaCallback.setIndexedParameters(values);
-		return queryJpaCallback.countInJpa(em);		
+		return queryJpaCallback.countInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#delete(org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#countResultType()
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> int countResultType()
+			throws Exception {
+		final StringBuilder queryString = buildQueryString(null, true);
+		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(
+				queryString.toString(), true);
+		return query.countInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #countResultType(org.appverse.web.framework.backend.
+	 * api.model.integration.IntegrationDataFilter)
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> int countResultType(
+			final IntegrationDataFilter filter) throws Exception {
+		final StringBuilder queryString = buildQueryString(filter, true);
+		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(
+				queryString.toString(), true);
+		query.setIndexedParameters(filter.getValues().toArray());
+		return query.countInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #countResultType(org.appverse.web.framework.backend.
+	 * persistence.services.integration.helpers.QueryJpaCallback)
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> int countResultType(
+			QueryJpaCallback<U> query) throws Exception {
+		return query.countInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#countResultType(java.lang.String, java.util.Map)
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> int countResultType(
+			final String queryString, final Map<String, Object> parameters)
+			throws Exception {
+		final QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(
+				queryString);
+		queryJpaCallback.setNamedParameters(parameters);
+		return queryJpaCallback.countInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#countResultType(java.lang.String,
+	 * java.lang.Object[])
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> int countResultType(
+			final String queryName, final Object... values) throws Exception {
+		Query queryObject = em.createNamedQuery(queryName);
+		final QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(
+				queryObject);
+		queryJpaCallback.setIndexedParameters(values);
+		return queryJpaCallback.countInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #delete(org.appverse.web.framework.backend.api.model
+	 * .integration.AbstractIntegrationBean)
 	 */
 	@Override
 	public void delete(final T beanP) throws Exception {
@@ -363,8 +468,11 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		em.remove(beanP);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#deleteAll()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#deleteAll()
 	 */
 	@Override
 	public void deleteAll() throws Exception {
@@ -378,12 +486,17 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.doInJpa(em);
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#flush()
+	 */
 	@Override
 	public void flush() throws Exception {
 		logger.trace(PersistenceMessageBundle.MSG_DAO_FLUSH);
 		em.flush();
-	}	
+	}
 
 	@SuppressWarnings("unchecked")
 	private Class<T> getClassP() throws PersistenceException {
@@ -415,9 +528,13 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return classP;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#persist(org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #persist(org.appverse.web.framework.backend.api.model
+	 * .integration.AbstractIntegrationBean)
 	 */
 	@Override
 	public long persist(final T bean) throws Exception {
@@ -442,19 +559,28 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		PropertyUtils.setProperty(bean, this.BEAN_PK_NAME, beanId);
 		return beanId;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #refresh(org.appverse.web.framework.backend.api.model
+	 * .integration.AbstractIntegrationBean)
 	 */
 	@Override
 	public void refresh(final T beanP) throws Exception {
 		logger.trace(PersistenceMessageBundle.MSG_DAO_REFRESH);
 		em.refresh(beanP);
 	}
-	
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #retrieve(org.appverse.web.framework.backend.api.model
+	 * .integration.IntegrationDataFilter)
 	 */
 	@Override
 	public T retrieve(final IntegrationDataFilter filter) throws Exception {
@@ -485,8 +611,11 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieve(long)
 	 */
 	@Override
 	public T retrieve(final long pk) throws Exception {
@@ -504,25 +633,36 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #retrieve(org.appverse.web.framework.backend.persistence
+	 * .services.integration.helpers.QueryJpaCallback)
 	 */
 	@Override
 	public T retrieve(QueryJpaCallback<T> query) throws Exception {
 		return query.doInJpaSingleResult(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieve(java.lang.String)
 	 */
 	@Override
 	public T retrieve(final String queryString) throws Exception {
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString);
 		return query.doInJpaSingleResult(em);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(java.lang.String, java.util.Map)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieve(java.lang.String, java.util.Map)
 	 */
 	@Override
 	public T retrieve(final String queryString,
@@ -530,21 +670,31 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString);
 		query.setNamedParameters(parameters);
 		return query.doInJpaSingleResult(em);
-	}	
+	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(java.lang.String, java.lang.Object[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieve(java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public T retrieve(final String queryName, final Object... values) throws Exception{
+	public T retrieve(final String queryName, final Object... values)
+			throws Exception {
 		Query queryObject = em.createNamedQuery(queryName);
-		QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(queryObject);
+		QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(
+				queryObject);
 		queryJpaCallback.setIndexedParameters(values);
 		return queryJpaCallback.doInJpaSingleResult(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieve(org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #retrieve(org.appverse.web.framework.backend.api.model
+	 * .integration.AbstractIntegrationBean)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -562,21 +712,29 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYBEAN);
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll()
-	 */
-	@Override
-	public List<T> retrieveAll() throws Exception {
-		IntegrationDataFilter integrationDataFilter = null;
-		return retrieveAll(integrationDataFilter);
-	}		
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveList()
 	 */
 	@Override
-	public List<T> retrieveAll(final IntegrationDataFilter filter)
+	public List<T> retrieveList() throws Exception {
+		IntegrationDataFilter integrationDataFilter = null;
+		return retrieveList(integrationDataFilter);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #retrieveList(org.appverse.web.framework.backend.api
+	 * .model.integration.IntegrationDataFilter)
+	 */
+	@Override
+	public List<T> retrieveList(final IntegrationDataFilter filter)
 			throws Exception {
 		logger.trace(PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED,
 				new Object[] { getClassP(), filter });
@@ -605,44 +763,56 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#execute(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #retrieveList(org.appverse.web.framework.backend.persistence
+	 * .services.integration.helpers.QueryJpaCallback)
 	 */
 	@Override
-	public List<T> retrieveAll(QueryJpaCallback<T> query) throws Exception {
-		final List<T> list = query.doInJpa(em);
-		return list;
+	public List<T> retrieveList(QueryJpaCallback<T> query) throws Exception {
+		return query.doInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveList(java.lang.String)
 	 */
 	@Override
-	public List<T> retrieveAll(final String queryString) throws Exception {
+	public List<T> retrieveList(final String queryString) throws Exception {
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
 				true);
-		final List<T> list = query.doInJpa(em);
-		return list;
+		return query.doInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll(java.lang.String, java.util.Map)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveList(java.lang.String, java.util.Map)
 	 */
 	@Override
-	public List<T> retrieveAll(final String queryString,
+	public List<T> retrieveList(final String queryString,
 			final Map<String, Object> parameters) throws Exception {
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
 				true);
 		query.setNamedParameters(parameters);
-		final List<T> list = query.doInJpa(em);
-		return list;
+		return query.doInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll(java.lang.String, java.util.Map, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveList(java.lang.String, java.util.Map, int,
+	 * int)
 	 */
 	@Override
-	public List<T> retrieveAll(final String queryString,
+	public List<T> retrieveList(final String queryString,
 			final Map<String, Object> parameters, final int maxRecords,
 			final int firstResult) throws Exception {
 		final QueryJpaCallback<T> query = new QueryJpaCallback<T>(queryString,
@@ -650,84 +820,191 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.setNamedParameters(parameters);
 		query.setFirstResult(firstResult);
 		query.setMaxRecords(maxRecords);
-		final List<T> list = query.doInJpa(em);
-		return list;
+		return query.doInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveAll(java.lang.String, java.lang.Object[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveList(java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public List<T> retrieveAll(final String queryName, final Object... values)
+	public List<T> retrieveList(final String queryName, final Object... values)
 			throws Exception {
 		Query queryObject = em.createNamedQuery(queryName);
-		QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(queryObject);
+		QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(
+				queryObject);
 		queryJpaCallback.setIndexedParameters(values);
 		return queryJpaCallback.doInJpa(em);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveResultType(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #retrieveObjectArrayList(org.appverse.web.framework.
+	 * backend.persistence.services.integration.helpers.QueryJpaCallback)
 	 */
 	@Override
-	public <U extends ResultIntegrationBean>  List<U> retrieveResultType(QueryJpaCallback<U> query) throws Exception {
-		final List<U> list = query.doInJpa(em);
-		return list;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveResultType(java.lang.String)
-	 */
-	@Override
-	public <U extends ResultIntegrationBean>  List<U> retrieveResultType(final String queryString) throws Exception {
-		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
-				true);
-		final List<U> list = query.doInJpa(em);
-		return list;
+	public List<Object[]> retrieveObjectArrayList(
+			QueryJpaCallback<Object[]> query) throws Exception {
+		return query.doInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveResultType(java.lang.String, java.util.Map)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveObjectArrayList(java.lang.String)
 	 */
 	@Override
-	public <U extends ResultIntegrationBean>  List<U> retrieveResultType(final String queryString,
+	public List<Object[]> retrieveObjectArrayList(final String queryString)
+			throws Exception {
+		final QueryJpaCallback<Object[]> query = new QueryJpaCallback<Object[]>(
+				queryString, true);
+		return query.doInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveObjectArrayList(java.lang.String,
+	 * java.util.Map)
+	 */
+	@Override
+	public List<Object[]> retrieveObjectArrayList(final String queryString,
 			final Map<String, Object> parameters) throws Exception {
+		final QueryJpaCallback<Object[]> query = new QueryJpaCallback<Object[]>(
+				queryString, true);
+		query.setNamedParameters(parameters);
+		return query.doInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveObjectArrayList(java.lang.String,
+	 * java.util.Map, int, int)
+	 */
+	@Override
+	public List<Object[]> retrieveObjectArrayList(final String queryString,
+			final Map<String, Object> parameters, final int maxRecords,
+			final int firstResult) throws Exception {
+		final QueryJpaCallback<Object[]> query = new QueryJpaCallback<Object[]>(
+				queryString, true);
+		query.setNamedParameters(parameters);
+		query.setFirstResult(firstResult);
+		query.setMaxRecords(maxRecords);
+		return query.doInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveObjectArrayList(java.lang.String,
+	 * java.lang.Object[])
+	 */
+	@Override
+	public List<Object[]> retrieveObjectArrayList(final String queryName,
+			final Object... values) throws Exception {
+		Query queryObject = em.createNamedQuery(queryName);
+		QueryJpaCallback<Object[]> queryJpaCallback = new QueryJpaCallback<Object[]>(
+				queryObject);
+		queryJpaCallback.setIndexedParameters(values);
+		return queryJpaCallback.doInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #retrieveResultType(org.appverse.web.framework.backend
+	 * .persistence.services.integration.helpers.QueryJpaCallback)
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> List<U> retrieveResultType(
+			QueryJpaCallback<U> query) throws Exception {
+		return query.doInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveResultType(java.lang.String)
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> List<U> retrieveResultType(
+			final String queryString) throws Exception {
+		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
+				true);
+		return query.doInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveResultType(java.lang.String,
+	 * java.util.Map)
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> List<U> retrieveResultType(
+			final String queryString, final Map<String, Object> parameters)
+			throws Exception {
 		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
 				true);
 		query.setNamedParameters(parameters);
-		final List<U> list = query.doInJpa(em);
-		return list;
+		return query.doInJpa(em);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveResultType(java.lang.String, java.util.Map, int, int)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveResultType(java.lang.String,
+	 * java.util.Map, int, int)
 	 */
 	@Override
-	public <U extends ResultIntegrationBean>  List<U> retrieveResultType(final String queryString,
-			final Map<String, Object> parameters, final int maxRecords,
-			final int firstResult) throws Exception {
+	public <U extends ResultIntegrationBean> List<U> retrieveResultType(
+			final String queryString, final Map<String, Object> parameters,
+			final int maxRecords, final int firstResult) throws Exception {
 		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
 				true);
 		query.setNamedParameters(parameters);
 		query.setFirstResult(firstResult);
 		query.setMaxRecords(maxRecords);
-		final List<U> list = query.doInJpa(em);
-		return list;
-	}	
-	
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#retrieveResultType(java.lang.String, java.lang.Object[])
+		return query.doInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveResultType(java.lang.String,
+	 * java.lang.Object[])
 	 */
 	@Override
-	public <U extends ResultIntegrationBean>  List<U> retrieveResultType (final String queryName, final Object... values) throws Exception{
+	public <U extends ResultIntegrationBean> List<U> retrieveResultType(
+			final String queryName, final Object... values) throws Exception {
 		Query queryObject = em.createNamedQuery(queryName);
-		QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(queryObject);
+		QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(
+				queryObject);
 		queryJpaCallback.setIndexedParameters(values);
 		return queryJpaCallback.doInJpa(em);
-	}		
+	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeUpdate(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#update(java.lang.String)
 	 */
 	@Override
 	public void update(final String queryString) throws Exception {
@@ -736,8 +1013,11 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.doInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#executeUpdate(java.lang.String, java.util.Map)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#update(java.lang.String, java.util.Map)
 	 */
 	@Override
 	public void update(final String queryString,
@@ -748,66 +1028,17 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.doInJpa(em);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#update(org.appverse.web.framework.backend.persistence.services.integration.helpers.UpdateJpaCallback)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #update(org.appverse.web.framework.backend.persistence
+	 * .services.integration.helpers.UpdateJpaCallback)
 	 */
 	@Override
 	public void update(UpdateJpaCallback<T> query) throws Exception {
 		query.doInJpa(em);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#countResultType()
-	 */
-	@Override
-	public <U extends ResultIntegrationBean> int countResultType() throws Exception{
-		final StringBuilder queryString = buildQueryString(null, true);
-		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(
-				queryString.toString(), true);
-		return query.countInJpa(em);		
-	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#countResultType(org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter)
-	 */
-	@Override
-	public <U extends ResultIntegrationBean> int countResultType(final IntegrationDataFilter filter)
-			throws Exception {
-		final StringBuilder queryString = buildQueryString(filter, true);
-		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(
-				queryString.toString(), true);
-		query.setIndexedParameters(filter.getValues().toArray());
-		return query.countInJpa(em);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#countResultType(org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback)
-	 */
-	@Override
-	public <U extends ResultIntegrationBean> int countResultType(QueryJpaCallback<U> query) throws Exception {
-		return query.countInJpa(em);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#countResultType(java.lang.String, java.util.Map)
-	 */
-	@Override
-	public <U extends ResultIntegrationBean> int countResultType(final String queryString,
-			final Map<String, Object> parameters) throws Exception {
-		final QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(queryString);
-		queryJpaCallback.setNamedParameters(parameters);
-		return queryJpaCallback.countInJpa(em);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService#countResultType(java.lang.String, java.lang.Object[])
-	 */
-	@Override
-	public <U extends ResultIntegrationBean> int countResultType(final String queryName, final Object... values) throws Exception{
-		Query queryObject = em.createNamedQuery(queryName);
-		final QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(queryObject);
-		queryJpaCallback.setIndexedParameters(values);
-		return queryJpaCallback.countInJpa(em);		
-	}
-	
 }

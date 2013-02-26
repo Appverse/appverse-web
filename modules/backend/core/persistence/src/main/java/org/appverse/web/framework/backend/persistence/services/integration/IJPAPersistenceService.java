@@ -43,9 +43,10 @@ import org.appverse.web.framework.backend.persistence.services.integration.helpe
  *            The integration bean type managed by your integration service
  */
 public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
-	
+
 	/**
 	 * This methods count the number of T elements
+	 * 
 	 * @return int The number of records found
 	 */
 	public int count() throws Exception;
@@ -103,11 +104,12 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	int count(final String queryName, final Object... values) throws Exception;
 
 	/**
-	 * This methods count the number of <U extends ResultIntegrationBean> elements.
-	 * Use this method when you need to count IntegrationBeans that does not match
-	 * the type of the managed objects of your repository <T>
+	 * This methods count the number of <U extends ResultIntegrationBean>
+	 * elements. Use this method when you need to count IntegrationBeans that
+	 * does not match the type of the managed objects of your repository <T>
+	 * 
 	 * @return int The number of records found
-	 */	
+	 */
 	<U extends ResultIntegrationBean> int countResultType() throws Exception;
 
 	/**
@@ -115,56 +117,65 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * IntegrationDataFilter as a parameter. You can pass an
 	 * IntegrationPaginatedDataFilter as a parameter in order to perform counts
 	 * related to remote pagination. The IntegrationDataFilter allows you to
-	 * apply very simple conditions over <U extends ResultIntegrationBean> beans in order to filter the
-	 * results to be retrieved.
-	 * Use this method when you need to count IntegrationBeans that does not match
-	 * the type of the managed objects of your repository <T>
+	 * apply very simple conditions over <U extends ResultIntegrationBean> beans
+	 * in order to filter the results to be retrieved. Use this method when you
+	 * need to count IntegrationBeans that does not match the type of the
+	 * managed objects of your repository <T>
+	 * 
 	 * @param filter
 	 * @return int The number of records found
 	 * @throws Exception
 	 */
-	<U extends ResultIntegrationBean> int countResultType(final IntegrationDataFilter filter) throws Exception;
+	<U extends ResultIntegrationBean> int countResultType(
+			final IntegrationDataFilter filter) throws Exception;
 
 	/**
 	 * This methods allows you to perform any JPA operation providing direct
-	 * access to the EntityManager by means a QueryJpaCallback<U extends ResultIntegrationBean> object for <U extends ResultIntegrationBean>
-	 * beans for a count operation. If you want predefined standard hints, set
-	 * QueryJPACallback "standardHints" boolean parameter to true.
-	 * Use this method when you need to count IntegrationBeans that does not match
-	 * the type of the managed objects of your repository <T>  
+	 * access to the EntityManager by means a QueryJpaCallback<U extends
+	 * ResultIntegrationBean> object for <U extends ResultIntegrationBean> beans
+	 * for a count operation. If you want predefined standard hints, set
+	 * QueryJPACallback "standardHints" boolean parameter to true. Use this
+	 * method when you need to count IntegrationBeans that does not match the
+	 * type of the managed objects of your repository <T>
+	 * 
 	 * @param query
 	 * @return
 	 * @throws Exception
 	 */
-	<U extends ResultIntegrationBean> int countResultType(QueryJpaCallback<U> query) throws Exception;
+	<U extends ResultIntegrationBean> int countResultType(
+			QueryJpaCallback<U> query) throws Exception;
 
 	/**
 	 * This method allows you to execute a count passing a JPQL query string and
-	 * a map with parameters.
-	 * Use this method when you need to count IntegrationBeans that does not match
-	 * the type of the managed objects of your repository <T>  
+	 * a map with parameters. Use this method when you need to count
+	 * IntegrationBeans that does not match the type of the managed objects of
+	 * your repository <T>
+	 * 
 	 * @param queryString
 	 *            The JPQL query
 	 * @param parameters
 	 * @return int The number of records found
 	 * @throws Exception
 	 */
-	<U extends ResultIntegrationBean> int countResultType(final String queryString,
-			final Map<String, Object> parameters) throws Exception;
-	
+	<U extends ResultIntegrationBean> int countResultType(
+			final String queryString, final Map<String, Object> parameters)
+			throws Exception;
+
 	/**
 	 * This method allows you to perform counts according to a JPQL query byName
 	 * and the set of parameters the query requires. Queries byName must be
-	 * added in your orm.xml file
-	 * Use this method when you need to count IntegrationBeans that does not match
-	 * the type of the managed objects of your repository <T>  
+	 * added in your orm.xml file Use this method when you need to count
+	 * IntegrationBeans that does not match the type of the managed objects of
+	 * your repository <T>
+	 * 
 	 * @param queryName
 	 *            Name of the query in your orm.xml file
 	 * @param values
 	 * @return
 	 * @throws Exception
 	 */
-	<U extends ResultIntegrationBean> int countResultType(final String queryName, final Object... values) throws Exception;
+	<U extends ResultIntegrationBean> int countResultType(
+			final String queryName, final Object... values) throws Exception;
 
 	/**
 	 * Deletes a <T> bean
@@ -206,14 +217,15 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	void refresh(final T beanP) throws Exception;
 
 	/**
-	 * This method allows you retrieve a <T> bean passing IntegrationDataFilter
-	 * as a parameter. You can pass an IntegrationPaginatedDataFilter as a
-	 * parameter in order to perform counts related to remote pagination. The
-	 * IntegrationDataFilter allows you to apply very simple conditions over <T>
-	 * beans in order to filter the results to be retrieved. Use this method
-	 * when your query has to return always a result (and just one result). In
-	 * other case use retrieveAll returning a List. If no results are found or
-	 * non unique, a exception is thrown.
+	 * This method allows you retrieve a <T> bean passing an
+	 * IntegrationDataFilter as a parameter. You can pass an
+	 * IntegrationPaginatedDataFilter as a parameter in order to perform counts
+	 * when you have to remote pagination. Besides, the IntegrationDataFilter
+	 * allows you to apply very simple conditions over <T> beans in order to
+	 * filter the results to be retrieved. Use this method when your query has
+	 * to return always a result (and just one result). In other case use
+	 * retrieveAll returning a List. If no results are found or non unique, a
+	 * exception is thrown.
 	 * 
 	 * @param filter
 	 * @return The T bean retrieved
@@ -223,7 +235,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 *             if more than one result
 	 */
 	T retrieve(final IntegrationDataFilter filter) throws Exception;
-	
+
 	/**
 	 * Retrieves a <T> bean using its primary key
 	 * 
@@ -234,18 +246,20 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 */
 	T retrieve(long pk) throws Exception;
 
-
 	/**
-	 * This methods allows you to perform retrieval JPA operations providing direct
-	 * access to the EntityManager by means a QueryJpaCallback<T> object for <T>
-	 * beans. If you want predefined standard hints, set QueryJPACallback
-	 * "standardHints" boolean parameter to true. 
-	 * Use this method when you expect your query to return just one T object.
-	 * If no results are found or non unique, a exception is thrown
+	 * This methods allows you to perform retrieval JPA operations providing
+	 * direct access to the EntityManager by means a QueryJpaCallback<T> object
+	 * for <T> beans. If you want predefined standard hints, set
+	 * QueryJPACallback "standardHints" boolean parameter to true. Use this
+	 * method when you expect your query to return just one T object. If no
+	 * results are found or non unique, a exception is thrown
+	 * 
 	 * @param query
 	 * @return
-     * @throws NoResultException if there is no result
-     * @throws NonUniqueResultException if more than one result
+	 * @throws NoResultException
+	 *             if there is no result
+	 * @throws NonUniqueResultException
+	 *             if more than one result
 	 */
 	T retrieve(QueryJpaCallback<T> query) throws Exception;
 
@@ -265,13 +279,13 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 *             if more than one result
 	 */
 	T retrieve(final String queryString) throws Exception;
-	
 
 	/**
-	 * Retrieves a <T> bean according to a JPQL query string and a map with parameters. Use this method
-	 * when your query has to return always a result (and just one result). In
-	 * other case use retrieveAll returning a List. If no results are found or
-	 * non unique, a exception is thrown. 
+	 * Retrieves a <T> bean according to a JPQL query string and a map with
+	 * parameters. Use this method when your query has to return always a result
+	 * (and just one result). In other case use retrieveAll returning a List. If
+	 * no results are found or non unique, a exception is thrown.
+	 * 
 	 * @param queryString
 	 * @param parameters
 	 * @return
@@ -280,14 +294,15 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @throws NonUniqueResultException
 	 *             if more than one result
 	 */
-	T retrieve(final String queryString,
-			final Map<String, Object> parameters) throws Exception;
-	
+	T retrieve(final String queryString, final Map<String, Object> parameters)
+			throws Exception;
 
 	/**
 	 * Retrieves a <T> bean according to a JPQL query byName and the set of
 	 * parameters the query requires. Queries byName must be added in your
-	 * orm.xml file
+	 * orm.xml file. Use this method when your query has to return always a
+	 * result (and just one result). In other case use retrieveAll returning a
+	 * List. If no results are found or non unique, a exception is thrown.
 	 * 
 	 * @param queryName
 	 *            Name of the query in your orm.xml file
@@ -317,8 +332,8 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return List<T> The list of <T> bean retrieved
 	 * @throws Exception
 	 */
-	List<T> retrieveAll() throws Exception;
-	
+	List<T> retrieveList() throws Exception;
+
 	/**
 	 * This method allows you retrieve a list of <T> bean passing
 	 * IntegrationDataFilter as a parameter. You can pass an
@@ -331,19 +346,19 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return List<T> The list of <T> beans retrieved
 	 * @throws Exception
 	 */
-	List<T> retrieveAll(IntegrationDataFilter filter) throws Exception;
+	List<T> retrieveList(IntegrationDataFilter filter) throws Exception;
 
 	/**
-	 * This methods allows you to perform retrieval JPA operations providing direct
-	 * access to the EntityManager by means a QueryJpaCallback<T> object for <T>
-	 * beans. If you want predefined standard hints, set QueryJPACallback
-	 * "standardHints" boolean parameter to true.
+	 * This methods allows you to perform retrieval JPA operations providing
+	 * direct access to the EntityManager by means a QueryJpaCallback<T> object
+	 * for <T> beans. If you want predefined standard hints, set
+	 * QueryJPACallback "standardHints" boolean parameter to true.
 	 * 
 	 * @param query
 	 * @return List<T> List of retrieved <T> beans
 	 * @throws Exception
 	 */
-	List<T> retrieveAll(QueryJpaCallback<T> query) throws Exception;
+	List<T> retrieveList(QueryJpaCallback<T> query) throws Exception;
 
 	/**
 	 * This methods allows you to execute a JPQL query returning a List of <T>
@@ -354,7 +369,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return List<T> List of retrieved <T> beans
 	 * @throws Exception
 	 */
-	List<T> retrieveAll(String queryString) throws Exception;
+	List<T> retrieveList(String queryString) throws Exception;
 
 	/**
 	 * This methods allows you to execute a JPQL query returning a List of <T>
@@ -366,7 +381,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return List<T> List of retrieved <T> beans
 	 * @throws Exception
 	 */
-	List<T> retrieveAll(String queryString, Map<String, Object> parameters)
+	List<T> retrieveList(String queryString, Map<String, Object> parameters)
 			throws Exception;
 
 	/**
@@ -387,7 +402,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return List<T> List of retrieved <T> beans
 	 * @throws Exception
 	 */
-	List<T> retrieveAll(final String queryString,
+	List<T> retrieveList(final String queryString,
 			final Map<String, Object> parameters, final int maxRecords,
 			final int firstResult) throws Exception;
 
@@ -404,8 +419,133 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 *         retrieves.
 	 * @throws Exception
 	 */
-	List<T> retrieveAll(final String queryName, final Object... values)
+	List<T> retrieveList(final String queryName, final Object... values)
 			throws Exception;
+
+	/**
+	 * This methods allows you to perform any JPA operation providing direct
+	 * access to the EntityManager by means a QueryJpaCallback<Object[]>
+	 * returning <Object[]>. Use this method when you need to return directly
+	 * objects that does not match neither the type of the managed objects of
+	 * your repository <T> a result of your query nor a "resultType". A typical
+	 * usage is when you do not want to retrieve a full object or a combination
+	 * of different attributes of different objects involved in the query or
+	 * just calculated fields. In summary, use this method when you do not have
+	 * an IntegrationBean or "resultType" to act as a container of the data
+	 * returned by the query. In this case you get directly a List with an array
+	 * of objects including the selected data. Of course, in this case, you are
+	 * responsible to parse this data to objects so do not use this method if
+	 * you have an specific object to hold the data.
+	 * 
+	 * @param query
+	 * @return List<Object[]> The list of non typed data to be retrieved
+	 * @throws Exception
+	 */
+	List<Object[]> retrieveObjectArrayList(QueryJpaCallback<Object[]> query)
+			throws Exception;
+
+	/**
+	 * This methods allows you to execute a JPQL query returning a List of
+	 * <Object[]>. Use this method when you need to return directly objects that
+	 * does not match neither the type of the managed objects of your repository
+	 * <T> a result of your query nor a "resultType". A typical usage is when
+	 * you do not want to retrieve a full object or a combination of different
+	 * attributes of different objects involved in the query or just calculated
+	 * fields. In summary, use this method when you do not have an
+	 * IntegrationBean or "resultType" to act as a container of the data
+	 * returned by the query. In this case you get directly a List with an array
+	 * of objects including the selected data. Of course, in this case, you are
+	 * responsible to parse this data to objects so do not use this method if
+	 * you have an specific object to hold the data.
+	 * 
+	 * @param query
+	 *            The JPQL query
+	 * @return List<Object[]> The list of non typed data to be retrieved
+	 * @throws Exception
+	 */
+	List<Object[]> retrieveObjectArrayList(final String queryString)
+			throws Exception;
+
+	/**
+	 * This methods allows you to execute a JPQL query returning a List of
+	 * <Object[]> and a map of parameters. Use this method when you need to
+	 * return directly objects that does not match neither the type of the
+	 * managed objects of your repository <T> a result of your query nor a
+	 * "resultType". A typical usage is when you do not want to retrieve a full
+	 * object or a combination of different attributes of different objects
+	 * involved in the query or just calculated fields. In summary, use this
+	 * method when you do not have an IntegrationBean or "resultType" to act as
+	 * a container of the data returned by the query. In this case you get
+	 * directly a List with an array of objects including the selected data. Of
+	 * course, in this case, you are responsible to parse this data to objects
+	 * so do not use this method if you have an specific object to hold the
+	 * data.
+	 * 
+	 * @param query
+	 *            The JPQL query
+	 * @param parameters
+	 * @return List<Object[]> The list of non typed data to be retrieved
+	 * @throws Exception
+	 */
+	List<Object[]> retrieveObjectArrayList(final String queryString,
+			final Map<String, Object> parameters) throws Exception;
+
+	/**
+	 * This method allows you to execute a JPQL query returning a List of
+	 * <Object[]> passing a map of parameters and a maximum number of objects to
+	 * be retrieved and the position of the first object of the group of objects
+	 * to be retrieved. This method is typically used to perform remote
+	 * pagination. Use this method when you need to return directly objects that
+	 * does not match neither the type of the managed objects of your repository
+	 * <T> a result of your query nor a "resultType". A typical usage is when
+	 * you do not want to retrieve a full object or a combination of different
+	 * attributes of different objects involved in the query or just calculated
+	 * fields. In summary, use this method when you do not have an
+	 * IntegrationBean or "resultType" to act as a container of the data
+	 * returned by the query. In this case you get directly a List with an array
+	 * of objects including the selected data. Of course, in this case, you are
+	 * responsible to parse this data to objects so do not use this method if
+	 * you have an specific object to hold the data.
+	 * 
+	 * @param queryString
+	 *            The JPQL query
+	 * @param parameters
+	 * @param maxRecords
+	 *            Maximum number of records (<T> beans) to be retrieved
+	 * @param firstResult
+	 *            Starting position of the first <T> bean of the results to be
+	 *            retrieved
+	 * @return List<T> List of retrieved <T> beans
+	 * @throws Exception
+	 */
+	List<Object[]> retrieveObjectArrayList(final String queryString,
+			final Map<String, Object> parameters, final int maxRecords,
+			final int firstResult) throws Exception;
+
+	/**
+	 * This method allows you to perform counts according to a JPQL query byName
+	 * and the set of parameters the query requires, returning a List of
+	 * <Object[]> . Queries byName must be added in your orm.xml file. Use this
+	 * method when you need to return directly objects that does not match
+	 * neither the type of the managed objects of your repository <T> a result
+	 * of your query nor a "resultType". A typical usage is when you do not want
+	 * to retrieve a full object or a combination of different attributes of
+	 * different objects involved in the query or just calculated fields. In
+	 * summary, use this method when you do not have an IntegrationBean or
+	 * "resultType" to act as a container of the data returned by the query. In
+	 * this case you get directly a List with an array of objects including the
+	 * selected data. Of course, in this case, you are responsible to parse this
+	 * data to objects so do not use this method if you have an specific object
+	 * to hold the data.
+	 * 
+	 * @param queryName
+	 *            Name of the query in your orm.xml file
+	 * @param values
+	 * @return List<Object[]> List of Object[] retrieved
+	 * @throws Exception
+	 */
+	List<Object[]> retrieveObjectArrayList(final String queryName,
+			final Object... values) throws Exception;
 
 	/**
 	 * This methods allows you to perform any JPA operation providing direct
@@ -458,8 +598,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	<U extends ResultIntegrationBean> List<U> retrieveResultType(
 			String queryString, Map<String, Object> parameters)
 			throws Exception;
-	
-	
+
 	/**
 	 * This method allows you to execute a JPQL query returning a List of <T>
 	 * beans returning <U> beans that extend ResultIntegrationBean and passing a
@@ -484,7 +623,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	<U extends ResultIntegrationBean> List<U> retrieveResultType(
 			final String queryString, final Map<String, Object> parameters,
 			final int maxRecords, final int firstResult) throws Exception;
-	
+
 	/**
 	 * This method allows you to perform counts according to a JPQL query byName
 	 * and the set of parameters the query requires, returning a List of <T>
@@ -501,7 +640,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 */
 	<U extends ResultIntegrationBean> List<U> retrieveResultType(
 			final String queryName, final Object... values) throws Exception;
-	
+
 	/**
 	 * Executes an update JPQL query
 	 * 
@@ -510,8 +649,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @throws Exception
 	 */
 	void update(String queryString) throws Exception;
-	
-	
+
 	/**
 	 * Executes an update JPQL query supporting a map of parameters
 	 * 
@@ -522,7 +660,15 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 */
 	void update(String queryString, Map<String, Object> parameters)
 			throws Exception;
-	
+
+	/**
+	 * This methods allows you to perform any JPA update providing direct access
+	 * to the EntityManager by means a QueryJpaCallback<T>
+	 * 
+	 * @param query
+	 * @return void
+	 * @throws Exception
+	 */
 	void update(UpdateJpaCallback<T> query) throws Exception;
 
 }
