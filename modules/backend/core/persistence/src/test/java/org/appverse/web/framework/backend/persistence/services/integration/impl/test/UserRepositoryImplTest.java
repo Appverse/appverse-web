@@ -26,6 +26,7 @@ package org.appverse.web.framework.backend.persistence.services.integration.impl
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 
 import org.appverse.web.framework.backend.api.helpers.test.AbstractTransactionalTest;
 import org.appverse.web.framework.backend.api.helpers.test.JPATest;
@@ -132,8 +133,10 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 		filter.addStrictCondition("name", "name1");
 		try{
 			userDTORetrieved = userRepository.retrieve(filter);
-		}catch(NoResultException e){
-			//Nothing to do
+		}catch(PersistenceException e){
+			if(!(e.getCause() instanceof NoResultException)){
+				throw e;
+			}
 		}
 		Assert.isNull(userDTORetrieved);
 		filter = new IntegrationDataFilter();
