@@ -62,10 +62,10 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 	@Test
 	public void deleteAll() throws Exception {
 		retrieveAll();
-		List<UserDTO> list = userRepository.retrieveAll();
+		List<UserDTO> list = userRepository.retrieveList();
 		Assert.notEmpty(list);
 		userRepository.deleteAll();
-		list = userRepository.retrieveAll();
+		list = userRepository.retrieveList();
 		Assert.isTrue(list.isEmpty());
 	}
 
@@ -100,10 +100,10 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 	@Override
 	@Test
 	public void retrieveAll() throws Exception {
-		List<UserDTO> list = userRepository.retrieveAll();
+		List<UserDTO> list = userRepository.retrieveList();
 		Assert.isTrue(list.isEmpty());
 		persist();
-		list = userRepository.retrieveAll();
+		list = userRepository.retrieveList();
 		Assert.notEmpty(list);
 	}
 
