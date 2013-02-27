@@ -54,12 +54,12 @@ import org.springframework.util.StringUtils;
  * support and strictly very easy ordering and filtering conditions. Take into
  * account that the use of this service is restricted to the aforementioned
  * cases and more complex queries need to be built by means a custom JPA query.
- * 
+ *
  * This service support only support automatic generation of JPA queries
  * filtering by <T> object first level attributes that would NOT imply express
  * JOIN indication in the generated JPQL and only allows sorting by first level
  * attributes in the root <T> object.
- * 
+ *
  * @param <T>
  *            Abstract integration Bean the persistence service will deal with
  */
@@ -301,7 +301,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#count()
 	 */
@@ -315,7 +315,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #count(org.appverse.web.framework.backend.api.model.
@@ -332,7 +332,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #count(org.appverse.web.framework.backend.persistence
@@ -343,9 +343,16 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return query.countInJpa(em);
 	}
 
+	@Override
+	public int count(String queryString) throws Exception {
+	final QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(
+			queryString);
+	return queryJpaCallback.countInJpa(em);
+	}
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#count(java.lang.String, java.util.Map)
 	 */
@@ -358,9 +365,10 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return queryJpaCallback.countInJpa(em);
 	}
 
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#count(java.lang.String, java.lang.Object[])
 	 */
@@ -376,40 +384,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.
-	 * IJPAPersistenceService#countResultType()
-	 */
-	@Override
-	public <U extends ResultIntegrationBean> int countResultType()
-			throws Exception {
-		final StringBuilder queryString = buildQueryString(null, true);
-		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(
-				queryString.toString(), true);
-		return query.countInJpa(em);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.appverse.web.framework.backend.persistence.services.integration.
-	 * IJPAPersistenceService
-	 * #countResultType(org.appverse.web.framework.backend.
-	 * api.model.integration.IntegrationDataFilter)
-	 */
-	@Override
-	public <U extends ResultIntegrationBean> int countResultType(
-			final IntegrationDataFilter filter) throws Exception {
-		final StringBuilder queryString = buildQueryString(filter, true);
-		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(
-				queryString.toString(), true);
-		query.setIndexedParameters(filter.getValues().toArray());
-		return query.countInJpa(em);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #countResultType(org.appverse.web.framework.backend.
@@ -421,9 +396,17 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return query.countInJpa(em);
 	}
 
+	@Override
+	public <U extends ResultIntegrationBean> int countResultType(
+			String queryString) throws Exception {
+		final QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(
+				queryString);
+		return queryJpaCallback.countInJpa(em);
+	}
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#countResultType(java.lang.String, java.util.Map)
 	 */
@@ -439,7 +422,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#countResultType(java.lang.String,
 	 * java.lang.Object[])
@@ -454,9 +437,10 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return queryJpaCallback.countInJpa(em);
 	}
 
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #delete(org.appverse.web.framework.backend.api.model
@@ -470,7 +454,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#deleteAll()
 	 */
@@ -488,7 +472,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#flush()
 	 */
@@ -497,6 +481,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		logger.trace(PersistenceMessageBundle.MSG_DAO_FLUSH);
 		em.flush();
 	}
+
 
 	@SuppressWarnings("unchecked")
 	private Class<T> getClassP() throws PersistenceException {
@@ -528,9 +513,10 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return classP;
 	}
 
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #persist(org.appverse.web.framework.backend.api.model
@@ -562,7 +548,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #refresh(org.appverse.web.framework.backend.api.model
@@ -576,7 +562,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #retrieve(org.appverse.web.framework.backend.api.model
@@ -613,7 +599,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieve(long)
 	 */
@@ -635,7 +621,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #retrieve(org.appverse.web.framework.backend.persistence
@@ -648,7 +634,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieve(java.lang.String)
 	 */
@@ -660,7 +646,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieve(java.lang.String, java.util.Map)
 	 */
@@ -674,7 +660,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieve(java.lang.String, java.lang.Object[])
 	 */
@@ -690,7 +676,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #retrieve(org.appverse.web.framework.backend.api.model
@@ -715,7 +701,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveList()
 	 */
@@ -727,7 +713,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #retrieveList(org.appverse.web.framework.backend.api
@@ -765,7 +751,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #retrieveList(org.appverse.web.framework.backend.persistence
@@ -778,7 +764,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveList(java.lang.String)
 	 */
@@ -791,7 +777,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveList(java.lang.String, java.util.Map)
 	 */
@@ -806,7 +792,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveList(java.lang.String, java.util.Map, int,
 	 * int)
@@ -825,7 +811,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveList(java.lang.String, java.lang.Object[])
 	 */
@@ -841,7 +827,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #retrieveObjectArrayList(org.appverse.web.framework.
@@ -855,7 +841,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveObjectArrayList(java.lang.String)
 	 */
@@ -869,7 +855,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveObjectArrayList(java.lang.String,
 	 * java.util.Map)
@@ -885,7 +871,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveObjectArrayList(java.lang.String,
 	 * java.util.Map, int, int)
@@ -904,7 +890,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveObjectArrayList(java.lang.String,
 	 * java.lang.Object[])
@@ -921,7 +907,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #retrieveResultType(org.appverse.web.framework.backend
@@ -935,7 +921,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveResultType(java.lang.String)
 	 */
@@ -949,7 +935,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveResultType(java.lang.String,
 	 * java.util.Map)
@@ -966,7 +952,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveResultType(java.lang.String,
 	 * java.util.Map, int, int)
@@ -985,7 +971,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#retrieveResultType(java.lang.String,
 	 * java.lang.Object[])
@@ -1002,7 +988,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#update(java.lang.String)
 	 */
@@ -1013,9 +999,10 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.doInJpa(em);
 	}
 
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#update(java.lang.String, java.util.Map)
 	 */
@@ -1030,7 +1017,23 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#update(java.lang.String, Object...)
+	 */
+	@Override
+	public void update(final String queryName, final Object... values)
+			throws Exception {
+		Query queryObject = em.createNamedQuery(queryName);
+		final UpdateJpaCallback<T> updateJpaCallback = new UpdateJpaCallback<T>(
+				queryObject);
+		updateJpaCallback.setIndexedParameters(values);
+		updateJpaCallback.doInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #update(org.appverse.web.framework.backend.persistence
