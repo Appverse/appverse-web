@@ -560,7 +560,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 *         ResultIntegrationBean to retrieve
 	 * @throws Exception
 	 */
-	<U extends ResultIntegrationBean> List<U> retrieveResultType(
+	<U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
 			QueryJpaCallback<U> query) throws Exception;
 
 	/**
@@ -577,7 +577,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 *         ResultIntegrationBean to retrieve
 	 * @throws Exception
 	 */
-	<U extends ResultIntegrationBean> List<U> retrieveResultType(
+	<U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
 			String queryString) throws Exception;
 
 	/**
@@ -595,7 +595,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 *         ResultIntegrationBean to retrieve
 	 * @throws Exception
 	 */
-	<U extends ResultIntegrationBean> List<U> retrieveResultType(
+	<U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
 			String queryString, Map<String, Object> parameters)
 			throws Exception;
 
@@ -620,7 +620,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return List<T> List of retrieved <T> beans
 	 * @throws Exception
 	 */
-	<U extends ResultIntegrationBean> List<U> retrieveResultType(
+	<U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
 			final String queryString, final Map<String, Object> parameters,
 			final int maxRecords, final int firstResult) throws Exception;
 
@@ -638,7 +638,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return
 	 * @throws Exception
 	 */
-	<U extends ResultIntegrationBean> List<U> retrieveResultType(
+	<U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
 			final String queryName, final Object... values) throws Exception;
 
 	/**

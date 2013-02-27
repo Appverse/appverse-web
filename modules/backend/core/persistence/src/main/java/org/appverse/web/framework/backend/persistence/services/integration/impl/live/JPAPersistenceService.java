@@ -928,7 +928,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * .persistence.services.integration.helpers.QueryJpaCallback)
 	 */
 	@Override
-	public <U extends ResultIntegrationBean> List<U> retrieveResultType(
+	public <U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
 			QueryJpaCallback<U> query) throws Exception {
 		return query.doInJpa(em);
 	}
@@ -940,7 +940,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * IJPAPersistenceService#retrieveResultType(java.lang.String)
 	 */
 	@Override
-	public <U extends ResultIntegrationBean> List<U> retrieveResultType(
+	public <U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
 			final String queryString) throws Exception {
 		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
 				true);
@@ -955,7 +955,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * java.util.Map)
 	 */
 	@Override
-	public <U extends ResultIntegrationBean> List<U> retrieveResultType(
+	public <U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
 			final String queryString, final Map<String, Object> parameters)
 			throws Exception {
 		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
@@ -972,7 +972,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * java.util.Map, int, int)
 	 */
 	@Override
-	public <U extends ResultIntegrationBean> List<U> retrieveResultType(
+	public <U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
 			final String queryString, final Map<String, Object> parameters,
 			final int maxRecords, final int firstResult) throws Exception {
 		final QueryJpaCallback<U> query = new QueryJpaCallback<U>(queryString,
@@ -991,7 +991,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * java.lang.Object[])
 	 */
 	@Override
-	public <U extends ResultIntegrationBean> List<U> retrieveResultType(
+	public <U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
 			final String queryName, final Object... values) throws Exception {
 		Query queryObject = em.createNamedQuery(queryName);
 		QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(
