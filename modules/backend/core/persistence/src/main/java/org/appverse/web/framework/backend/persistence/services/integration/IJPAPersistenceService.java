@@ -45,6 +45,14 @@ import org.appverse.web.framework.backend.persistence.services.integration.helpe
 public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 
 	/**
+	 * Performs JPA contains operation
+	 * 
+	 * @param beanP
+	 * @throws Exception
+	 */
+	void contains(final T beanP) throws Exception;
+
+	/**
 	 * This methods count the number of T elements
 	 * 
 	 * @return int The number of records found
@@ -279,6 +287,14 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @throws Exception
 	 */
 	void deleteAll() throws Exception;
+
+	/**
+	 * Performs JPA detach operation
+	 * 
+	 * @param beanP
+	 * @throws Exception
+	 */
+	void detach(final T beanP) throws Exception;
 
 	/**
 	 * Performs JPA flush operation

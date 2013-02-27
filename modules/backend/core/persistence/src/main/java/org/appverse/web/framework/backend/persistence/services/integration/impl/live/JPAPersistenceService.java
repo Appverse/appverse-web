@@ -247,6 +247,20 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * (non-Javadoc)
 	 * 
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #refresh(org.appverse.web.framework.backend.api.model
+	 * .integration.AbstractIntegrationBean)
+	 */
+	@Override
+	public void contains(final T beanP) throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_REFRESH);
+		em.contains(beanP);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService#count()
 	 */
 	@Override
@@ -498,6 +512,20 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		final UpdateJpaCallback<T> query = new UpdateJpaCallback<T>(
 				queryString.toString());
 		query.doInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService
+	 * #refresh(org.appverse.web.framework.backend.api.model
+	 * .integration.AbstractIntegrationBean)
+	 */
+	@Override
+	public void detach(final T beanP) throws Exception {
+		logger.trace(PersistenceMessageBundle.MSG_DAO_REFRESH);
+		em.detach(beanP);
 	}
 
 	/*
