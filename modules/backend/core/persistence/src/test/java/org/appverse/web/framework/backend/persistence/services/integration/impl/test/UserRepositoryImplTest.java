@@ -23,42 +23,75 @@
  */
 package org.appverse.web.framework.backend.persistence.services.integration.impl.test;
 
+import java.util.List;
+
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
+
 import org.appverse.web.framework.backend.api.helpers.test.AbstractTransactionalTest;
 import org.appverse.web.framework.backend.api.helpers.test.JPATest;
+import org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter;
 import org.appverse.web.framework.backend.persistence.model.integration.UserDTO;
 import org.appverse.web.framework.backend.persistence.services.integration.UserRepository;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.util.Assert;
 
 @TransactionConfiguration(defaultRollback = false)
-public class UserRepositoryImplTest extends AbstractTransactionalTest implements JPATest{
+public class UserRepositoryImplTest extends AbstractTransactionalTest implements
+		JPATest {
 
+	private static UserDTO userDTO;
 
 	@Autowired
 	UserRepository userRepository;
 
 	@Override
 	public void delete() throws Exception {
-		// TODO Auto-generated method stub
-
+		UserDTO userDTORetrieved = userRepository.retrieve(userDTO);
+		Assert.isNull(userDTORetrieved);
+		userRepository.persist(userDTO);
+		userDTORetrieved = userRepository.retrieve(userDTO);
+		Assert.notNull(userDTORetrieved);
+		userRepository.delete(userDTO);
+		userDTORetrieved = userRepository.retrieve(userDTO);
+		Assert.isNull(userDTORetrieved);
 	}
 
 	@Override
+	@Test
+	public void deleteAll() throws Exception {
+		retrieveAll();
+		List<UserDTO> list = userRepository.retrieveList();
+		Assert.notEmpty(list);
+		userRepository.deleteAll();
+		list = userRepository.retrieveList();
+		Assert.isTrue(list.isEmpty());
+	}
+
+	@Override
+	@After
+	public void finalize() throws Exception {
+		userRepository.deleteAll();
+	}
+
+	@Override
+	@Before
 	public void initialize() throws Exception {
-		// TODO Auto-generated method stub
+		userDTO = new UserDTO();
+		userDTO.setName("name");
+		userDTO.setLastName("lastName");
+		userDTO.setPassword("password");
+		userDTO.setEmail("email");
 
 	}
 
 	@Override
 	@Test
 	public void persist() throws Exception {
-		UserDTO userDTO = new UserDTO();
-		userDTO.setName("name");
-		userDTO.setLastName("lastName");
-		userDTO.setPassword("password");
-		userDTO.setEmail("email");
 		UserDTO userDTORetrieved = userRepository.retrieve(userDTO);
 		Assert.isNull(userDTORetrieved);
 		userRepository.persist(userDTO);
@@ -68,27 +101,60 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 	}
 
 	@Override
+	@Test
 	public void retrieveAll() throws Exception {
-		// TODO Auto-generated method stub
-
+		List<UserDTO> list = userRepository.retrieveList();
+		Assert.isTrue(list.isEmpty());
+		persist();
+		list = userRepository.retrieveList();
+		Assert.notEmpty(list);
 	}
 
 	@Override
+	@Test
 	public void retrieveByBean() throws Exception {
-		// TODO Auto-generated method stub
+		UserDTO userDTORetrieved = userRepository.retrieve(userDTO);
+		Assert.isNull(userDTORetrieved);
+		persist();
+		userDTORetrieved = userRepository.retrieve(new UserDTO());
+		Assert.isNull(userDTORetrieved);
+		userDTORetrieved = userRepository.retrieve(userDTO);
+		Assert.notNull(userDTORetrieved);
 
 	}
 
 	@Override
+	@Test
 	public void retrieveByFilter() throws Exception {
-		// TODO Auto-generated method stub
+		UserDTO userDTORetrieved = userRepository.retrieve(userDTO);
+		Assert.isNull(userDTORetrieved);
+		persist();
+		IntegrationDataFilter filter = new IntegrationDataFilter();
+		filter.addStrictCondition("name", "name1");
+		try{
+			userDTORetrieved = userRepository.retrieve(filter);
+		}catch(PersistenceException e){
+			if(!(e.getCause() instanceof NoResultException)){
+				throw e;
+			}
+		}
+		Assert.isNull(userDTORetrieved);
+		filter = new IntegrationDataFilter();
+		filter.addStrictCondition("name", "name");
+		userDTORetrieved = userRepository.retrieve(filter);
+		Assert.notNull(userDTORetrieved);
 
 	}
 
 	@Override
+	@Test
 	public void retrieveByPk() throws Exception {
-		// TODO Auto-generated method stub
-
+		UserDTO userDTORetrieved = userRepository.retrieve(userDTO);
+		Assert.isNull(userDTORetrieved);
+		persist();
+		userDTORetrieved = userRepository.retrieve(0);
+		Assert.isNull(userDTORetrieved);
+		userDTORetrieved = userRepository.retrieve(userDTO.getId());
+		Assert.notNull(userDTORetrieved);
 	}
-
 }
