@@ -7,7 +7,7 @@
 		<version>1.0.4-SNAPSHOT</version>
 	</parent>
 
-	<groupId>org.appverse.web.framework.poms.tools</groupId>
+	<groupId>org.appverse.web.poms.tools</groupId>
 	<artifactId>appverse-web-tools-pom</artifactId>
 	<packaging>pom</packaging>
 

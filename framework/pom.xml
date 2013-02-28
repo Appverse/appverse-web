@@ -13,8 +13,8 @@
 	<version>1.0.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Appverse Web Framework Backend Super POM</name>
-	<description>Appverse Web Framework Backend Super POM</description>
+	<name>Appverse Web Framework Super POM</name>
+	<description>Appverse Web Framework Super POM</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 
 	<licenses>
@@ -46,7 +46,7 @@
 	</licenses>
 	
 	<properties>
-		<framework.version>1.0.3</framework.version>
+		<framework.version>1.0.4-SNAPSHOT</framework.version>
 		<main.name>appverse</main.name>
 		<app.context.root>${main.name}</app.context.root>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -58,12 +58,11 @@
 	<scm>
 		<connection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</connection>
 		<developerConnection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</developerConnection>
-    <tag>HEAD</tag>
+    	<tag>HEAD</tag>
   </scm>
 	
 	<modules>
 		<module>modules</module>
-		<module>tools</module>
 		<module>archetypes</module>
 	</modules>
 
