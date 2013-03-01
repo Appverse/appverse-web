@@ -12,8 +12,8 @@
 	<artifactId>appverse-web-modules-backend-aspect</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Appverse Web Framework Backend Aspect Module</name>
-	<description>Appverse Web Framework Backend Aspect Module</description>
+	<name>Appverse Web Framework Modules Backend Aspect Module</name>
+	<description>Appverse Web Framework Modules Backend Aspect Module</description>
 	 
 	<licenses>
 		<license>

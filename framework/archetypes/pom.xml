@@ -4,7 +4,7 @@
 
 	<parent>
 		<groupId>org.appverse.web.framework.poms</groupId>
-		<artifactId>appverse-web-superpom</artifactId>
+		<artifactId>appverse-web-masterpom</artifactId>
 		<version>1.0.4-SNAPSHOT</version>
 	</parent>
 
@@ -12,8 +12,8 @@
 	<artifactId>appverse-web-archetypes-pom</artifactId>
 	<packaging>pom</packaging>
 	
-	<name>Appverse Web Framework Tools Archetypes POM</name>
-	<description>Appverse Web Framework Tools Archetypes POM</description>
+	<name>Appverse Web Framework Archetypes POM</name>
+	<description>Appverse Web Framework Archetypes POM</description>
 
 	<licenses>
 		<license>

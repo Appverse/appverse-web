@@ -12,8 +12,8 @@
 	<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Appverse Web Framework Backend Core Persistence Module</name>
-	<description>Appverse Web Framework Backend Core Persistence Module</description> 
+	<name>Appverse Web Framework Modules Backend Core Persistence Module</name>
+	<description>Appverse Web Framework Modules Backend Core Persistence Module</description> 
 
 	<licenses>   
 		<license>
@@ -96,13 +96,11 @@
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>javax.persistence</artifactId>
-			<version>2.0.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
-			<version>2.4.1</version>
 		</dependency>	
 		 
 		<dependency>

@@ -4,7 +4,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.m2e.Maven2LaunchConfigurationType">
 <booleanAttribute key="M2_DEBUG_OUTPUT" value="false"/>
-<stringAttribute key="M2_GOALS" value="org.appverse.web.framework.poms.tools.jpaddlgenerator.plugin:appverse-web-tools-jpa-ddl-generator-plugin:generate-schema  -DtargetDbPlatform=MySQLPlatform"/>
+<stringAttribute key="M2_GOALS" value="org.appverse.web.tools.jpaddlgenerator:appverse-web-tools-jpa-ddl-generator:generate-schema  -DtargetDbPlatform=MySQLPlatform"/>
 <booleanAttribute key="M2_NON_RECURSIVE" value="false"/>
 <booleanAttribute key="M2_OFFLINE" value="false"/>
 <stringAttribute key="M2_PROFILES" value=""/>

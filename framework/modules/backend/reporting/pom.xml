@@ -12,8 +12,8 @@
 	<artifactId>appverse-web-modules-backend-reporting</artifactId>	
 	<packaging>jar</packaging>
 
-	<name>Appverse Web Framework Modules Backend Reporting</name>
-	<description>Appverse Web Framework Modules Backend Reporting</description>
+	<name>Appverse Web Framework Modules Backend Reporting Module</name>
+	<description>Appverse Web Framework Modules Backend Reporting Module</description>
 
 	<licenses>
 		<license>

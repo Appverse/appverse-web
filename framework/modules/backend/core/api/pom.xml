@@ -12,8 +12,8 @@
 	<artifactId>appverse-web-modules-backend-core-api</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Appverse Web Framework Backend Core API Module</name>
-	<description>Appverse Web Framework Backend Core API Module</description>
+	<name>Appverse Web Framework Modules Backend Core API Module</name>
+	<description>Appverse Web Framework Modules Backend Core API Module</description>
 	
 	<licenses>
 		<license>

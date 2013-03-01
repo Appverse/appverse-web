@@ -12,8 +12,8 @@
     <artifactId>appverse-web-modules-backend-batch</artifactId>
     <packaging>jar</packaging>
 
-    <name>Appverse Web Framework Modules Backend Batch POM</name>
-    <description>Appverse Web Framework Modules Backend Batch POM</description>
+    <name>Appverse Web Framework Modules Backend Batch Module</name>
+    <description>Appverse Web Framework Modules Backend Batch Module</description>
 
 	<licenses>
 		<license>

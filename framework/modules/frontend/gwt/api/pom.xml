@@ -12,8 +12,8 @@
 	<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
 	<artifactId>appverse-web-modules-frontend-gwt-api</artifactId>
 
-	<name>Appverse Web Framework Modules Frontend GWT API</name>
-	<description>Appverse Web Framework Modules Frontend GWT API</description>
+	<name>Appverse Web Framework Modules Frontend GWT API Module</name>
+	<description>Appverse Web Framework Modules Frontend GWT API Module</description>
 
 	<licenses>
 		<license>

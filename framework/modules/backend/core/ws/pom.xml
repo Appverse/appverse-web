@@ -12,8 +12,8 @@
 	<artifactId>appverse-web-modules-backend-core-ws</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Appverse Web Framework Backend Core WS Module</name>
-	<description>Appverse Web Framework Backend Core WS Module</description>
+	<name>Appverse Web Framework Modules Backend Core WS Module</name>
+	<description>Appverse Web Framework Modules  Backend Core WS Module</description>
 
 	<licenses>
 		<license>

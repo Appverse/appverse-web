@@ -12,8 +12,8 @@
 	<artifactId>appverse-web-modules-backend-frontfacade-json</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Appverse Web Framework Modules Backend Front-Facade JSON</name>
-	<description>Appverse Web Framework Modules Backend Front-Facade JSON</description>	
+	<name>Appverse Web Framework Modules Backend Front-Facade JSON Module</name>
+	<description>Appverse Web Framework Modules Backend Front-Facade JSON Module</description>	
 
 	<licenses>
 		<license>

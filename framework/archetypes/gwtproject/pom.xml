@@ -12,8 +12,8 @@
 	<artifactId>appverse-web-archetypes-gwtproject</artifactId>
 	<packaging>maven-archetype</packaging>
 	
-	<name>Appverse Web Framework Tools Archetypes GWT Project</name>
-	<description>Appverse Web Framework Tools Archetypes GWT Project</description>
+	<name>Appverse Web Framework Archetypes GWT Project Archetype</name>
+	<description>Appverse Web Framework Archetypes GWT Project Archetype</description>
 
 	<licenses>
 		<license>

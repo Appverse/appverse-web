@@ -12,8 +12,8 @@
   	<artifactId>appverse-web-modules-backend-messaging</artifactId>
     <packaging>jar</packaging>
 
-    <name>Appverse Web Framework Modules Backend Messaging POM</name>
-    <description>Appverse Web Framework Modules Backend Messaging POM</description>
+    <name>Appverse Web Framework Modules Backend Messaging Module</name>
+    <description>Appverse Web Framework Modules Backend Messaging Module</description>
  
  	<licenses>
 		<license>
