@@ -3,17 +3,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms.tools</groupId>
+		<groupId>org.appverse.web.poms.tools</groupId>
 		<artifactId>appverse-web-tools-pom</artifactId>
 		<version>1.0.4-SNAPSHOT</version>
 	</parent>
 
-	<groupId>org.appverse.web.framework.poms.tools.jpaddlgenerator</groupId>
+	<groupId>org.appverse.web.poms.tools.jpaddlgenerator</groupId>
 	<artifactId>appverse-web-tools-jpa-ddl-generator-pom</artifactId>
 	<packaging>pom</packaging>
 	
-	<name>Appverse Web Framework Tools JPA DLL Generator POM</name>
-	<description>Appverse Web Framework Tools JPA DLL Generator POM</description>
+	<name>Appverse Web Tools JPA DLL Generator POM</name>
+	<description>Appverse Web Tools JPA DLL Generator POM</description>
 	
 	<modules>
 		<module>maven-plugin</module>
