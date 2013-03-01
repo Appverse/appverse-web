@@ -48,7 +48,6 @@
 		<module>cache</module>
 		<module>persistence</module>
 		<module>ws</module>
-		<module>pom</module>
 	</modules>
 
 </project>

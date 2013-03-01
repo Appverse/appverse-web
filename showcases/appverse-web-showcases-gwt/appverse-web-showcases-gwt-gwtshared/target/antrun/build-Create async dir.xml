@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project name="maven-antrun-" default="Create async dir"  >
-<target name="Create async dir">
-  <mkdir dir="target/generated-sources/gwt"/>
-</target>
-</project>

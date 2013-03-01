@@ -92,15 +92,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.appverse.web.showcases.gwtshowcase.shared</groupId>
-			<artifactId>gwtshowcase-gwtshared</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<groupId>org.appverse.web.showcases.gwt.gwtshared</groupId>
+			<artifactId>appverse-web-showcases-gwt-gwtshared</artifactId>
+			<version>${project.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.appverse.web.showcases.gwtshowcase.gwtfrontend</groupId>
-			<artifactId>gwtshowcase-gwtfrontend</artifactId>
+			<groupId>org.appverse.web.showcases.gwt.gwtfrontend</groupId>
+			<artifactId>appverse-web-showcases-gwt-gwtfrontend</artifactId>
 			<version>${project.version}</version>
 			<classifier>GWT-Frontend-Resources</classifier>
 			<type>zip</type>

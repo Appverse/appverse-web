@@ -51,9 +51,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.appverse.web.showcases.gwtshowcase.shared</groupId>
-			<artifactId>gwtshowcase-gwtshared</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<groupId>org.appverse.web.showcases.gwt.gwtshared</groupId>
+			<artifactId>appverse-web-showcases-gwt-gwtshared</artifactId>
+			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
