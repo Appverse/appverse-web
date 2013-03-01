@@ -3,10 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms.modules.frontend.gwt.parent</groupId>
-		<artifactId>appverse-web-modules-frontend-gwt-parent-pom</artifactId>
+		<groupId>org.appverse.web.framework.poms.modules.frontend.gwt</groupId>
+		<artifactId>appverse-web-modules-frontend-gwt-pom</artifactId>
 		<version>1.0.4-SNAPSHOT</version>
-	    <relativePath>../pom</relativePath>
 	</parent>
 
 	<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>

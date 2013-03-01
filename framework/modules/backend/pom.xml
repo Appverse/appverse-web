@@ -55,6 +55,32 @@
 	<build>
 		<defaultGoal>clean package</defaultGoal>
 		<outputDirectory>target/classes</outputDirectory>
+		
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
+					<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
+					<version>1.0.4-SNAPSHOT</version>
+					<extensions>true</extensions>
+					<executions>
+						<execution>
+							<id>generate-schema</id>
+							<goals>
+								<goal>generate-schema</goal>
+							</goals>
+						</execution>
+					</executions>
+					<dependencies>
+						<dependency>
+							<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
+							<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
+							<version>1.0.4-SNAPSHOT</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<dependencies>
@@ -240,6 +266,63 @@
 				</dependency>
 			</dependencies>
 		</profile>
-	</profiles>
 
+		<profile>
+			<id>gwt</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack-GWT-frontend</id>
+								<goals>
+									<goal>unpack-dependencies</goal> 
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+									<includeGroupIds>${main.group}.gwtfrontend</includeGroupIds>
+									<includeArtifacIds>${main.name}-gwtfrontend</includeArtifacIds>
+								</configuration> 
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>aspectj</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>aspectj-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>compile</goal>
+									<goal>test-compile</goal>
+								</goals>
+								<phase>process-sources</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<aspectLibraries>
+								<aspectLibrary>
+									<groupId>org.appverse.web.framework.poms.modules.backend.core</groupId>
+									<artifactId>appverse-web-modules-backend-core-pom</artifactId>
+								</aspectLibrary>
+							</aspectLibraries>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
