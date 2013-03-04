@@ -44,7 +44,7 @@
 	</licenses>
 
 	<modules>
-		<module>gxt</module>
+		<module>gwt</module>
 		<module>json</module>
 	</modules>
 

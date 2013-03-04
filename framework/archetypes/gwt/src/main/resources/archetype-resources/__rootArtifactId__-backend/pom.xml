@@ -49,8 +49,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gxt</groupId>
-			<artifactId>appverse-web-modules-backend-frontfacade-gxt</artifactId>
+			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
+			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
 			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
