@@ -44,9 +44,8 @@
 	</licenses>	
 
 	<properties>
-		<main.name>gwtshowcase</main.name>
-		<!-- main.group has to have the groupId value of gwtshowcase pom.xml -->
-		<main.group>org.appverse.web.showcases.gwtshowcase</main.group>
+		<main.group>org.appverse.web.showcases.gwt</main.group>
+		<main.name>appverse-web-showcases-gwt</main.name>
 	</properties>
 
 	<build>
