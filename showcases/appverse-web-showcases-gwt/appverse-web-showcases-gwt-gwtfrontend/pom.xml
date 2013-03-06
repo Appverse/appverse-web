@@ -3,15 +3,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms.modules.frontend.gwt</groupId>
-		<artifactId>appverse-web-modules-frontend-gwt-pom</artifactId>	
-		<version>1.0.4-SNAPSHOT</version>
-        <relativePath></relativePath>		
+	    <groupId>org.appverse.web.showcases.gwt</groupId>
+	    <artifactId>appverse-web-showcases-gwt</artifactId>
+	    <version>1.0-SNAPSHOT</version>	
 	</parent>
 
 	<groupId>org.appverse.web.showcases.gwt.gwtfrontend</groupId>
 	<artifactId>appverse-web-showcases-gwt-gwtfrontend</artifactId>
-	<version>1.0-SNAPSHOT</version>
 	<name>GWT Showcase GWT Frontend Module</name>
 	
 	<licenses>
@@ -42,11 +40,132 @@
 		</license>
 	</licenses>	
 
+	<properties>
+		<gwt.version>2.5.0</gwt.version>
+		<gxt.version>3.0.1</gxt.version>
+		<mvp4.version>1.4.0</mvp4.version>
+	</properties>
+<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>Generate Services Async Interfaces and Compile GWT Code</id>
+						<goals>
+							<goal>compile</goal>
+							<goal>generateAsync</goal>
+							<goal>resources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<classpathContainers>
+						<classpathContainer>com.google.gwt.eclipse.core.GWT_CONTAINER</classpathContainer>
+					</classpathContainers>
+					<buildcommands>
+						<buildcommand>com.google.gdt.eclipse.core.webAppProjectValidator</buildcommand>
+						<buildcommand>com.google.gwt.eclipse.core.gwtProjectValidator</buildcommand>
+					</buildcommands>
+					<additionalProjectnatures>
+						<projectnature>com.google.gwt.eclipse.core.gwtNature</projectnature>
+					</additionalProjectnatures>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>target/generated-sources/gwt</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin> 
+	            <groupId>org.apache.maven.plugins</groupId> 
+	            <artifactId>maven-antrun-plugin</artifactId> 
+	            <executions> 
+	            	<execution> 
+	                	<id>Create async dir</id> 
+	                    <goals> 
+	                    	<goal>run</goal> 
+	                   	</goals> 
+	                    <phase>generate-resources</phase> 
+	                    <configuration> 
+	                    	<target name="Create async dir"> 
+	                        	<mkdir dir="target/generated-sources/gwt" />
+	                    	</target> 
+	                	</configuration> 
+	            	</execution> 
+	            </executions> 
+          	</plugin> 
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+			</plugin>
+		</plugins>
+		
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>Assembly GWT Frontend Resources</id>
+							<goals>
+								<goal>single</goal>
+							</goals>
+							<phase>package</phase>
+							<configuration>
+								<ignoreMissingDescriptor>true</ignoreMissingDescriptor>
+								<descriptors>
+									<descriptor>src/main/assembly/resources.xml</descriptor>
+								</descriptors>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>			
+	</build>		
+
+
 	<dependencies>
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
 			<artifactId>appverse-web-modules-frontend-gwt-api</artifactId>
-			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
@@ -56,4 +175,24 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+	<profiles> 
+		<profile> 
+			<id>development</id> 
+			<activation> 
+				<activeByDefault>true</activeByDefault> 
+			</activation> 
+			<build> 
+				<plugins> 
+					<plugin> 
+						<groupId>org.codehaus.mojo</groupId> 
+						<artifactId>gwt-maven-plugin</artifactId> 				
+						<configuration> 
+							<extraJvmArgs>-Xms128m -Xmx768m -XX:MaxPermSize=256m</extraJvmArgs> 
+							<draftCompile>true</draftCompile> 
+						</configuration> 
+					</plugin> 
+				</plugins> 
+			</build> 
+		</profile> 
+	</profiles> 
 </project>

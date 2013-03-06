@@ -222,6 +222,18 @@
     <module>appverse-web-showcases-gwt-gwtshared</module>
   </modules>
   
+  	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.appverse.web.framework.poms</groupId>
+				<artifactId>appverse-web-masterpom</artifactId>
+				<version>1.0.4-SNAPSHOT</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+  
   	<profiles>
 		<profile>
 			<id>development</id>
