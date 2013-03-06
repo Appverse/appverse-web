@@ -45,6 +45,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.appverse.web.framework.poms.modules.backend.dependencies</groupId>
+			<artifactId>appverse-web-modules-backend-dependencies-pom</artifactId>
+			<type>pom</type>
+		</dependency>		
+	
+		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
 		</dependency>

@@ -47,7 +47,6 @@
 			<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
 			<artifactId>appverse-web-modules-frontend-gwt-api</artifactId>
 			<version>${project.parent.version}</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>	
 </project>
