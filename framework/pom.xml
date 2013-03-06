@@ -541,7 +541,7 @@
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
 				<artifactId>appverse-web-modules-backend-core-api</artifactId>
-				<version>${project.version}</version>
+				<version>${framework.version}</version>
 			</dependency>
 			
 			<dependency>
@@ -585,7 +585,7 @@
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
 				<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
-				<version>${project.version}</version>
+				<version>${framework.version}</version>
 			</dependency>  	
 	 
 			<dependency>
@@ -619,7 +619,7 @@
 			<dependency>
 				<groupId>org.appverse.web.framework.poms.modules.backend.dependencies</groupId>
 				<artifactId>appverse-web-modules-backend-dependencies-pom</artifactId>
-				<version>${project.version}</version>
+				<version>${framework.version}</version>
 				<type>pom</type>
 			</dependency>	
 			
@@ -750,7 +750,7 @@
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 				<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
-				<version>${project.version}</version>
+				<version>${framework.version}</version>
 			</dependency>	        																													
 		</dependencies>
 	</dependencyManagement>
