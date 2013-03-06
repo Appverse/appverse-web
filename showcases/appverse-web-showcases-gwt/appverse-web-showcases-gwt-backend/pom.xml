@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms.modules.backend</groupId>
-		<artifactId>appverse-web-modules-backend-pom</artifactId>
-		<version>1.0.4-SNAPSHOT</version>
+		<groupId>org.appverse.web.framework.poms</groupId>
+		<artifactId>appverse-web-masterpom</artifactId>
+        <version>1.0.4-SNAPSHOT</version>
         <relativePath></relativePath>		
 	</parent>
 
@@ -61,9 +61,36 @@
 		</resources>
 
 		<plugins>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.appverse.web.tools.jpaddlgenerator</groupId> -->
+<!-- 				<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 					<id>unpack-GWT-frontend</id> -->
+<!-- 						<goals> -->
+<!-- 							<goal>generate-schema</goal>  -->
+<!-- 						</goals> -->
+<!-- 						<phase>generate-resources</phase> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 			<plugin>
-				<groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
-				<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-GWT-frontend</id>
+						<goals>
+							<goal>unpack-dependencies</goal> 
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+							<includeGroupIds>${main.group}.gwtfrontend</includeGroupIds>
+							<includeArtifacIds>${main.name}-gwtfrontend</includeArtifacIds>
+						</configuration> 
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -104,8 +131,13 @@
 			<classifier>GWT-Frontend-Resources</classifier>
 			<type>zip</type>
 			<scope>provided</scope>
-		</dependency>		
+		</dependency>	
 		
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 	
 </project>

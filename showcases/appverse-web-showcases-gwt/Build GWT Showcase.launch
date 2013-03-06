@@ -4,8 +4,9 @@
 <stringAttribute key="M2_GOALS" value="clean package tomcat:deploy-only"/>
 <booleanAttribute key="M2_NON_RECURSIVE" value="false"/>
 <booleanAttribute key="M2_OFFLINE" value="false"/>
-<stringAttribute key="M2_PROFILES" value="gwt,hsqldb"/>
+<stringAttribute key="M2_PROFILES" value=""/>
 <listAttribute key="M2_PROPERTIES"/>
+<stringAttribute key="M2_RUNTIME" value="C:\development\tools\maven"/>
 <booleanAttribute key="M2_SKIP_TESTS" value="true"/>
 <booleanAttribute key="M2_UPDATE_SNAPSHOTS" value="false"/>
 <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
