@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
-    <parent>
-		<groupId>org.appverse.web.framework.poms</groupId>
-		<artifactId>appverse-web-masterpom</artifactId>
-        <version>1.0.4-SNAPSHOT</version>
-        <relativePath></relativePath>
-    </parent>
 
     <groupId>org.appverse.web.showcases.gwt</groupId>
     <artifactId>appverse-web-showcases-gwt</artifactId>
@@ -53,4 +46,41 @@
     <module>appverse-web-showcases-gwt-gwtfrontend</module>
     <module>appverse-web-showcases-gwt-gwtshared</module>
   </modules>
+  
+  	<profiles>
+		<profile>
+			<id>development</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<env>development</env>
+				<skip.tests>true</skip.tests>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>integration</id>
+			<properties>
+				<env>integration</env>
+				<skip.tests>false</skip.tests>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>uat</id>
+			<properties>
+				<env>uat</env>
+				<skip.tests>true</skip.tests>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>production</id>
+			<properties>
+				<env>production</env>
+				<skip.tests>true</skip.tests>
+			</properties>
+		</profile>
+	</profiles>
 </project>

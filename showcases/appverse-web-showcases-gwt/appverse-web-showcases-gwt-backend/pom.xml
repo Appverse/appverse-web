@@ -3,15 +3,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms</groupId>
-		<artifactId>appverse-web-masterpom</artifactId>
-        <version>1.0.4-SNAPSHOT</version>
-        <relativePath></relativePath>		
+	    <groupId>org.appverse.web.showcases.gwt</groupId>
+	    <artifactId>appverse-web-showcases-gwt</artifactId>
+	    <version>1.0-SNAPSHOT</version>	
 	</parent>
 
 	<groupId>org.appverse.web.showcases.gwt.backend</groupId>
 	<artifactId>appverse-web-showcases-gwt-backend</artifactId>
-	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>GWT Showcase GWT Backend Module</name>
 	
@@ -95,25 +93,34 @@
 		</plugins>
 	</build>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.appverse.web.framework.poms</groupId>
+				<artifactId>appverse-web-masterpom</artifactId>
+				<version>1.0.4-SNAPSHOT</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
 			<artifactId>appverse-web-modules-backend-core-api</artifactId>
-			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
-			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
 			<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
-			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
