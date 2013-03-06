@@ -45,6 +45,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
+			<artifactId>appverse-web-modules-backend-core-api</artifactId>
+		</dependency>
+			
+		<dependency>
 			<groupId>org.appverse.web.framework.poms.modules.backend.dependencies</groupId>
 			<artifactId>appverse-web-modules-backend-dependencies-pom</artifactId>
 			<type>pom</type>
