@@ -68,7 +68,6 @@
 		<dependency>
 			<groupId>org.appverse.web.framework.poms.modules.backend.dependencies</groupId>
 			<artifactId>appverse-web-modules-backend-dependencies-pom</artifactId>
-			<version>${project.version}</version>
 			<type>pom</type>
 		</dependency>	
 	</dependencies>

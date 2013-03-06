@@ -47,45 +47,26 @@
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
 			<artifactId>appverse-web-modules-backend-core-api</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 	  	
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jms</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-spring</artifactId>
-			<version>5.8.0</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.geronimo.specs</groupId>				
-					<artifactId>geronimo-jta_1.0.1B_spec</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.geronimo.specs</groupId>				
-					<artifactId>geronimo-jms_1.1_spec</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.geronimo.specs</groupId>
-					<artifactId>geronimo-j2ee-management_1.1_spec</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency> 	
 		
 		<dependency>
 		    <groupId>javax.jms</groupId>
 		    <artifactId>jms-api</artifactId>
-		    <version>1.1-rev-1</version>
 		</dependency>  	
 		
 		<dependency>
 		    <groupId>javax.management.j2ee</groupId>
 		    <artifactId>management-api</artifactId>
-		    <version>1.1-rev-1</version>
 		</dependency>		
 	</dependencies>
 </project>

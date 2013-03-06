@@ -43,10 +43,6 @@
 		</license>
 	</licenses>
 
-	<properties>
-		<gwt.version>2.5.0</gwt.version>
-	</properties>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -69,13 +65,11 @@
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
 			<artifactId>appverse-web-modules-backend-core-api</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
-			<version>${gwt.version}</version>
 		</dependency>
 	</dependencies>
 </project>

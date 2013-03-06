@@ -47,13 +47,11 @@
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
 			<artifactId>appverse-web-modules-backend-core-api</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 
         <dependency> 
              <groupId>org.codehaus.jackson</groupId> 
              <artifactId>jackson-mapper-asl</artifactId> 
-             <version>1.9.12</version> 
         </dependency>                                   
 	</dependencies>
 </project>
