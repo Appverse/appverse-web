@@ -59,15 +59,6 @@
 <!-- 			<plugin> -->
 <!-- 				<groupId>org.appverse.web.tools.jpaddlgenerator</groupId> -->
 <!-- 				<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 					<id>unpack-GWT-frontend</id> -->
-<!-- 						<goals> -->
-<!-- 							<goal>generate-schema</goal>  -->
-<!-- 						</goals> -->
-<!-- 						<phase>generate-resources</phase> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
 <!-- 			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -113,5 +104,4 @@
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
-	
 </project>
