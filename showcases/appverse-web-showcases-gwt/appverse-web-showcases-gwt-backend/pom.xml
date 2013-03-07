@@ -72,20 +72,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>unpack-GWT-frontend</id>
-						<goals>
-							<goal>unpack-dependencies</goal> 
-						</goals>
-						<phase>generate-resources</phase>
-						<configuration>
-							<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
-							<includeGroupIds>${main.group}.gwtfrontend</includeGroupIds>
-							<includeArtifacIds>${main.name}-gwtfrontend</includeArtifacIds>
-						</configuration> 
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -94,26 +80,22 @@
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
 			<artifactId>appverse-web-modules-backend-core-api</artifactId>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
-			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
-			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
 			<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
-			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
+			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.appverse.web.showcases.gwt.gwtshared</groupId>
 			<artifactId>appverse-web-showcases-gwt-gwtshared</artifactId>
 			<version>${project.version}</version>
-			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -121,8 +103,8 @@
 			<artifactId>appverse-web-showcases-gwt-gwtfrontend</artifactId>
 			<version>${project.version}</version>
 			<classifier>GWT-Frontend-Resources</classifier>
-			<type>zip</type>
 			<scope>provided</scope>
+			<type>zip</type>			
 		</dependency>	
 		
 		<dependency>

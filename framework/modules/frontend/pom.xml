@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms</groupId>
-		<artifactId>appverse-web-masterpom</artifactId>
-		<version>1.0.4-SNAPSHOT</version>
-		<relativePath>../../</relativePath>				
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
 	</parent>
 
 	<groupId>org.appverse.web.framework.poms.modules.frontend</groupId>
 	<artifactId>appverse-web-modules-frontend-pom</artifactId>
+		<version>1.0.4-SNAPSHOT</version>	
 	<packaging>pom</packaging>	
 
 	<name>Appverse Web Framework Modules Frontend POM</name>
