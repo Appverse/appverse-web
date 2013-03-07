@@ -257,16 +257,40 @@
 				<version>${framework.version}</version>
 				<type>pom</type>
 			</dependency>		
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.aspect</groupId>
+				<artifactId>appverse-web-modules-backend-aspect</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.batch</groupId>
+			    <artifactId>appverse-web-modules-backend-batch</artifactId>
+				<version>${framework.version}</version>
+			</dependency>			
 					
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
 				<artifactId>appverse-web-modules-backend-core-api</artifactId>
 				<version>${framework.version}</version>
 			</dependency>
-					
+			
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
 				<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
+				<version>${framework.version}</version>
+			</dependency>  
+			
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.core.cache</groupId>
+				<artifactId>appverse-web-modules-backend-core-cache</artifactId>
+				<version>${framework.version}</version>
+			</dependency>  					
+					
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.core.ws</groupId>
+				<artifactId>appverse-web-modules-backend-core-ws</artifactId>
 				<version>${framework.version}</version>
 			</dependency>  	
 			
@@ -275,6 +299,24 @@
 				<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
 				<version>${framework.version}</version>
 			</dependency>	
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.frontfacade.json</groupId>
+				<artifactId>appverse-web-modules-backend-frontfacade-json</artifactId>
+				<version>${framework.version}</version>
+			</dependency>	
+	
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.messaging</groupId>
+  				<artifactId>appverse-web-modules-backend-messaging</artifactId>
+				<version>${framework.version}</version>
+			</dependency>	
+			
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.reporting</groupId>
+				<artifactId>appverse-web-modules-backend-reporting</artifactId>
+				<version>${framework.version}</version>
+			</dependency>					
 
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
