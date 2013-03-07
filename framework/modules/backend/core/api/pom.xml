@@ -6,6 +6,7 @@
 		<groupId>org.appverse.web.framework.poms</groupId>
 		<artifactId>appverse-web-masterpom</artifactId>
 		<version>1.0.4-SNAPSHOT</version>
+		<relativePath>../../../..</relativePath>		
 	</parent>
 
 	<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
