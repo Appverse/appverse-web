@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms.modules.backend.frontfacade</groupId>
-    	<artifactId>appverse-web-modules-backend-frontfacade-pom</artifactId>
-	    <version>1.0.4-SNAPSHOT</version>
+		<groupId>org.appverse.web.framework.poms</groupId>
+		<artifactId>appverse-web-masterpom</artifactId>
+		<version>1.0.4-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.appverse.web.framework.modules.backend.frontfacade.json</groupId>

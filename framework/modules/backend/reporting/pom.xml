@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms.modules.backend</groupId>
-		<artifactId>appverse-web-modules-backend-pom</artifactId>
+		<groupId>org.appverse.web.framework.poms</groupId>
+		<artifactId>appverse-web-masterpom</artifactId>
 		<version>1.0.4-SNAPSHOT</version>
 	</parent>
 
