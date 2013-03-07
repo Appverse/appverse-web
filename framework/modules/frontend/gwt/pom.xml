@@ -4,14 +4,16 @@
 
 	<groupId>org.appverse.web.framework.poms.modules.frontend.gwt</groupId>
 	<artifactId>appverse-web-modules-frontend-gwt-pom</artifactId>
-	<packaging>pom</packaging>
 	<version>1.0.4-SNAPSHOT</version>
+	<packaging>pom</packaging>	
 
 	<name>Appverse Web Framework Modules GWT Frontend POM</name>
 	<description>Appverse Web Framework Modules GWT Frontend POM</description>
 
 	<licenses>
 		<license>
+			<name>Appverse Public License Version 2.0</name>
+			<url>http://www.appverse.mobi/licenses/apl_v2.0.pdf</url>			
 			<comments>
 	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 			
