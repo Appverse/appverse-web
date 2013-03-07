@@ -39,9 +39,23 @@
 		</license>
 	</licenses>    
 
+	<modules>
+	    <module>appverse-web-showcases-gwt-backend</module>
+	    <module>appverse-web-showcases-gwt-gwtfrontend</module>
+	    <module>appverse-web-showcases-gwt-gwtshared</module>
+	</modules>
+
+ 	<properties>
+		<main.group>org.appverse.web.showcases.gwt</main.group>
+		<main.name>appverse-web-showcases-gwt</main.name>
+		<app.context.root>showcase</app.context.root>
+		<gwt.version>2.5.0</gwt.version>
+		<gxt.version>3.0.1</gxt.version>
+		<mvp4.version>1.4.0</mvp4.version>		
+	</properties>
  	<build>
  		<defaultGoal>clean package tomcat:deploy-only</defaultGoal>
- 				<pluginManagement>
+ 		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -214,16 +228,30 @@
 						</dependency>
 					</dependencies>
 				</plugin>
-			</plugins>			
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>Assembly GWT Frontend Resources</id>
+							<goals>
+								<goal>single</goal>
+							</goals>
+							<phase>package</phase>
+							<configuration>
+								<ignoreMissingDescriptor>true</ignoreMissingDescriptor>
+								<descriptors>
+									<descriptor>src/main/assembly/resources.xml</descriptor>
+								</descriptors>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>	
 		</pluginManagement>
  	</build>
- 
-  <modules>
-    <module>appverse-web-showcases-gwt-backend</module>
-    <module>appverse-web-showcases-gwt-gwtfrontend</module>
-    <module>appverse-web-showcases-gwt-gwtshared</module>
-  </modules>
-  
+   
   	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -236,17 +264,29 @@
 		</dependencies>
 	</dependencyManagement>
   
-  	<profiles>
-		<profile>
-			<id>development</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
+	<profiles> 
+		<profile> 
+			<id>development</id> 
+			<activation> 
+				<activeByDefault>true</activeByDefault> 
+			</activation> 
 			<properties>
 				<env>development</env>
 				<skip.tests>true</skip.tests>
-			</properties>
-		</profile>
+			</properties>			
+			<build> 
+				<plugins> 
+					<plugin> 
+						<groupId>org.codehaus.mojo</groupId> 
+						<artifactId>gwt-maven-plugin</artifactId> 				
+						<configuration> 
+							<extraJvmArgs>-Xms128m -Xmx768m -XX:MaxPermSize=256m</extraJvmArgs> 
+							<draftCompile>true</draftCompile> 
+						</configuration> 
+					</plugin> 
+				</plugins> 
+			</build> 
+		</profile> 
 
 		<profile>
 			<id>integration</id>

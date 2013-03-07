@@ -42,12 +42,7 @@
 		</license>
 	</licenses>	
 
-<properties>
-		<gwt.version>2.5.0</gwt.version>
-		<gxt.version>3.0.1</gxt.version>
-		<mvp4.version>1.4.0</mvp4.version>
-	</properties>
-<build>
+	<build>
 		<resources>
 			<resource>
 				<directory>src/main/java</directory>
@@ -112,58 +107,8 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<plugin> 
-	            <groupId>org.apache.maven.plugins</groupId> 
-	            <artifactId>maven-antrun-plugin</artifactId> 
-	            <executions> 
-	            	<execution> 
-	                	<id>Create async dir</id> 
-	                    <goals> 
-	                    	<goal>run</goal> 
-	                   	</goals> 
-	                    <phase>generate-resources</phase> 
-	                    <configuration> 
-	                    	<target name="Create async dir"> 
-	                        	<mkdir dir="target/generated-sources/gwt" />
-	                    	</target> 
-	                	</configuration> 
-	            	</execution> 
-	            </executions> 
-          	</plugin> 
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-			</plugin>
 		</plugins>
-		
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>Assembly GWT Frontend Resources</id>
-							<goals>
-								<goal>single</goal>
-							</goals>
-							<phase>package</phase>
-							<configuration>
-								<ignoreMissingDescriptor>true</ignoreMissingDescriptor>
-								<descriptors>
-									<descriptor>src/main/assembly/resources.xml</descriptor>
-								</descriptors>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</pluginManagement>			
 	</build>		
-
-
 
 	<dependencies>
 		<dependency>
@@ -171,24 +116,4 @@
 			<artifactId>appverse-web-modules-frontend-gwt-api</artifactId>
 		</dependency>
 	</dependencies>	
-	<profiles> 
-		<profile> 
-			<id>development</id> 
-			<activation> 
-				<activeByDefault>true</activeByDefault> 
-			</activation> 
-			<build> 
-				<plugins> 
-					<plugin> 
-						<groupId>org.codehaus.mojo</groupId> 
-						<artifactId>gwt-maven-plugin</artifactId> 				
-						<configuration> 
-							<extraJvmArgs>-Xms128m -Xmx768m -XX:MaxPermSize=256m</extraJvmArgs> 
-							<draftCompile>true</draftCompile> 
-						</configuration> 
-					</plugin> 
-				</plugins> 
-			</build> 
-		</profile> 
-	</profiles> 
 </project>

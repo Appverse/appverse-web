@@ -43,12 +43,6 @@
 		</license>
 	</licenses>	
 
-	<properties>
-		<main.group>org.appverse.web.showcases.gwt</main.group>
-		<main.name>appverse-web-showcases-gwt</main.name>
-		<app.context.root>showcase</app.context.root>
-	</properties>
-
 	<build>
 		<filters>
 			<filter>src/main/filters/${env}.properties</filter>
