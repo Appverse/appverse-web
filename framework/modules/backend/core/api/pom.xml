@@ -43,10 +43,6 @@
 		</license>
 	</licenses>
 	
-	<properties>
-		<gwt.version>2.5.0</gwt.version>
-	</properties>
-	
 	<build>
 		<plugins>
 			<plugin>
