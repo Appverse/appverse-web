@@ -10,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms.modules.frontend.gwt</groupId>
 	<artifactId>appverse-web-modules-frontend-gwt-pom</artifactId>
-		<version>1.0.4-SNAPSHOT</version>	
+		<version>1.0.4-BETA-1</version>	
 	<packaging>pom</packaging>	
 
 	<name>Appverse Web Framework Modules GWT Frontend POM</name>
@@ -49,4 +49,8 @@
 	<modules>
 		<module>api</module>
 	</modules>
+
+  <scm>
+    <tag>appverse-web-masterpom-1.0.4-BETA-1</tag>
+  </scm>
 </project>
