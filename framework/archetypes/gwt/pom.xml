@@ -2,16 +2,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.appverse.web.framework.poms</groupId>
+		<artifactId>appverse-web-masterpom</artifactId>
+		<version>1.0.4-SNAPSHOT</version>
+		<relativePath>../../</relativePath>				
+	</parent>
+
 	<groupId>org.appverse.web.framework.archetypes.gwt</groupId>
 	<artifactId>appverse-web-archetypes-gwt</artifactId>
 	<packaging>maven-archetype</packaging>
-	<version>1.0.4-SNAPSHOT</version>
 	
 	<name>Appverse Web Framework Archetypes GWT Archetype</name>
 	<description>Appverse Web Framework Archetypes GWT Archetype</description>
 
 	<licenses>
 		<license>
+			<name>Appverse Public License Version 2.0</name>
+			<url>http://www.appverse.mobi/licenses/apl_v2.0.pdf</url>		
 			<comments>
 	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 			

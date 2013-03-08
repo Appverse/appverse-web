@@ -15,6 +15,8 @@
 	
 	<licenses>
 		<license>
+			<name>Appverse Public License Version 2.0</name>
+			<url>http://www.appverse.mobi/licenses/apl_v2.0.pdf</url>		
 			<comments>
 	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 			
@@ -41,12 +43,6 @@
 		</license>
 	</licenses>	
 
-	<properties>
-		<main.group>org.appverse.web.showcases.gwt</main.group>
-		<main.name>appverse-web-showcases-gwt</main.name>
-		<app.context.root>showcase</app.context.root>
-	</properties>
-
 	<build>
 		<filters>
 			<filter>src/main/filters/${env}.properties</filter>
@@ -63,33 +59,11 @@
 <!-- 			<plugin> -->
 <!-- 				<groupId>org.appverse.web.tools.jpaddlgenerator</groupId> -->
 <!-- 				<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 					<id>unpack-GWT-frontend</id> -->
-<!-- 						<goals> -->
-<!-- 							<goal>generate-schema</goal>  -->
-<!-- 						</goals> -->
-<!-- 						<phase>generate-resources</phase> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
 <!-- 			</plugin> -->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>unpack-GWT-frontend</id>
-						<goals>
-							<goal>unpack-dependencies</goal> 
-						</goals>
-						<phase>generate-resources</phase>
-						<configuration>
-							<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
-							<includeGroupIds>${main.group}.gwtfrontend</includeGroupIds>
-							<includeArtifacIds>${main.name}-gwtfrontend</includeArtifacIds>
-						</configuration> 
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -98,26 +72,22 @@
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
 			<artifactId>appverse-web-modules-backend-core-api</artifactId>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
-			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
-			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
 			<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
-			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
+			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.appverse.web.showcases.gwt.gwtshared</groupId>
 			<artifactId>appverse-web-showcases-gwt-gwtshared</artifactId>
 			<version>${project.version}</version>
-			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -125,8 +95,8 @@
 			<artifactId>appverse-web-showcases-gwt-gwtfrontend</artifactId>
 			<version>${project.version}</version>
 			<classifier>GWT-Frontend-Resources</classifier>
-			<type>zip</type>
 			<scope>provided</scope>
+			<type>zip</type>			
 		</dependency>	
 		
 		<dependency>
@@ -135,5 +105,4 @@
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
-	
 </project>
