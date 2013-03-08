@@ -52,4 +52,5 @@
 		<module>persistence</module>
 		<module>ws</module>
 	</modules>
+
 </project>

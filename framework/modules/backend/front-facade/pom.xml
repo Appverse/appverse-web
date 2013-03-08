@@ -50,4 +50,5 @@
 		<module>gwt</module>
 		<module>json</module>
 	</modules>
+
 </project>

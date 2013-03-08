@@ -53,14 +53,21 @@
 				<artifactId>gwt-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>Generate GWT Resources</id>
 						<goals>
-							<goal>resources</goal>
 							<goal>generateAsync</goal>
+							<goal>resources</goal>
 						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+						</configuration>
 					</execution>
-				</executions>
-			</plugin>
+				</executions>				
+			</plugin>		
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+			</plugin>					
 		</plugins>
 	</build>
 

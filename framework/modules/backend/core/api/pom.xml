@@ -53,7 +53,6 @@
 				<artifactId>gwt-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>Generate GWT Resources</id>
 						<goals>
 							<goal>resources</goal>
 						</goals>

@@ -111,9 +111,5 @@
 			<id>EclipseLink</id>
 			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
 		</repository>
-		<repository>
-			<id>Dynamic Jasper</id>
-			<url>http://archiva.fdvs.com.ar/repository/public1/</url>
-		</repository>
 	</repositories>	
 </project>
