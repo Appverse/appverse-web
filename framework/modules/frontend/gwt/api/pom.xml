@@ -66,31 +66,27 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
-<!-- 			<scope>provided</scope> -->
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-<!-- 			<scope>provided</scope> --> 
 		</dependency>
 
 		<dependency>
 			<groupId>com.sencha.gxt</groupId>
 			<artifactId>gxt</artifactId>
-<!-- 			<scope>provided</scope> -->
 		</dependency>
 
 		<dependency>
 			<groupId>com.googlecode.mvp4g</groupId>
 			<artifactId>mvp4g</artifactId>
-<!-- 			<scope>provided</scope> -->
 		</dependency>
 
 		<dependency> 
 			<groupId>com.googlecode.gwt-validation</groupId> 
 			<artifactId>gwt-validation</artifactId> 
-		</dependency> 
+		</dependency> 	
 
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>

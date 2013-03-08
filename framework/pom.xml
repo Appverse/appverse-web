@@ -270,6 +270,7 @@
 				<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
 				<artifactId>appverse-web-modules-frontend-gwt-api</artifactId>
 				<version>${framework.version}</version>	
+				<scope>provided</scope>
 			</dependency>			
 			<!-- END OF APPVERSE WEB FRAMEWORK MANAGED DEPENDENCIES -->
 
@@ -578,27 +579,24 @@
 				<groupId>com.google.gwt</groupId>
 				<artifactId>gwt-user</artifactId>
 				<version>${gwt.version}</version>
-<!-- 				<scope>provided</scope> -->
 			</dependency>
 
 			<dependency> 
 				<groupId>com.googlecode.gwt-validation</groupId> 
 				<artifactId>gwt-validation</artifactId> 
-				<version>2.1</version> 
+				<version>2.1</version> 		
 			</dependency>
 				
 			<dependency>
 				<groupId>com.sencha.gxt</groupId>
 				<artifactId>gxt</artifactId>
-				<version>${gxt.version}</version>
-<!-- 				<scope>provided</scope> -->
+				<version>${gxt.version}</version>		
 			</dependency>
 	
 			<dependency>
 				<groupId>com.googlecode.mvp4g</groupId>
 				<artifactId>mvp4g</artifactId>
-				<version>${mvp4.version}</version>
-<!-- 				<scope>provided</scope> -->
+				<version>${mvp4.version}</version>			
 			</dependency>
 			<!-- END OF GWT MANAGED DEPENDENCIES -->			
 				
