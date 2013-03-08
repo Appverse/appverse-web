@@ -148,7 +148,7 @@
 							<addMavenDescriptor>false</addMavenDescriptor>
 						</archive>
 					</configuration>
-				</plugin>
+				</plugin>b
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -232,17 +232,7 @@
 					<configuration>
 						<servicePattern>**/*ServiceFacade.java</servicePattern>
 					</configuration>
-						<executions>
-							<execution>
-								<id>Generate Services Async Interfaces and Compile GWT Code</id>
-								<goals>
-									<goal>compile</goal>
-									<goal>generateAsync</goal>
-									<goal>resources</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>							
+				</plugin>							
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -316,7 +306,7 @@
 			</activation> 
 			<properties>
 				<env>development</env>
-				<skip.tests>true</skip.tests>
+				<maven.skip.tests>true</maven.skip.tests>
 			</properties>			
 			<build> 
 				<pluginManagement> 

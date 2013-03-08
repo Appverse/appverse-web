@@ -60,6 +60,7 @@
 <!-- 				<groupId>org.appverse.web.tools.jpaddlgenerator</groupId> -->
 <!-- 				<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId> -->
 <!-- 			</plugin> -->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
