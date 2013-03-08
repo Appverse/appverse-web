@@ -76,6 +76,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
+			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.appverse.web.showcases.gwt.gwtshared</groupId>
 			<artifactId>appverse-web-showcases-gwt-gwtshared</artifactId>
 			<version>${project.version}</version>
