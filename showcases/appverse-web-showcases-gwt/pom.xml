@@ -170,6 +170,7 @@
 					    <server>tomcat</server>
 					    <path>/${app.context.root}</path>
 						<url>${tomcat.manager.url}</url>
+						<update>true</update>
 					</configuration>          
         		</plugin>
 
@@ -219,10 +220,13 @@
 					<extensions>true</extensions>
 					<executions>
 						<execution>
-							<id>generate-schema</id>
 							<goals>
 								<goal>generate-schema</goal>
 							</goals>
+							<phase>compile</phase>
+							<configuration>
+							    <ddlOutputDir>appverse-web-showcases-gwt-backend/target/appverse-web-showcases-gwt-backend-${project.version}/WEB-INF/classes/sql</ddlOutputDir>
+							</configuration>
 						</execution>
 					</executions>
 					<dependencies>
