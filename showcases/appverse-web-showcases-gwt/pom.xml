@@ -216,7 +216,7 @@
 			    <plugin>
 					<groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
 					<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
-					<version>1.0.4-SNAPSHOT</version>
+					<version>1.0.4-SNAPSHOT</version> 
 					<extensions>true</extensions>
 					<executions>
 						<execution>
