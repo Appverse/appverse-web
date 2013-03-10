@@ -13,6 +13,7 @@
 	<packaging>war</packaging>
 	
 	<name>GWT Showcase GWT Backend Module</name>
+	<description>GWT Showcase GWT Backend Module</description>	
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2013</inceptionYear>
 
@@ -64,7 +65,7 @@
 	            <role>architect</role>
 	            <role>developer</role>
 	          </roles>
-	          <timezone>CET (GMT+1)</timezone>
+	          <timezone>+1</timezone>
 	          <properties>
 	            <gravatar>gravatar.com/slanau</gravatar>
 	          </properties>

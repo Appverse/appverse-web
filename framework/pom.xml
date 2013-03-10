@@ -67,7 +67,7 @@
 	            <role>architect</role>
 	            <role>developer</role>
 	          </roles>
-	          <timezone>CET (GMT+1)</timezone>
+	          <timezone>+1</timezone>
 	          <properties>
 	            <gravatar>gravatar.com/slanau</gravatar>
 	          </properties>
