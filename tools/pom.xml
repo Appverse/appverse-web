@@ -124,5 +124,9 @@
 	<modules>
 		<module>jpa-ddl-generator</module>
 	</modules>
+	
+	<build>
+	    <defaultGoal>clean install</defaultGoal>
+	</build>
 
 </project>

@@ -125,4 +125,8 @@
 		<module>appverse-web-showcases-gwt</module>
 	</modules>
 
+    <build>
+        <defaultGoal>clean install</defaultGoal>
+    </build>
+
 </project>
