@@ -135,10 +135,11 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	 *            instance of model
 	 */
 	@UiConstructor
-	public SuggestWidgetImpl(final SuggestModel<M> props, final M modelInstance) {
+	@SuppressWarnings("all")
+	public SuggestWidgetImpl(final SuggestModel props, final M modelInstance) {
 
 		this.appearance = GWT
-				.<SuggestAppearance<M>> create( SuggestAppearance.class);
+				.<SuggestAppearance> create(SuggestAppearance.class);
 
 		this.props = props;
 		this.instance = modelInstance;
