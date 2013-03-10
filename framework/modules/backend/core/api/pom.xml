@@ -71,6 +71,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -170,7 +171,7 @@
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-		</dependency>		
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>			
 	</dependencies>
 </project>
