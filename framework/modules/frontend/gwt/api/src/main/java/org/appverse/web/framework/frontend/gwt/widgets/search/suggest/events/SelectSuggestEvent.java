@@ -28,6 +28,7 @@ import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.S
 
 import com.google.gwt.event.shared.GwtEvent;
 
+@SuppressWarnings("rawtypes")
 public class SelectSuggestEvent<M extends GWTAbstractPresentationBean> extends
 		GwtEvent<SelectSuggestEventHandler> {
 
@@ -44,6 +45,7 @@ public class SelectSuggestEvent<M extends GWTAbstractPresentationBean> extends
 		return TYPE;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void dispatch(final SelectSuggestEventHandler handler) {
 		handler.onSelect(this);

@@ -128,7 +128,7 @@ public class CustomMappingJacksonHttpMessageConverter extends
 	 * @return the java type
 	 */
 	protected JavaType getJavaType(Class<?> clazz) {
-		return TypeFactory.type(clazz);
+		return TypeFactory.defaultInstance().constructType(clazz);
 	}
 
 	@Override

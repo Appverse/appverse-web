@@ -59,6 +59,7 @@ public class MailIntegrationServiceImpl extends AbstractIntegrationService
 	private VelocityEngine velocityEngine;
 
 	private static final String INVALID_ADDRESSES = "Invalid Addresses";
+	private static final String ENCODING = "UTF-8";
 
 	@Override
 	public void sendMail(String from, String to, String subject,
@@ -76,6 +77,7 @@ public class MailIntegrationServiceImpl extends AbstractIntegrationService
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void sendMail(String from, String[] to, String[] copyTo,
 			String subject, String templateLocation, Map model)
 			throws Exception {
@@ -88,7 +90,7 @@ public class MailIntegrationServiceImpl extends AbstractIntegrationService
 		}
 		helper.setSubject(subject);
 		String text = VelocityEngineUtils.mergeTemplateIntoString(
-				velocityEngine, templateLocation, model);
+				velocityEngine,ENCODING ,templateLocation, model);
 		helper.setText(text, true);
 		try {
 			this.mailSender.send(message);
@@ -149,6 +151,7 @@ public class MailIntegrationServiceImpl extends AbstractIntegrationService
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void sendMail(String from, String[] to, String[] copyTo,
 			String subject, String templateLocation, Map model,
@@ -162,7 +165,7 @@ public class MailIntegrationServiceImpl extends AbstractIntegrationService
 		}
 		helper.setSubject(subject);
 		String text = VelocityEngineUtils.mergeTemplateIntoString(
-				velocityEngine, templateLocation, model);
+				velocityEngine,ENCODING, templateLocation, model);
 		helper.setText(text, true);
 		for (AttachmentDTO attachmentDTO : attachments) {
 			helper.addAttachment(attachmentDTO.getAttachmentName(),
