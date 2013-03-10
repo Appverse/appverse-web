@@ -21,7 +21,7 @@
 	<licenses>
 		<license>
 			<name>Appverse Public License Version 2.0</name>
-			<url>http://www.appverse.mobi/licenses/apl_v2.0.pdf</url>
+			<url>http://appverse.org/legal/appverse-license/</url>
 			<distribution>repo</distribution>		
 			<comments>
 	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
@@ -125,4 +125,11 @@
 		<module>gwt</module>
 	</modules>
 
+	<distributionManagement>
+	    <site>
+	      <id>appverse.web.maven</id>
+	      <name>Appverse Web Maven Site</name>
+	      <url>http://appverse.github.com/appverse-web/site/framework/modules/frontend</url>
+	    </site>
+	  </distributionManagement>  
 </project>

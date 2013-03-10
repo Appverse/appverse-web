@@ -15,7 +15,7 @@
 	<licenses>
 		<license>
 			<name>Appverse Public License Version 2.0</name>
-			<url>http://www.appverse.mobi/licenses/apl_v2.0.pdf</url>
+			<url>http://appverse.org/legal/appverse-license/</url>
 			<distribution>repo</distribution>		
 			<comments>
 	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
@@ -329,6 +329,64 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+  
+  	<reporting>
+    	<outputDirectory>${basedir}/target/site</outputDirectory>
+    	<plugins>
+      		<plugin>
+        		<artifactId>maven-project-info-reports-plugin</artifactId>
+				<reportSets>
+				   <reportSet>
+				   		<reports>
+				   			<report>index</report>				   		
+		                	<report>summary</report>		
+		                	<report>license</report>		
+		               		<report>project-team</report>			               
+		                	<report>mailing-list</report>	
+		                	<report>scm</report>		                	
+			                <report>issue-tracking</report>
+			                <report>cim</report>			                
+		                	<report>modules</report>	
+		               		<report>plugins</report>			                			               				                		   			
+		               		<report>plugin-management</report>		
+				   			<report>help</report>	
+<!-- 				   			<report>dependencies</report> -->
+				   			<report>dependency-convergence</report>				                
+				   			<report>dependency-info</report>
+			   				<report>dependency-management</report>					   			
+				   			<report>distribution-management</report>		   			
+				   		</reports>
+				   </reportSet>
+				</reportSets>
+      		</plugin>
+			<plugin>		
+        		<artifactId>maven-surefire-report-plugin</artifactId>  
+        		<version>2.14</version> 
+        	</plugin>  
+    		<plugin>		
+        		<artifactId>maven-pmd-plugin</artifactId>  
+        		<version>3.0</version> 	
+        	</plugin>       	 		
+<!-- 		    <plugin> -->
+<!-- 		        <artifactId>maven-javadoc-plugin</artifactId>  	 -->
+<!-- 		    </plugin> -->
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-checkstyle-plugin</artifactId>
+	            <version>2.10</version>
+	        </plugin>
+<!-- 	       <plugin> -->
+<!-- 	           <groupId>org.apache.maven.plugins</groupId> -->
+<!-- 	           <artifactId>maven-changelog-plugin</artifactId> -->
+<!-- 	           <version>2.2</version> -->
+<!-- 	        </plugin> -->
+	        <plugin>
+	        	<groupId>org.apache.maven.plugins</groupId>
+	        	<artifactId>maven-jxr-plugin</artifactId>
+	        <version>2.3</version>
+	      </plugin>
+    	</plugins>
+  	</reporting>
   
 	<profiles> 
 		<profile> 
