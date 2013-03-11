@@ -37,7 +37,7 @@ public class ExceptionAdvice extends AbstractThrowsAOPAdvice {
 	@Override
 	public void afterThrowing(final Method method, final Object[] args,
 			final Object target, final Throwable ex) throws Throwable {
-
+		exceptionManager.logAndRethrowException(method, args, target, ex);
 	}
 
 }
