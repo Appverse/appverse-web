@@ -91,7 +91,7 @@
       <bean id="exceptionAdvice" class="org.appverse.web.framework.backend.api.aop.advices.ExceptionAdvice" /> 
       <bean id="validationAdvice" class="org.appverse.web.framework.backend.api.aop.advices.ValidationAdvice"/>
       <bean id="profileManager" class="org.appverse.web.framework.backend.api.aop.managers.impl.live.ProfileManagerImpl" /> 
-      <bean id="exceptionManager" class="org.appverse.web.framework.backend.api.aop.managers.impl.live.ExceptionManagerImpl" />         
+      <bean id="exceptionManager" class="org.appverse.web.framework.backend.frontfacade.gxt.aop.managers.impl.live.GWTExceptionManagerImpl" />         
 	  <bean id="validationManager" class="org.appverse.web.framework.backend.api.aop.managers.impl.live.ValidationManagerImpl" />
 
       <aop:config> 
