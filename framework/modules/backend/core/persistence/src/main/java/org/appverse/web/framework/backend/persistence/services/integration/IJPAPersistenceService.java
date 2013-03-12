@@ -48,9 +48,10 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * Performs JPA contains operation
 	 * 
 	 * @param beanP
+	 * @return boolean Returns if the bean is managed by the EntityManager
 	 * @throws Exception
 	 */
-	void contains(final T beanP) throws Exception;
+	boolean contains(final T beanP) throws Exception;
 
 	/**
 	 * This methods count the number of T elements

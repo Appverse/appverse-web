@@ -37,6 +37,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -47,10 +48,7 @@ public class AuthenticationServiceFacadeImpl extends
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	/**
-	 * Used by jUnit tests to create a security context to call operations and
-	 * for a principal to be obtained by those operations.
-	 */
+
 	@Override
 	public void authenticatePrincipal(String principal, List<String> credentials) {
 
@@ -143,7 +141,7 @@ public class AuthenticationServiceFacadeImpl extends
 		final Authentication authentication = SecurityContextHolder
 				.getContext().getAuthentication();
 		if (authentication != null) {
-			final User userPrincipal = (User) authentication.getPrincipal();
+			final UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 			return userPrincipal != null;
 		} else {
 			return false;

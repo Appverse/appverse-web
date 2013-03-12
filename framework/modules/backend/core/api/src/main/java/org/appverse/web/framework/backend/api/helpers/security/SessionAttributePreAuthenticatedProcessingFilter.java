@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 
 public class SessionAttributePreAuthenticatedProcessingFilter extends
 		AbstractPreAuthenticatedProcessingFilter {
@@ -42,17 +43,17 @@ public class SessionAttributePreAuthenticatedProcessingFilter extends
 	protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
 		HttpSession httpSession = request.getSession(false);
 		if (httpSession == null) {
-			return null;
+			throw new PreAuthenticatedCredentialsNotFoundException(
+					principalSessionAttribute
+							+ " attribute not found in session.");
 		}
 		String principal = (String) httpSession
 				.getAttribute(principalSessionAttribute);
-
-		// if (principal == null) {
-		// throw new PreAuthenticatedCredentialsNotFoundException(
-		// principalSessionAttribute
-		// + " attribute not found in session.");
-		// }
-
+		if(principal==null){
+			throw new PreAuthenticatedCredentialsNotFoundException(
+					principalSessionAttribute
+							+ " attribute not found in session.");
+		}
 		return principal;
 	}
 

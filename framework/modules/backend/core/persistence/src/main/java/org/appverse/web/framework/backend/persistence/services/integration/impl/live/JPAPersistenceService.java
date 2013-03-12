@@ -252,9 +252,9 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * .integration.AbstractIntegrationBean)
 	 */
 	@Override
-	public void contains(final T beanP) throws Exception {
+	public boolean contains(final T beanP) throws Exception {
 		logger.trace(PersistenceMessageBundle.MSG_DAO_REFRESH);
-		em.contains(beanP);
+		return em.contains(beanP);
 	}
 
 	/*

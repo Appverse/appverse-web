@@ -33,6 +33,7 @@ import org.appverse.web.framework.backend.persistence.model.integration.Abstract
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class EntityListener {
 
@@ -43,7 +44,7 @@ public class EntityListener {
 		if (authentication == null) {
 			username = "batch_process";
 		} else {
-			User user = (User) authentication.getPrincipal();
+			UserDetails user = (UserDetails) authentication.getPrincipal();
 			username = user.getUsername();
 		}
 		return username;
