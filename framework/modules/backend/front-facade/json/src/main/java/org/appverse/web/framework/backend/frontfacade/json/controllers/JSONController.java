@@ -32,13 +32,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServletServerHttpResponse;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,16 +82,25 @@ public class JSONController {
 		return xsrfSessionToken;
 	}
 
+	/**
+	 * 
+	 * @param request
+	 * @throws Exception
+	 */
 	@SuppressWarnings("unused")
 	private void checkXSRFToken(final HttpServletRequest request)
-			throws IOException {
+			throws Exception {
+		/**
+		 * Currently this method is not used. Needs to be analyzed how this can be implemented in a "generic" way.
+		 */
 		String requestValue = request.getHeader("X-XSRF-Cookie");
 		String sessionValue = (String) request.getSession().getAttribute(
 				"X-XSRF-Cookie");
 		if (sessionValue != null && !sessionValue.equals(requestValue)) {
-			throw new PreAuthenticatedCredentialsNotFoundException(
+			//throw new PreAuthenticatedCredentialsNotFoundException(
+			//		"XSRF attribute not found in session.");
+			throw new Exception(
 					"XSRF attribute not found in session.");
-
 		}
 	}
 
@@ -121,7 +128,7 @@ public class JSONController {
 			throw new IllegalArgumentException(
 					"Requested ServiceFacade don't exists " + serviceName);
 		}
-		if (!(presentationService instanceof AuthenticationServiceFacade)) {
+		//if (!(presentationService instanceof AuthenticationServiceFacade)) {
 			// checkXSRFToken(request);
 			Method[] methods = presentationService.getClass().getMethods();
 			Method method = null;
@@ -156,13 +163,13 @@ public class JSONController {
 					MediaType.APPLICATION_JSON, outputMessage);
 			addDefaultResponseHeaders(response);
 			return "";
-		} else if (presentationService instanceof AuthenticationServiceFacade
-				&& methodName.equals(AuthenticationServiceFacade.class
-						.getMethod("getXSRFSessionToken"))) {
-			createXSRFToken(request);
-			return "";
-		}
-		return null;
+//		} else if (presentationService instanceof AuthenticationServiceFacade
+//				&& methodName.equals(AuthenticationServiceFacade.class
+//						.getMethod("getXSRFSessionToken"))) {
+//			createXSRFToken(request);
+//			return "";
+//		}
+//		return null;
 	}
 
 }
