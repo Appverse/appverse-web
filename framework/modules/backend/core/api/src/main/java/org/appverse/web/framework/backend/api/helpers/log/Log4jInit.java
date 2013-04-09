@@ -23,8 +23,7 @@
  */
 package org.appverse.web.framework.backend.api.helpers.log;
 
-import java.io.InputStream;
-import java.util.Properties;
+import java.net.URL;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -32,6 +31,7 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.xml.DOMConfigurator;
 
 public class Log4jInit extends HttpServlet {
 
@@ -41,22 +41,43 @@ public class Log4jInit extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		String log4jLocation = config.getInitParameter("log4j-init-file");
 		if (log4jLocation == null) {
-			BasicConfigurator.configure();
-		} else {
-			InputStream is = this.getClass().getResourceAsStream(
-					log4jLocation.substring(log4jLocation.indexOf(':') + 1));
-			if (is != null) {
-				Properties properties = new Properties();
-				try {
-					properties.load(is);
-				} catch (Exception e) {
-					BasicConfigurator.configure();
-				}
-				PropertyConfigurator.configure(properties);
-			} else {
-				BasicConfigurator.configure();
-			}
+			failbackConfiguration();
+		}else{
+			configureAndWatchByGettingDOMURL(log4jLocation);
 		}
 		super.init(config);
+	}
+	
+	
+	private void configureAndWatchByGettingDOMURL(String log4jLocation){
+		URL url = this.getClass().getResource(
+				log4jLocation.substring(log4jLocation.indexOf(':') + 1));
+		if (url != null) {
+			try {
+				DOMConfigurator.configureAndWatch(url.getPath());
+			} catch (Exception e) {
+				configureAndWatchByGettingPropertyURL(log4jLocation);
+			}
+		} else {
+			failbackConfiguration();
+		}		
+	}	
+	
+	private void configureAndWatchByGettingPropertyURL(String log4jLocation){
+		URL url = this.getClass().getResource(
+				log4jLocation.substring(log4jLocation.indexOf(':') + 1));
+		if (url != null) {
+			try {
+				PropertyConfigurator.configureAndWatch(url.getPath());
+			} catch (Exception e) {
+				failbackConfiguration();
+			}
+		} else {
+			failbackConfiguration();
+		}		
+	}
+	
+	private void failbackConfiguration(){
+		BasicConfigurator.configure();
 	}
 }
