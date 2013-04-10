@@ -188,10 +188,10 @@
 		<gwt.version>2.5.0</gwt.version>
 	</properties>
 
-	<modules>
+	<!--modules>
 		<module>modules</module>
 		<module>archetypes</module>
-	</modules>
+	</modules-->
 
 	<build>
 		<defaultGoal>clean install</defaultGoal>
@@ -983,11 +983,11 @@
   	</reporting-->
   	
   <distributionManagement>
-    <site>
+    <!--site>
       <id>appverse.web.maven</id>
       <name>Appverse Web Maven Site</name>
       <url>http://appverse.github.com/appverse-web/site/framework</url>
-    </site>
+    </site-->
   </distributionManagement>  	
   	
 	<repositories>
