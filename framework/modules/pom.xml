@@ -127,10 +127,10 @@
 	</modules>
 
 	<distributionManagement>
-	    <site>
-	      <id>appverse.web.maven</id>
-	      <name>Appverse Web Maven Site</name>
-	      <url>http://appverse.github.com/appverse-web/site/framework/modules/backend</url>
-	    </site>
+            <!--site>
+              <id>appverse.web.maven</id>
+              <name>Appverse Web Maven Site</name>
+              <url>http://appverse.github.com/appverse-web/site/framework</url>
+            </site-->
 	  </distributionManagement>  
 </project>
