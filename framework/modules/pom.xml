@@ -10,7 +10,7 @@
 	
 	<groupId>org.appverse.web.framework.poms.modules</groupId>
 	<artifactId>appverse-web-modules-pom</artifactId>
-	<version>1.1-BETA-1</version>
+	<version>1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
 	<name>Appverse Web Framework Modules POM</name>
@@ -117,7 +117,7 @@
 	<scm>
 		<connection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</connection>
 		<developerConnection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</developerConnection>
-		<tag>appverse-web-masterpom-1.1-BETA-1</tag>
+		<tag>master</tag>
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 	
