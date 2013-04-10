@@ -926,8 +926,8 @@
 		    </dependency>					   	 			     																													
 		</dependencies>
 	</dependencyManagement>
-	
-	<reporting>
+	<!-- Reporting is comented out for now due to lower priority-->
+	<!--reporting>
     	<outputDirectory>${basedir}/target/site</outputDirectory>
     	<plugins>
       		<plugin>
@@ -981,7 +981,7 @@
 	        <version>2.3</version>
 	      </plugin>
     	</plugins>
-  	</reporting>
+  	</reporting-->
   	
   <distributionManagement>
     <site>
