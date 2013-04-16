@@ -123,6 +123,7 @@
 
 	<modules>
 		<module>appverse-web-showcases-gwt</module>
+		<module>appverse-web-showcases-jsf2</module>
 	</modules>
 
     <build>
