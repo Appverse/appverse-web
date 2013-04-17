@@ -125,15 +125,24 @@
 		<module>jpa-ddl-generator</module>
 	</modules>
 	
-	<build>
-	    <defaultGoal>clean install</defaultGoal>
-	</build>
+    <build>
+        <defaultGoal>clean install</defaultGoal>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.3.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 	<distributionManagement>
-	    <site>
+	    <!--site>
 	      <id>appverse.web.maven</id>
 	      <name>Appverse Web Maven Site</name>
 	      <url>http://appverse.github.com/appverse-web/site/framework/modules/tools</url>
-	    </site>
+	    </site-->
 	  </distributionManagement> 
 </project>
