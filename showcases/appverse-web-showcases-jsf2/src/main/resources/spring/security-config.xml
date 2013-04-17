@@ -45,7 +45,7 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
   <http auto-config='true'>
     <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
     <intercept-url pattern="/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-    <intercept-url pattern="/logoAppverse.png" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+    <intercept-url pattern="/resources/images/logoAppverse.png" access="IS_AUTHENTICATED_ANONYMOUSLY" />
     <intercept-url pattern="/**" access="ROLE_USER" />
     <form-login login-page='/login.jsp' authentication-failure-url="/login.jsp?error=failed" />    
     <logout logout-success-url="/login.jsp"/>

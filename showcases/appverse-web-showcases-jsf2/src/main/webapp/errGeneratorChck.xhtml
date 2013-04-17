@@ -61,9 +61,9 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 				<a4j:commandButton execute="@region"
 					action="#{timeoutBean.Connection}"
 					value="#{msg['checkedErrors.timeoutError']}" styleClass="ym-button"
-					style="margin:0; margin-bottom: 1em;"
-					onbegin="document.getElementById('includeDiv').innerHTML='';" />
-				(wait 10s) <br />
+					style="margin:0; margin-bottom: 1em;" />
+					<h:outputText value="(wait about 1 minute to see the timeout)"/>					 
+					<br />
 
 				<script type="text/javascript">
 					function createNewApp() {
@@ -75,8 +75,9 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 					class="ym-button"><h:outputText
 						value="#{msg['checkedErrors.sampleFormError']}" /></a> <br />
 			</div>
+
 			<div id="resultsDiv" class="box info"
-				style="height: 13em; width: 40%; display: -webkit-inline-box;">
+				style="height: 13em; width: 40%; float: left; display: -webkit-inline-box;">
 				<div id="includeDiv">
 					<ui:include src="#{param['url']}" />
 				</div>
@@ -84,7 +85,7 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 					<rich:messages globalOnly="true" />
 				</div>
 			</div>
-
+			
 		</h:form>
 	</ui:define>
 </ui:composition>

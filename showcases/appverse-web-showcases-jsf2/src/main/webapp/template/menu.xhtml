@@ -41,6 +41,23 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
 			<rich:panelMenuGroup label="#{msg['menu.group.exceptionHandling']}">
 
+				<rich:panelMenuGroup
+					label="#{msg['menu.group.exceptionHandling.errorPage']}">
+					<rich:panelMenuItem>
+						<h:outputLink value="errGeneratorErrCod.jsf">
+							<h:outputText
+								value="#{msg['menu.group.exceptionHandling.errorPage.httpErrorCodes']}" />
+						</h:outputLink>
+					</rich:panelMenuItem>
+				</rich:panelMenuGroup>			
+			
+				<rich:panelMenuItem>
+					<h:outputLink value="errGeneratorCode.jsf">
+						<h:outputText
+							value="#{msg['menu.group.exceptionHandling.lifecycle']}" />
+					</h:outputLink>
+				</rich:panelMenuItem>			
+
 				<rich:panelMenuItem>
 					<h:outputLink value="errGeneratorUnch.jsf">
 						<h:outputText
@@ -52,26 +69,6 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 					<h:outputLink value="errGeneratorChck.jsf">
 						<h:outputText
 							value="#{msg['menu.group.exceptionHandling.checkedExceptions']}" />
-					</h:outputLink>
-				</rich:panelMenuItem>
-
-
-				<rich:panelMenuGroup
-					label="#{msg['menu.group.exceptionHandling.errorPage']}">
-					<rich:panelMenuItem>
-						<h:outputLink value="errGeneratorErrCod.jsf">
-							<h:outputText
-								value="#{msg['menu.group.exceptionHandling.errorPage.httpErrorCodes']}" />
-						</h:outputLink>
-					</rich:panelMenuItem>
-
-				</rich:panelMenuGroup>
-
-
-				<rich:panelMenuItem>
-					<h:outputLink value="errGeneratorCode.jsf">
-						<h:outputText
-							value="#{msg['menu.group.exceptionHandling.lifecycle']}" />
 					</h:outputLink>
 				</rich:panelMenuItem>
 

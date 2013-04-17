@@ -69,6 +69,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 			Writer stacktraceWriter = new StringWriter();
 			PrintWriter printWriter = new PrintWriter(stacktraceWriter);
 			t.printStackTrace(printWriter);
+
 			// Print stacktrace in logs
 			logger.error(stacktraceWriter.toString());
 			

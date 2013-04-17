@@ -50,7 +50,7 @@ public class TimeoutBean implements Serializable {
 		URL serverAddress = null;
 
 		// Set the address to a non-routable IP address to get a timeout
-		serverAddress = new URL("http://10.255.255.1/");
+		serverAddress = new URL("http://11.111.111.1/");
 		connection = null;
 
 		// Set up the initial connection

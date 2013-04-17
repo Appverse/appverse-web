@@ -61,8 +61,17 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 				</h:commandButton>
 
 				<h:outputText
-					value="#{msg['errorPages.statusCodes.definitionHeader']}" />
-				<pre style="margin-top: 1.5em;" class="box-code">&lt;error-page&gt;<br></br>	&lt;error-code&gt;404&lt;/error-code&gt;<br></br>	&lt;location&gt;err404.jsp&lt;/location&gt;<br></br>&lt;/error-page&gt;</pre>
+					value="#{msg['errorPages.statusCodes.definitionHeader']}" />				
+				<div class="sourceCode" style="width: 100%;">
+					<div class="javaCode" style="width: 100%; margin-right: 5%;">
+						<ui:include src="viewSource.xhtml">
+							<ui:param name="url" value="sourcePages/HttpErrorsAutomaticHandling.txt" />
+							<ui:param name="id" value="javaSource" />
+							<ui:param name="value" value="View CustomExceptionHandler Source" styleClass="button-margin-bottom" style="margin-bottom: 1em;" />
+							<ui:param name="type" value="div" />
+						</ui:include>
+					</div>
+				</div>				
 				<h:outputText value="#{msg['errorPages.statusCodes.definition']}" />
 
 			</rich:panel>
@@ -309,16 +318,6 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 					<h:outputText value="#{msg['errorPages.statusCodes.badLink403']}" />
 				</h:outputLink>
 				<br />
-			</div>
-			<div id="resultsDiv" class="box info"
-				style="height: 10em; width: 70%; display: -webkit-inline-box;">
-				<div id="includeDiv">
-					<ui:include src="#{param['url']}" />
-				</div>
-
-				<div class="exception-info">
-					<rich:messages globalOnly="true" />
-				</div>
 			</div>
 
 		</h:form>
