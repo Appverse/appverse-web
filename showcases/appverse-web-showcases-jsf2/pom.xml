@@ -479,95 +479,94 @@
 
 
 
-	<!-- TODO: Pending to review and to document. Work in default profiles for 
-		the most common application servers / servlet containers -->
+	<!-- TODO: Pending to review and to document. Work in default profiles for the most common application servers / servlet containers -->
+	
+<!-- 	<profiles> -->
+<!-- 		<profile> -->
+<!-- 			<id>jetty</id> -->
+<!-- 			<dependencies> -->
+<!-- 				<dependency> -->
+<!-- 					<groupId>javax.faces</groupId> -->
+<!-- 					<artifactId>javax.faces-api</artifactId> -->
+<!-- 					<scope>provided</scope> -->
+<!-- 				</dependency> -->
+<!-- 				<dependency> -->
+<!-- 					<groupId>org.glassfish</groupId> -->
+<!-- 					<artifactId>javax.faces</artifactId> -->
+<!-- 					<scope>provided</scope> -->
+<!-- 				</dependency> -->
+<!-- 				<dependency> -->
+<!-- 					<groupId>javax.transaction</groupId> -->
+<!-- 					<artifactId>jta</artifactId> -->
+<!-- 					<version>1.1</version> -->
+<!-- 					<scope>provided</scope> -->
+<!-- 				</dependency> -->
+<!-- 			</dependencies> -->
+<!-- 		</profile> -->
+<!-- 		<profile> -->
+<!-- 			<id>jee6</id> -->
+<!-- 			<build> -->
+<!-- 				<plugins> -->
+<!-- 					<plugin> -->
+<!-- 						<artifactId>maven-war-plugin</artifactId> -->
+<!-- 						<configuration> -->
+<!-- 							<webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory> -->
+<!-- 							<classifier>jee6</classifier> -->
+<!-- 						</configuration> -->
+<!-- 					</plugin> -->
+<!-- 				</plugins> -->
+<!-- 			</build> -->
 
-	<!-- <profiles> -->
-	<!-- <profile> -->
-	<!-- <id>jetty</id> -->
-	<!-- <dependencies> -->
-	<!-- <dependency> -->
-	<!-- <groupId>javax.faces</groupId> -->
-	<!-- <artifactId>javax.faces-api</artifactId> -->
-	<!-- <scope>provided</scope> -->
-	<!-- </dependency> -->
-	<!-- <dependency> -->
-	<!-- <groupId>org.glassfish</groupId> -->
-	<!-- <artifactId>javax.faces</artifactId> -->
-	<!-- <scope>provided</scope> -->
-	<!-- </dependency> -->
-	<!-- <dependency> -->
-	<!-- <groupId>javax.transaction</groupId> -->
-	<!-- <artifactId>jta</artifactId> -->
-	<!-- <version>1.1</version> -->
-	<!-- <scope>provided</scope> -->
-	<!-- </dependency> -->
-	<!-- </dependencies> -->
-	<!-- </profile> -->
-	<!-- <profile> -->
-	<!-- <id>jee6</id> -->
-	<!-- <build> -->
-	<!-- <plugins> -->
-	<!-- <plugin> -->
-	<!-- <artifactId>maven-war-plugin</artifactId> -->
-	<!-- <configuration> -->
-	<!-- <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory> -->
-	<!-- <classifier>jee6</classifier> -->
-	<!-- </configuration> -->
-	<!-- </plugin> -->
-	<!-- </plugins> -->
-	<!-- </build> -->
-
-	<!-- <dependencies> -->
-	<!-- <dependency> -->
-	<!-- <groupId>javax.faces</groupId> -->
-	<!-- <artifactId>javax.faces-api</artifactId> -->
-	<!-- <scope>provided</scope> -->
-	<!-- </dependency> -->
-	<!-- <dependency> -->
-	<!-- <groupId>org.glassfish</groupId> -->
-	<!-- <artifactId>javax.faces</artifactId> -->
-	<!-- <scope>provided</scope> -->
-	<!-- </dependency> -->
-	<!-- <dependency> -->
-	<!-- <groupId>javax.transaction</groupId> -->
-	<!-- <artifactId>jta</artifactId> -->
-	<!-- <version>1.1</version> -->
-	<!-- <scope>provided</scope> -->
-	<!-- </dependency> -->
-	<!-- </dependencies> -->
-	<!-- </profile> -->
-	<!-- <profile> -->
-	<!-- <id>release</id> -->
-	<!-- <build> -->
-	<!-- <plugins> -->
-	<!-- <plugin> -->
-	<!-- <artifactId>maven-war-plugin</artifactId> -->
-	<!-- <executions> -->
-	<!-- <execution> -->
-	<!-- <id>jee6</id> -->
-	<!-- <phase>package</phase> -->
-	<!-- <goals> -->
-	<!-- <goal>war</goal> -->
-	<!-- </goals> -->
-	<!-- <configuration> -->
-	<!-- <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory> -->
-	<!-- <classifier>jee6</classifier> -->
-	<!-- Excluding all JavaEE 6 artifacts as full JavaEE 6 compliant application 
-		servers provide them -->
-	<!-- <packagingExcludes>WEB-INF/lib/javax.faces*</packagingExcludes> -->
-	<!-- <packagingExcludes>WEB-INF/lib/javax.servlet*</packagingExcludes> -->
-	<!-- <packagingExcludes>WEB-INF/lib/javax.transaction*</packagingExcludes> -->
-	<!-- <warSourceExcludes>WEB-INF/lib/javax.faces*</warSourceExcludes> -->
-	<!-- <warSourceExcludes>WEB-INF/lib/javax.servlet*</warSourceExcludes> -->
-	<!-- <warSourceExcludes>WEB-INF/lib/javax.transaction*</warSourceExcludes> -->
-	<!-- </configuration> -->
-	<!-- </execution> -->
-	<!-- </executions> -->
-	<!-- </plugin> -->
-	<!-- </plugins> -->
-	<!-- </build> -->
-	<!-- </profile> -->
-	<!-- </profiles> -->
+<!-- 			<dependencies> -->
+<!-- 				<dependency> -->
+<!-- 					<groupId>javax.faces</groupId> -->
+<!-- 					<artifactId>javax.faces-api</artifactId> -->
+<!-- 					<scope>provided</scope> -->
+<!-- 				</dependency> -->
+<!-- 				<dependency> -->
+<!-- 					<groupId>org.glassfish</groupId> -->
+<!-- 					<artifactId>javax.faces</artifactId> -->
+<!-- 					<scope>provided</scope> -->
+<!-- 				</dependency> -->
+<!-- 				<dependency> -->
+<!-- 					<groupId>javax.transaction</groupId> -->
+<!-- 					<artifactId>jta</artifactId> -->
+<!-- 					<version>1.1</version> -->
+<!-- 					<scope>provided</scope> -->
+<!-- 				</dependency> -->
+<!-- 			</dependencies> -->
+<!-- 		</profile> -->
+<!-- 		<profile> -->
+<!-- 			<id>release</id> -->
+<!-- 			<build> -->
+<!-- 				<plugins> -->
+<!-- 					<plugin> -->
+<!-- 						<artifactId>maven-war-plugin</artifactId> -->
+<!-- 						<executions> -->
+<!-- 							<execution> -->
+<!-- 								<id>jee6</id> -->
+<!-- 								<phase>package</phase> -->
+<!-- 								<goals> -->
+<!-- 									<goal>war</goal> -->
+<!-- 								</goals> -->
+<!-- 								<configuration> -->
+<!-- 									<webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory> -->
+<!-- 									<classifier>jee6</classifier> -->
+<!-- 									Excluding all JavaEE 6 artifacts as full JavaEE 6 compliant 
+ 										application servers provide them --> 
+<!-- 									<packagingExcludes>WEB-INF/lib/javax.faces*</packagingExcludes> -->
+<!-- 									<packagingExcludes>WEB-INF/lib/javax.servlet*</packagingExcludes> -->
+<!-- 									<packagingExcludes>WEB-INF/lib/javax.transaction*</packagingExcludes> -->
+<!-- 									<warSourceExcludes>WEB-INF/lib/javax.faces*</warSourceExcludes> -->
+<!-- 									<warSourceExcludes>WEB-INF/lib/javax.servlet*</warSourceExcludes> -->
+<!-- 									<warSourceExcludes>WEB-INF/lib/javax.transaction*</warSourceExcludes> -->
+<!-- 								</configuration> -->
+<!-- 							</execution> -->
+<!-- 						</executions> -->
+<!-- 					</plugin> -->
+<!-- 				</plugins> -->
+<!-- 			</build> -->
+<!-- 		</profile> -->
+<!-- 	</profiles> -->
 
 </project>
