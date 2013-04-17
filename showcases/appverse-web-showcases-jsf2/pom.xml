@@ -66,8 +66,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.richfaces.bom.version>4.3.0.Final</org.richfaces.bom.version>
-                <appverse.framework.version>1.1-SNAPSHOT</appverse.framework.version>
-                <appverse.ddl-generator.version>1.0.4-SNAPSHOT</appverse.ddl-generator.version>
+                <appverse.framework.version>1.1-BETA-1</appverse.framework.version>
+                <appverse.ddl-generator.version>1.0.3</appverse.ddl-generator.version>
 
 		<!-- TODO: refactor this according to last changes in 1.1-SNAPSHOT poms -->
 		<app.context.root>jsf2showcase</app.context.root>
@@ -204,7 +204,7 @@
 
 				<plugin>
 					<groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
-					<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
+					<artifactId>appverse-web-tools-jpa-ddl-generator-pom</artifactId>
 					<version>${appverse.ddl-generator.version}</version>
 					<executions>
 						<execution>
