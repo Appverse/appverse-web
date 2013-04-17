@@ -34,7 +34,6 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
         </locale-config>
         <resource-bundle>
 			<base-name>messages</base-name>
-<!--			<base-name>org.appverse.web.showcases.jsf2showcase.frontend.jsf2.helpers.UTF8Converter</base-name>		-->
 			<var>msg</var>
 	    </resource-bundle>
 	    <!-- TODO: Review this so that all validation messages are show in JSF303 way. 
