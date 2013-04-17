@@ -10,7 +10,7 @@
 
 	<groupId>org.appverse.web.tools.poms</groupId>
 	<artifactId>appverse-web-tools-pom</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Tools POM</name>
@@ -117,7 +117,7 @@
 	<scm>
 		<connection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</connection>
 		<developerConnection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</developerConnection>
-		<tag>appverse-web-tools-pom-1.0.5</tag>
+		<tag>master</tag>
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
