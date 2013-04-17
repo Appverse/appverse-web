@@ -66,6 +66,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.richfaces.bom.version>4.3.0.Final</org.richfaces.bom.version>
+                <appverse.framework.version>1.1-SNAPSHOT</appverse.framework.version>
+                <appverse.ddl-generator.version>1.0.4-SNAPSHOT</appverse.ddl-generator.version>
 
 		<!-- TODO: refactor this according to last changes in 1.1-SNAPSHOT poms -->
 		<app.context.root>jsf2showcase</app.context.root>
@@ -203,7 +205,7 @@
 				<plugin>
 					<groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
 					<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
-					<version>1.0.4-SNAPSHOT</version>
+					<version>${appverse.ddl-generator.version}</version>
 					<executions>
 						<execution>
 							<goals>
@@ -219,7 +221,7 @@
 						<dependency>
 							<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
 							<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
-							<version>1.1-SNAPSHOT</version>
+							<version>${appverse.framework.version}</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -328,7 +330,7 @@
 			<dependency>
 				<groupId>org.appverse.web.framework.poms</groupId>
 				<artifactId>appverse-web-masterpom</artifactId>
-				<version>1.1-SNAPSHOT</version>
+				<version>${appverse.framework.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
