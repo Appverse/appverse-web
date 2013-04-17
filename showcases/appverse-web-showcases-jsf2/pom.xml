@@ -224,6 +224,27 @@
 					</dependencies>
 				</plugin>
 
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>native2ascii-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>native2ascii</goal>
+							</goals>
+							<configuration>
+								<src>${basedir}/src/main/resources</src>
+								<dest>target/appverse-web-showcases-jsf2-${project.version}/WEB-INF/classes</dest>
+								<encoding>UTF8</encoding>
+								<includes>
+									<include>**/*.properties</include>
+								</includes>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+
 				<!-- @TODO: Offer profiles depending on the server -->
 				<!-- Java EE 6 is Servlet 3.0, JSP 2.2, EL 2.2 and JSF 2.0 -->
 				<!-- Important: EL 2.2 starts to be part of the Java EE specification 
@@ -293,27 +314,11 @@
 				<groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
 				<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
 			</plugin>
-			
+
 			<plugin>
-    			<groupId>org.codehaus.mojo</groupId>
-    			<artifactId>native2ascii-maven-plugin</artifactId>
-    			<executions>
-        			<execution>
-            			<goals>
-                			<goal>native2ascii</goal>
-            			</goals>
-            			<configuration>
-                			<src>${basedir}/src/main/resources</src>                
-                			<dest>target/appverse-web-showcases-jsf2-${project.version}/WEB-INF/classes</dest>
-                			<encoding>UTF8</encoding>
-                			<includes>
-                				<include>**/*.properties</include>
-                			</includes>
-            			</configuration>
-        			</execution>
-    			</executions>
-			</plugin>			
-			
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>native2ascii-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -419,9 +424,9 @@
 			<artifactId>el-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 	</dependencies>
-	
+
 	<profiles>
 		<!-- local development profile example -->
 		<profile>
@@ -436,132 +441,133 @@
 					<artifactId>hsqldb</artifactId>
 					<scope>runtime</scope>
 				</dependency>
-			</dependencies>			
+			</dependencies>
 			<properties>
 				<env>development</env>
 			</properties>
 		</profile>
-		<!-- integration (production-like) profile example --> 
+		<!-- integration (production-like) profile example -->
 		<profile>
 			<id>integration</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
-			</activation>						
+			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>mysql</groupId>
 					<artifactId>mysql-connector-java</artifactId>
 				</dependency>
-			</dependencies>			
+			</dependencies>
 			<build>
 				<plugins>
 					<plugin>
 						<groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
 						<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
 						<configuration>
-		    				<targetDbPlatform>MySQLPlatform</targetDbPlatform>
-	  					</configuration>				
+							<targetDbPlatform>MySQLPlatform</targetDbPlatform>
+						</configuration>
 					</plugin>
-				</plugins>	
-			</build>		
+				</plugins>
+			</build>
 			<properties>
 				<env>integration</env>
 			</properties>
 		</profile>
-	
+
 		<!-- Define here your required profiles, for instance for production envirom -->
 	</profiles>
-	
-	
 
-	<!-- TODO: Pending to review and to document. Work in default profiles for the most common application servers / servlet containers -->
-	
-<!-- 	<profiles> -->
-<!-- 		<profile> -->
-<!-- 			<id>jetty</id> -->
-<!-- 			<dependencies> -->
-<!-- 				<dependency> -->
-<!-- 					<groupId>javax.faces</groupId> -->
-<!-- 					<artifactId>javax.faces-api</artifactId> -->
-<!-- 					<scope>provided</scope> -->
-<!-- 				</dependency> -->
-<!-- 				<dependency> -->
-<!-- 					<groupId>org.glassfish</groupId> -->
-<!-- 					<artifactId>javax.faces</artifactId> -->
-<!-- 					<scope>provided</scope> -->
-<!-- 				</dependency> -->
-<!-- 				<dependency> -->
-<!-- 					<groupId>javax.transaction</groupId> -->
-<!-- 					<artifactId>jta</artifactId> -->
-<!-- 					<version>1.1</version> -->
-<!-- 					<scope>provided</scope> -->
-<!-- 				</dependency> -->
-<!-- 			</dependencies> -->
-<!-- 		</profile> -->
-<!-- 		<profile> -->
-<!-- 			<id>jee6</id> -->
-<!-- 			<build> -->
-<!-- 				<plugins> -->
-<!-- 					<plugin> -->
-<!-- 						<artifactId>maven-war-plugin</artifactId> -->
-<!-- 						<configuration> -->
-<!-- 							<webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory> -->
-<!-- 							<classifier>jee6</classifier> -->
-<!-- 						</configuration> -->
-<!-- 					</plugin> -->
-<!-- 				</plugins> -->
-<!-- 			</build> -->
 
-<!-- 			<dependencies> -->
-<!-- 				<dependency> -->
-<!-- 					<groupId>javax.faces</groupId> -->
-<!-- 					<artifactId>javax.faces-api</artifactId> -->
-<!-- 					<scope>provided</scope> -->
-<!-- 				</dependency> -->
-<!-- 				<dependency> -->
-<!-- 					<groupId>org.glassfish</groupId> -->
-<!-- 					<artifactId>javax.faces</artifactId> -->
-<!-- 					<scope>provided</scope> -->
-<!-- 				</dependency> -->
-<!-- 				<dependency> -->
-<!-- 					<groupId>javax.transaction</groupId> -->
-<!-- 					<artifactId>jta</artifactId> -->
-<!-- 					<version>1.1</version> -->
-<!-- 					<scope>provided</scope> -->
-<!-- 				</dependency> -->
-<!-- 			</dependencies> -->
-<!-- 		</profile> -->
-<!-- 		<profile> -->
-<!-- 			<id>release</id> -->
-<!-- 			<build> -->
-<!-- 				<plugins> -->
-<!-- 					<plugin> -->
-<!-- 						<artifactId>maven-war-plugin</artifactId> -->
-<!-- 						<executions> -->
-<!-- 							<execution> -->
-<!-- 								<id>jee6</id> -->
-<!-- 								<phase>package</phase> -->
-<!-- 								<goals> -->
-<!-- 									<goal>war</goal> -->
-<!-- 								</goals> -->
-<!-- 								<configuration> -->
-<!-- 									<webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory> -->
-<!-- 									<classifier>jee6</classifier> -->
-<!-- 									Excluding all JavaEE 6 artifacts as full JavaEE 6 compliant 
- 										application servers provide them --> 
-<!-- 									<packagingExcludes>WEB-INF/lib/javax.faces*</packagingExcludes> -->
-<!-- 									<packagingExcludes>WEB-INF/lib/javax.servlet*</packagingExcludes> -->
-<!-- 									<packagingExcludes>WEB-INF/lib/javax.transaction*</packagingExcludes> -->
-<!-- 									<warSourceExcludes>WEB-INF/lib/javax.faces*</warSourceExcludes> -->
-<!-- 									<warSourceExcludes>WEB-INF/lib/javax.servlet*</warSourceExcludes> -->
-<!-- 									<warSourceExcludes>WEB-INF/lib/javax.transaction*</warSourceExcludes> -->
-<!-- 								</configuration> -->
-<!-- 							</execution> -->
-<!-- 						</executions> -->
-<!-- 					</plugin> -->
-<!-- 				</plugins> -->
-<!-- 			</build> -->
-<!-- 		</profile> -->
-<!-- 	</profiles> -->
+
+	<!-- TODO: Pending to review and to document. Work in default profiles for 
+		the most common application servers / servlet containers -->
+
+	<!-- <profiles> -->
+	<!-- <profile> -->
+	<!-- <id>jetty</id> -->
+	<!-- <dependencies> -->
+	<!-- <dependency> -->
+	<!-- <groupId>javax.faces</groupId> -->
+	<!-- <artifactId>javax.faces-api</artifactId> -->
+	<!-- <scope>provided</scope> -->
+	<!-- </dependency> -->
+	<!-- <dependency> -->
+	<!-- <groupId>org.glassfish</groupId> -->
+	<!-- <artifactId>javax.faces</artifactId> -->
+	<!-- <scope>provided</scope> -->
+	<!-- </dependency> -->
+	<!-- <dependency> -->
+	<!-- <groupId>javax.transaction</groupId> -->
+	<!-- <artifactId>jta</artifactId> -->
+	<!-- <version>1.1</version> -->
+	<!-- <scope>provided</scope> -->
+	<!-- </dependency> -->
+	<!-- </dependencies> -->
+	<!-- </profile> -->
+	<!-- <profile> -->
+	<!-- <id>jee6</id> -->
+	<!-- <build> -->
+	<!-- <plugins> -->
+	<!-- <plugin> -->
+	<!-- <artifactId>maven-war-plugin</artifactId> -->
+	<!-- <configuration> -->
+	<!-- <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory> -->
+	<!-- <classifier>jee6</classifier> -->
+	<!-- </configuration> -->
+	<!-- </plugin> -->
+	<!-- </plugins> -->
+	<!-- </build> -->
+
+	<!-- <dependencies> -->
+	<!-- <dependency> -->
+	<!-- <groupId>javax.faces</groupId> -->
+	<!-- <artifactId>javax.faces-api</artifactId> -->
+	<!-- <scope>provided</scope> -->
+	<!-- </dependency> -->
+	<!-- <dependency> -->
+	<!-- <groupId>org.glassfish</groupId> -->
+	<!-- <artifactId>javax.faces</artifactId> -->
+	<!-- <scope>provided</scope> -->
+	<!-- </dependency> -->
+	<!-- <dependency> -->
+	<!-- <groupId>javax.transaction</groupId> -->
+	<!-- <artifactId>jta</artifactId> -->
+	<!-- <version>1.1</version> -->
+	<!-- <scope>provided</scope> -->
+	<!-- </dependency> -->
+	<!-- </dependencies> -->
+	<!-- </profile> -->
+	<!-- <profile> -->
+	<!-- <id>release</id> -->
+	<!-- <build> -->
+	<!-- <plugins> -->
+	<!-- <plugin> -->
+	<!-- <artifactId>maven-war-plugin</artifactId> -->
+	<!-- <executions> -->
+	<!-- <execution> -->
+	<!-- <id>jee6</id> -->
+	<!-- <phase>package</phase> -->
+	<!-- <goals> -->
+	<!-- <goal>war</goal> -->
+	<!-- </goals> -->
+	<!-- <configuration> -->
+	<!-- <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory> -->
+	<!-- <classifier>jee6</classifier> -->
+	<!-- Excluding all JavaEE 6 artifacts as full JavaEE 6 compliant application 
+		servers provide them -->
+	<!-- <packagingExcludes>WEB-INF/lib/javax.faces*</packagingExcludes> -->
+	<!-- <packagingExcludes>WEB-INF/lib/javax.servlet*</packagingExcludes> -->
+	<!-- <packagingExcludes>WEB-INF/lib/javax.transaction*</packagingExcludes> -->
+	<!-- <warSourceExcludes>WEB-INF/lib/javax.faces*</warSourceExcludes> -->
+	<!-- <warSourceExcludes>WEB-INF/lib/javax.servlet*</warSourceExcludes> -->
+	<!-- <warSourceExcludes>WEB-INF/lib/javax.transaction*</warSourceExcludes> -->
+	<!-- </configuration> -->
+	<!-- </execution> -->
+	<!-- </executions> -->
+	<!-- </plugin> -->
+	<!-- </plugins> -->
+	<!-- </build> -->
+	<!-- </profile> -->
+	<!-- </profiles> -->
 
 </project>
