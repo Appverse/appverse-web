@@ -124,14 +124,21 @@
  	<properties>
 		<main.group>org.appverse.web.showcases.gwt</main.group>
 		<main.name>appverse-web-showcases-gwt</main.name>
-		<app.context.root>showcase</app.context.root>
+                <appverse.framework.version>1.1-BETA-1</appverse.framework.version>
+                <appverse.ddl-generator.version>1.0.5</appverse.ddl-generator.version> 
+                <app.context.root>gwtshowcase</app.context.root>
 	</properties>
 	
  	<build>
- 		<defaultGoal>clean package tomcat7:deploy-only</defaultGoal>
+ 		<defaultGoal>clean package</defaultGoal>
  		
  		<pluginManagement>
-			<plugins>
+                        <plugins>
+                                <plugin>
+                                    <groupId>org.apache.maven.plugins</groupId>
+                                    <artifactId>maven-release-plugin</artifactId>
+                                    <version>2.3.2</version>
+                                </plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -294,7 +301,7 @@
 			    <plugin>
 					<groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
 					<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
-					<version>1.0.4-SNAPSHOT</version> 
+					<version>${appverse.ddl-generator.version}</version> 
 					<executions>
 						<execution>
 							<goals>
@@ -310,7 +317,7 @@
 						<dependency>
 							<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
 							<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
-							<version>1.0.4-SNAPSHOT</version>
+							<version>${appverse.framework.version}</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -323,14 +330,14 @@
 			<dependency>
 				<groupId>org.appverse.web.framework.poms</groupId>
 				<artifactId>appverse-web-masterpom</artifactId>
-				<version>1.0.4-SNAPSHOT</version>
+				<version>${appverse.framework.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
   
-  	<reporting>
+  	<!--reporting>
     	<outputDirectory>${basedir}/target/site</outputDirectory>
     	<plugins>
       		<plugin>
@@ -349,9 +356,9 @@
 		                	<report>modules</report>	
 		               		<report>plugins</report>			                			               				                		   			
 		               		<report>plugin-management</report>		
-				   			<report>help</report>	
+				   			<report>help</report-->	
 <!-- 				   			<report>dependencies</report> -->
-				   			<report>dependency-convergence</report>				                
+				   			<!--report>dependency-convergence</report>				                
 				   			<report>dependency-info</report>
 			   				<report>dependency-management</report>					   			
 				   			<report>distribution-management</report>		   			
@@ -366,27 +373,27 @@
     		<plugin>		
         		<artifactId>maven-pmd-plugin</artifactId>  
         		<version>3.0</version> 	
-        	</plugin>       	 		
+        	</plugin-->       	 		
 <!-- 		    <plugin> -->
 <!-- 		        <artifactId>maven-javadoc-plugin</artifactId>  	 -->
 <!-- 		    </plugin> -->
-	        <plugin>
+	        <!--plugin>
 	            <groupId>org.apache.maven.plugins</groupId>
 	            <artifactId>maven-checkstyle-plugin</artifactId>
 	            <version>2.10</version>
-	        </plugin>
+	        </plugin-->
 <!-- 	       <plugin> -->
 <!-- 	           <groupId>org.apache.maven.plugins</groupId> -->
 <!-- 	           <artifactId>maven-changelog-plugin</artifactId> -->
 <!-- 	           <version>2.2</version> -->
 <!-- 	        </plugin> -->
-	        <plugin>
+	        <!--plugin>
 	        	<groupId>org.apache.maven.plugins</groupId>
 	        	<artifactId>maven-jxr-plugin</artifactId>
 	        <version>2.3</version>
 	      </plugin>
     	</plugins>
-  	</reporting>
+  	</reporting-->
   
 	<profiles> 
 		<profile> 
