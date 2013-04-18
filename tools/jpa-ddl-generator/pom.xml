@@ -113,7 +113,11 @@
         	<post>appverse-private@googlegroups.com</post>
     	</mailingList>          
     </mailingLists>   
-
+    
+    <properties>
+        <appverse.framework.version>1.1-BETA-1</appverse.framework.version>
+    </properties>
+    
 	<scm>
 		<connection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</connection>
 		<developerConnection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</developerConnection>
@@ -174,7 +178,7 @@
 			<dependency>
 				<groupId>org.appverse.web.framework.poms</groupId>
 				<artifactId>appverse-web-masterpom</artifactId>
-				<version>1.0.4-SNAPSHOT</version>
+				<version>${appverse.framework.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
