@@ -131,10 +131,10 @@
     </build>
 
 	<distributionManagement>
-	    <site>
+	    <!--site>
 	      <id>appverse.web.maven</id>
 	      <name>Appverse Web Maven Site</name>
 	      <url>http://appverse.github.com/appverse-web/site/framework/modules/showcases</url>
-	    </site>
+	    </site-->
 	  </distributionManagement>  
 </project>
