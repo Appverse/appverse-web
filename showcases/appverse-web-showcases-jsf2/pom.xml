@@ -72,14 +72,7 @@
 		<!-- TODO: refactor this according to last changes in 1.1-SNAPSHOT poms -->
 		<app.context.root>jsf2showcase</app.context.root>
 	</properties>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>temporal for release</id>
-            <url>http://oss.sonatype.org/content/repositories/orgappverse-017/</url>
-        </pluginRepository>
-    </pluginRepositories>
-    
+  
 	<build>
 		<!-- Default Maven goal uses embedded Jetty server -->
 		<defaultGoal>clean jetty:run-war</defaultGoal>
@@ -100,7 +93,12 @@
 		</resources>
 
 		<pluginManagement>
-			<plugins>
+                            <plugins>
+                                <plugin>
+                                    <groupId>org.apache.maven.plugins</groupId>
+                                    <artifactId>maven-release-plugin</artifactId>
+                                    <version>2.3.2</version>
+                                </plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
