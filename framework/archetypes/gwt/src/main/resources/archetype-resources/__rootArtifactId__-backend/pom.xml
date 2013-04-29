@@ -145,7 +145,7 @@
 		        <artifactId>maven-antrun-plugin</artifactId>
 		        <executions>
 		          <execution>
-		            <phase>process-sources</phase>
+		            <phase>process-resources</phase>
 		            <configuration>
 					  <copy todir="${project.build.outputDirectory}/sql">
 					    <fileset dir="src/main/resources/sql">
