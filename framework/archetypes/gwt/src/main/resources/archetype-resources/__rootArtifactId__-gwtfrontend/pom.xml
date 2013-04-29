@@ -55,24 +55,82 @@
 
     <developers>
         <developer>
-	        <id>sergi</id>
+            <id>carlosrubio</id>
+            <name>Carlos Rubio Manero</name>
+            <email>carlos@rubioonline.es</email>
+            <url/>
+            <organization>Appverse</organization>
+            <organizationUrl>http://appverse.org</organizationUrl>
+            <roles>                
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+	        <timezone>Europe/Madrid</timezone>            
+        </developer>
+        <developer>
+            <id>miguelfgar</id>
+            <name>Miguel Fernández</name>
+            <email>miguelfgar@gmail.com</email>
+            <url/>            
+            <organization>Appverse</organization>
+            <organizationUrl>http://appverse.org</organizationUrl>
+            <roles>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+	        <timezone>Europe/Andorra</timezone>      
+        </developer>
+        <developer>
+            <id>rrbl</id>
+            <name>Roger Bofarull</name>
+            <email>roger.bofarull@gmail.com</email>
+            <url/>
+            <organization>Appverse</organization>
+            <organizationUrl>http://appverse.org</organizationUrl>
+            <roles>                
+                <role>Architect</role>
+				<role>Developer</role>
+            </roles>
+	        <timezone>Europe/Andorra</timezone>            
+        </developer> 
+        <developer>     
+ 	        <id>slanau</id>
 	        <name>Sergi Lanau Rodríguez</name>
 	        <email>sergi@lanau.net</email>
 	        <url>http://www.lanau.net</url>
 	        <organization>Appverse</organization>
 	        <organizationUrl>http://appverse.org</organizationUrl>
 	        <roles>
-	            <role>architect</role>
-	            <role>developer</role>
-	          </roles>
-	          <timezone>+1</timezone>
-	          <properties>
-	            <gravatar>gravatar.com/slanau</gravatar>
-	          </properties>
-        </developer>
+	            <role>Architect</role>
+	            <role>Developer</role>
+	        </roles>
+	        <timezone>Europe/Andorra</timezone>
+        </developer>       
     </developers>
     
     <contributors>
+        <contributor>
+            <name>Jesus de Diego</name>
+            <email>jesus.dediego.erles@gmail.com</email>
+             <url/>
+             <organization>GFT</organization>
+             <organizationUrl>http://www.gft.com</organizationUrl>
+             <roles>
+                 <role>contributor</role>
+             </roles>
+	        <timezone>Europe/Madrid</timezone>                     
+        </contributor>
+         <contributor>
+             <name>Sergio Roldan</name>
+             <email>cactus.jiropa@gmail.com</email>
+             <url/>
+             <organization>GFT</organization>
+             <organizationUrl>http://www.gft.com</organizationUrl>
+             <roles>
+                 <role>contributor</role>
+             </roles>
+	        <timezone>Europe/Madrid</timezone>                     
+        </contributor>   
     </contributors>
    
      <issueManagement>
@@ -138,11 +196,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
 			</plugin>
 		</plugins>		
 	</build>		
