@@ -130,6 +130,9 @@
  	<build>
  		<defaultGoal>clean package tomcat7:deploy-only</defaultGoal>
  		
+ 	<build>
+ 		<defaultGoal>clean package tomcat7:deploy-only</defaultGoal>
+ 		
  		<pluginManagement>
 			<plugins>
 				<plugin>
