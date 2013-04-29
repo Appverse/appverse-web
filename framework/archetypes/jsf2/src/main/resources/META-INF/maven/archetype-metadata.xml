@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+    xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="${newProjectName}">
+    
+  <requiredProperties>
+    <requiredProperty key="newProjectName" />
+  </requiredProperties>    
+    
+  <fileSets>
+  	<fileSet encoding="UTF-8">
+    	<directory>src/main/java/__packageInPathFormat__/backend/converters/b2i</directory>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+        <directory>src/main/java/__packageInPathFormat__/backend/converters/p2b</directory>
+    </fileSet>    
+    <fileSet encoding="UTF-8">
+        <directory>src/main/java/__packageInPathFormat__/backend/model/business</directory>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+        <directory>src/main/java/__packageInPathFormat__/backend/model/integration</directory>
+    </fileSet>         
+    <fileSet encoding="UTF-8">
+    	<directory>src/main/java/__packageInPathFormat__/backend/services/business/impl/live</directory>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+        <directory>src/main/java/__packageInPathFormat__/backend/services/business/impl/mock</directory>
+    </fileSet>    
+    <fileSet encoding="UTF-8">
+      	<directory>src/main/java/__packageInPathFormat__/backend/services/integration/impl/live</directory>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+        <directory>src/main/java/__packageInPathFormat__/backend/services/integration/impl/mock</directory>
+    </fileSet>       
+    <fileSet encoding="UTF-8">
+        <directory>src/main/java/__packageInPathFormat__/backend/services/presentation/impl/live</directory>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+       	<directory>src/main/java/__packageInPathFormat__/backend/services/presentation/impl/mock</directory>
+    </fileSet> 
+    <fileSet encoding="UTF-8">
+	    <directory>src/test/java/__packageInPathFormat__/backend/services/integration/impl/test</directory>
+    </fileSet>       
+    <fileSet encoding="UTF-8">
+        <directory>src/test/java/__packageInPathFormat__/backend/services/business/impl/test</directory>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+    	<directory>src/test/java/__packageInPathFormat__/backend/services/presentation/impl/test</directory>
+    </fileSet>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/main/filters</directory>
+      <includes>
+        <include>**/*.properties</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/main/webapp</directory>
+      <includes>
+        <include>**/*.jsp</include>
+        <include>**/*.xhtml</include>
+        <include>**/*.xml</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.xml</include>
+        <include>**/*.properties</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.sql</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory></directory>
+      <includes>
+        <include>*.launch</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</archetype-descriptor>

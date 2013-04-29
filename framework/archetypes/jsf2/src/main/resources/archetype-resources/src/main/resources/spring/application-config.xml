@@ -1,0 +1,98 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	default-autowire="byName">
+
+	<!-- Database Property File -->
+	<context:property-placeholder location="classpath:properties/*.properties" />
+	<!-- ====================================================================== -->
+	<!-- JPA ORM -->
+	<!-- ====================================================================== -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" />
+	<!-- ====================================================================== -->
+	<!-- Transaction Manager -->
+	<!-- ====================================================================== -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" />
+	<!-- ====================================================================== -->
+	<!-- Dozer converter -->
+	<!-- ====================================================================== -->
+	<bean id="conversionService" class="org.dozer.spring.DozerBeanMapperFactoryBean">
+		<property name="mappingFiles" value="classpath*:dozer/*bean-mappings.xml" />
+	</bean>
+
+	<!-- ====================================================================== -->
+	<!-- JSR-303 Validation -->
+	<!-- ====================================================================== -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+	<!-- ============================================================================================= -->
+	<!-- Autowired Logger BeanFactoryPostProcessor -->
+	<!-- ============================================================================================= -->
+	<bean
+		class="org.appverse.web.framework.backend.api.helpers.log.AutowiredLoggerBeanPostProcessor" />
+
+	<!-- ============================================================================================= -->
+	<!-- AOP -->
+	<!-- ============================================================================================= -->
+
+	<tx:advice id="txAdvice">
+		<tx:attributes>
+			<tx:method name="retrieve*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="search*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<bean id="profilingAdvice" class="org.appverse.web.framework.backend.api.aop.advices.ProfilingAdvice" />
+	<bean id="exceptionAdvice" class="org.appverse.web.framework.backend.api.aop.advices.ExceptionAdvice" />
+	<bean id="validationAdvice" class="org.appverse.web.framework.backend.api.aop.advices.ValidationAdvice" />
+	<bean id="profileManager" class="org.appverse.web.framework.backend.api.aop.managers.impl.live.ProfileManagerImpl" />
+	<bean id="exceptionManager"	class="org.appverse.web.framework.backend.api.aop.managers.impl.live.ExceptionManagerImpl" />
+	<bean id="validationManager" class="org.appverse.web.framework.backend.api.aop.managers.impl.live.ValidationManagerImpl" />
+
+	<aop:config>
+		<aop:pointcut id="allPresentationServicesMethodsCalls" expression="execution(* ${package}.backend.services.presentation..*.*(..))" />
+		<aop:pointcut id="allBusinessServicesMethodsCalls" expression="execution(* ${package}.backend.services.business..*.*(..))" />
+		<aop:pointcut id="allIntegrationServicesMethodsCalls" expression="execution(* ${package}.backend.services.integration..*.*(..))" />
+		<aop:pointcut id="allServicesMethodsCalls" expression="execution(* ${package}.backend.services..*.*(..))" />
+		<aop:pointcut id="allPresentationSaveMethodsCalls" expression="execution(* ${package}.backend.services.presentation..save*(..))" />
+
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="allPresentationServicesMethodsCalls" />
+		<aop:advisor advice-ref="profilingAdvice" pointcut-ref="allServicesMethodsCalls" />
+		<aop:advisor advice-ref="exceptionAdvice" pointcut-ref="allServicesMethodsCalls" />
+		<aop:advisor advice-ref="validationAdvice" pointcut-ref="allPresentationSaveMethodsCalls" />
+	</aop:config>
+
+	<!-- ============================================================================================= -->
+	<!-- Imports and Component Scans -->
+	<!-- ============================================================================================= -->
+	<import resource="HSQLDB_database-config.xml" />
+	<!-- Example. If you used MySQL, you would replace previous line with next one -->
+	<!-- 	<import resource="MYSQL_database-config.xml" /> -->
+	<import resource="security-config.xml" />
+
+	<context:component-scan base-package="${package}.frontend.jsf2.bean" />
+
+	<context:component-scan base-package="${package}.backend.services.presentation.impl.live" />
+	<context:component-scan base-package="${package}.backend.services.business.impl.live" />
+	<context:component-scan base-package="${package}.backend.services.integration.impl.live" />
+	<context:component-scan base-package="${package}.backend.converters.*" />
+
+
+	<context:component-scan base-package="org.appverse.web.framework.backend.api.converters.*" />
+	<context:component-scan base-package="org.appverse.web.framework.backend.api.services.presentation.impl.live" />
+
+</beans>
