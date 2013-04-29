@@ -123,6 +123,7 @@
 
 	<modules>
 		<module>gwt</module>
+                <module>jsf2</module>
 	</modules>
 
 	<distributionManagement>
