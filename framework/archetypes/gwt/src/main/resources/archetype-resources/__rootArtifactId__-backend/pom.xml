@@ -12,9 +12,9 @@
 	<groupId>${groupId}.backend</groupId>
 	<artifactId>${rootArtifactId}-backend</artifactId>
 	<packaging>war</packaging>
-	
+
 	<name>${newProjectName} Backend Module</name>
-    <description>${newProjectName} Backend Module</description>
+	<description>${newProjectName} Backend Module</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2013</inceptionYear>
 
@@ -123,7 +123,7 @@
 
 	<build>
 		<finalName>${rootArtifactId}</finalName>
-	
+
 		<filters>
 			<filter>src/main/filters/${env}.properties</filter>
 		</filters>
@@ -140,28 +140,28 @@
 				<groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
 				<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
 			</plugin>
-			
-	 		<plugin>
-		        <artifactId>maven-antrun-plugin</artifactId>
-		        <executions>
-		          <execution>
-		            <phase>process-resources</phase>
-		            <configuration>
-		            <task>
-					  <copy todir="${project.build.outputDirectory}/sql">
-					    <fileset dir="src/main/resources/sql">
-					      <include name="**/*"/>
-					    </fileset>
-					  </copy>
-		            </configuration>
-		            </task>
-		            <goals>
-		              <goal>run</goal>
-		            </goals>
-		          </execution>
-		        </executions>
-		      </plugin>
-		
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-resources</phase>
+						<configuration>
+							<task>
+								<copy todir="${project.build.outputDirectory}/sql">
+									<fileset dir="src/main/resources/sql">
+										<include name="**/*" />
+									</fileset>
+								</copy>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</task>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
