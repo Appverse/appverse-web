@@ -147,12 +147,14 @@
 		          <execution>
 		            <phase>process-resources</phase>
 		            <configuration>
+		            <task>
 					  <copy todir="${project.build.outputDirectory}/sql">
 					    <fileset dir="src/main/resources/sql">
 					      <include name="**/*"/>
 					    </fileset>
 					  </copy>
 		            </configuration>
+		            </task>
 		            <goals>
 		              <goal>run</goal>
 		            </goals>
