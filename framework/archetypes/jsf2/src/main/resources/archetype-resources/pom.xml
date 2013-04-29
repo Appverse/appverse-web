@@ -40,7 +40,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.richfaces.bom.version>4.3.0.Final</org.richfaces.bom.version>
         <appverse.framework.version>1.1-SNAPSHOT</appverse.framework.version>
-        <appverse.ddl-generator.version>1.0.4-SNAPSHOT</appverse.ddl-generator.version>
+        <appverse.ddl-generator.version>1.1-SNAPSHOT</appverse.ddl-generator.version>
 		<app.context.root>${project.artifactId}</app.context.root>
 	</properties>
 

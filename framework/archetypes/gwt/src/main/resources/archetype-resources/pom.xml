@@ -181,7 +181,7 @@
 	</modules>
 
  	<properties>
-		<framework.version>1.0.4-SNAPSHOT</framework.version>
+		<framework.version>1.1-SNAPSHOT</framework.version>
 	</properties>
 	
  	<build>
