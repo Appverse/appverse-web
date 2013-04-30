@@ -14,5 +14,5 @@
 <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
 <stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${symbol_dollar}{project}"/>
 <stringAttribute key="org.eclipse.debug.core.source_locator_id" value="org.eclipse.m2e.launching.MavenSourceLocator"/>
-<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${symbol_dollar}{workspace_loc:/${artifactId}"/></launchConfiguration>
+<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${symbol_dollar}{workspace_loc:/${artifactId}}"/></launchConfiguration>
 </launchConfiguration>
