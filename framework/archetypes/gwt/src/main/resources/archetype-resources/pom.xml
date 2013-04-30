@@ -342,7 +342,7 @@
 							<phase>generate-resources</phase>
 							<configuration>
 								<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
-								<includeGroupIds>${artifactId}.gwtfrontend</includeGroupIds>
+								<includeGroupIds>${groupId}.gwtfrontend</includeGroupIds>
 								<includeArtifacIds>${artifactId}-gwtfrontend</includeArtifacIds>
 							</configuration> 
 						</execution>
