@@ -357,7 +357,7 @@
 							<goals>
 								<goal>generate-schema</goal>
 							</goals>
-							<phase>process-resources</phase>
+							<phase>prepare-package</phase>
 							<configuration>
 							    <ddlOutputDir>${artifactId}-backend/src/main/resources/sql</ddlOutputDir>
 							</configuration>
