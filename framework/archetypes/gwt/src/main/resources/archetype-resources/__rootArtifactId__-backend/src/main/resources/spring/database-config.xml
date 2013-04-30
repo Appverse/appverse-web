@@ -14,7 +14,7 @@
 
 <!--      <bean id="jpaVendorAdapter" -->
 <!-- 		    class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter" -->
-<!-- 		    p:databasePlatform="org.eclipse.persistence.platform.database.MySQLPlatform"		   -->
+<!-- 		    p:databasePlatform="org.eclipse.persistence.platform.database.${targetDbPlatform}"		   -->
 <!-- 		    p:showSql="true" /> -->
  
       <bean id="jpaVendorAdapter"

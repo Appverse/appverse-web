@@ -5,6 +5,9 @@
     
   <requiredProperties>
     <requiredProperty key="newProjectName" />
+    <requiredProperty key="targetDbPlatform">
+    	<defaultValue>MySQLPlatform</defaultValue>
+    </requiredProperty>
   </requiredProperties>
 
   <fileSets>
