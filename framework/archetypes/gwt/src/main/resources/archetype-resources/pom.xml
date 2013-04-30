@@ -181,7 +181,7 @@
 	</modules>
 
  	<properties>
-		<framework.version>1.1-SNAPSHOT</framework.version>
+		<framework.version>1.1</framework.version>
 		<appverse.ddl-generator.version>1.0.5.1</appverse.ddl-generator.version>
 	</properties>
 	
