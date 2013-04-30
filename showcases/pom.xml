@@ -128,13 +128,23 @@
 
     <build>
         <defaultGoal>clean install</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
-	<distributionManagement>
+	<!--distributionManagement>
 	    <site>
 	      <id>appverse.web.maven</id>
 	      <name>Appverse Web Maven Site</name>
 	      <url>http://appverse.github.com/appverse-web/site/framework/modules/showcases</url>
 	    </site>
-	  </distributionManagement>  
+	  </distributionManagement-->  
 </project>
