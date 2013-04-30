@@ -66,8 +66,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.richfaces.bom.version>4.3.0.Final</org.richfaces.bom.version>
-                <appverse.framework.version>1.1-SNAPSHOT</appverse.framework.version>
-                <appverse.ddl-generator.version>1.1-SNAPSHOT</appverse.ddl-generator.version>
+                <appverse.framework.version>1.1.0-RELEASE</appverse.framework.version>
+                <appverse.ddl-generator.version>1.0.5.1</appverse.ddl-generator.version>
 
 		<!-- TODO: refactor this according to last changes in 1.1-SNAPSHOT poms -->
 		<app.context.root>jsf2showcase</app.context.root>

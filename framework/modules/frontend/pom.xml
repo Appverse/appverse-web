@@ -10,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms.modules.frontend</groupId>
 	<artifactId>appverse-web-modules-frontend-pom</artifactId>
-		<version>1.1-SNAPSHOT</version>	
+		<version>1.1.1-SNAPSHOT</version>	
 	<packaging>pom</packaging>	
 
 	<name>Appverse Web Framework Modules Frontend POM</name>
@@ -125,11 +125,11 @@
 		<module>gwt</module>
 	</modules>
 
-	<distributionManagement>
+	<!--distributionManagement>
 	    <site>
 	      <id>appverse.web.maven</id>
 	      <name>Appverse Web Maven Site</name>
 	      <url>http://appverse.github.com/appverse-web/site/framework/modules/frontend</url>
 	    </site>
-	  </distributionManagement>  
+	  </distributionManagement-->  
 </project>

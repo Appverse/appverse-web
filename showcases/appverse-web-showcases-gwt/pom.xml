@@ -125,6 +125,8 @@
 		<main.group>org.appverse.web.showcases.gwt</main.group>
 		<main.name>appverse-web-showcases-gwt</main.name>
 		<app.context.root>showcase</app.context.root>
+                <appverse.framework.version>1.1.0-RELEASE</appverse.framework.version>
+                <appverse.ddl-generator.version>1.0.5.1</appverse.ddl-generator.version>
 	</properties>
 	
  	<build>
@@ -294,7 +296,7 @@
 			    <plugin>
 					<groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
 					<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
-					<version>1.1-SNAPSHOT</version> 
+					<version>${appverse.ddl-generator.version}</version> 
 					<executions>
 						<execution>
 							<goals>
@@ -310,7 +312,7 @@
 						<dependency>
 							<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
 							<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
-							<version>1.1-SNAPSHOT</version>
+							<version>${appverse.framework.version}</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -323,7 +325,7 @@
 			<dependency>
 				<groupId>org.appverse.web.framework.poms</groupId>
 				<artifactId>appverse-web-masterpom</artifactId>
-				<version>1.1-SNAPSHOT</version>
+				<version>${appverse.framework.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
