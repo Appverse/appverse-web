@@ -213,7 +213,7 @@
 							</goals>
 							<phase>prepare-package</phase>
 							<configuration>
-								<ddlOutputDir>target/appverse-web-showcases-jsf2-${project.version}/WEB-INF/classes/sql</ddlOutputDir>
+								<ddlOutputDir>${project.build.outputDirectory}/sql</ddlOutputDir>
 							</configuration>
 						</execution>
 					</executions>
