@@ -304,7 +304,7 @@
 							</goals>
 							<phase>prepare-package</phase>
 							<configuration>
-							    <ddlOutputDir>appverse-web-showcases-gwt-backend/target/appverse-web-showcases-gwt-backend-${project.version}/WEB-INF/classes/sql</ddlOutputDir>
+							    <ddlOutputDir>${project.build.outputDirectory}/sql</ddlOutputDir>
 							</configuration>
 						</execution>
 					</executions>
