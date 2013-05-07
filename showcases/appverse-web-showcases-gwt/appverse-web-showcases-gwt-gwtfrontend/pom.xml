@@ -164,4 +164,30 @@
 			<scope>provided</scope>
 		</dependency>	
 	</dependencies>
+
+    <profiles>
+        <profile>
+              <id>development</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>gwt-maven-plugin</artifactId>
+                        <configuration>
+                            <runTarget>admin.html</runTarget>
+                            <hostedWebapp>../appverse-web-showcases-gwt-backend/target/appverse-web-showcases-gwt-backend-${project.version}/</hostedWebapp>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>compile</goal>
+                                    <goal>resources</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
