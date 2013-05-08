@@ -117,7 +117,7 @@
 			<organization>GFT</organization>
 			<organizationUrl>http://www.gft.com</organizationUrl>
 			<roles>
-				<role>contributor</role>
+				<role>Contributor</role>
 			</roles>
 			<timezone>Europe/Madrid</timezone>
 		</contributor>
@@ -128,7 +128,7 @@
 			<organization>GFT</organization>
 			<organizationUrl>http://www.gft.com</organizationUrl>
 			<roles>
-				<role>contributor</role>
+				<role>Contributor</role>
 			</roles>
 			<timezone>Europe/Madrid</timezone>
 		</contributor>
@@ -187,13 +187,23 @@
 
 	<build>
 		<defaultGoal>clean install</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<mavenExecutorId>forked-path</mavenExecutorId>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 <!-- 	<distributionManagement> -->
 <!-- 		<site> -->
 <!-- 			<id>appverse.web.maven</id> -->
 <!-- 			<name>Appverse Web Maven Site</name> -->
-<!-- 			<url>http://appverse.github.com/appverse-web/site/framework/modules/tools</url> -->
+<!-- 			<url>http://appverse.github.com/appverse-web/site/tools</url> -->
 <!-- 		</site> -->
 <!-- 	</distributionManagement> -->
 </project>
