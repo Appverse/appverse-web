@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -7,7 +8,7 @@
 		<artifactId>oss-parent</artifactId>
 		<version>7</version>
 	</parent>
-	
+
 	<groupId>org.appverse.web.framework.poms</groupId>
 	<artifactId>appverse-web-masterpom</artifactId>
 	<version>1.1.1-SNAPSHOT</version>
@@ -22,7 +23,7 @@
 		<license>
 			<name>Appverse Public License Version 2.0</name>
 			<url>http://appverse.org/legal/appverse-license/</url>
-			<distribution>repo</distribution>		
+			<distribution>repo</distribution>
 			<comments>
 	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 			
@@ -50,128 +51,126 @@
 	</licenses>
 
 	<organization>
-    	<name>Appverse</name>
-    	<url>http://appverse.org</url>
-  	</organization>
+		<name>Appverse</name>
+		<url>http://appverse.org</url>
+	</organization>
 
-    <developers>
-        <developer>
-            <id>carlosrubio</id>
-            <name>Carlos Rubio Manero</name>
-            <email>carlos@rubioonline.es</email>
-            <url />
-            <organization>Appverse</organization>
-            <organizationUrl>http://appverse.org</organizationUrl>
-            <roles>                
-                <role>Architect</role>
-			    <role>He-Man</role>
-            </roles>
-	        <timezone>Europe/Madrid</timezone>            
-        </developer>
-        <developer>
-            <id>miguelfgar</id>
-            <name>Miguel Fernández</name>
-            <email>miguelfgar@gmail.com</email>
-            <organization>Appverse</organization>
-            <organizationUrl>http://appverse.org</organizationUrl>
-            <roles>
-                <role>Architect</role>
-                <role>Developer</role>
-            </roles>
-	        <timezone>Europe/Andorra</timezone>      
-        </developer>
-        <developer>
-            <id>rrbl</id>
-            <name>Roger Bofarull</name>
-            <email>roger.bofarull@gmail.com</email>
-            <url />
-            <organization>Appverse</organization>
-            <organizationUrl>http://appverse.org</organizationUrl>
-            <roles>                
-                <role>Architect</role>
+	<developers>
+		<developer>
+			<id>carlosrubio</id>
+			<name>Carlos Rubio Manero</name>
+			<email>carlos@rubioonline.es</email>
+			<url />
+			<organization>Appverse</organization>
+			<organizationUrl>http://appverse.org</organizationUrl>
+			<roles>
+				<role>Architect</role>
 				<role>Developer</role>
-            </roles>
-	        <timezone>Europe/Andorra</timezone>            
-        </developer> 
-        <developer>     
- 	        <id>slanau</id>
-	        <name>Sergi Lanau Rodríguez</name>
-	        <email>sergi@lanau.net</email>
-	        <url>http://www.lanau.net</url>
-	        <organization>Appverse</organization>
-	        <organizationUrl>http://appverse.org</organizationUrl>
-	        <roles>
-	            <role>Architect</role>
-	            <role>Developer</role>
-	        </roles>
-	        <timezone>Europe/Andorra</timezone>
-        </developer>       
-    </developers>
-    
-    <contributors>
-        <contributor>
-<!--             <id>jjdediego</id> -->
-            <name>Jesus de Diego</name>
-            <email>jesus.dediego.erles@gmail.com</email>
-             <url />
-             <organization>GFT</organization>
-             <organizationUrl>http://www.gft.com</organizationUrl>
-             <roles>
-                 <role>contributor</role>
-             </roles>
-	        <timezone>Europe/Madrid</timezone>                     
-        </contributor>
-         <contributor>
-<!--              <id>sergiorc</id> -->
-             <name>Sergio Roldan</name>
-             <email>cactus.jiropa@gmail.com</email>
-             <url />
-             <organization>GFT</organization>
-             <organizationUrl>http://www.gft.com</organizationUrl>
-             <roles>
-                 <role>contributor</role>
-             </roles>
-	        <timezone>Europe/Madrid</timezone>                     
-        </contributor>   
-    </contributors>
-   
-     <issueManagement>
-    	<system>GitHub</system>
-    	<url>https://github.com/Appverse/appverse-web/issues</url>
- 	 </issueManagement>
- 	 
+			</roles>
+			<timezone>Europe/Madrid</timezone>
+		</developer>
+		<developer>
+			<id>miguelfgar</id>
+			<name>Miguel Fernández</name>
+			<email>miguelfgar@gmail.com</email>
+			<organization>Appverse</organization>
+			<organizationUrl>http://appverse.org</organizationUrl>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>Europe/Andorra</timezone>
+		</developer>
+		<developer>
+			<id>rrbl</id>
+			<name>Roger Bofarull</name>
+			<email>roger.bofarull@gmail.com</email>
+			<url />
+			<organization>Appverse</organization>
+			<organizationUrl>http://appverse.org</organizationUrl>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>Europe/Andorra</timezone>
+		</developer>
+		<developer>
+			<id>slanau</id>
+			<name>Sergi Lanau Rodríguez</name>
+			<email>sergi@lanau.net</email>
+			<url>http://www.lanau.net</url>
+			<organization>Appverse</organization>
+			<organizationUrl>http://appverse.org</organizationUrl>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>Europe/Andorra</timezone>
+		</developer>
+	</developers>
+
+	<contributors>
+		<contributor>
+			<name>Jesus de Diego</name>
+			<email>jesus.dediego.erles@gmail.com</email>
+			<url />
+			<organization>GFT</organization>
+			<organizationUrl>http://www.gft.com</organizationUrl>
+			<roles>
+				<role>contributor</role>
+			</roles>
+			<timezone>Europe/Madrid</timezone>
+		</contributor>
+		<contributor>
+			<name>Sergio Roldan</name>
+			<email>cactus.jiropa@gmail.com</email>
+			<url />
+			<organization>GFT</organization>
+			<organizationUrl>http://www.gft.com</organizationUrl>
+			<roles>
+				<role>contributor</role>
+			</roles>
+			<timezone>Europe/Madrid</timezone>
+		</contributor>
+	</contributors>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/Appverse/appverse-web/issues</url>
+	</issueManagement>
+
 	<ciManagement>
 		<system>Jenkins</system>
-	    <url>https://appverseweb-ci.ci.cloudbees.com</url>
-	</ciManagement> 	 
-   
-  	<mailingLists>
-    	<mailingList>
-      		<name>User and Developers</name>
-      		<subscribe>appverse+subscribe@googlegroups.com</subscribe>
-     		<unsubscribe>appverse+unsubscribe@googlegroups.com</unsubscribe>
-      		<post>appverse@googlegroups.com</post>
-    	</mailingList>
-    	
-    	<mailingList>
-      		<name>Questions and Answers</name>
-      		<subscribe>appverse-qa+subscribe@googlegroups.com</subscribe>
-      		<unsubscribe>appverse-qa+unsubscribe@googlegroups.com</unsubscribe>
-     		<post>appverse-qa@googlegroups.com</post>
-    	</mailingList>
-    	
-    	 <mailingList>
-      		<name>Commits</name>
-      		<subscribe>appverse-commits+subscribe@googlegroups.com</subscribe>
-      		<unsubscribe>appverse-commits+unsubscribe@googlegroups.com</unsubscribe>
-      		<post>appverse-commits@googlegroups.com</post>
-    	</mailingList> 
-    	   
-     	<mailingList>
-      		<name>Private</name>
-        	<post>appverse-private@googlegroups.com</post>
-    	</mailingList>          
-    </mailingLists>   
+		<url>https://appverseweb-ci.ci.cloudbees.com</url>
+	</ciManagement>
+
+	<mailingLists>
+		<mailingList>
+			<name>User and Developers</name>
+			<subscribe>appverse+subscribe@googlegroups.com</subscribe>
+			<unsubscribe>appverse+unsubscribe@googlegroups.com</unsubscribe>
+			<post>appverse@googlegroups.com</post>
+		</mailingList>
+
+		<mailingList>
+			<name>Questions and Answers</name>
+			<subscribe>appverse-qa+subscribe@googlegroups.com</subscribe>
+			<unsubscribe>appverse-qa+unsubscribe@googlegroups.com</unsubscribe>
+			<post>appverse-qa@googlegroups.com</post>
+		</mailingList>
+
+		<mailingList>
+			<name>Commits</name>
+			<subscribe>appverse-commits+subscribe@googlegroups.com</subscribe>
+			<unsubscribe>appverse-commits+unsubscribe@googlegroups.com</unsubscribe>
+			<post>appverse-commits@googlegroups.com</post>
+		</mailingList>
+
+		<mailingList>
+			<name>Private</name>
+			<post>appverse-private@googlegroups.com</post>
+		</mailingList>
+	</mailingLists>
 
 	<scm>
 		<connection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</connection>
@@ -179,7 +178,7 @@
 		<tag>master</tag>
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
-   
+
 	<properties>
 		<framework.version>1.1.1-SNAPSHOT</framework.version>
 		<spring.version>3.2.1.RELEASE</spring.version>
@@ -196,16 +195,16 @@
 	<build>
 		<defaultGoal>clean install</defaultGoal>
 
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                        <version>2.3.2</version>
-                        <configuration>
-                            <mavenExecutorId>forked-path</mavenExecutorId>
-                        </configuration>
-                    </plugin>
-                </plugins>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<mavenExecutorId>forked-path</mavenExecutorId>
+				</configuration>
+			</plugin>
+		</plugins>
 
 		<pluginManagement>
 			<plugins>
@@ -225,67 +224,67 @@
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>2.6</version>
 					<configuration>
-						<includeEmptyDirs>true</includeEmptyDirs>					
+						<includeEmptyDirs>true</includeEmptyDirs>
 						<encoding>UTF-8</encoding>
 						<nonFilteredFileExtensions>
 							<nonFilteredFileExtension>jasper</nonFilteredFileExtension>
-						</nonFilteredFileExtensions>						
+						</nonFilteredFileExtensions>
 					</configuration>
 				</plugin>
-				
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.13</version>
-				</plugin>				
+				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-antrun-plugin</artifactId>
 					<version>1.7</version>
 				</plugin>
-	
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-install-plugin</artifactId>
 					<version>2.4</version>
-				</plugin>		
-				
+				</plugin>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>2.7</version>
-				</plugin>	
-				
+				</plugin>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>2.2.1</version>
-				</plugin>		
-				
+				</plugin>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>2.9</version>
-				</plugin>	
-	
+				</plugin>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-archetype-plugin</artifactId>
 					<version>2.2</version>
-				</plugin>	
-				
+				</plugin>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-eclipse-plugin</artifactId>
-					<version>2.9</version>				
-				</plugin>							
+					<version>2.9</version>
+				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-project-info-reports-plugin</artifactId>
-					<version>2.6</version>				
-				</plugin>	
+					<version>2.6</version>
+				</plugin>
 
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
@@ -294,12 +293,12 @@
 					<configuration>
 						<servicePattern>**/*ServiceFacade.java</servicePattern>
 					</configuration>
-				</plugin>		
-			
+				</plugin>
+
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>1.7</version>				
+					<version>1.7</version>
 					<executions>
 						<execution>
 							<goals>
@@ -330,9 +329,9 @@
 							</goals>
 							<phase>process-sources</phase>
 						</execution>
-					</executions>					
+					</executions>
 				</plugin>
-	      	</plugins>	      				
+			</plugins>
 		</pluginManagement>
 	</build>
 
@@ -344,77 +343,77 @@
 				<artifactId>appverse-web-modules-backend-dependencies-pom</artifactId>
 				<version>${framework.version}</version>
 				<type>pom</type>
-			</dependency>		
+			</dependency>
 
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.aspect</groupId>
 				<artifactId>appverse-web-modules-backend-aspect</artifactId>
 				<version>${framework.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.batch</groupId>
-			    <artifactId>appverse-web-modules-backend-batch</artifactId>
+				<artifactId>appverse-web-modules-backend-batch</artifactId>
 				<version>${framework.version}</version>
-			</dependency>			
-					
+			</dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
 				<artifactId>appverse-web-modules-backend-core-api</artifactId>
 				<version>${framework.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
 				<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
 				<version>${framework.version}</version>
-			</dependency>  
-			
+			</dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.core.cache</groupId>
 				<artifactId>appverse-web-modules-backend-core-cache</artifactId>
 				<version>${framework.version}</version>
-			</dependency>  					
-					
+			</dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.core.ws</groupId>
 				<artifactId>appverse-web-modules-backend-core-ws</artifactId>
 				<version>${framework.version}</version>
-			</dependency>  	
-			
+			</dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 				<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
 				<version>${framework.version}</version>
-			</dependency>	
+			</dependency>
 
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.frontfacade.json</groupId>
 				<artifactId>appverse-web-modules-backend-frontfacade-json</artifactId>
 				<version>${framework.version}</version>
-			</dependency>	
-	
+			</dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.messaging</groupId>
-  				<artifactId>appverse-web-modules-backend-messaging</artifactId>
+				<artifactId>appverse-web-modules-backend-messaging</artifactId>
 				<version>${framework.version}</version>
-			</dependency>	
-			
+			</dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.reporting</groupId>
 				<artifactId>appverse-web-modules-backend-reporting</artifactId>
 				<version>${framework.version}</version>
-			</dependency>					
+			</dependency>
 
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
 				<artifactId>appverse-web-modules-frontend-gwt-api</artifactId>
-				<version>${framework.version}</version>	
+				<version>${framework.version}</version>
 				<scope>provided</scope>
-			</dependency>			
+			</dependency>
 			<!-- END OF APPVERSE WEB FRAMEWORK MANAGED DEPENDENCIES -->
 
-			<!-- SPRING FRAMEWORK MANAGED DEPENDENCIES -->		
+			<!-- SPRING FRAMEWORK MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-aop</artifactId>
@@ -468,7 +467,7 @@
 				<artifactId>spring-jms</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-orm</artifactId>
@@ -479,9 +478,9 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-test</artifactId>
 				<version>${spring.version}</version>
-				<scope>test</scope> 
+				<scope>test</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-tx</artifactId>
@@ -499,19 +498,19 @@
 				<artifactId>spring-webmvc</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-	 
+
 			<dependency>
 				<groupId>org.springframework.batch</groupId>
 				<artifactId>spring-batch-core</artifactId>
 				<version>2.1.9.RELEASE</version>
-			</dependency>    			
+			</dependency>
 
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-jpa</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-config</artifactId>
@@ -535,45 +534,45 @@
 				<artifactId>spring-security-web</artifactId>
 				<version>${spring.security.version}</version>
 			</dependency>
-			<!-- END OF SPRING FRAMEWORK MANAGED DEPENDENCIES -->		
-		
-			<!-- JEE MANAGED DEPENDENCIES -->	
+			<!-- END OF SPRING FRAMEWORK MANAGED DEPENDENCIES -->
+
+			<!-- JEE MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>javax.jms</groupId>
 				<artifactId>jms</artifactId>
 				<version>1.1</version>
-			</dependency>				
-						
+			</dependency>
+
 			<dependency>
-			    <groupId>javax.jms</groupId>
-			    <artifactId>jms-api</artifactId>
-			    <version>1.1-rev-1</version>
-			</dependency>  	
-			
+				<groupId>javax.jms</groupId>
+				<artifactId>jms-api</artifactId>
+				<version>1.1-rev-1</version>
+			</dependency>
+
 			<dependency>
 				<groupId>javax.mail</groupId>
 				<artifactId>mail</artifactId>
 				<version>1.4.6</version>
-			</dependency>			
-			
-			<dependency>
-			    <groupId>javax.management.j2ee</groupId>
-			    <artifactId>management-api</artifactId>
-			    <version>1.1-rev-1</version>
-			</dependency>	
-						
-			<dependency>
-			    <groupId>javax.xml.stream</groupId>
-			    <artifactId>stax-api</artifactId>
-			    <version>1.0</version>
 			</dependency>
-			
+
 			<dependency>
-			    <groupId>javax.jws</groupId>
-			    <artifactId>jsr181-api</artifactId>
-			    <version>1.0-MR1</version>
-			</dependency>		
-						
+				<groupId>javax.management.j2ee</groupId>
+				<artifactId>management-api</artifactId>
+				<version>1.1-rev-1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.xml.stream</groupId>
+				<artifactId>stax-api</artifactId>
+				<version>1.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.jws</groupId>
+				<artifactId>jsr181-api</artifactId>
+				<version>1.0-MR1</version>
+			</dependency>
+
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>jstl</artifactId>
@@ -585,10 +584,10 @@
 				<artifactId>javax.servlet-api</artifactId>
 				<version>3.0.1</version>
 				<scope>provided</scope>
-			</dependency>	
-			<!-- END OF JEE MANAGED DEPENDENCIES -->				
-	
-			<!-- APACHE COMMONS MANAGED DEPENDENCIES -->	
+			</dependency>
+			<!-- END OF JEE MANAGED DEPENDENCIES -->
+
+			<!-- APACHE COMMONS MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>commons-beanutils</groupId>
 				<artifactId>commons-beanutils</artifactId>
@@ -606,13 +605,13 @@
 				<artifactId>commons-collections</artifactId>
 				<version>3.2.1</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-dbcp</groupId>
 				<artifactId>commons-dbcp</artifactId>
 				<version>1.4</version>
-			</dependency>	
-							
+			</dependency>
+
 			<dependency>
 				<groupId>commons-fileupload</groupId>
 				<artifactId>commons-fileupload</artifactId>
@@ -624,9 +623,9 @@
 				<artifactId>commons-lang</artifactId>
 				<version>2.6</version>
 			</dependency>
-			<!-- END OF APACHE COMMONS MANAGED DEPENDENCIES -->		
+			<!-- END OF APACHE COMMONS MANAGED DEPENDENCIES -->
 
-			<!-- LOGGING MANAGED DEPENDENCIES -->					
+			<!-- LOGGING MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
@@ -657,95 +656,95 @@
 				<artifactId>log4j</artifactId>
 				<version>1.2.17</version>
 			</dependency>
-			<!-- END OF LOGGING MANAGED DEPENDENCIES -->				
-	
-			<!-- WEB SERVICES MANAGED DEPENDENCIES -->						
-	 		 <dependency>
-	            <groupId>org.apache.axis2</groupId>
-	            <artifactId>axis2-adb</artifactId>
-	            <version>1.6.2</version>
-	            <exclusions>
-				    <exclusion>
-				    	<groupId>org.apache.geronimo.specs</groupId>
-				    	<artifactId>geronimo-activation_1.1_spec</artifactId>
-				    </exclusion>
+			<!-- END OF LOGGING MANAGED DEPENDENCIES -->
+
+			<!-- WEB SERVICES MANAGED DEPENDENCIES -->
+			<dependency>
+				<groupId>org.apache.axis2</groupId>
+				<artifactId>axis2-adb</artifactId>
+				<version>1.6.2</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-activation_1.1_spec</artifactId>
+					</exclusion>
 				</exclusions>
-	    	</dependency>
-	    	
+			</dependency>
+
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-transport-local</artifactId>
 				<version>1.6.2</version>
-			</dependency>  		
-			
+			</dependency>
+
 			<dependency>
 				<groupId>com.sun.xml.bind</groupId>
 				<artifactId>jaxb-impl</artifactId>
 				<version>2.2.6</version>
 			</dependency>
-	    	
+
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-transport-http</artifactId>
 				<version>1.6.2</version>
 				<exclusions>
-				    <exclusion>
-				    	<groupId>org.apache.geronimo.specs</groupId>
-				    	<artifactId>geronimo-javamail_1.4_spec</artifactId>
-				    </exclusion>
-				    <exclusion>
-				    	<groupId>org.apache.geronimo.specs</groupId>
-				    	<artifactId>geronimo-activation_1.1_spec</artifactId>
-				    </exclusion>
-				    <exclusion>
-				    	<groupId>org.apache.geronimo.specs</groupId>			    
-				    	<artifactId>geronimo-stax-api_1.0_spec</artifactId>
-				    </exclusion>
-				    <exclusion>
-				    	<groupId>org.apache.geronimo.specs</groupId>			    
-				    	<artifactId>geronimo-ws-metadata_2.0_spec</artifactId>
-				    </exclusion>			    
-				    <exclusion>
-				    	<groupId>org.apache.geronimo.specs</groupId>			    
-				    	<artifactId>geronimo-jta_1.1_spec</artifactId>
-				    </exclusion>			    
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-javamail_1.4_spec</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-activation_1.1_spec</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-stax-api_1.0_spec</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-ws-metadata_2.0_spec</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-jta_1.1_spec</artifactId>
+					</exclusion>
 				</exclusions>
-			</dependency>					
-			<!-- END OF WEB SERVICES MANAGED DEPENDENCIES -->	
+			</dependency>
+			<!-- END OF WEB SERVICES MANAGED DEPENDENCIES -->
 
-			<!-- GWT MANAGED DEPENDENCIES -->	
+			<!-- GWT MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>com.google.gwt</groupId>
 				<artifactId>gwt-servlet</artifactId>
 				<version>${gwt.version}</version>
-			</dependency>						
-	
+			</dependency>
+
 			<dependency>
 				<groupId>com.google.gwt</groupId>
 				<artifactId>gwt-user</artifactId>
 				<version>${gwt.version}</version>
 			</dependency>
 
-			<dependency> 
-				<groupId>com.googlecode.gwt-validation</groupId> 
-				<artifactId>gwt-validation</artifactId> 
-				<version>2.1</version> 		
+			<dependency>
+				<groupId>com.googlecode.gwt-validation</groupId>
+				<artifactId>gwt-validation</artifactId>
+				<version>2.1</version>
 			</dependency>
-				
+
 			<dependency>
 				<groupId>com.sencha.gxt</groupId>
 				<artifactId>gxt</artifactId>
-				<version>3.0.1</version>		
+				<version>3.0.1</version>
 			</dependency>
-	
+
 			<dependency>
 				<groupId>com.googlecode.mvp4g</groupId>
 				<artifactId>mvp4g</artifactId>
-				<version>1.4.0</version>			
+				<version>1.4.0</version>
 			</dependency>
-			<!-- END OF GWT MANAGED DEPENDENCIES -->			
-				
-			<!-- REPORTING MANAGED DEPENDENCIES -->								
+			<!-- END OF GWT MANAGED DEPENDENCIES -->
+
+			<!-- REPORTING MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>net.sf.jasperreports</groupId>
 				<artifactId>jasperreports</artifactId>
@@ -760,22 +759,22 @@
 						<groupId>bouncycastle</groupId>
 					</exclusion>
 				</exclusions>
-			</dependency>	
-			
+			</dependency>
+
 			<dependency>
 				<groupId>net.sourceforge.jexcelapi</groupId>
 				<artifactId>jxl</artifactId>
 				<version>2.6.12</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>ar.com.fdvs</groupId>
 				<artifactId>DynamicJasper-core-fonts</artifactId>
 				<version>1.0</version>
-			</dependency>						
-			<!-- END OF REPORTING MANAGED DEPENDENCIES -->			
-				
-			<!-- PERSISTENCE MANAGED DEPENDENCIES -->					
+			</dependency>
+			<!-- END OF REPORTING MANAGED DEPENDENCIES -->
+
+			<!-- PERSISTENCE MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>org.eclipse.persistence</groupId>
 				<artifactId>javax.persistence</artifactId>
@@ -793,32 +792,32 @@
 				<artifactId>mybatis</artifactId>
 				<version>3.1.1</version>
 			</dependency>
-	
+
 			<dependency>
 				<groupId>org.mybatis</groupId>
 				<artifactId>mybatis-spring</artifactId>
 				<version>1.1.1</version>
-			</dependency>	
-			<!-- END OF PERSISTENCE MANAGED DEPENDENCIES -->				
+			</dependency>
+			<!-- END OF PERSISTENCE MANAGED DEPENDENCIES -->
 
-			<!-- MESSAGING MANAGED DEPENDENCIES -->		
+			<!-- MESSAGING MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>activemq-core</artifactId>
 				<version>5.5.0</version>
-			</dependency>	
-									
+			</dependency>
+
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>activemq-spring</artifactId>
 				<version>5.8.0</version>
 				<exclusions>
 					<exclusion>
-						<groupId>org.apache.geronimo.specs</groupId>				
+						<groupId>org.apache.geronimo.specs</groupId>
 						<artifactId>geronimo-jta_1.0.1B_spec</artifactId>
 					</exclusion>
 					<exclusion>
-						<groupId>org.apache.geronimo.specs</groupId>				
+						<groupId>org.apache.geronimo.specs</groupId>
 						<artifactId>geronimo-jms_1.1_spec</artifactId>
 					</exclusion>
 					<exclusion>
@@ -827,15 +826,15 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			<!-- END OF MESSAGING MANAGED DEPENDENCIES -->								
+			<!-- END OF MESSAGING MANAGED DEPENDENCIES -->
 
-			<!-- CACHING MANAGED DEPENDENCIES -->					
+			<!-- CACHING MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>com.googlecode.ehcache-spring-annotations</groupId>
 				<artifactId>ehcache-spring-annotations</artifactId>
 				<version>1.2.0</version>
 			</dependency>
-	
+
 			<dependency>
 				<groupId>net.sf.ehcache</groupId>
 				<artifactId>ehcache-jmsreplication</artifactId>
@@ -846,26 +845,26 @@
 						<groupId>net.sf.ehcache</groupId>
 					</exclusion>
 				</exclusions>
-			</dependency>		
-			<!-- END OF CACHING MANAGED DEPENDENCIES -->	
+			</dependency>
+			<!-- END OF CACHING MANAGED DEPENDENCIES -->
 
 			<dependency>
 				<groupId>net.sf.dozer</groupId>
 				<artifactId>dozer</artifactId>
 				<version>5.4.0</version>
 			</dependency>
-	
+
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<version>4.3.1.Final</version>
 			</dependency>
 
-	        <dependency> 
-	             <groupId>org.codehaus.jackson</groupId> 
-	             <artifactId>jackson-mapper-asl</artifactId> 
-	             <version>1.9.12</version> 
-	        </dependency> 
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>1.9.12</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.apache.velocity</groupId>
@@ -877,7 +876,7 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.11</version>
-				<scope>test</scope> 
+				<scope>test</scope>
 			</dependency>
 
 			<dependency>
@@ -893,7 +892,7 @@
 				<version>5.0.5</version>
 				<scope>runtime</scope>
 			</dependency>
-																			
+
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjrt</artifactId>
@@ -904,7 +903,7 @@
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjweaver</artifactId>
 				<version>1.7.1</version>
-			</dependency>			
+			</dependency>
 
 			<dependency>
 				<groupId>org.apache.maven</groupId>
@@ -916,87 +915,44 @@
 				<groupId>org.apache.maven</groupId>
 				<artifactId>maven-project</artifactId>
 				<version>2.2.1</version>
-			</dependency>	
-			
-		    <dependency>
-		        <groupId>org.apache.maven.plugin-tools</groupId>
-		        <artifactId>maven-plugin-annotations</artifactId>
-		        <version>3.2</version>
-		        <scope>provided</scope>
-		    </dependency>
-		    
-		    <dependency>
-			    <groupId>org.codehaus.plexus</groupId>
-			    <artifactId>plexus-utils</artifactId>
-			    <version>3.0.1</version>
-		    </dependency>					   	 			     																													
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.maven.plugin-tools</groupId>
+				<artifactId>maven-plugin-annotations</artifactId>
+				<version>3.2</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-utils</artifactId>
+				<version>3.0.1</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
-	<!--reporting>
-    	<outputDirectory>${basedir}/target/site</outputDirectory>
-    	<plugins>
-      		<plugin>
-        		<artifactId>maven-project-info-reports-plugin</artifactId>
-				<reportSets>
-				   <reportSet>
-				   		<reports>
-				   			<report>index</report>				   		
-		                	<report>summary</report>		
-		                	<report>license</report>		
-		               		<report>project-team</report>			               
-		                	<report>mailing-list</report>	
-		                	<report>scm</report>		                	
-			                <report>issue-tracking</report>
-			                <report>cim</report>			                
-		                	<report>modules</report>	
-		               		<report>plugins</report>			                			               				                		   			
-		               		<report>plugin-management</report>		
-				   			<report>help</report>	
-				   			<report>dependencies</report>
-				   			<report>dependency-convergence</report>				                
-				   			<report>dependency-info</report>
-			   				<report>dependency-management</report>					   			
-				   			<report>distribution-management</report>		   			
-				   		</reports>
-				   </reportSet>
-				</reportSets>
-      		</plugin>
-			<plugin>		
-        		<artifactId>maven-surefire-report-plugin</artifactId>  
-        		<version>2.14</version> 
-        	</plugin>  
-    		<plugin>		
-        		<artifactId>maven-pmd-plugin</artifactId>  
-        		<version>3.0</version> 	
-        	</plugin>
-	        <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-checkstyle-plugin</artifactId>
-	            <version>2.10</version>
-	        </plugin>        	       	 		
-		    <plugin>
-		        <artifactId>maven-javadoc-plugin</artifactId>  	
-		        <configuration>
-		            <encoding>UTF-8</encoding>
-		        </configuration>
-		    </plugin>
-	        <plugin>
-	        	<groupId>org.apache.maven.plugins</groupId>
-	        	<artifactId>maven-jxr-plugin</artifactId>
-	        <version>2.3</version>
-	      </plugin>
-    	</plugins>
-  	</reporting-->
-  	
-  <!--distributionManagement>
-    <site>
-      <id>appverse.web.maven</id>
-      <name>Appverse Web Maven Site</name>
-      <url>http://appverse.github.com/appverse-web/site/framework</url>
-    </site>
-  </distributionManagement-->  	
-  	
+
+	<!--reporting> <outputDirectory>${basedir}/target/site</outputDirectory> 
+		<plugins> <plugin> <artifactId>maven-project-info-reports-plugin</artifactId> 
+		<reportSets> <reportSet> <reports> <report>index</report> <report>summary</report> 
+		<report>license</report> <report>project-team</report> <report>mailing-list</report> 
+		<report>scm</report> <report>issue-tracking</report> <report>cim</report> 
+		<report>modules</report> <report>plugins</report> <report>plugin-management</report> 
+		<report>help</report> <report>dependencies</report> <report>dependency-convergence</report> 
+		<report>dependency-info</report> <report>dependency-management</report> <report>distribution-management</report> 
+		</reports> </reportSet> </reportSets> </plugin> <plugin> <artifactId>maven-surefire-report-plugin</artifactId> 
+		<version>2.14</version> </plugin> <plugin> <artifactId>maven-pmd-plugin</artifactId> 
+		<version>3.0</version> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+		<artifactId>maven-checkstyle-plugin</artifactId> <version>2.10</version> 
+		</plugin> <plugin> <artifactId>maven-javadoc-plugin</artifactId> <configuration> 
+		<encoding>UTF-8</encoding> </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+		<artifactId>maven-jxr-plugin</artifactId> <version>2.3</version> </plugin> 
+		</plugins> </reporting -->
+
+	<!--distributionManagement> <site> <id>appverse.web.maven</id> <name>Appverse 
+		Web Maven Site</name> <url>http://appverse.github.com/appverse-web/site/framework</url> 
+		</site> </distributionManagement -->
+
 	<repositories>
 		<repository>
 			<id>EclipseLink</id>

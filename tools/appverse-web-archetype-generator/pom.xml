@@ -1,23 +1,23 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms</groupId>
-		<artifactId>appverse-web-masterpom</artifactId>
-		<version>1.1.1-SNAPSHOT</version>
-		<relativePath>../../../..</relativePath>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
 	</parent>
 
-	<groupId>org.appverse.web.framework.modules.backend.core.cache</groupId>
-	<artifactId>appverse-web-modules-backend-core-cache</artifactId>
-	<packaging>jar</packaging>
+	<groupId>org.appverse.web.tools.archetypegenerator</groupId>
+	<artifactId>appverse-web-tools-archetype-generator</artifactId>
+	<packaging>maven-plugin</packaging>
+	<version>1.1.1-SNAPSHOT</version>
 
-	<name>Appverse Web Framework Modules Backend Core Cache Module</name>
-	<description>Appverse Web Framework Modules Backend Core Cache Module</description>
+	<name>Appverse Web Tools Archetype Generator Plugin</name>
+	<description>Appverse Web Tools Archeype Generator Plugin</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
-	<inceptionYear>2011</inceptionYear>
+	<inceptionYear>2013</inceptionYear>
 
 	<licenses>
 		<license>
@@ -179,25 +179,70 @@
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+				</configuration>
+				<executions>
+					<execution>
+						<id>mojo-descriptor</id>
+						<goals>
+							<goal>descriptor</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<dependency>
-			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
-			<artifactId>appverse-web-modules-backend-core-api</artifactId>
+			<groupId>org.apache.maven.plugin-tools</groupId>
+			<artifactId>maven-plugin-annotations</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>com.googlecode.ehcache-spring-annotations</groupId>
-			<artifactId>ehcache-spring-annotations</artifactId>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache-jmsreplication</artifactId>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-project</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
 		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.appverse.web.framework.poms</groupId>
+				<artifactId>appverse-web-masterpom</artifactId>
+				<version>1.1-SNAPSHOT</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<repositories>
+		<repository>
+			<id>EclipseLink</id>
+			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
+		</repository>
+	</repositories>
 </project>
