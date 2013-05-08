@@ -182,8 +182,5 @@
 	<modules>
 		<module>api</module>
 	</modules>
-
-	<!--distributionManagement> <site> <id>appverse.web.maven</id> <name>Appverse 
-		Web Maven Site</name> <url>http://appverse.github.com/appverse-web/site/framework/modules/frontend/gwt</url> 
-		</site> </distributionManagement -->
+	
 </project>
