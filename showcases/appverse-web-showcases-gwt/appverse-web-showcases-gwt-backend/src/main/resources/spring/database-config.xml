@@ -40,7 +40,7 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
       <bean id="jpaVendorAdapter"
 	        class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter"
 		    p:databasePlatform="org.eclipse.persistence.platform.database.HSQLPlatform"		  
-		    p:showSql="true" />
+		    p:showSql="true" p:generateDdl="true" />
 		   
 
       <!-- ============================================================================================= --> 
@@ -55,8 +55,8 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 <!-- 		   p:validationQuery="${db.validationQuery}" p:connectionProperties="${db.connectionProperties}"/> -->
    	
    	   <jdbc:embedded-database id="dataSource">
-	       <jdbc:script location="classpath:/sql/HSQLPlatform-schema-create.sql"/>
-	       <jdbc:script location="classpath:/sql/HSQLPlatform-dml-create.sql"/>	       
+	       <!--<jdbc:script location="classpath:/sql/HSQLPlatform-schema-create.sql"/>-->
+	       <!--<jdbc:script location="classpath:/sql/HSQLPlatform-dml-create.sql"/>	       -->
        </jdbc:embedded-database>   
 
 </beans>
