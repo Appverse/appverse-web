@@ -181,6 +181,8 @@
 
 	<modules>
 		<module>jpa-ddl-generator</module>
+		<module>archetype-generator</module>
+		<module>project-generator</module>				
 	</modules>
 
 	<build>
