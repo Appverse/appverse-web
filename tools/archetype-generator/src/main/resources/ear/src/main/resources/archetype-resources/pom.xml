@@ -461,7 +461,7 @@
 			</activation> 
 			<properties>
 				<env>development</env>
-				<targetServer>webcpntainer</targetServer>
+				<targetServer>webcontainer</targetServer>
 				<maven.skip.tests>true</maven.skip.tests>
 			</properties>			
 			<build> 
