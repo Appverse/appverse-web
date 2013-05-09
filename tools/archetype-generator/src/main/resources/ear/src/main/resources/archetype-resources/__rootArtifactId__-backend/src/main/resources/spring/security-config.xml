@@ -1,0 +1,39 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:beans="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       					   http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+ 
+	<http auto-config='true'>
+    	<intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    	<intercept-url pattern="/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+    	<intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
+    	<form-login login-page='/login.jsp'/>
+    	<logout logout-success-url="/login.jsp"/>    
+  	</http>	 
+
+    <global-method-security>
+        <protect-pointcut																			
+            expression="execution(* ${package}.backend.services.business..*.*(..)))"
+            access="ROLE_USER"/>
+    </global-method-security>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userService"/>
+<!-- 		<authentication-provider user-service-ref="jdbcUserService"/> -->
+	</authentication-manager>
+
+    <user-service id="userService">
+    	<user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN"/>
+        <user name="user" password="user" authorities="ROLE_USER"/>
+    </user-service>
+    
+<!--     <jdbc-user-service id="jdbcUserService" data-source-ref="dataSource" -->
+<!-- 	 authorities-by-username-query="select users.username, authorities.id from users,authorities,userauthorities where username = ? and users.pk=userauthorities.userid and authorities.pk=userauthorities.authority"/> -->
+
+</beans:beans>
+
+
