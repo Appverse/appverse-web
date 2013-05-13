@@ -1,0 +1,36 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+@def borderColor #99BBE8;
+@def borderColorLight orange;
+@def backgroundColorLight #e0e8f8;
+
+@import url('http://fonts.googleapis.com/css?family=PT+Sans');
+
+.border {
+  border: 1px solid borderColor !important; 
+}
+
+.borderLeft {
+  border: none;
+  border-left: 1px solid borderColor !important; 
+}
+
+.borderRight {
+  border: none;
+  border-right: 1px solid borderColor !important; 
+}
+
+.borderTop {
+  border: none;
+  border-top: 1px solid borderColor !important; 
+}
+
+.borderBottom {
+  border: none;
+  border-bottom: 1px solid borderColor !important; 
+}

@@ -1,0 +1,25 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+@external x-toolbar-mark ;
+
+.toolBar { 
+  width: auto;
+  height: auto;
+  border: none;
+}
+
+.x-toolbar-mark {
+  border-width: 0 0 1px 0;
+  border-bottom: 1px solid #99b9e9;
+}
+
+@sprite .x-toolbar-mark {
+  gwt-image: 'background';
+  background-color: #D0DEF0;
+  height: auto;
+}

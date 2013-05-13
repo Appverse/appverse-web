@@ -22,7 +22,7 @@
  POSSIBILITY OF SUCH DAMAGE.
  --> 
 <module>
-	<inherits name="com.sencha.gxt.theme.blue.Blue" />
+	<inherits name="org.appverse.web.framework.frontend.gwt.theme.AppverseTheme" />
 
 	<replace-with
 		class="org.appverse.web.framework.frontend.gwt.theme.client.search.AppverseSuggestAppearance">

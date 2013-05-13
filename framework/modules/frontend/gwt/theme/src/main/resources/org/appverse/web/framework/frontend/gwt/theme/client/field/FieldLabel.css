@@ -1,0 +1,59 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+.fieldItem {
+  display: block;
+  margin-bottom: 5px;
+  position: relative;
+  font: 12px 'PT Sans', sans-serif;
+}
+
+.fieldItemLabelTop {
+  margin-bottom: 2px;
+  padding-bottom: 0;
+  padding-bottom: 4px;
+}
+
+.fieldItem .fieldLabel {
+  clear: left;
+  display: block;
+  float: left;
+  padding: 3px 0 0;
+  position: relative;
+  z-index: 2;
+  -moz-user-select: none;
+}
+
+.fieldItemLabelTop .fieldLabel {
+  width: auto !important;
+  float: none !important;
+  clear: none;
+  display: inline;
+  margin-bottom: 4px;
+  position: static;
+}
+
+.fieldItemLabelTop .fieldElement {
+  padding-left: 0 !important;
+  padding-top: 4px;
+}
+
+.fieldElement {
+  
+}
+
+.hideLabel {
+  
+}
+
+.clearLeft {
+  clear: left;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+  overflow: hidden;
+}

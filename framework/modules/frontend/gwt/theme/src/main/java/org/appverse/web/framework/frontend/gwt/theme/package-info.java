@@ -1,4 +1,4 @@
-<!-- 
+/*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source Code Form is subject to the terms of the Appverse Public License 
@@ -20,14 +20,9 @@
  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
- --> 
-<module>
-	<inherits name="com.sencha.gxt.theme.blue.Blue" />
-
-	<replace-with
-		class="org.appverse.web.framework.frontend.gwt.theme.client.search.AppverseSuggestAppearance">
-		<when-type-is
-			class="org.appverse.web.framework.frontend.gwt.widgets.search.suggest.impl.gxt.SuggestWidgetImpl.SuggestAppearance" />
-	</replace-with>
-	
-</module>
+ */
+/**
+ * The default gray colored theme. This theme builds on the Base theme by applying gray images and styling rules to
+ * the GXT components.
+ */
+package org.appverse.web.framework.frontend.gwt.theme;

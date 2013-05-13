@@ -32,7 +32,6 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
 	<!-- GXT -->
 	<inherits name='com.sencha.gxt.ui.GXT' />
-	<inherits name="com.sencha.gxt.theme.blue.Blue"/>
 
 	<!-- MVP4G Framework Module -->
 	<inherits name='com.mvp4g.Mvp4gModule'/>
@@ -40,7 +39,7 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 	<!-- Google Gin -->
 	<inherits name="com.google.gwt.inject.Inject"/>
 
-	<!-- RIAFramework -->
+	<!-- Appverse Web -->
 	<inherits name="org.appverse.web.framework.frontend.gwt.API" />
 
     <source path="theme"/>   
