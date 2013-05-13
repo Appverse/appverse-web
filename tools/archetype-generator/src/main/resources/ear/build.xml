@@ -10,7 +10,6 @@
     <!-- Create the time stamp -->
     <tstamp/>
     <!-- Create the build directory structure used by compile -->
-	<antcall target="clean.dir.build"/>
 	<antcall target="mk.dir.build"/>
 	<antcall target="copy.fragment"/>
 
@@ -34,8 +33,8 @@
 	  <echo message="Build Dir Cleaned"/>
   </target>
 
-  <target name="copy.fragment">
-    <copy todir="${build}">
+  <target name="copy.fragment" >
+    <copy todir="${build}" overwrite="true">
       <fileset dir="${fragment}">
       </fileset>
     </copy>

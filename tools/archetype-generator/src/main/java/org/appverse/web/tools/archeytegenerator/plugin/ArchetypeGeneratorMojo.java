@@ -30,7 +30,7 @@ public class ArchetypeGeneratorMojo extends AbstractMojo {
 		}
 		logger.debug("WindowsFamilyOS:" + windowsFamilyOS);
 		logger.info("Installing Appverse archetypes...");
-		final int numberOfArchetypes = 2;
+		final int numberOfArchetypes = 4;
 		int currentArchetype = 1;
 		try {
 			runProcess("src/main/resources/gwt/", antCommand);
@@ -45,6 +45,20 @@ public class ArchetypeGeneratorMojo extends AbstractMojo {
 			runProcess("target/build", mavenCommand, "install");
 			logger.info("[" + currentArchetype + "/" + numberOfArchetypes
 					+ "] GWT archetype installed");
+			currentArchetype++;
+
+			runProcess("src/main/resources/gwt/", antCommand);
+			runProcess("src/main/resources/ear/", antCommand);
+			runProcess("target/build", mavenCommand, "install");
+			logger.info("[" + currentArchetype + "/" + numberOfArchetypes
+					+ "] GWT EAR archetype installed");
+			currentArchetype++;
+
+			runProcess("src/main/resources/jsf2/", antCommand);
+			runProcess("src/main/resources/ear/", antCommand);
+			runProcess("target/build", mavenCommand, "install");
+			logger.info("[" + currentArchetype + "/" + numberOfArchetypes
+					+ "] JSF2 EAR archetype installed");
 			currentArchetype++;
 
 			logger.info("All archetypes have been installed successfully");
