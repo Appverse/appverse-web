@@ -1,0 +1,44 @@
+<project name="GWTProject" default="init" basedir=".">
+    <description>
+         Appverse Archetype GWT Fragment
+    </description>
+  <!-- set global properties for this build -->
+  <property name="build" location="../../../../target/build"/>
+  <property name="fragment" location="fragment"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+	<antcall target="clean.dir.build"/>
+	<antcall target="mk.dir.build"/>
+	<antcall target="copy.fragment"/>
+
+  </target>
+
+  <target name="dir.check">
+    <condition property="dir.exists">
+      <available file="${build}" type="dir"/>
+    </condition>
+  </target>
+
+  <target name="mk.dir.build" depends="dir.check" unless="dir.exists">
+     <mkdir dir="${build}"/>
+	<echo message="Build Dir Created"/>
+  </target>
+
+  <target name="clean.dir.build" depends="dir.check" if="dir.exists">
+	  <delete includeEmptyDirs="true">
+	    <fileset dir="${build}" />
+	  </delete>
+	  <echo message="Build Dir Cleaned"/>
+  </target>
+
+  <target name="copy.fragment">
+    <copy todir="${build}">
+      <fileset dir="${fragment}">
+      </fileset>
+    </copy>
+	<echo message="Fragment copied"/>
+  </target>
+</project>
