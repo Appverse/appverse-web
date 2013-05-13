@@ -26,191 +26,194 @@
 <module>
   <inherits name="com.sencha.gxt.theme.base.Base" />
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.DefaultThemeAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.AppverseWebThemeAppearance">
     <when-type-is class="com.sencha.gxt.core.client.resources.ThemeStyles.ThemeAppearance" />
   </replace-with>
 
   <!-- Buttons -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.button.DefaultButtonGroupAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.button.AppverseWebButtonGroupAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.button.ButtonGroup.ButtonGroupAppearance" />
   </replace-with>
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.button.DefaultButtonCellDefaultAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.button.AppverseWebButtonCellDefaultAppearance">
     <when-type-is class="com.sencha.gxt.cell.core.client.ButtonCell.ButtonCellAppearance" />
   </replace-with>
   
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.grid.DefaultGridAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.grid.AppverseWebGridAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.grid.GridView.GridAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.DefaultToolBarButtonAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.AppverseWebToolBarButtonAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.toolbar.ToolBarButton.ToolBarButtonAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.progress.DefaultProgressBarAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.progress.AppverseWebProgressBarAppearance">
     <when-type-is class="com.sencha.gxt.cell.core.client.ProgressBarCell.ProgressBarAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.DefaultContentPanelAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.AppverseWebContentPanelAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.ContentPanel.ContentPanelAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.window.DefaultWindowAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.window.AppverseWebWindowAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.Window.WindowAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.DefaultAccordionLayoutAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.AppverseWebAccordionLayoutAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.container.AccordionLayoutContainer.AccordionLayoutAppearance" />
   </replace-with>
 
   <!-- Menu Bar -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultMenuBarAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.AppverseWebMenuBarAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.menu.MenuBar.MenuBarAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultMenuBarItemAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.AppverseWebMenuBarItemAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.menu.MenuBarItem.MenuBarItemAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.widget.DefaultDatePickerAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.widget.AppverseWebDatePickerAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.DatePicker.DatePickerAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultFieldSetAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.AppverseWebFieldSetAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.form.FieldSet.FieldSetAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tree.DefaultTreeAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tree.AppverseWebTreeAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.tree.Tree.TreeAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.DefaultContentPanelAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.AppverseWebContentPanelAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.ContentPanel.ContentPanelAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.DefaultFramedPanelAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.AppverseWebFramedPanelAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.FramedPanel.FramedPanelAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.DefaultPanelHeaderAppearance">
+<!-- This does not exist!! 
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.AppverseWebPanelHeaderAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.ContentPanel.PanelHeaderAppearance" />
+  </replace-with>
+-->  
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.AppverseWebHeaderAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.ContentPanel.PanelHeaderAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.DefaultToolBarAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.AppverseWebToolBarAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.toolbar.ToolBar.ToolBarAppearance" />
   </replace-with>
 
-<!--   <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.DefaultSeparatorToolItemAppearance"> -->
+<!--   <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.AppverseWebSeparatorToolItemAppearance"> -->
 <!--     <when-type-is class="com.sencha.gxt.widget.core.client.toolbar.SeparatorToolItem.SeparatorToolItemAppearance" /> -->
 <!--   </replace-with> -->
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tools.DefaultTools">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tools.AppverseWebTools">
     <when-type-is class="com.sencha.gxt.widget.core.client.button.Tools" />
   </replace-with>
 
   <!-- Menu -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultMenuAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.AppverseWebMenuAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.menu.Menu.MenuAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultItemAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.AppverseWebItemAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.menu.Item.ItemAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultMenuItemAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.AppverseWebMenuItemAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.menu.MenuItem.MenuItemAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultHeaderMenuItemAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.AppverseWebHeaderMenuItemAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.menu.HeaderMenuItem.HeaderMenuItemAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultSeparatorMenuItemAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.AppverseWebSeparatorMenuItemAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.menu.SeparatorMenuItem.SeparatorMenuItemAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultCheckMenuItemAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.AppverseWebCheckMenuItemAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.menu.CheckMenuItem.CheckMenuItemAppearance" />
   </replace-with>
 
   <!-- Status -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.status.DefaultStatusAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.status.AppverseWebStatusAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.Status.StatusAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.status.DefaultBoxStatusAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.status.AppverseWebBoxStatusAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.Status.BoxStatusAppearance" />
   </replace-with>
 
   <!-- Tab Panel -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tabs.DefaultTabPanelAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tabs.AppverseWebTabPanelAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.TabPanel.TabPanelAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tabs.DefaultTabPanelBottomAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tabs.AppverseWebTabPanelBottomAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.TabPanel.TabPanelBottomAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tabs.DefaultPlainTabPanelAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tabs.AppverseWebPlainTabPanelAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.PlainTabPanel.PlainTabPanelAppearance" />
   </replace-with>
 
   <!-- Color Palette -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.colorpalette.DefaultColorPaletteAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.colorpalette.AppverseWebColorPaletteAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.ColorPaletteCell.ColorPaletteAppearance" />
   </replace-with>
 
   <!-- Slider -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.slider.DefaultSliderHorizontalAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.slider.AppverseWebSliderHorizontalAppearance">
     <any>
       <when-type-is class="com.sencha.gxt.cell.core.client.SliderCell.SliderAppearance" />
       <when-type-is class="com.sencha.gxt.cell.core.client.SliderCell.HorizontalSliderAppearance" />
     </any>
   </replace-with>
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.slider.DefaultSliderVerticalAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.slider.AppverseWebSliderVerticalAppearance">
     <when-type-is class="com.sencha.gxt.cell.core.client.SliderCell.VerticalSliderAppearance" />
   </replace-with>
 
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.container.DefaultBorderLayoutAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.container.AppverseWebBorderLayoutAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutAppearance" />
   </replace-with>
 
   <!-- Resizable -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.resizable.DefaultResizableAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.resizable.AppverseWebResizableAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.Resizable.ResizableAppearance" />
   </replace-with>
 
   <!-- Status proxy -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.statusproxy.DefaultStatusProxyAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.statusproxy.AppverseWebStatusProxyAppearance">
     <when-type-is class="com.sencha.gxt.dnd.core.client.StatusProxy.StatusProxyAppearance" />
   </replace-with>
 
   <!-- Paging tool bar -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.DefaultPagingToolBarAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.AppverseWebPagingToolBarAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.toolbar.PagingToolBar.PagingToolBarAppearance" />
   </replace-with>
 
   <!-- Grid & TreeGrid -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.grid.DefaultColumnHeaderAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.grid.AppverseWebColumnHeaderAppearance">
     <when-type-assignable class="com.sencha.gxt.widget.core.client.grid.ColumnHeader.ColumnHeaderAppearance" />
   </replace-with>
   
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.widget.AppvHeaderDefaultAppearance">
-    <when-type-is class="com.sencha.gxt.widget.core.client.Header.HeaderAppearance" />
-  </replace-with>
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.DefaultLabelToolItemAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.AppverseWebLabelToolItemAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.toolbar.LabelToolItem.LabelToolItemAppearance" />
   </replace-with>
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultFieldLabelAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.AppverseWebFieldLabelAppearance">
     <when-type-is class="com.sencha.gxt.widget.core.client.form.FieldLabel.FieldLabelAppearance" />
   </replace-with>
 <!--   <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultTriggerFieldAppearance"> -->
 <!--     <when-type-is class="com.sencha.gxt.cell.core.client.form.TwinTriggerFieldCell.TwinTriggerFieldAppearance" /> -->
 <!--   </replace-with> -->
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultTriggerFieldAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.AppverseWebTriggerFieldAppearance">
     <when-type-is class="com.sencha.gxt.cell.core.client.form.TriggerFieldCell.TriggerFieldAppearance" />
   </replace-with>
-  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultTextFieldAppearance">
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.AppverseWebTextFieldAppearance">
     <when-type-is class="com.sencha.gxt.cell.core.client.form.TextInputCell.TextFieldAppearance" />
   </replace-with>
 
