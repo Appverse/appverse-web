@@ -1,0 +1,219 @@
+<!--
+
+ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+
+ This Source Code Form is subject to the terms of the Appverse Public License 
+ Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+ file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+
+ Redistribution and use in source and binary forms, with or without modification, 
+ are permitted provided that the conditions of the AppVerse Public License v2.0 
+ are met.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+ SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<module>
+  <inherits name="com.sencha.gxt.theme.base.Base" />
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.DefaultThemeAppearance">
+    <when-type-is class="com.sencha.gxt.core.client.resources.ThemeStyles.ThemeAppearance" />
+  </replace-with>
+
+  <!-- Buttons -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.button.DefaultButtonGroupAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.button.ButtonGroup.ButtonGroupAppearance" />
+  </replace-with>
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.button.DefaultButtonCellDefaultAppearance">
+    <when-type-is class="com.sencha.gxt.cell.core.client.ButtonCell.ButtonCellAppearance" />
+  </replace-with>
+  
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.grid.DefaultGridAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.grid.GridView.GridAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.DefaultToolBarButtonAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.toolbar.ToolBarButton.ToolBarButtonAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.progress.DefaultProgressBarAppearance">
+    <when-type-is class="com.sencha.gxt.cell.core.client.ProgressBarCell.ProgressBarAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.DefaultContentPanelAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.ContentPanel.ContentPanelAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.window.DefaultWindowAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.Window.WindowAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.DefaultAccordionLayoutAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.container.AccordionLayoutContainer.AccordionLayoutAppearance" />
+  </replace-with>
+
+  <!-- Menu Bar -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultMenuBarAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.menu.MenuBar.MenuBarAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultMenuBarItemAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.menu.MenuBarItem.MenuBarItemAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.widget.DefaultDatePickerAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.DatePicker.DatePickerAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultFieldSetAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.form.FieldSet.FieldSetAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tree.DefaultTreeAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.tree.Tree.TreeAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.DefaultContentPanelAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.ContentPanel.ContentPanelAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.DefaultFramedPanelAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.FramedPanel.FramedPanelAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.panel.DefaultPanelHeaderAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.ContentPanel.PanelHeaderAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.DefaultToolBarAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.toolbar.ToolBar.ToolBarAppearance" />
+  </replace-with>
+
+<!--   <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.DefaultSeparatorToolItemAppearance"> -->
+<!--     <when-type-is class="com.sencha.gxt.widget.core.client.toolbar.SeparatorToolItem.SeparatorToolItemAppearance" /> -->
+<!--   </replace-with> -->
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tools.DefaultTools">
+    <when-type-is class="com.sencha.gxt.widget.core.client.button.Tools" />
+  </replace-with>
+
+  <!-- Menu -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultMenuAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.menu.Menu.MenuAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultItemAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.menu.Item.ItemAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultMenuItemAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.menu.MenuItem.MenuItemAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultHeaderMenuItemAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.menu.HeaderMenuItem.HeaderMenuItemAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultSeparatorMenuItemAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.menu.SeparatorMenuItem.SeparatorMenuItemAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.menu.DefaultCheckMenuItemAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.menu.CheckMenuItem.CheckMenuItemAppearance" />
+  </replace-with>
+
+  <!-- Status -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.status.DefaultStatusAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.Status.StatusAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.status.DefaultBoxStatusAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.Status.BoxStatusAppearance" />
+  </replace-with>
+
+  <!-- Tab Panel -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tabs.DefaultTabPanelAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.TabPanel.TabPanelAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tabs.DefaultTabPanelBottomAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.TabPanel.TabPanelBottomAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.tabs.DefaultPlainTabPanelAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.PlainTabPanel.PlainTabPanelAppearance" />
+  </replace-with>
+
+  <!-- Color Palette -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.colorpalette.DefaultColorPaletteAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.ColorPaletteCell.ColorPaletteAppearance" />
+  </replace-with>
+
+  <!-- Slider -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.slider.DefaultSliderHorizontalAppearance">
+    <any>
+      <when-type-is class="com.sencha.gxt.cell.core.client.SliderCell.SliderAppearance" />
+      <when-type-is class="com.sencha.gxt.cell.core.client.SliderCell.HorizontalSliderAppearance" />
+    </any>
+  </replace-with>
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.slider.DefaultSliderVerticalAppearance">
+    <when-type-is class="com.sencha.gxt.cell.core.client.SliderCell.VerticalSliderAppearance" />
+  </replace-with>
+
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.container.DefaultBorderLayoutAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutAppearance" />
+  </replace-with>
+
+  <!-- Resizable -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.resizable.DefaultResizableAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.Resizable.ResizableAppearance" />
+  </replace-with>
+
+  <!-- Status proxy -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.statusproxy.DefaultStatusProxyAppearance">
+    <when-type-is class="com.sencha.gxt.dnd.core.client.StatusProxy.StatusProxyAppearance" />
+  </replace-with>
+
+  <!-- Paging tool bar -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.DefaultPagingToolBarAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.toolbar.PagingToolBar.PagingToolBarAppearance" />
+  </replace-with>
+
+  <!-- Grid & TreeGrid -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.grid.DefaultColumnHeaderAppearance">
+    <when-type-assignable class="com.sencha.gxt.widget.core.client.grid.ColumnHeader.ColumnHeaderAppearance" />
+  </replace-with>
+  
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.widget.AppvHeaderDefaultAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.Header.HeaderAppearance" />
+  </replace-with>
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.toolbar.DefaultLabelToolItemAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.toolbar.LabelToolItem.LabelToolItemAppearance" />
+  </replace-with>
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultFieldLabelAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.form.FieldLabel.FieldLabelAppearance" />
+  </replace-with>
+<!--   <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultTriggerFieldAppearance"> -->
+<!--     <when-type-is class="com.sencha.gxt.cell.core.client.form.TwinTriggerFieldCell.TwinTriggerFieldAppearance" /> -->
+<!--   </replace-with> -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultTriggerFieldAppearance">
+    <when-type-is class="com.sencha.gxt.cell.core.client.form.TriggerFieldCell.TriggerFieldAppearance" />
+  </replace-with>
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.client.field.DefaultTextFieldAppearance">
+    <when-type-is class="com.sencha.gxt.cell.core.client.form.TextInputCell.TextFieldAppearance" />
+  </replace-with>
+
+
+  
+</module>

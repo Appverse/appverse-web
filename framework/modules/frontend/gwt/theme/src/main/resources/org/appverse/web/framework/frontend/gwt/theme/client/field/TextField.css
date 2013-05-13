@@ -1,0 +1,44 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+@sprite .text {
+  gwt-image: 'textBackground';
+  height: auto;
+}
+
+.text, .area {
+  background-color: #fff;
+  border: 1px #b5b8c8 solid;
+  padding: 1px 3px; 
+  resize: none;
+}
+
+.area {
+  overflow: visible; 
+}
+
+@if user.agent gecko1_8 gecko {
+  .area {
+    padding: 0px;
+  }
+}
+
+.text {
+  height: 18px;
+  line-height: 18px;
+  vertical-align: top;
+}
+
+@if user.agent ie6 ie8 ie9 {
+  .file {
+    height: 18px;
+    line-height: 18px;
+    vertical-align: top;
+  }
+} @else {
+  .file {}
+}
