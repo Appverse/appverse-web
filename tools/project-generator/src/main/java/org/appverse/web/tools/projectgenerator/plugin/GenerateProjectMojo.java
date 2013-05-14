@@ -23,8 +23,8 @@ public class GenerateProjectMojo extends AbstractMojo {
 	private String artifactId;
 	@Parameter(property = "version", defaultValue = "1.0-SNAPSHOT")
 	private String version;
-	@Parameter(property = "name", defaultValue = "project")
-	private String name;
+	@Parameter(property = "projectName", defaultValue = "project")
+	private String projectName;
 	@Parameter(property = "dbPlatform", defaultValue = "MySQLPlatform")
 	private String dbPlatform;
 	@Parameter(property = "archetypeVersion", defaultValue = "1.1.0-RELEASE")
@@ -60,8 +60,9 @@ public class GenerateProjectMojo extends AbstractMojo {
 						"-DarchetypeVersion=" + archetypeVersion, "-DgroupId="
 								+ groupId + "." + artifactId, "-DartifactId="
 								+ artifactId, "-Dversion=" + version,
-						"-DnewProjectName=" + name, "-DtargetDbPlatform="
-								+ dbPlatform, "-DinteractiveMode=false");
+						"-DnewProjectName=" + projectName,
+						"-DtargetDbPlatform=" + dbPlatform,
+						"-DinteractiveMode=false");
 				processBuilder.redirectErrorStream(true);
 				process = processBuilder.start();
 				standardReader = new BufferedReader(new InputStreamReader(
@@ -91,7 +92,8 @@ public class GenerateProjectMojo extends AbstractMojo {
 						"-DarchetypeVersion=" + archetypeVersion, "-DgroupId="
 								+ groupId + "." + artifactId, "-DartifactId="
 								+ artifactId, "-Dversion=" + version,
-						"-DnewProjectName=" + name, "-DinteractiveMode=false");
+						"-DnewProjectName=" + projectName,
+						"-DinteractiveMode=false");
 				processBuilder.redirectErrorStream(true);
 				process = processBuilder.start();
 				standardReader = new BufferedReader(new InputStreamReader(

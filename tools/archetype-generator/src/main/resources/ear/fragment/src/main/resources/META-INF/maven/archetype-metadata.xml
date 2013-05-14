@@ -186,5 +186,12 @@
         </fileSet>
       </fileSets>
     </module>
+    <module id="${rootArtifactId}-ear" dir="__rootArtifactId__-ear" name="${newProjectName}-ear">
+      <fileSets>
+        <fileSet encoding="UTF-8">
+          <directory>src/main/application</directory>
+        </fileSet>
+      </fileSets>
+    </module>
   </modules>
 </archetype-descriptor>

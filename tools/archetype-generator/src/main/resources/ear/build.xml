@@ -34,8 +34,28 @@
   </target>
 
   <target name="copy.fragment" >
-    <copy todir="${build}" overwrite="true">
-      <fileset dir="${fragment}">
+    <copy tofile="${build}/pom.xml" overwrite="true">
+      <fileset file="${fragment}/pom.xml">
+      </fileset>
+    </copy>
+    <copy todir="${build}/src/main/resources/META-INF" overwrite="true">
+      <fileset dir="${fragment}/src/main/resources/META-INF">
+      </fileset>
+    </copy>  	
+    <copy tofile="${build}/src/main/resources/archetype-resources/pom.xml" overwrite="true">
+      <fileset file="${fragment}/src/main/resources/archetype-resources/pom.xml">
+      </fileset>
+    </copy>
+    <copy tofile="${build}/src/main/resources/archetype-resources/__rootArtifactId__-backend/pom.xml" overwrite="true">
+      <fileset file="${fragment}/src/main/resources/archetype-resources/__rootArtifactId__-backend/pom.xml">
+      </fileset>
+    </copy>
+    <copy todir="${build}/src/main/resources/archetype-resources/__rootArtifactId__-backend/src/main/assembly" overwrite="true">
+      <fileset dir="${fragment}/src/main/resources/archetype-resources/__rootArtifactId__-backend/src/main/assembly">
+      </fileset>
+    </copy>
+  	<copy todir="${build}/src/main/resources/archetype-resources/__rootArtitactId__-ear" overwrite="true">
+      <fileset dir="${fragment}/src/main/resources/archetype-resources/__rootArtitactId__-ear">
       </fileset>
     </copy>
 	<echo message="Fragment copied"/>
