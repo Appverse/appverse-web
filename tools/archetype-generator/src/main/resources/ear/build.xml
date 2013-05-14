@@ -54,8 +54,8 @@
       <fileset dir="${fragment}/src/main/resources/archetype-resources/__rootArtifactId__-backend/src/main/assembly">
       </fileset>
     </copy>
-  	<copy todir="${build}/src/main/resources/archetype-resources/__rootArtitactId__-ear" overwrite="true">
-      <fileset dir="${fragment}/src/main/resources/archetype-resources/__rootArtitactId__-ear">
+  	<copy todir="${build}/src/main/resources/archetype-resources/__rootArtifactId__-ear" overwrite="true">
+      <fileset dir="${fragment}/src/main/resources/archetype-resources/__rootArtifactId__-ear">
       </fileset>
     </copy>
 	<echo message="Fragment copied"/>
