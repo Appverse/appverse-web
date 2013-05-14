@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" 
     xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="${newProjectName}">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="${projectName}">
     
   <requiredProperties>
-    <requiredProperty key="newProjectName" />
+    <requiredProperty key="projectName" />
     <requiredProperty key="targetDbPlatform">
     	<defaultValue>MySQLPlatform</defaultValue>
     </requiredProperty>
@@ -19,7 +19,7 @@
     </fileSet>
   </fileSets>
   <modules>
-    <module id="${rootArtifactId}-backend" dir="__rootArtifactId__-backend" name="${newProjectName}-backend">
+    <module id="${rootArtifactId}-backend" dir="__rootArtifactId__-backend" name="${projectName}-backend">
       <fileSets>
         <fileSet filtered="true" encoding="UTF-8">
           <directory>src/main/filters</directory>
@@ -97,7 +97,7 @@
         </fileSet>
       </fileSets>
     </module>
-    <module id="${rootArtifactId}-gwtfrontend" dir="__rootArtifactId__-gwtfrontend" name="${newProjectName}-gwtfrontend">
+    <module id="${rootArtifactId}-gwtfrontend" dir="__rootArtifactId__-gwtfrontend" name="${projectName}-gwtfrontend">
       <fileSets>
         <fileSet filtered="true" encoding="UTF-8">
           <directory>src/main/assembly</directory>
@@ -170,7 +170,7 @@
         </fileSet>
       </fileSets>
     </module>
-    <module id="${rootArtifactId}-gwtshared" dir="__rootArtifactId__-gwtshared" name="${newProjectName}-gwtshared">
+    <module id="${rootArtifactId}-gwtshared" dir="__rootArtifactId__-gwtshared" name="${projectName}-gwtshared">
       <fileSets>
         <fileSet encoding="UTF-8">
           <directory>src/main/java/__packageInPathFormat__/backend/model/presentation</directory>
@@ -186,7 +186,7 @@
         </fileSet>
       </fileSets>
     </module>
-    <module id="${rootArtifactId}-ear" dir="__rootArtifactId__-ear" name="${newProjectName}-ear">
+    <module id="${rootArtifactId}-ear" dir="__rootArtifactId__-ear" name="${projectName}-ear">
       <fileSets>
         <fileSet encoding="UTF-8">
           <directory>src/main/application</directory>
