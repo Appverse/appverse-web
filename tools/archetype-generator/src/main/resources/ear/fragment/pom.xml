@@ -11,7 +11,7 @@
 	</parent>
 
 	<groupId>org.appverse.web.framework.archetypes.gwtear</groupId>
-	<artifactId>appverse-web-archetypes-gwtear</artifactId>
+	<artifactId>appverse-web-archetypes-gwt-ear</artifactId>
 	<packaging>maven-archetype</packaging>
 
 	<name>Appverse Web Framework Archetypes GWT EAR Archetype</name>
