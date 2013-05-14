@@ -22,7 +22,6 @@
  POSSIBILITY OF SUCH DAMAGE.
  --> 
 <module>
-	<inherits name="org.appverse.web.framework.frontend.gwt.theme.AppverseTheme" />
 
 	<replace-with
 		class="org.appverse.web.framework.frontend.gwt.theme.client.search.AppverseSuggestAppearance">
