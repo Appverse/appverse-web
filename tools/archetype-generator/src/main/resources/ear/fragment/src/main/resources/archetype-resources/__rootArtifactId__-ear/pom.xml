@@ -193,6 +193,7 @@
 		<dependency>
 			<groupId>${groupId}.backend</groupId>
 			<artifactId>${rootArtifactId}-backend</artifactId>
+			<version>${version}</version>
 			<type>war</type>
 		</dependency>
 	</dependencies>

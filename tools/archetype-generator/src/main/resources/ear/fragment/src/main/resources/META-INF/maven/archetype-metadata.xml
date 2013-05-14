@@ -95,6 +95,12 @@
         <fileSet encoding="UTF-8">
           <directory>src/test/java/__packageInPathFormat__/backend/services/presentation/impl/test</directory>
         </fileSet>
+        <fileSet  encoding="UTF-8">
+          <directory>src/main/assembly</directory>
+          <includes>
+            <include>**/*.*</include>
+          </includes>
+        </fileSet>  
       </fileSets>
     </module>
     <module id="${rootArtifactId}-gwtfrontend" dir="__rootArtifactId__-gwtfrontend" name="${projectName}-gwtfrontend">
