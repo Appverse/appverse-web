@@ -15,8 +15,8 @@ public class GenerateProjectMojo extends AbstractMojo {
 
 	@Parameter(property = "osName", defaultValue = "${os.name}")
 	private String osName;
-	@Parameter(property = "presentationLayerType", defaultValue = "GWT")
-	private String presentationLayerType;
+	@Parameter(property = "archetypeVersion", defaultValue = "1.1.1-SNAPSHOT")
+	private String archetypeVersion;
 	@Parameter(property = "groupId", defaultValue = "org.organization")
 	private String groupId;
 	@Parameter(property = "artifactId", defaultValue = "project")
@@ -25,10 +25,12 @@ public class GenerateProjectMojo extends AbstractMojo {
 	private String version;
 	@Parameter(property = "projectName", defaultValue = "project")
 	private String projectName;
+	@Parameter(property = "presentationLayerType", defaultValue = "GWT")
+	private String presentationLayerType;
 	@Parameter(property = "dbPlatform", defaultValue = "MySQLPlatform")
 	private String dbPlatform;
-	@Parameter(property = "archetypeVersion", defaultValue = "1.1.0-RELEASE")
-	private String archetypeVersion;
+	@Parameter(property = "enterpriseApplication", defaultValue = "false")
+	private boolean enterpriseApplication;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Log logger = getLog();
@@ -48,6 +50,12 @@ public class GenerateProjectMojo extends AbstractMojo {
 		logger.debug("WindowsFamilyOS:" + windowsFamilyOS);
 		logger.info("Creating project using archetypeVersion "
 				+ archetypeVersion + "...");
+
+		String earSuffix = "";
+		if (enterpriseApplication) {
+			earSuffix = "-ear";
+		}
+
 		try {
 			if (PresentationLayerType.GWT.equals(presentationLayerType)) {
 				logger.info("Project presentation layer flavour selected: "
@@ -56,13 +64,13 @@ public class GenerateProjectMojo extends AbstractMojo {
 						mavenCommand,
 						"archetype:generate",
 						"-DarchetypeGroupId=org.appverse.web.framework.archetypes.gwt",
-						"-DarchetypeArtifactId=appverse-web-archetypes-gwt",
-						"-DarchetypeVersion=" + archetypeVersion, "-DgroupId="
-								+ groupId + "." + artifactId, "-DartifactId="
+						"-DarchetypeArtifactId=appverse-web-archetypes-gwt"
+								+ earSuffix, "-DarchetypeVersion="
+								+ archetypeVersion, "-DgroupId=" + groupId
+								+ "." + artifactId, "-DartifactId="
 								+ artifactId, "-Dversion=" + version,
-						"-DnewProjectName=" + projectName,
-						"-DtargetDbPlatform=" + dbPlatform,
-						"-DinteractiveMode=false");
+						"-DprojectName=" + projectName, "-DtargetDbPlatform="
+								+ dbPlatform, "-DinteractiveMode=false");
 				processBuilder.redirectErrorStream(true);
 				process = processBuilder.start();
 				standardReader = new BufferedReader(new InputStreamReader(
@@ -88,11 +96,12 @@ public class GenerateProjectMojo extends AbstractMojo {
 						mavenCommand,
 						"archetype:generate",
 						"-DarchetypeGroupId=org.appverse.web.framework.archetypes.jsf2",
-						"-DarchetypeArtifactId=appverse-web-archetypes-jsf2",
-						"-DarchetypeVersion=" + archetypeVersion, "-DgroupId="
-								+ groupId + "." + artifactId, "-DartifactId="
+						"-DarchetypeArtifactId=appverse-web-archetypes-jsf2"
+								+ earSuffix, "-DarchetypeVersion="
+								+ archetypeVersion, "-DgroupId=" + groupId
+								+ "." + artifactId, "-DartifactId="
 								+ artifactId, "-Dversion=" + version,
-						"-DnewProjectName=" + projectName,
+						"-DprojectName=" + projectName,
 						"-DinteractiveMode=false");
 				processBuilder.redirectErrorStream(true);
 				process = processBuilder.start();
@@ -125,5 +134,4 @@ public class GenerateProjectMojo extends AbstractMojo {
 			throw new MojoFailureException("Project creation failed", e);
 		}
 	}
-
 }

@@ -10,7 +10,7 @@
 		<relativePath>../../</relativePath>
 	</parent>
 
-	<groupId>org.appverse.web.framework.archetypes.gwtear</groupId>
+	<groupId>org.appverse.web.framework.archetypes.gwt</groupId>
 	<artifactId>appverse-web-archetypes-gwt-ear</artifactId>
 	<packaging>maven-archetype</packaging>
 
