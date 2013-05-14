@@ -12,8 +12,8 @@
 	<groupId>${groupId}.gwtshared</groupId>
 	<artifactId>${rootArtifactId}-gwtshared</artifactId>
 
-	<name>${newProjectName} GWT Shared Module</name>
-    <description>${newProjectName} GWT Shared Module</description>
+	<name>${projectName} GWT Shared Module</name>
+    <description>${projectName} GWT Shared Module</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2013</inceptionYear>
 	

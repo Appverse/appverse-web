@@ -8,7 +8,7 @@
 	<version>${version}</version>
 	<packaging>war</packaging>
 
-	<name>${newProjectName}</name>	
+	<name>${projectName}</name>	
 
 	<licenses>
 		<license>

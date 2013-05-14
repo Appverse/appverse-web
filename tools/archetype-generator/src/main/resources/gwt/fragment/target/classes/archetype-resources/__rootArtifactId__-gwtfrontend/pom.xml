@@ -12,8 +12,8 @@
 	<groupId>${groupId}.gwtfrontend</groupId>
 	<artifactId>${rootArtifactId}-gwtfrontend</artifactId>
 	
-	<name>${newProjectName} GWT Frontend Module</name>
-    <description>${newProjectName} GWT Frontend Module</description>
+	<name>${projectName} GWT Frontend Module</name>
+    <description>${projectName} GWT Frontend Module</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2013</inceptionYear>
 	

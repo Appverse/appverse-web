@@ -16,7 +16,7 @@
 </h:head>
 
 <h:body onload='document.f.j_username.focus();'>
-<h3><h:outputText value="Welcome to ${symbol_dollar}{newProjectName}"/></h3>
+<h3><h:outputText value="Welcome to ${symbol_dollar}{projectName}"/></h3>
 
 <form name='f' action='j_spring_security_check' method='post'>
  <table>

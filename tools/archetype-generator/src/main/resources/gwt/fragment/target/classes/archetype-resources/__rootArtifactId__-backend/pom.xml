@@ -13,8 +13,8 @@
 	<artifactId>${rootArtifactId}-backend</artifactId>
 	<packaging>war</packaging>
 
-	<name>${newProjectName} Backend Module</name>
-	<description>${newProjectName} Backend Module</description>
+	<name>${projectName} Backend Module</name>
+	<description>${projectName} Backend Module</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2013</inceptionYear>
 

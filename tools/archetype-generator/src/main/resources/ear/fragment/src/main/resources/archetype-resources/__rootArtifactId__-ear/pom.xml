@@ -13,8 +13,8 @@
 	<artifactId>${rootArtifactId}-ear</artifactId>
 	<packaging>ear</packaging>
 	
-	<name>${newProjectName} EAR Module</name>
-    <description>${newProjectName} EAR Module</description>
+	<name>${projectName} EAR Module</name>
+    <description>${projectName} EAR Module</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2013</inceptionYear>
 	

@@ -8,8 +8,8 @@
     <version>${version}</version>
     <packaging>pom</packaging>
     
-    <name>${newProjectName}</name>
-    <description>${newProjectName}</description>
+    <name>${projectName}</name>
+    <description>${projectName}</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2013</inceptionYear>
 
