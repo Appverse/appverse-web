@@ -1,6 +1,6 @@
-<project name="GWTProject" default="init" basedir=".">
+<project name="AppverseArchetypeGeneratorJSF2Tasks" default="init" basedir=".">
     <description>
-         Appverse Archetype GWT Fragment
+         Appverse Archetype Generator JSF2 Tasks
     </description>
   <!-- set global properties for this build -->
   <property name="build" location="../../../../target/build"/>

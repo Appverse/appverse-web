@@ -298,7 +298,7 @@
 						<packagingExcludes>**/empty.tmp</packagingExcludes>
 					</configuration>
 				</plugin>
-
+@@mavenearplugin@@
 		        <plugin>
 		          <groupId>org.apache.tomcat.maven</groupId>
 		          <artifactId>tomcat7-maven-plugin</artifactId>
@@ -446,6 +446,7 @@
 			</activation> 
 			<properties>
 				<env>development</env>
+				<targetServer>webcontainer</targetServer>				
 				<maven.skip.tests>true</maven.skip.tests>
 			</properties>			
 			<build> 
@@ -468,6 +469,8 @@
 			<id>integration</id>
 			<properties>
 				<env>integration</env>
+@@profileintegration@@
+				<targetServer>webcontainer</targetServer>	
 				<maven.skip.tests>false</maven.skip.tests>
 			</properties>
 		</profile>

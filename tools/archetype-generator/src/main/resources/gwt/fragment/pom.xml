@@ -11,11 +11,11 @@
 	</parent>
 
 	<groupId>org.appverse.web.framework.archetypes.gwt</groupId>
-	<artifactId>appverse-web-archetypes-gwt</artifactId>
+	<artifactId>appverse-web-archetypes-gwt@@artifactsuffix@@</artifactId>
 	<packaging>maven-archetype</packaging>
 
-	<name>Appverse Web Framework Archetypes GWT Archetype</name>
-	<description>Appverse Web Framework Archetypes GWT Archetype</description>
+	<name>Appverse Web Framework Archetypes GWT@@ARTIFACTSUFFIX@@ Archetype</name>
+	<description>Appverse Web Framework Archetypes GWT@@ARTIFACTSUFFIX@@ Archetype</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2013</inceptionYear>
 

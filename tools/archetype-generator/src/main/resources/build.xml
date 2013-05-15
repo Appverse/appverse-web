@@ -1,0 +1,93 @@
+<project name="AppverseArchetypeGeneratorTasks" default="init" basedir=".">
+    <description>
+         Appverse Archetype Generator Tasks
+    </description>
+  <!-- set global properties for this build -->
+  <property name="build" location="../../../target/build"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+	<antcall target="remove.tokens"/>
+  </target>
+	<target name="remove.tokens">
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[@@artifactsuffix@@]]></replacetoken>
+	  	  <replacevalue></replacevalue>	
+	</replace>
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[@@ARTIFACTSUFFIX@@]]></replacetoken>
+	  	  <replacevalue></replacevalue>	
+	</replace>		
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[@@profileintegration@@
+]]></replacetoken>
+	  	  <replacevalue><![CDATA[]]></replacevalue>	
+	</replace>	
+		<replace dir="${build}/" >
+		  	  <include name="**/*"/>
+		  	  <replacetoken><![CDATA[@@mavenearplugin@@
+]]></replacetoken>
+		  	  <replacevalue><![CDATA[]]></replacevalue>	
+		</replace>			
+			
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[<!-- End Of Modules (Do not modify/delete this comment) -->
+]]></replacetoken>
+	  	  <replacevalue><![CDATA[]]></replacevalue>	
+	</replace>
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[<!-- Start Of Backend Module (Do not modify/delete this comment) -->
+]]></replacetoken>
+	  	  <replacevalue><![CDATA[]]></replacevalue>	
+	</replace>	
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[<!-- End Of Backend Module (Do not modify/delete this comment) -->
+]]></replacetoken>
+	  	  <replacevalue><![CDATA[]]></replacevalue>	
+	</replace>
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[<!-- Start Of GWT Frontend Module (Do not modify/delete this comment) -->
+]]></replacetoken>
+	  	  <replacevalue><![CDATA[]]></replacevalue>	
+	</replace>	
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[<!-- End Of GWT Frontend Module (Do not modify/delete this comment) -->
+]]></replacetoken>
+	  	  <replacevalue><![CDATA[]]></replacevalue>	
+	</replace>
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[<!-- Start Of GWT Shared Module (Do not modify/delete this comment) -->
+]]></replacetoken>
+	  	  <replacevalue><![CDATA[]]></replacevalue>	
+	</replace>	
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[<!-- End Of GWT Shared Module (Do not modify/delete this comment) -->
+]]></replacetoken>
+	  	  <replacevalue><![CDATA[]]></replacevalue>	
+	</replace>
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[<!-- Start Of EAR Module (Do not modify/delete this comment) -->
+]]></replacetoken>
+	  	  <replacevalue><![CDATA[]]></replacevalue>	
+	</replace>	
+	<replace dir="${build}/" >
+	  	  <include name="**/*"/>
+	  	  <replacetoken><![CDATA[<!-- End Of EAR Module (Do not modify/delete this comment) -->
+]]></replacetoken>
+	  	  <replacevalue><![CDATA[]]></replacevalue>	
+	</replace>  	
+	</target>		
+</project>

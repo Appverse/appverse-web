@@ -19,7 +19,9 @@
     </fileSet>
   </fileSets>
   <modules>
+<!-- Start Of Modules (Do not modify/delete this comment) -->
     <module id="${rootArtifactId}-backend" dir="__rootArtifactId__-backend" name="${projectName}-backend">
+<!-- Start Of Backend Module (Do not modify/delete this comment) -->
       <fileSets>
         <fileSet filtered="true" encoding="UTF-8">
           <directory>src/main/filters</directory>
@@ -96,8 +98,10 @@
           <directory>src/test/java/__packageInPathFormat__/backend/services/presentation/impl/test</directory>
         </fileSet>
       </fileSets>
+<!-- End Of Backend Module (Do not modify/delete this comment) -->
     </module>
     <module id="${rootArtifactId}-gwtfrontend" dir="__rootArtifactId__-gwtfrontend" name="${projectName}-gwtfrontend">
+<!-- Start Of GWT Frontend Module (Do not modify/delete this comment) -->
       <fileSets>
         <fileSet filtered="true" encoding="UTF-8">
           <directory>src/main/assembly</directory>
@@ -169,8 +173,10 @@
           </includes>                 
         </fileSet>
       </fileSets>
+<!-- End Of GWT Frontend Module (Do not modify/delete this comment) -->
     </module>
     <module id="${rootArtifactId}-gwtshared" dir="__rootArtifactId__-gwtshared" name="${projectName}-gwtshared">
+<!-- Start Of GWT Shared Module (Do not modify/delete this comment) -->
       <fileSets>
         <fileSet encoding="UTF-8">
           <directory>src/main/java/__packageInPathFormat__/backend/model/presentation</directory>
@@ -185,6 +191,8 @@
           </includes>
         </fileSet>
       </fileSets>
+<!-- End Of GWT Shared Module (Do not modify/delete this comment) -->
     </module>
+<!-- End Of Modules (Do not modify/delete this comment) -->
   </modules>
 </archetype-descriptor>

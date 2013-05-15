@@ -34,14 +34,14 @@ public class ArchetypeGeneratorMojo extends AbstractMojo {
 		int currentArchetype = 1;
 		try {
 			runProcess("src/main/resources/gwt/", antCommand);
-
+			runProcess("src/main/resources/", antCommand);
 			runProcess("target/build", mavenCommand, "install", "deploy");
 			logger.info("[" + currentArchetype + "/" + numberOfArchetypes
 					+ "] GWT archetype installed");
 			currentArchetype++;
 
 			runProcess("src/main/resources/jsf2/", antCommand);
-
+			runProcess("src/main/resources/", antCommand);
 			runProcess("target/build", mavenCommand, "install", "deploy");
 			logger.info("[" + currentArchetype + "/" + numberOfArchetypes
 					+ "] GWT archetype installed");
@@ -49,6 +49,7 @@ public class ArchetypeGeneratorMojo extends AbstractMojo {
 
 			runProcess("src/main/resources/gwt/", antCommand);
 			runProcess("src/main/resources/ear/", antCommand);
+			runProcess("src/main/resources/", antCommand);
 			runProcess("target/build", mavenCommand, "install", "deploy");
 			logger.info("[" + currentArchetype + "/" + numberOfArchetypes
 					+ "] GWT EAR archetype installed");
