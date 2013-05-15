@@ -3,8 +3,8 @@
   <inherits name="org.appverse.web.framework.frontend.gwt.theme.AppverseFramework" />
   
   <!-- AppverseTheme offer its own theme for appverse for GXT3 components -->
-  <!-- This dependency is optional. Use it if you use or extend Appverse Theme -->
-  <inherits name="org.appverse.web.framework.frontend.gwt.theme.AppverseTheme" />  
+  <!-- This dependency is optional. Use it if you use or extend Appverse BlueTouch Theme -->
+  <inherits name="org.appverse.web.framework.frontend.gwt.theme.bluetouch.BlueTouch" />  
 
   <!-- Add 'replace-with' here to override extended theme appearances --> 
 
