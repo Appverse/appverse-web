@@ -1,0 +1,63 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+@if user.agent ie6 {
+  @eval TRACK_VERTICAL_TOP org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.slider.AppverseWebSliderVerticalAppearance.AppverseWebSliderVerticalAppearanceHelper.getTrackVerticalTop();
+  .slider {
+    background-image: TRACK_VERTICAL_TOP;
+    background-position: top;
+  }
+} @else {
+  @sprite .slider {
+    gwt-image: "trackVerticalTop";
+    height: auto;
+  }
+}
+
+@if user.agent ie6 {
+  @eval TRACK_VERTICAL_BOTTOM org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.slider.AppverseWebSliderVerticalAppearance.AppverseWebSliderVerticalAppearanceHelper.getTrackVerticalBottom();
+  .end {
+    background-image: TRACK_VERTICAL_BOTTOM;
+  }
+} @else {
+  @sprite .end {
+    gwt-image: "trackVerticalBottom";
+    height: auto;
+    /* allow thumb to show through */
+    overflow: visible
+  }
+}
+
+.end {
+  background-position: bottom;
+}
+
+@if user.agent ie6 {
+  @eval TRACK_VERTICAL_MIDDLE org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.slider.AppverseWebSliderVerticalAppearance.AppverseWebSliderVerticalAppearanceHelper.getTrackVerticalMiddle();
+  .inner {
+    background-image: TRACK_VERTICAL_MIDDLE;
+  }
+} @else {
+  @sprite .inner {
+    gwt-image: "trackVerticalMiddle";
+    height: auto;
+    /* allow thumb to show through */
+    overflow: visible;
+  }
+}
+
+@sprite .thumb {
+  gwt-image: "thumbVertical";
+}
+
+@sprite .over {
+  gwt-image: "thumbVerticalOver";
+}
+
+@sprite .drag {
+  gwt-image: "thumbVerticalDown";
+}
