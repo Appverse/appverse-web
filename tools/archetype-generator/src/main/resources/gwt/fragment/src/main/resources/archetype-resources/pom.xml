@@ -298,7 +298,7 @@
 						<packagingExcludes>**/empty.tmp</packagingExcludes>
 					</configuration>
 				</plugin>
-@@mavenearplugin@@
+@@EAR_MODULE__POM__EAR_PLUGIN@@
 		        <plugin>
 		          <groupId>org.apache.tomcat.maven</groupId>
 		          <artifactId>tomcat7-maven-plugin</artifactId>
@@ -469,7 +469,7 @@
 			<id>integration</id>
 			<properties>
 				<env>integration</env>
-@@profileintegration@@
+@@EAR_MODULE__POM__EAR_PLUGIN__PROFILE_INTEGRATION@@
 				<targetServer>webcontainer</targetServer>	
 				<maven.skip.tests>false</maven.skip.tests>
 			</properties>

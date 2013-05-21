@@ -1,0 +1,129 @@
+<project name="AppverseArchetypeGeneratorEARTasks" default="init" basedir=".">
+    <description>
+         Appverse Archetype Generator EAR Tasks
+    </description>
+  <!-- set global properties for this build -->
+  <property name="build" location="../../../../target/build"/>
+  <property name="fragment" location="fragment"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+	<antcall target="mk.dir.build"/>
+	<antcall target="copy.fragment"/>
+  </target>
+
+  <target name="dir.check">
+    <condition property="dir.exists">
+      <available file="${build}" type="dir"/>
+    </condition>
+  </target>
+
+  <target name="mk.dir.build" depends="dir.check" unless="dir.exists">
+     <mkdir dir="${build}"/>
+	<echo message="Build Dir Created"/>
+  </target>
+
+  <target name="clean.dir.build" depends="dir.check" if="dir.exists">
+	  <delete includeEmptyDirs="true">
+	    <fileset dir="${build}" />
+	  </delete>
+	  <echo message="Build Dir Cleaned"/>
+  </target>
+
+  <target name="copy.fragment" >
+ 	<replace dir="${build}" >
+  	  <include name="pom.xml"/>
+  	  <replacetoken><![CDATA[@@artifactsuffix@@]]></replacetoken>
+  	  <replacevalue><![CDATA[@@artifactsuffix@@-ear]]></replacevalue>	
+  	</replace>
+  	
+ 	<replace dir="${build}" >
+  	  <include name="pom.xml"/>
+  	  <replacetoken><![CDATA[@@ARTIFACTSUFFIX@@]]></replacetoken>
+  	  <replacevalue><![CDATA[@@ARTIFACTSUFFIX@@ EAR]]></replacevalue>	
+  	</replace>
+ 	  	
+ 	<replace dir="${build}/src/main/resources/archetype-resources" >
+  	  <include name="pom.xml"/>
+  	  <replacetoken><![CDATA[@@mavenearplugin@@]]></replacetoken>
+  	  <replacevalue><![CDATA[
+@@mavenearplugin@@
+
+		  	  	<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-ear-plugin</artifactId>
+					<version>2.8</version>
+					<configuration>
+						<modules>
+							<webModule>
+								<groupId>${groupId}.backend</groupId>
+								<artifactId>${artifactId}-backend</artifactId>
+								<contextRoot>${artifactId}</contextRoot>
+							</webModule>
+						</modules>
+					</configuration>
+				</plugin>]]></replacevalue>	
+  	</replace>  	  	
+  
+ 	<replace dir="${build}/src/main/resources/archetype-resources" >
+  	  <include name="pom.xml"/>
+  	  <replacetoken><![CDATA[@@profileintegration@@
+				<targetServer>webcontainer</targetServer>	
+				<maven.skip.tests>false</maven.skip.tests>]]></replacetoken>
+  	  <replacevalue><![CDATA[@@profileintegration@@
+				<targetServer>appserver</targetServer>
+				<maven.skip.tests>false</maven.skip.tests>
+			</properties>
+			<modules>
+				<module>${artifactId}-ear</module>
+			</modules>]]></replacevalue>	
+ 	</replace>
+  	
+ 	<replace dir="${build}/src/main/resources/META-INF/maven" >
+  	  <include name="archetype-metadata.xml"/>
+  	  <replacetoken><![CDATA[<!-- Start Of Backend Module (Do not modify/delete this comment) -->
+        <fileSets>]]></replacetoken>
+  	  <replacevalue><![CDATA[<!-- Start Of Backend Module (Do not modify/delete this comment) -->
+        <fileSets>
+        <fileSet filtered="true" encoding="UTF-8">
+          <directory>src/main/assembly</directory>
+          <includes>
+            <include>resources.xml</include>
+          </includes>
+        </fileSet>  
+]]></replacevalue>	
+  	</replace>
+  	
+  	<replace dir="${build}/src/main/resources/META-INF/maven" >
+  	  <include name="archetype-metadata.xml"/>
+  	  <replacetoken><![CDATA[<!-- End Of Modules (Do not modify/delete this comment) -->]]></replacetoken>
+  	  <replacevalue><![CDATA[<!-- Start Of EAR Module (Do not modify/delete this comment) -->
+	<module id="${rootArtifactId}-ear" dir="__rootArtifactId__-ear" name="${projectName}-ear">
+  		<fileSets>
+  	    	<fileSet encoding="UTF-8">
+  	        	<directory>src/main/application</directory>
+  	    	</fileSet>
+  		</fileSets>
+	</module>
+<!-- End Of EAR Module (Do not modify/delete this comment) -->
+<!-- End Of Modules (Do not modify/delete this comment) -->]]></replacevalue>	
+  	</replace>
+  	
+
+    <copy tofile="${build}/src/main/resources/archetype-resources/__rootArtifactId__-backend/pom.xml" overwrite="true">
+      <fileset file="${fragment}/src/main/resources/archetype-resources/__rootArtifactId__-backend/pom.xml">
+      </fileset>
+    </copy>
+    <copy todir="${build}/src/main/resources/archetype-resources/__rootArtifactId__-backend/src/main/assembly" overwrite="true">
+      <fileset dir="${fragment}/src/main/resources/archetype-resources/__rootArtifactId__-backend/src/main/assembly">
+      </fileset>
+    </copy>
+  	<copy todir="${build}/src/main/resources/archetype-resources/__rootArtifactId__-ear" overwrite="true">
+      <fileset dir="${fragment}/src/main/resources/archetype-resources/__rootArtifactId__-ear">
+      </fileset>
+    </copy>
+	<echo message="Fragment copied"/>
+  </target>
+</project>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" 
-    xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="${projectName}">
+<archetype-descriptor xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"  
+    name="${projectName}">
     
   <requiredProperties>
     <requiredProperty key="projectName" />
@@ -19,9 +19,9 @@
     </fileSet>
   </fileSets>
   <modules>
-<!-- Start Of Modules (Do not modify/delete this comment) -->
+@@ARCHETYPE__ARCHETYPE_METADATA__START_MODULES@@
     <module id="${rootArtifactId}-backend" dir="__rootArtifactId__-backend" name="${projectName}-backend">
-<!-- Start Of Backend Module (Do not modify/delete this comment) -->
+@@ARCHETYPE__ARCHETYPE_METADATA__START_BACKEND_MODULE@@
       <fileSets>
         <fileSet filtered="true" encoding="UTF-8">
           <directory>src/main/filters</directory>
@@ -98,10 +98,11 @@
           <directory>src/test/java/__packageInPathFormat__/backend/services/presentation/impl/test</directory>
         </fileSet>
       </fileSets>
-<!-- End Of Backend Module (Do not modify/delete this comment) -->
-    </module>
+@@ARCHETYPE__ARCHETYPE_METADATA__END_BACKEND_MODULE@@
+    </module>  
+    
     <module id="${rootArtifactId}-gwtfrontend" dir="__rootArtifactId__-gwtfrontend" name="${projectName}-gwtfrontend">
-<!-- Start Of GWT Frontend Module (Do not modify/delete this comment) -->
+@@ARCHETYPE__ARCHETYPE_METADATA__START_GWT_FRONTEND_MODULE@@
       <fileSets>
         <fileSet filtered="true" encoding="UTF-8">
           <directory>src/main/assembly</directory>
@@ -173,10 +174,12 @@
           </includes>                 
         </fileSet>
       </fileSets>
-<!-- End Of GWT Frontend Module (Do not modify/delete this comment) -->
+@@ARCHETYPE__ARCHETYPE_METADATA__END_GWT_FRONTEND_MODULE@@
     </module>
+
+<!-- START OF ARCHETYPE [fragment/src/main/resources/archetype-resources] -->    
     <module id="${rootArtifactId}-gwtshared" dir="__rootArtifactId__-gwtshared" name="${projectName}-gwtshared">
-<!-- Start Of GWT Shared Module (Do not modify/delete this comment) -->
+@@ARCHETYPE__ARCHETYPE_METADATA__START_EAR_MODULE@@
       <fileSets>
         <fileSet encoding="UTF-8">
           <directory>src/main/java/__packageInPathFormat__/backend/model/presentation</directory>
@@ -191,8 +194,8 @@
           </includes>
         </fileSet>
       </fileSets>
-<!-- End Of GWT Shared Module (Do not modify/delete this comment) -->
+@@ARCHETYPE__ARCHETYPE_METADATA__END_EAR_MODULE@@
     </module>
-<!-- End Of Modules (Do not modify/delete this comment) -->
+@@ARCHETYPE__ARCHETYPE_METADATA__END_MODULES@@
   </modules>
 </archetype-descriptor>
