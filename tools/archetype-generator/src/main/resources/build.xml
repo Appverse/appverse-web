@@ -101,7 +101,7 @@
 				<![CDATA[]]>
 			</replacevalue>
 		</replace>
-	
+
 		<replace dir="${build}/">
 			<include name="**/*" />
 			<replacetoken>
@@ -149,6 +149,7 @@
 		<!-- END OF ARCHETYPE [fragment]-->
 
 		<!-- START OF EAR MODULE [fragment/src/main/resources/archetype-resources/__rootArtifactId__-ear] -->
+		<!-- Start of fragment/src/main/resources/archetype-resources/__rootArtifactId__-ear/pom.xml -->
 		<replace dir="${build}/">
 			<include name="**/*" />
 			<replacetoken>
@@ -170,6 +171,7 @@
 				<![CDATA[]]>
 			</replacevalue>
 		</replace>
+		<!-- End of fragment/src/main/resources/archetype-resources/__rootArtifactId__-ear/pom.xml -->
 		<!-- END OF EAR MODULE [fragment/src/main/resources/archetype-resources/__rootArtifactId__-ear] -->
 	</target>
 </project>
