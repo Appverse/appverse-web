@@ -15,135 +15,92 @@
 	</macrodef>
 
 	<target name="clean" description="Clean Archetype Tokens">
+		<set.timestamp />
+		<echo message="${current.time} Clean Archetype Tokens..." />
+		
 		<!-- START OF ARCHETYPE [fragment] -->
 		<!-- Start of fragment/pom.xml -->
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[||ARCHETYPE__POM__ARTIFACT_SUFFIX-LOWERCASE||]]>
-			</replacetoken>
-			<replacevalue>
-			</replacevalue>
+			<replacetoken><![CDATA[||ARCHETYPE__POM__ARTIFACT_SUFFIX-LOWERCASE||]]></replacetoken>
+			<replacevalue></replacevalue>
 		</replace>
 
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[||ARCHETYPE__POM__ARTIFACT_SUFFIX-UPPERCASE||]]>
-			</replacetoken>
-			<replacevalue>
-			</replacevalue>
+			<replacetoken><![CDATA[||ARCHETYPE__POM__ARTIFACT_SUFFIX-UPPERCASE||]]></replacetoken>
+			<replacevalue></replacevalue>
 		</replace>
 		<!-- End of fragment fragment/pom.xml -->
 
 		<!-- Start of fragment/src/main/resources/archetype-resources/META-INF/maven/archetype-metadata.xml -->
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_MODULES@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_MODULES@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_BACKEND_MODULE@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_BACKEND_MODULE@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_BACKEND_MODULE@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_BACKEND_MODULE@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_GWT_FRONTEND_MODULE@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_GWT_FRONTEND_MODULE@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_GWT_FRONTEND_MODULE@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_GWT_FRONTEND_MODULE@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_GWT_SHARED_MODULE@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_GWT_SHARED_MODULE@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_GWT_SHARED_MODULE@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_GWT_SHARED_MODULE@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_EAR_MODULE@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_EAR_MODULE@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_EAR_MODULE@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_EAR_MODULE@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_MODULES@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_MODULES@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 		<!-- End of fragment/src/main/resources/archetype-resources/META-INF/maven/archetype-metadata.xml -->
 		<!-- END OF ARCHETYPE [fragment]-->
@@ -152,24 +109,16 @@
 		<!-- Start of fragment/src/main/resources/archetype-resources/__rootArtifactId__-ear/pom.xml -->
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@EAR_MODULE__POM__EAR_PLUGIN__PROFILE_INTEGRATION@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@EAR_MODULE__POM__EAR_PLUGIN__PROFILE_INTEGRATION@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 
 		<replace dir="${build}/">
 			<include name="**/*" />
-			<replacetoken>
-				<![CDATA[@@EAR_MODULE__POM__EAR_PLUGIN@@
-]]>
-			</replacetoken>
-			<replacevalue>
-				<![CDATA[]]>
-			</replacevalue>
+			<replacetoken><![CDATA[@@EAR_MODULE__POM__EAR_PLUGIN@@
+]]></replacetoken>
+			<replacevalue><![CDATA[]]></replacevalue>
 		</replace>
 		<!-- End of fragment/src/main/resources/archetype-resources/__rootArtifactId__-ear/pom.xml -->
 		<!-- END OF EAR MODULE [fragment/src/main/resources/archetype-resources/__rootArtifactId__-ear] -->

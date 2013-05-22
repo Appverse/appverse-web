@@ -15,6 +15,8 @@
 	<property name="fragment" location="fragment" />
 
 	<target name="earfragment.applychanges">
+		<set.timestamp />
+		<echo message="${current.time} Applying EAR Fragment..." />
 		<antcall target="mk.dir.build" />
 		<antcall target="earfragment.applychanges.archetype" />
 		<antcall target="earfragment.applychanges.rootmodule" />
@@ -67,11 +69,9 @@
 		<!-- Start of fragment/src/main/resources/archetype-resources/META-INF/maven/archetype-metadata.xml -->
 		<replace dir="${build}/src/main/resources/META-INF/maven">
 			<include name="archetype-metadata.xml" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_BACKEND_MODULE@@
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_BACKEND_MODULE@@
         <fileSets>]]></replacetoken>
-			<replacevalue>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_BACKEND_MODULE@@
+			<replacevalue><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_BACKEND_MODULE@@
         <fileSets>
 				<fileSet filtered="true" encoding="UTF-8">
 					<directory>src/main/assembly</directory>
@@ -84,9 +84,7 @@
 
 		<replace dir="${build}/src/main/resources/META-INF/maven">
 			<include name="archetype-metadata.xml" />
-			<replacetoken>
-				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_MODULES@@]]>
-			</replacetoken>
+			<replacetoken><![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__END_MODULES@@]]></replacetoken>
 			<replacevalue>
 				<![CDATA[@@ARCHETYPE__ARCHETYPE_METADATA__START_EAR_MODULE@@
 	<module id="${rootArtifactId}-ear" dir="__rootArtifactId__-ear" name="${projectName}-ear">
@@ -101,7 +99,6 @@
 	</replace>
 	<!-- End of fragment/src/main/resources/archetype-resources/META-INF/maven/archetype-metadata.xml -->
 	<!-- END OF ARCHETYPE [fragment]-->
-	
 	</target>
 
 	<target name="earfragment.applychanges.rootmodule">
@@ -112,11 +109,8 @@
 
 		<replace dir="${build}/src/main/resources/archetype-resources">
 			<include name="pom.xml" />
-			<replacetoken>
-			<![CDATA[@@ARCHETYPE__EAR_MODULE__POM__EAR_PLUGIN@@]]>
-			</replacetoken>
-			<replacevalue>
-			<![CDATA[
+			<replacetoken><![CDATA[@@ARCHETYPE__EAR_MODULE__POM__EAR_PLUGIN@@]]></replacetoken>
+			<replacevalue><![CDATA[
 @@POM__MAVEN_EAR_PLUGIN@@
 
 			  	  	<plugin>
@@ -137,12 +131,10 @@
 
 			<replace dir="${build}/src/main/resources/archetype-resources">
 				<include name="pom.xml" />
-					<replacetoken>
-		<![CDATA[@@EAR_MODULE__POM__EAR_PLUGIN__PROFILE_INTEGRATION@@
+					<replacetoken><![CDATA[@@EAR_MODULE__POM__EAR_PLUGIN__PROFILE_INTEGRATION@@
 				<targetServer>webcontainer</targetServer>
 	<maven.skip.tests>false</maven.skip.tests>]]></replacetoken>
-					<replacevalue>
-	<![CDATA[@@EAR_MODULE__POM__EAR_PLUGIN__PROFILE_INTEGRATION@@
+					<replacevalue><![CDATA[@@EAR_MODULE__POM__EAR_PLUGIN__PROFILE_INTEGRATION@@
 				<targetServer>appserver</targetServer>
 <maven.skip.tests>false</maven.skip.tests>
 </properties>
