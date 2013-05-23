@@ -13,8 +13,10 @@
 .body {
 /*   background-color: #FFFFFF; */
 /*   background-color: #EBF1FA; */
-  background-color: #CDDEF3;
+  background-color: #fff;
 
 /*border-color: #99BBE8;*/
-  border-color: #2E68B2;
+  border-color: transparent;
+  border:none;
+  box-shadow:0 0 8px rgb(126, 126, 126);
 }

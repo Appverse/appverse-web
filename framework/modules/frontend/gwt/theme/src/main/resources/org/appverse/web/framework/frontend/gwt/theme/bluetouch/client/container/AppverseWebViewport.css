@@ -23,4 +23,5 @@
  */
  .viewport {
   overflow: hidden;
+  background-image:url(background.png);
 }

@@ -7,4 +7,6 @@
  */
 .container {
   background-color:#dfe8f6;
+  left:0 !important;
+  margin: 0 auto !important;
 }
