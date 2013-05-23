@@ -216,7 +216,11 @@
   <replace-with class="org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.field.AppverseWebTextFieldAppearance">
     <when-type-is class="com.sencha.gxt.cell.core.client.form.TextInputCell.TextFieldAppearance" />
   </replace-with>
-
-
   
+	
+  <!--   Extra AppverseWeb replacements. Here we add replacements for classes that were not extended in original Sencha GXT "Blue" theme -->
+  <replace-with class="org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.container.AppverseWebViewportDefaultAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.container.Viewport.ViewportAppearance" />
+  </replace-with>
+	
 </module>
