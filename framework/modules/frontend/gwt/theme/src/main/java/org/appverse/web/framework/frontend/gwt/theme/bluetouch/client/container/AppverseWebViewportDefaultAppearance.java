@@ -24,26 +24,38 @@
 package org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.container;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.resources.client.ImageResource.ImageOptions;
+import com.google.gwt.resources.client.ImageResource.RepeatStyle;
 import com.sencha.gxt.theme.base.client.container.ViewportDefaultAppearance;
 
 /**
- *	NEW IN APPVERSEWEBTHEME: This class does not exist in original Sencha GXT "Blue" theme.
- *	We have added it to overwrite Viewport CSS
- *
+ * NEW IN APPVERSEWEBTHEME: This class does not exist in original Sencha GXT
+ * "Blue" theme. We have added it to overwrite Viewport CSS
+ * 
  */
-public class AppverseWebViewportDefaultAppearance extends ViewportDefaultAppearance {
-	
-  public interface AppverseWebViewportResources extends ViewportResources {
-  @Override
-  @Source({"com/sencha/gxt/theme/base/client/container/Viewport.css", "AppverseWebViewport.css"})
-  public AppverseWebViewportStyle style();
-  }
+public class AppverseWebViewportDefaultAppearance extends
+		ViewportDefaultAppearance {
 
-  public interface AppverseWebViewportStyle extends ViewportStyle {
+	public interface AppverseWebViewportResources extends ViewportResources {
 
-  }
-  
-  public AppverseWebViewportDefaultAppearance() {
-	    super(GWT.<AppverseWebViewportResources>create(AppverseWebViewportResources.class), GWT.<ViewportTemplate>create(ViewportTemplate.class));	   
-  }
+		@Source("background.png")
+		@ImageOptions(repeatStyle=RepeatStyle.Both)
+		public ImageResource background();	  
+
+		@Override
+		@Source({ "com/sencha/gxt/theme/base/client/container/Viewport.css",
+				"AppverseWebViewport.css" })
+		public AppverseWebViewportStyle style();
+	}
+
+	public interface AppverseWebViewportStyle extends ViewportStyle {
+
+	}
+
+	public AppverseWebViewportDefaultAppearance() {
+		super(
+				GWT.<AppverseWebViewportResources> create(AppverseWebViewportResources.class),
+				GWT.<ViewportTemplate> create(ViewportTemplate.class));
+	}
 }
