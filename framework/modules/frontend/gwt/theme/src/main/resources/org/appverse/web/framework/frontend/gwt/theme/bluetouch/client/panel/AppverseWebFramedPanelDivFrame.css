@@ -8,12 +8,13 @@
 @external noheader;
 
 .topLeft,.top,.topRight {
-  height: auto;
+  height: 34px;
 }
 
 .topLeft {
-  border-bottom:1px solid; 
-  border-color: #99BBE8;
+  /*Estilos modificados por Marcos*/
+  border-bottom:none;
+  box-shadow: 0 1px 3x #ccc;
 }
 
 .noheader .topLeft, .noheader .top {
