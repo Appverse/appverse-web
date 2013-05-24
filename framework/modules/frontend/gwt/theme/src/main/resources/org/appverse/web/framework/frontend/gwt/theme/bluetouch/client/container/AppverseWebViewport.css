@@ -21,6 +21,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  * POSSIBILITY OF SUCH DAMAGE.
  */
- .viewport {
-  overflow: hidden;
+ @sprite .viewport {
+ 	overflow: hidden;
+    gwt-image: 'background'; 
 }
