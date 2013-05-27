@@ -22,6 +22,10 @@
   border: none; 
 }
 
+.noheader{
+  border-top: none !important; 
+}
+
 .left {
   background-color: #CDDEF3;
   padding-left: 6px;

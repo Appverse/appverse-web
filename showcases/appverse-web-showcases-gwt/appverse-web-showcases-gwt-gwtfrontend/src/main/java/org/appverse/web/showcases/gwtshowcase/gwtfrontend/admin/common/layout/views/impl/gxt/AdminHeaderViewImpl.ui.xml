@@ -34,7 +34,9 @@
 		}
 		.headerContentPanelBackground {
 			background-image: url('header_background.png');
-			background-repeat: both;
+			background-repeat: no-repeat;
+			background-size:100% auto;
+			height:125px;
 		}		
 	</ui:style>
 

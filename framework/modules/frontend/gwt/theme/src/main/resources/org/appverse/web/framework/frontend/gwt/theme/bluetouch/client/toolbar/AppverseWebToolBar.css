@@ -15,11 +15,12 @@
 
 .x-toolbar-mark {
   border-width: 0 0 1px 0;
-  border-bottom: 1px solid #99b9e9;
+  /*border-bottom: 1px solid #cccccc;*/
 }
 
 @sprite .x-toolbar-mark {
   gwt-image: 'background';
-  background-color: #D0DEF0;
-  height: auto;
+  background-image: none;
+  background-color: #e6e6e6;
+  height: 40px;
 }

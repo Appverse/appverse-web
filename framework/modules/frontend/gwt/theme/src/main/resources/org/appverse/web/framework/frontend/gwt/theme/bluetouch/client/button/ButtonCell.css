@@ -16,8 +16,28 @@
   width: 100%;
 }
 
-.button td {
+.button td, .button td div {
   text-align: center;
+  /*Modificado por Marcos*/
+  background-image:none !important;
+  background: #e6e6e6 !important;
+}
+
+/*Añadido por Marcos*/
+.button td{
+  box-shadow:1px 2px 0 #fff;
+}
+.hasWidth td{
+  box-shadow:1px 2px 0 #999999;
+}
+.button:hover td, .button:hover td div{
+	background: #ffffff !important;	
+}
+.hasWidth:hover td, .hasWidth:hover td div{
+	background: #5d99db !important;	
+}
+.hasWidth td, .hasWidth td div{
+	background: #2e68b1 !important;	
 }
 
 @if !user.agent ie6  {
@@ -45,6 +65,7 @@
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
+  color:#ffffff;
 }
 
 .iconWrap div {
