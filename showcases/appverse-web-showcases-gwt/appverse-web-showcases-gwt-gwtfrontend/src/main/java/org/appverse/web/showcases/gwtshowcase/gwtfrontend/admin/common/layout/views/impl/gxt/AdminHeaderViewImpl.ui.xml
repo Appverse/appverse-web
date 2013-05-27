@@ -32,9 +32,13 @@
 			border-top:solid 1px #efebe8;
 			border-bottom:solid 1px #efebe8;
 		}
+		.headerContentPanelBackground {
+			background-image: url('header_background.png');
+			background-repeat: both;
+		}		
 	</ui:style>
 
-	<gxt:ContentPanel headerVisible="false" width="972" bodyBorder="true" height="160" >
+	<gxt:ContentPanel headerVisible="false" bodyStyleName="{style.headerContentPanelBackground}">
 		<container:HBoxLayoutContainer hBoxLayoutAlign="TOP" enableOverflow="false">
 			<container:child layoutData="{boxLayoutDataMargins0500}">
 				<g:Image resource="{images.logoIcon}" width="160" height="160" />
