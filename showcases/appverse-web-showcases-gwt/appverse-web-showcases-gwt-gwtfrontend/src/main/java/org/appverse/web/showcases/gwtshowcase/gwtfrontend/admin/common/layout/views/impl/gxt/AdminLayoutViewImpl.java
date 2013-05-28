@@ -86,7 +86,7 @@ public class AdminLayoutViewImpl extends
 	@Override
 	public void createView() {
 		initWidget(uiBinder.createAndBindUi(this));
-		flow.setScrollMode(ScrollMode.ALWAYS);
+		flow.setScrollMode(ScrollMode.AUTO);
 		flow.setHeight(Window.getClientHeight() - 40);
 		centerBorderLayout();
 		Window.addResizeHandler(new ResizeHandler() {
