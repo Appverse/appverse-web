@@ -17,6 +17,29 @@
 	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="margins0500">
 		<ui:attributes top="0" right="5" bottom="0" left="5" />
 	</ui:with>
+	
+	
+	
+	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="westMargins">
+		<ui:attributes top="30" right="5" bottom="5" left="5" />
+	</ui:with>
+	
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
+		field="westData">
+		<ui:attributes size="200" margins="{westMargins}" />
+	</ui:with>
+	
+	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="outerMargins">
+		<ui:attributes top="20" right="20" bottom="20" left="20" />
+	</ui:with>
+
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
+		field="centerLayoutData">
+<!-- 		<ui:attributes width="1024" height="-1" margins="{outerMargins}" /> -->
+		<ui:attributes width="1024" height="-1" margins="{outerMargins}" />
+	</ui:with>
 
 	<ui:style>
 		.linkLabel {
@@ -38,25 +61,32 @@
 			background-size:100% auto;
 			height:125px;
 		}		
+		.inner {
+  			height: 200;
+		}		
 	</ui:style>
 
 	<gxt:ContentPanel headerVisible="false" bodyStyleName="{style.headerContentPanelBackground}">
-		<container:HBoxLayoutContainer hBoxLayoutAlign="TOP" enableOverflow="false">
-			<container:child layoutData="{boxLayoutDataMargins0500}">
-				<g:Image resource="{images.logoIcon}" width="160" height="160" />
+		<container:VerticalLayoutContainer ui:field="flow" scrollMode="NONE">		
+			<container:child layoutData="{centerLayoutData}">
+				<container:BorderLayoutContainer borders="false" ui:field="headerBorderContainer" width="1024" height="125">
+					<container:west layoutData="{westData}">		
+						<g:Image resource="{images.logoIcon}"/>
+					</container:west>
+				</container:BorderLayoutContainer>
 			</container:child>
-			<container:child layoutData="{boxLayoutDataMargins0500Flex1}">
-				<g:Label/>
-			</container:child>
-			<container:child layoutData="{boxLayoutDataMargins0500}">
-				<g:Label text="{res.headerHome}" ui:field="homeLink" styleName="{style.linkLabel}" />
-			</container:child>
-			<container:child layoutData="{boxLayoutDataMargins0500}">
-				<g:Label text="|"/>
-			</container:child>
-			<container:child layoutData="{boxLayoutDataMargins0500}">
-				<g:Label text="{res.headerLogout}" ui:field="logoutLink" styleName="{style.linkLabel}" />
-			</container:child>
-		</container:HBoxLayoutContainer>
+<!-- 			<container:child layoutData="{boxLayoutDataMargins0500Flex1}"> -->
+<!-- 				<g:Label/> -->
+<!-- 			</container:child> -->
+<!-- 			<container:child layoutData="{boxLayoutDataMargins0500}"> -->
+<!-- 				<g:Label text="{res.headerHome}" ui:field="homeLink" styleName="{style.linkLabel}" /> -->
+<!-- 			</container:child> -->
+<!-- 			<container:child layoutData="{boxLayoutDataMargins0500}"> -->
+<!-- 				<g:Label text="|"/> -->
+<!-- 			</container:child> -->
+<!-- 			<container:child layoutData="{boxLayoutDataMargins0500}"> -->
+<!-- 				<g:Label text="{res.headerLogout}" ui:field="logoutLink" styleName="{style.linkLabel}" /> -->
+<!-- 			</container:child> -->
+		</container:VerticalLayoutContainer>
 	</gxt:ContentPanel>
 </ui:UiBinder>

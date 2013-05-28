@@ -67,7 +67,6 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
 <!-- <container:FlowLayoutContainer ui:field="flow"> -->
 	<container:VerticalLayoutContainer ui:field="flow">
-<!-- 		<container:child layoutData="{centerLayoutData}"> -->
 		<container:child>
 			<layout:AdminHeaderViewImpl ui:field="adminHeader"/>
 		</container:child>
