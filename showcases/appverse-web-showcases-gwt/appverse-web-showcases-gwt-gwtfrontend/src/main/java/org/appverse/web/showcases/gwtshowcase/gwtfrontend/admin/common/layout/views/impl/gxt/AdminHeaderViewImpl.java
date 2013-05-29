@@ -27,11 +27,14 @@ import org.appverse.web.framework.frontend.gwt.rmvp.ReverseComposite;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.layout.presenters.interfaces.AdminHeaderView;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
 import com.sencha.gxt.core.client.dom.ScrollSupport.ScrollMode;
@@ -49,8 +52,8 @@ public class AdminHeaderViewImpl extends
 	private static AdminHeaderUiBinder uiBinder = GWT
 			.create(AdminHeaderUiBinder.class);
 
-//	@UiField
-//	Label logoutLink, homeLink;
+	@UiField
+	Label logoutLink, homeLink;
 	
 	@UiField
 	VerticalLayoutContainer flow;	
@@ -81,13 +84,13 @@ public class AdminHeaderViewImpl extends
 		});		
 	}
 	
-//	@UiHandler("homeLink")
-//	public void onHomeLinkClick(final ClickEvent event) {
-//		presenter.homeClicked();
-//	}	
-//
-//	@UiHandler("logoutLink")
-//	public void onLogoutLinkClick(final ClickEvent event) {
-//		presenter.logoutClicked();
-//	}
+	@UiHandler("homeLink")
+	public void onHomeLinkClick(final ClickEvent event) {
+		presenter.homeClicked();
+	}	
+
+	@UiHandler("logoutLink")
+	public void onLogoutLinkClick(final ClickEvent event) {
+		presenter.logoutClicked();
+	}
 }
