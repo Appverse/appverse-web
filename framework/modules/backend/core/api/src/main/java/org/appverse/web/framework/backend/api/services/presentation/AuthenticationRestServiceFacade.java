@@ -20,75 +20,35 @@
  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
- */package org.appverse.web.framework.backend.api.model.presentation;
+ */
+package org.appverse.web.framework.backend.api.services.presentation;
 
 import java.util.List;
 
-public class PresentationPaginatedResult<Data extends AbstractPresentationBean>
-		extends AbstractPresentationBean {
+import javax.ws.rs.POST;
 
-	public List<Data> getList() {
-		return list;
-	}
+import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
+import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
+import org.fusesource.restygwt.client.MethodCallback;
+import org.fusesource.restygwt.client.RestService;
 
-	public void setList(List<Data> list) {
-		this.list = list;
-	}
+public interface AuthenticationRestServiceFacade extends RestService {
 
-	private static final long serialVersionUID = -6635834909081873281L;
+//	@POST
+//	public void authenticatePrincipal(String username, List<String> authorities);
 
-	/**
-	 * The remote data.
-	 */
-	private List<Data> list;
-	private int totalLength;
-	private int offset;
+	@POST
+	public void  authenticatePrincipal(UserInfoVO userInfo, MethodCallback<AuthorizationDataVO> callback);
 
-	/**
-	 * Creates an empty paging load result bean.
-	 */
-	public PresentationPaginatedResult() {
+	@POST
+	public void getAuthorities(MethodCallback<List<String>> callback);
 
-	}
+	@POST
+	public void getPrincipal(MethodCallback<String> callback);
 
-	/**
-	 * Creates a new paging list load result.
-	 * 
-	 * @param list
-	 *            the data
-	 * @param totalLength
-	 *            the total length
-	 * @param offset
-	 *            the paging offset
-	 */
-	public PresentationPaginatedResult(List<Data> list, int totalLength,
-			int offset) {
-		this.list = list;
-		this.totalLength = totalLength;
-		this.offset = offset;
-	}
+	@POST
+	public void getXSRFSessionToken(MethodCallback<String> callback);
 
-	public List<Data> getData() {
-		return list;
-	}
-
-	public int getOffset() {
-		return offset;
-	}
-
-	public int getTotalLength() {
-		return totalLength;
-	}
-
-	public void setData(List<Data> list) {
-		this.list = list;
-	}
-
-	public void setOffset(int offset) {
-		this.offset = offset;
-	}
-
-	public void setTotalLength(int totalLength) {
-		this.totalLength = totalLength;
-	}
+	@POST
+	public void isPrincipalAuthenticated(MethodCallback<Boolean> callback);
 }

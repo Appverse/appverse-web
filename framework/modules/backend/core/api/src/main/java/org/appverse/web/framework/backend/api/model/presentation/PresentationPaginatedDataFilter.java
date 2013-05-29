@@ -29,7 +29,7 @@ public class PresentationPaginatedDataFilter extends PresentationDataFilter {
 
 	private int limit;
 
-	private int offSet;
+	private int offset;
 
 	public PresentationPaginatedDataFilter() {
 		super();
@@ -45,14 +45,14 @@ public class PresentationPaginatedDataFilter extends PresentationDataFilter {
 	}
 
 	public int getOffset() {
-		return offSet;
+		return offset;
 	}
 
 	public void setLimit(final int limit) {
 		this.limit = limit;
 	}
 
-	public void setOffset(final int offSet) {
-		this.offSet = offSet;
+	public void setOffset(int offSet) {
+		this.offset = offSet;
 	}
 }

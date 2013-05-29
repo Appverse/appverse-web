@@ -21,28 +21,23 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.injection;
+package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.commands.impl.live;
 
-import org.appverse.web.framework.frontend.gwt.commands.AuthenticationCommand;
-import org.appverse.web.framework.frontend.gwt.commands.impl.live.AuthenticationRpcCommandImpl;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminConstants;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminImages;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminMessages;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.UserRpcCommand;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.impl.live.UserRpcCommandImpl;
+import org.appverse.web.framework.frontend.gwt.commands.AbstractRpcCommand;
+import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminEventBus;
+import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.commands.InitializerRpcCommand;
 
-import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.inject.Singleton;
+import com.mvp4g.client.annotation.EventHandler;
 
-public class AdminGinModule extends AbstractGinModule {
+@EventHandler
+public class InitializerRpcCommandImpl extends
+		AbstractRpcCommand<AdminEventBus> implements InitializerRpcCommand {
+	
 
 	@Override
-	protected void configure() {
-		bind(AdminConstants.class).in(Singleton.class);
-		bind(AdminMessages.class).in(Singleton.class);
-		bind(AdminImages.class).in(Singleton.class);
-		bind(AuthenticationCommand.class).to(
-				AuthenticationRpcCommandImpl.class);
-		bind(UserRpcCommand.class).to(UserRpcCommandImpl.class);
-	}
+	public void onStart() {
+		// Put here all required initialization
+		eventBus.init();
+		checkInitPlaceEvent();		
+	}	
 }

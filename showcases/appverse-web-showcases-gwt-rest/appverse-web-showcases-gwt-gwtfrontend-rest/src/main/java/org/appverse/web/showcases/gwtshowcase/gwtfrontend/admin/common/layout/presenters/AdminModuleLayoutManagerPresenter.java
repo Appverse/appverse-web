@@ -21,28 +21,16 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.injection;
+package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.layout.presenters;
 
-import org.appverse.web.framework.frontend.gwt.commands.AuthenticationCommand;
-import org.appverse.web.framework.frontend.gwt.commands.impl.live.AuthenticationRpcCommandImpl;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminConstants;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminImages;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminMessages;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.UserRpcCommand;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.impl.live.UserRpcCommandImpl;
+import org.appverse.web.framework.frontend.gwt.presenters.LayoutManagerPresenter;
+import org.appverse.web.framework.frontend.gwt.views.impl.gxt.LayoutManagerViewGxtImpl;
+import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminEventBus;
 
-import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.inject.Singleton;
+import com.mvp4g.client.annotation.Presenter;
 
-public class AdminGinModule extends AbstractGinModule {
+@Presenter(view = LayoutManagerViewGxtImpl.class)
+public class AdminModuleLayoutManagerPresenter extends
+		LayoutManagerPresenter<AdminEventBus> {
 
-	@Override
-	protected void configure() {
-		bind(AdminConstants.class).in(Singleton.class);
-		bind(AdminMessages.class).in(Singleton.class);
-		bind(AdminImages.class).in(Singleton.class);
-		bind(AuthenticationCommand.class).to(
-				AuthenticationRpcCommandImpl.class);
-		bind(UserRpcCommand.class).to(UserRpcCommandImpl.class);
-	}
 }

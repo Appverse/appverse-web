@@ -21,28 +21,34 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.injection;
+package org.appverse.web.framework.frontend.gwt.commands;
 
-import org.appverse.web.framework.frontend.gwt.commands.AuthenticationCommand;
+import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
+import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 import org.appverse.web.framework.frontend.gwt.commands.impl.live.AuthenticationRpcCommandImpl;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminConstants;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminImages;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminMessages;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.UserRpcCommand;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.impl.live.UserRpcCommandImpl;
+import org.appverse.web.framework.frontend.gwt.common.FrameworkEventBus;
 
-import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.inject.Singleton;
+import com.google.inject.ImplementedBy;
 
-public class AdminGinModule extends AbstractGinModule {
+/**
+ * Defines the Authentication interface used from AuthenticationHandler.
+ * Default implementation (annotated with @ImplementedBy) is an RPC implementation.
+ * Other implementations, such as REST over http/s can be configured in the Gin module of the application.
+ * @author RRBL
+ *
+ */
+@ImplementedBy(AuthenticationRpcCommandImpl.class)
+public interface AuthenticationCommand {
 
-	@Override
-	protected void configure() {
-		bind(AdminConstants.class).in(Singleton.class);
-		bind(AdminMessages.class).in(Singleton.class);
-		bind(AdminImages.class).in(Singleton.class);
-		bind(AuthenticationCommand.class).to(
-				AuthenticationRpcCommandImpl.class);
-		bind(UserRpcCommand.class).to(UserRpcCommandImpl.class);
-	}
+	void onAuthenticate();
+
+	void onAuthenticatePrincipal(UserInfoVO userInfo,
+			AppverseCallback<AuthorizationDataVO> callback);
+
+	void onGetXSRFSessionToken();
+
+	void onIsPrincipalAuthenticated(AppverseCallback<Boolean> callback);
+	
+	void setAppEventBus(FrameworkEventBus eventBus);
 }

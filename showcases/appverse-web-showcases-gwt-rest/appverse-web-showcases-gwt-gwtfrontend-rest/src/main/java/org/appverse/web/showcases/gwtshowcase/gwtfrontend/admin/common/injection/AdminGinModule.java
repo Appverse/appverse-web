@@ -24,7 +24,7 @@
 package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.injection;
 
 import org.appverse.web.framework.frontend.gwt.commands.AuthenticationCommand;
-import org.appverse.web.framework.frontend.gwt.commands.impl.live.AuthenticationCommandRestImpl;
+import org.appverse.web.framework.frontend.gwt.commands.impl.live.AuthenticationRestCommandImpl;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminConstants;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminImages;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminMessages;
@@ -42,7 +42,7 @@ public class AdminGinModule extends AbstractGinModule {
 		bind(AdminMessages.class).in(Singleton.class);
 		bind(AdminImages.class).in(Singleton.class);
 		bind(AuthenticationCommand.class).to(
-				AuthenticationCommandRestImpl.class);
+				AuthenticationRestCommandImpl.class);
 //		bind(AuthenticationCommand.class).to(
 //		AuthenticationCommandRpcImpl.class);
 		bind(UserRestRpcCommand.class).to(UserRestRpcCommandImpl.class);

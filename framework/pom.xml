@@ -185,6 +185,9 @@
 		<spring.security.version>3.1.3.RELEASE</spring.security.version>
 		<slf4j.version>1.5.11</slf4j.version>
 		<gwt.version>2.5.0</gwt.version>
+		<restygwt.version>1.3</restygwt.version>
+		<jsr311.version>1.1.1</jsr311.version>
+		<jersey.version>1.17</jersey.version>
 	</properties>
 
 	<modules>
@@ -630,7 +633,61 @@
 				<version>2.6</version>
 			</dependency>
 			<!-- END OF APACHE COMMONS MANAGED DEPENDENCIES -->
-
+			<!--  JSR311 DEPENDENCIES -->
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>jsr311-api</artifactId>
+				<version>${jsr311.version}</version>
+			</dependency>
+			<!--  END JSR311 DEPENDENCIES -->
+			<!-- JERSEY DEPENDENCIES -->
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-server</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-grizzly2</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+					<!-- Jersey + Spring -->
+			<dependency>
+				<groupId>com.sun.jersey.contribs</groupId>
+				<artifactId>jersey-spring</artifactId>
+				<version>${jersey.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-core</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-web</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-beans</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-context</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			
+			<!-- END JERSEY DEPENDENCIES -->
+			<!-- RESTY DEPENDENCIES -->
+			<dependency>
+				<groupId>org.fusesource.restygwt</groupId>
+				<artifactId>restygwt</artifactId>
+				<version>${restygwt.version}</version>
+			</dependency>
+			<!-- END OF RESTY DEPENDENCIES -->
 			<!-- LOGGING MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>org.slf4j</groupId>

@@ -21,28 +21,20 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.injection;
+package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.layout.presenters.interfaces;
 
-import org.appverse.web.framework.frontend.gwt.commands.AuthenticationCommand;
-import org.appverse.web.framework.frontend.gwt.commands.impl.live.AuthenticationRpcCommandImpl;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminConstants;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminImages;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminMessages;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.UserRpcCommand;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.impl.live.UserRpcCommandImpl;
+import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Widget;
+import com.mvp4g.client.view.LazyView;
+import com.mvp4g.client.view.ReverseViewInterface;
 
-import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.inject.Singleton;
+public interface AdminLayoutView extends
+		ReverseViewInterface<AdminLayoutView.IAdminLayoutPresenter>, IsWidget,
+		LazyView {
 
-public class AdminGinModule extends AbstractGinModule {
-
-	@Override
-	protected void configure() {
-		bind(AdminConstants.class).in(Singleton.class);
-		bind(AdminMessages.class).in(Singleton.class);
-		bind(AdminImages.class).in(Singleton.class);
-		bind(AuthenticationCommand.class).to(
-				AuthenticationRpcCommandImpl.class);
-		bind(UserRpcCommand.class).to(UserRpcCommandImpl.class);
+	interface IAdminLayoutPresenter {
+		public void onAdminLayoutChangeBody(Widget bodyWidget);
 	}
+
+	public void setBodyWidget(Widget w);
 }

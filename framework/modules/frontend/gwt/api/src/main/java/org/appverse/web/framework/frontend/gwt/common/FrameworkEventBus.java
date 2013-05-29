@@ -24,9 +24,10 @@
 package org.appverse.web.framework.frontend.gwt.common;
 
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
-import org.appverse.web.framework.frontend.gwt.commands.impl.live.AuthenticationRpcCommandImpl;
+import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
+import org.appverse.web.framework.frontend.gwt.commands.impl.live.AuthenticationHandlerImpl;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.mvp4g.client.annotation.Event;
 import com.mvp4g.client.annotation.Start;
 import com.mvp4g.client.event.EventBusWithLookup;
@@ -34,18 +35,18 @@ import com.mvp4g.client.event.EventBusWithLookup;
 public interface FrameworkEventBus extends EventBusWithLookup {
 
 	@Start
-	@Event(handlers = { AuthenticationRpcCommandImpl.class })
+	@Event(handlers = { AuthenticationHandlerImpl.class })
 	void authenticate();
 
-	@Event(handlers = { AuthenticationRpcCommandImpl.class })
-	void authenticatePrincipal(String username, String password,
-			AsyncCallback<AuthorizationDataVO> callback);
+	@Event(handlers = { AuthenticationHandlerImpl.class })
+	void authenticatePrincipal(UserInfoVO userInfo,
+			AppverseCallback<AuthorizationDataVO> callback);
 
-	@Event(handlers = { AuthenticationRpcCommandImpl.class })
+	@Event(handlers = { AuthenticationHandlerImpl.class })
 	void getXSRFSessionToken();
 
-	@Event(handlers = { AuthenticationRpcCommandImpl.class })
-	void isPrincipalAuthenticated(AsyncCallback<Boolean> callback);
+	@Event(handlers = { AuthenticationHandlerImpl.class })
+	void isPrincipalAuthenticated(AppverseCallback<Boolean> callback);
 
 	void start();
 

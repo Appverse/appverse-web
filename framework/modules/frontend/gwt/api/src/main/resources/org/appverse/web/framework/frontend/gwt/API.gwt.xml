@@ -41,7 +41,11 @@
 
 	<!-- RIAFramework Backend Shared Classes -->
 	<inherits name="org.appverse.web.framework.backend.frontfacade.gxt.API"/>
+	<inherits name="org.appverse.web.framework.backend.frontfacade.json.API"/>
 
+	<inherits name="org.fusesource.restygwt.RestyGWT"/>
+
+    <source path="callback" />
     <source path="commands" />
     <source path="common"/>
     <source path="helpers"/>   
