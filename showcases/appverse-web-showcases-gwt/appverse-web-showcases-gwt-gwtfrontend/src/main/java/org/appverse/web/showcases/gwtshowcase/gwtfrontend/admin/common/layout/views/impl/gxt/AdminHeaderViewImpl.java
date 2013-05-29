@@ -53,7 +53,8 @@ public class AdminHeaderViewImpl extends
 			.create(AdminHeaderUiBinder.class);
 
 	@UiField
-	Label logoutLink, homeLink;
+	Label homeLink;
+//	Label logoutLink, homeLink;
 	
 	@UiField
 	VerticalLayoutContainer flow;	
@@ -89,8 +90,8 @@ public class AdminHeaderViewImpl extends
 		presenter.homeClicked();
 	}	
 
-	@UiHandler("logoutLink")
-	public void onLogoutLinkClick(final ClickEvent event) {
-		presenter.logoutClicked();
-	}
+//	@UiHandler("logoutLink")
+//	public void onLogoutLinkClick(final ClickEvent event) {
+//		presenter.logoutClicked();
+//	}
 }

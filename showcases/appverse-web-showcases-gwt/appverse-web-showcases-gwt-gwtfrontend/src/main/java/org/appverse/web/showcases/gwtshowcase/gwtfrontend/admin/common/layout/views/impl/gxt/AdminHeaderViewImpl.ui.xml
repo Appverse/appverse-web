@@ -17,6 +17,12 @@
 		<ui:attributes size="200" margins="{margins5555}" />
 	</ui:with>
 	
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.BoxLayoutContainer.BoxLayoutData"
+		field="hboxData">
+		<ui:attributes margins="{margins5555}" />
+	</ui:with>	
+	
 	<ui:style>
 		.linkLabel {
 			cursor: pointer;
@@ -51,26 +57,22 @@
 							<g:Image resource="{images.logoIcon}"/>
 						</container:CenterLayoutContainer>
 					</container:west>
-					<container:east>
+					<container:east layoutData="{westData}">
 						<container:CenterLayoutContainer>
-								<g:Label text="{res.headerHome}" ui:field="homeLink" styleName="{style.linkLabel}" />
-								<g:Label text="{res.headerLogout}" ui:field="logoutLink" styleName="{style.linkLabel}" />
+							<container:HorizontalLayoutContainer>
+<!-- 	<container:HBoxLayoutContainer hBoxLayoutAlign="MIDDLE" layoutData="{hboxData}"> -->
+										<container:child>
+											<g:Label text="{res.headerHome}" ui:field="homeLink" styleName="{style.linkLabel}" />
+										</container:child>
+										<container:child>
+											<g:Label text="{res.headerLogout}" ui:field="logoutLink" styleName="{style.linkLabel}" />
+										</container:child>										
+<!-- 									</container:HBoxLayoutContainer> -->
+							</container:HorizontalLayoutContainer>
 						</container:CenterLayoutContainer>
 					</container:east>					
 				</container:BorderLayoutContainer>
 			</container:child>
-<!-- 			<container:child layoutData="{boxLayoutDataMargins0500Flex1}"> -->
-<!-- 				<g:Label/> -->
-<!-- 			</container:child> -->
-<!-- 			<container:child layoutData="{boxLayoutDataMargins0500}"> -->
-<!-- 				<g:Label text="{res.headerHome}" ui:field="homeLink" styleName="{style.linkLabel}" /> -->
-<!-- 			</container:child> -->
-<!-- 			<container:child layoutData="{boxLayoutDataMargins0500}"> -->
-<!-- 				<g:Label text="|"/> -->
-<!-- 			</container:child> -->
-<!-- 			<container:child layoutData="{boxLayoutDataMargins0500}"> -->
-<!-- 				<g:Label text="{res.headerLogout}" ui:field="logoutLink" styleName="{style.linkLabel}" /> -->
-<!-- 			</container:child> -->
 		</container:VerticalLayoutContainer>
 	</gxt:ContentPanel>
 </ui:UiBinder>
