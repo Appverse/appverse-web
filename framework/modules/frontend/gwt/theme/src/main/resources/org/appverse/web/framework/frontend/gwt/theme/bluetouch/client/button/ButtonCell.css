@@ -20,15 +20,18 @@
   text-align: center;
   /*Modificado por Marcos*/
   background-image:none !important;
-  background: #e6e6e6 !important;
+  background: #f6f6f6 !important;
 }
 
 /*Añadido por Marcos*/
-.button td{
-  box-shadow:1px 2px 0 #fff;
+.button{
+	border:1px solid #ccc;
+	box-sizing:border-box;
+  	-moz-box-sizing: border-box;
 }
-.hasWidth td{
+.hasWidth{
   box-shadow:1px 2px 0 #999999;
+  border:none;
 }
 .button:hover td, .button:hover td div{
 	background: #ffffff !important;	

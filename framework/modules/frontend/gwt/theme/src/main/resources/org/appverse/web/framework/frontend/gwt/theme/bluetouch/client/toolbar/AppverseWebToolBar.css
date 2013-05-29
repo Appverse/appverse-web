@@ -15,7 +15,15 @@
 
 .x-toolbar-mark {
   border-width: 0 0 1px 0;
-  /*border-bottom: 1px solid #cccccc;*/
+  border: 1px solid #cccccc;
+  height: auto !important;
+  box-sizing:border-box;
+  -moz-box-sizing: border-box;
+}
+.x-toolbar-mark input{
+	color: #666666;
+	padding-left: 4px;
+	box-sizing: border-box;
 }
 
 @sprite .x-toolbar-mark {
