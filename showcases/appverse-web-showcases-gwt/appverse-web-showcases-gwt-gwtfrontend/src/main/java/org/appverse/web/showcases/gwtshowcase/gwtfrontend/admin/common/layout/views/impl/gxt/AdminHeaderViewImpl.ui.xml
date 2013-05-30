@@ -10,14 +10,10 @@
 	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="margins5555">
 		<ui:attributes top="5" right="5" bottom="5" left="5" />
 	</ui:with>
-
-	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="margins0505">
-		<ui:attributes top="0" right="5" bottom="0" left="5" />
+	
+	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="margins0500">
+		<ui:attributes top="0" right="5" bottom="0" left="0" />
 	</ui:with>
-		
- 	<ui:with type="com.sencha.gxt.core.client.util.Padding" field="padding5">
-    	<ui:attributes top="5" right="5" bottom="5" left="5" />
-  	</ui:with>	
 	
 	<ui:with
 		type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
@@ -30,12 +26,10 @@
 		field="eastData">
 		<ui:attributes size="200" margins="{margins5555}" />
 	</ui:with>
-
-	<ui:with
-		type="com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer.HorizontalLayoutData"
-		field="horizontalLayoutChildData">
-		<ui:attributes margins="{margins0505}" />
-	</ui:with>	
+	
+  	<ui:with type="com.sencha.gxt.widget.core.client.container.BoxLayoutContainer.BoxLayoutData" field="boxLayoutDataMargins0500">
+    	<ui:attributes margins="{margins0500}" />
+  	</ui:with>	
 	
 	<ui:style>
 		.linkLabel {
@@ -62,35 +56,35 @@
 		}		
 	</ui:style>
 
-	<gxt:ContentPanel headerVisible="false" bodyStyleName="{style.headerContentPanelBackground}">
-		<container:VerticalLayoutContainer ui:field="flow" scrollMode="NONE">		
+	<gxt:ContentPanel headerVisible="false"
+		bodyStyleName="{style.headerContentPanelBackground}">
+		<container:VerticalLayoutContainer
+			ui:field="flow" scrollMode="NONE">
 			<container:child>
-				<container:BorderLayoutContainer borders="false" ui:field="headerBorderContainer" width="1024" height="125">
-					<container:west layoutData="{westData}">		
-						<container:CenterLayoutContainer>						
-							<g:Image resource="{images.logoIcon}"/>
+				<container:BorderLayoutContainer
+					borders="false" ui:field="headerBorderContainer" width="1024"
+					height="125">
+					<container:west layoutData="{westData}">
+						<container:CenterLayoutContainer>
+							<g:Image resource="{images.logoIcon}" />
 						</container:CenterLayoutContainer>
 					</container:west>
 					<container:east layoutData="{eastData}">
-						<container:CenterLayoutContainer>
-							<container:HorizontalLayoutContainer>
-<!-- Why is this not working with HBoxLayoutContainer	<container:HBoxLayoutContainer hBoxLayoutAlign="MIDDLE" layoutData="{hboxData}"> -->
-										<container:child layoutData="{horizontalLayoutChildData}">
-											<g:Image resource="{images.iconHome}"/>
-										</container:child>
-										<container:child>
-											<g:Label text="{res.headerHome}" ui:field="homeLink" styleName="{style.linkLabel}" />
-										</container:child>
-										<container:child layoutData="{horizontalLayoutChildData}">
-											<g:Image resource="{images.iconLogout}"/>
-										</container:child>										
-										<container:child>
-											<g:Label text="{res.headerLogout}" ui:field="logoutLink" styleName="{style.linkLabel}" />
-										</container:child>										
-<!-- 									</container:HBoxLayoutContainer> -->
-							</container:HorizontalLayoutContainer>
-						</container:CenterLayoutContainer>
-					</container:east>					
+						<container:HBoxLayoutContainer hBoxLayoutAlign="MIDDLE">
+							<container:child layoutData="{boxLayoutDataMargins0500}">
+								<g:Image resource="{images.iconHome}" />
+							</container:child>
+							<container:child layoutData="{boxLayoutDataMargins0500}">
+								<g:Label text="{res.headerHome}" ui:field="homeLink" styleName="{style.linkLabel}" />
+							</container:child>
+							<container:child layoutData="{boxLayoutDataMargins0500}">
+								<g:Image resource="{images.iconLogout}" />
+							</container:child>
+							<container:child>
+								<g:Label text="{res.headerLogout}" ui:field="logoutLink" styleName="{style.linkLabel}" />
+							</container:child>
+						</container:HBoxLayoutContainer>
+					</container:east>
 				</container:BorderLayoutContainer>
 			</container:child>
 		</container:VerticalLayoutContainer>
