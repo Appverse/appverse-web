@@ -42,6 +42,11 @@ public interface ApplicationImages extends FrameworkImages {
 	ImageResource logoIcon();
 
 	@Source("images/search.png")
-	ImageResource searchIcon();	
+	ImageResource searchIcon();
 	
+	@Source("images/iconHome.png")
+	ImageResource iconHome();	
+	
+	@Source("images/iconLogout.png")
+	ImageResource iconLogout();		
 }
