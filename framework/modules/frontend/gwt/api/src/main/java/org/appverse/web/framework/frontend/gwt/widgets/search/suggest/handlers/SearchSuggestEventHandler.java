@@ -1,5 +1,4 @@
-<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<!-- 
+/*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source Code Form is subject to the terms of the Appverse Public License 
@@ -21,19 +20,12 @@
  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
- --> 
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:form="urn:import:com.sencha.gxt.widget.core.client.form"
-	xmlns:button="urn:import:com.sencha.gxt.widget.core.client.button"
-	xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+ */
+package org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers;
 
-	<ui:with type="com.sencha.gxt.data.shared.ListStore" field="listStoreSuggest"></ui:with>
-	<ui:with type="com.sencha.gxt.widget.core.client.ListView" field="listViewSuggest"></ui:with>
-	
-	<container:HorizontalLayoutContainer ui:field="horizontalLayoutContainer">
-		<container:child>
-			<!-- TODO: See how to remove fixed width so that the field is taking the spare room in the container -->
-			<form:ComboBox ui:field="searchText" width="300"/>
-		</container:child>
-	</container:HorizontalLayoutContainer>
-	
-</ui:UiBinder>
+import com.google.gwt.event.shared.EventHandler;
+
+public interface SearchSuggestEventHandler extends EventHandler {
+
+	public void onSearch();
+}

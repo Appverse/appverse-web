@@ -70,7 +70,7 @@
 						</container:CenterLayoutContainer>
 					</container:west>
 					<container:east layoutData="{eastData}">
-						<container:HBoxLayoutContainer hBoxLayoutAlign="MIDDLE">
+						<container:HBoxLayoutContainer hBoxLayoutAlign="MIDDLE" pack="CENTER">
 							<container:child layoutData="{boxLayoutDataMargins0500}">
 								<g:Image resource="{images.iconHome}" />
 							</container:child>
