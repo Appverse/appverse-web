@@ -23,11 +23,10 @@
   overflow: auto;
   zoom: 1;
   position: relative;
-  background-color: white;
+  background-color: #fafafa;
 }
 
 .body {
-  
 }
 
 TH {
@@ -46,6 +45,7 @@ TH {
   cursor: default;
   padding: 0 1px;
   vertical-align: top; 
+  
 }
 
 .rowHighlight {
