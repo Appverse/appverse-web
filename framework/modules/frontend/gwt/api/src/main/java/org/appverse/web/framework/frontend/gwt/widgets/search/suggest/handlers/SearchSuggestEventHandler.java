@@ -1,8 +1,8 @@
-/**
+/*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source Code Form is subject to the terms of the Appverse Public License 
- Version 2.0 (ìAPL v2.0î). If a copy of the APL was not distributed with this 
+ Version 2.0 (‚ÄúAPL v2.0‚Äù). If a copy of the APL was not distributed with this 
  file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
 
  Redistribution and use in source and binary forms, with or without modification, 
@@ -21,25 +21,11 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
  */
-.searchItem {
-  font: normal 11px tahoma, arial, helvetica, sans-serif;
-  padding: 3px 10px 3px 10px;
-  white-space: normal;
-  color: #555;
-}
+package org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers;
 
-.searchItem h3 {
-  display: block;
-  font: inherit;
-  font-weight: bold;
-  color: #222;
-}
+import com.google.gwt.event.shared.EventHandler;
 
-.searchItem h3 span {
-  float: right;
-  font-weight: normal;
-  margin: 0 0 5px 5px;
-  width: 100px;
-  display: block;
-  clear: none;
-}}
+public interface SearchSuggestEventHandler extends EventHandler {
+
+	public void onSearch();
+}

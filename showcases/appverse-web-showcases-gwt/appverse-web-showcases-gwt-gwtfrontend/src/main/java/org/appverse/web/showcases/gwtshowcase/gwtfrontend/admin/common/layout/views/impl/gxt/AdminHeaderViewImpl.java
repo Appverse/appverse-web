@@ -28,12 +28,18 @@ import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.layout.pr
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
+import com.sencha.gxt.core.client.dom.ScrollSupport.ScrollMode;
+import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 
 @Singleton
 public class AdminHeaderViewImpl extends
@@ -48,10 +54,34 @@ public class AdminHeaderViewImpl extends
 
 	@UiField
 	Label logoutLink, homeLink;
+	
+	@UiField
+	VerticalLayoutContainer flow;	
+	
+	@UiField
+	BorderLayoutContainer headerBorderContainer;
+
+	private void centerBorderLayout() {
+		int width = Window.getClientWidth();
+		int desiredWidth = 1024;
+		int leftMargin = (width - desiredWidth) / 2;
+		if (leftMargin < 0)
+			leftMargin = 0;
+		headerBorderContainer.setPosition(leftMargin, 0);
+	}	
 
 	@Override
 	public void createView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		flow.setScrollMode(ScrollMode.NONE);
+		flow.setHeight(Window.getClientHeight() - 40);		
+		centerBorderLayout();
+		Window.addResizeHandler(new ResizeHandler() {
+			@Override
+			public void onResize(final ResizeEvent event) {
+				centerBorderLayout();
+			}
+		});		
 	}
 	
 	@UiHandler("homeLink")

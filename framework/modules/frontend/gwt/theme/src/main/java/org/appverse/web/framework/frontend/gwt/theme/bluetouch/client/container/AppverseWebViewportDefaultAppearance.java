@@ -1,4 +1,4 @@
- /*
+/*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source Code Form is subject to the terms of the Appverse Public License 
@@ -21,53 +21,41 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.frontend.gwt.theme.client.search;
-
-import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.impl.gxt.SuggestWidgetImpl.SuggestAppearance;
+package org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.container;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.sencha.gxt.core.client.resources.StyleInjectorHelper;
+import com.google.gwt.resources.client.ImageResource.ImageOptions;
+import com.google.gwt.resources.client.ImageResource.RepeatStyle;
+import com.sencha.gxt.theme.base.client.container.ViewportDefaultAppearance;
 
-public class AppverseSuggestAppearance<M> implements SuggestAppearance<M> {
+/**
+ * NEW IN APPVERSEWEBTHEME: This class does not exist in original Sencha GXT
+ * "Blue" theme. We have added it to overwrite Viewport CSS
+ * 
+ */
+public class AppverseWebViewportDefaultAppearance extends
+		ViewportDefaultAppearance {
 
-	public interface RiaSuggestResources extends ClientBundle {
-		@Source({ "Suggest.css" })
-		RiaSuggestStyle css();
-		
-	    ImageResource iconSearch();
+	public interface AppverseWebViewportResources extends ViewportResources {
+
+		@Source("background.png")
+		@ImageOptions(repeatStyle=RepeatStyle.Both)
+		public ImageResource background();	  
+
+		@Override
+		@Source({ "com/sencha/gxt/theme/base/client/container/Viewport.css",
+				"AppverseWebViewport.css" })
+		public AppverseWebViewportStyle style();
 	}
 
-	public interface RiaSuggestStyle extends CssResource {
-		String searchItem();
-	}
-
-	protected final RiaSuggestResources resources;
-
-	protected final RiaSuggestStyle style;
-
-	public AppverseSuggestAppearance() {
-		this(GWT.<RiaSuggestResources> create(RiaSuggestResources.class));
-	}
-
-	public AppverseSuggestAppearance(RiaSuggestResources resources) {
-		this.resources = resources;
-		style = resources.css();
-		StyleInjectorHelper.ensureInjected(style, true);
-	}
-
-	@Override
-	public void render(SafeHtmlBuilder sb, M model, SuggestTemplate<M> template) {
-		sb.append(template.render(model, style));
+	public interface AppverseWebViewportStyle extends ViewportStyle {
 
 	}
 
-	@Override
-	public ImageResource iconSearch() {
-		return resources.iconSearch();
+	public AppverseWebViewportDefaultAppearance() {
+		super(
+				GWT.<AppverseWebViewportResources> create(AppverseWebViewportResources.class),
+				GWT.<ViewportTemplate> create(ViewportTemplate.class));
 	}
-
 }

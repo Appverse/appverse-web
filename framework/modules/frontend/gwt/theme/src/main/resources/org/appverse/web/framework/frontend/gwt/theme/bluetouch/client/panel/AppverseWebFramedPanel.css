@@ -8,4 +8,8 @@
 .body {
   background-color: none !important; 
   border: none;
+  height: 100% !important;
+}
+.body >div:first-child {
+	height: 100% !important;
 }

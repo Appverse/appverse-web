@@ -67,14 +67,12 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
 <!-- <container:FlowLayoutContainer ui:field="flow"> -->
 	<container:VerticalLayoutContainer ui:field="flow">
-<!-- 		<container:child layoutData="{centerLayoutData}"> -->
+		<container:child>
+			<layout:AdminHeaderViewImpl ui:field="adminHeader"/>
+		</container:child>
 		<container:child layoutData="{centerLayoutData}">
 			<container:BorderLayoutContainer
 				borders="true" ui:field="borderCon">
-				<container:north layoutData="{northData}">
-					<layout:AdminHeaderViewImpl ui:field="adminHeader"/>
-<!-- 					<gxt:ContentPanel headerVisible="false"/> -->
-				</container:north>
 				<container:west layoutData="{westData}">
 					<layout:AdminMenuViewImpl ui:field="adminMenu"></layout:AdminMenuViewImpl>
 				</container:west>

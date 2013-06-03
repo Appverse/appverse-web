@@ -52,9 +52,11 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 	<!-- * safari: Safari & Chrome (WebKit based navigators) -->
 	<!-- * opera: Opera -->
 	<!-- <set-property name="user.agent" value="ie6,safari" /> -->
+	<set-property name="user.agent" value="safari" />
 
 	<!-- <set-property name="gxt.user.agent" value="gecko1_9,ie6" /> -->
 	<!-- <set-property name="gxt.user.agent" value="ie6,safari5,gecko1_9"/> -->
+	<set-property name="gxt.user.agent" value="safari5"/>
 
 	<!-- 	<set-property name="gxt.user.agent" value="chrome" /> -->
 	<set-configuration-property name="CssResource.style" value="pretty" />
