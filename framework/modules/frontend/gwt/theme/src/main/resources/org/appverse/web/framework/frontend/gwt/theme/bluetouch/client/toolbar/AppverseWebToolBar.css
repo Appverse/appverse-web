@@ -8,14 +8,16 @@
 @external x-toolbar-mark ;
 
 .toolBar { 
-  width: auto;
+  width: auto !important;
   height: auto;
   border: none;
 }
 
 .x-toolbar-mark {
+  background-image: none !important;
+  background-color: #e6e6e6 !important;
   border-width: 0 0 1px 0;
-  border: 1px solid #cccccc;
+  border: 1px solid #cccccc !important;
   height: auto !important;
   box-sizing:border-box;
   -moz-box-sizing: border-box;
@@ -28,7 +30,4 @@
 
 @sprite .x-toolbar-mark {
   gwt-image: 'background';
-  background-image: none;
-  background-color: #e6e6e6;
-  height: 40px;
 }

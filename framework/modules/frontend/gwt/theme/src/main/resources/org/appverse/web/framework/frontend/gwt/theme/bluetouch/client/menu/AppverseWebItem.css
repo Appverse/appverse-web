@@ -9,13 +9,18 @@
   gwt-image: "itemOver";
   width: auto; /* override gwt-image behavior */
   height: auto; /* override gwt-image behavior */
-  background-color: #ebf3fd;
+  
+  background-image: none !important;
+  background-color: #2e68b1 !important;
+  border: none;
+  /*background-color: #ebf3fd;
   background-repeat: repeat-x;
   background-position: left bottom;
   border: 1px solid #aaccf6;
-  padding: 0;
+  padding: 0;*/
+  padding: 1px !important;
 }
 
 .active a {
-  color: #233d6d;
+  color: #fff !important;
 }
