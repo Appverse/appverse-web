@@ -8,7 +8,7 @@
 @sprite .menu {
   gwt-image: "menu";
   width: auto; /* override gwt-image behavior */
-  border-color: #718bb7;
+  border-color: #cccccc;
   background-color: #f0f0f0;
 }
 

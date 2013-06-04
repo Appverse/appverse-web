@@ -2,7 +2,7 @@
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source Code Form is subject to the terms of the Appverse Public License 
- Version 2.0 (‚ÄúAPL v2.0‚Äù). If a copy of the APL was not distributed with this 
+ Version 2.0 (ìAPL v2.0î). If a copy of the APL was not distributed with this 
  file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
 
  Redistribution and use in source and binary forms, with or without modification, 
@@ -35,8 +35,10 @@ import org.appverse.web.framework.frontend.gwt.rpc.ApplicationAsyncCallback;
 import org.appverse.web.framework.frontend.gwt.theme.client.search.AppverseSuggestAppearance.RiaSuggestStyle;
 import org.appverse.web.framework.frontend.gwt.theme.client.search.SuggestTemplate;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events.LoadSuggestEvent;
+import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events.SearchSuggestEvent;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events.SelectSuggestEvent;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.LoadSuggestEventHandler;
+import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.SearchSuggestEventHandler;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.SelectSuggestEventHandler;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.impl.gxt.SuggestWidgetImpl;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.model.SuggestModel;
@@ -146,7 +148,7 @@ public class UserSearchViewImpl extends
 	PagingToolBar toolBar;
 
 	@UiField
-	TextButton addUserButton, searchUsersButton;
+	TextButton addUserButton;
 
 	@UiField
 	SuggestWidgetImpl<UserVO> suggestSearch;
@@ -192,6 +194,12 @@ public class UserSearchViewImpl extends
 								event.getCallback());
 					}
 				});
+		suggestSearch.addSuggestEventHandler(new SearchSuggestEventHandler() {
+			@Override
+			public void onSearch() {
+				presenter.searchUsers();
+			}
+		});
 	}
 
 	@Override
@@ -321,11 +329,6 @@ public class UserSearchViewImpl extends
 			final UserVO user = store.get(row);
 			presenter.editUser(user);
 		}
-	}
-
-	@UiHandler("searchUsersButton")
-	public void onSearchUsersButtonClick(final SelectEvent event) {
-		presenter.searchUsers();
 	}
 
 	public void setDataFilter(

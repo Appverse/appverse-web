@@ -8,18 +8,26 @@
 @external x-toolbar-mark ;
 
 .toolBar { 
-  width: auto;
+  width: auto !important;
   height: auto;
   border: none;
 }
 
 .x-toolbar-mark {
+  background-image: none !important;
+  background-color: #e6e6e6 !important;
   border-width: 0 0 1px 0;
-  border-bottom: 1px solid #99b9e9;
+  border: 1px solid #cccccc !important;
+  height: auto !important;
+  box-sizing:border-box;
+  -moz-box-sizing: border-box;
+}
+.x-toolbar-mark input{
+	color: #666666;
+	padding-left: 4px;
+	box-sizing: border-box;
 }
 
 @sprite .x-toolbar-mark {
   gwt-image: 'background';
-  background-color: #D0DEF0;
-  height: auto;
 }

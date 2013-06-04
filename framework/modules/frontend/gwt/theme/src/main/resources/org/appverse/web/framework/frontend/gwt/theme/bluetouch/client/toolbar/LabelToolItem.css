@@ -11,4 +11,6 @@
   padding: 2px 2px 0 2px;
   font: 11px 'PT Sans', sans-serif;
   white-space: nowrap;
+  color: #999999;
+  text-shadow: 1px 1px 0 #fff; 
 }

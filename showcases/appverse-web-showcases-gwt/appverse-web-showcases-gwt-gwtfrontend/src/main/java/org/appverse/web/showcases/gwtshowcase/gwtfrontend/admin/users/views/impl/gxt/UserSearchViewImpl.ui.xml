@@ -56,23 +56,15 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 				<container:VerticalLayoutContainer ui:field="fieldSetContainer"
 					title="{res.usermanagerSearchUser}{res.separator}" layoutData="{gwtshowcaseLayout.fieldSetLayout}">
 					
-					<!-- Search Field text -->
+					<!-- Search Field text with search button incorporated -->
 					<container:child layoutData="{gwtshowcaseLayout.fullWidthTextLayout}">
 						<form:FieldLabel text="{res.usermanagerName}" labelWidth="{gwtshowcaseLayout.labelSize}">
 							<form:widget>
-								<ria:SuggestWidgetImpl ui:field="suggestSearch" modelSearchField="name" props="{props}" modelInstance="{modelInstance}" />
+								<ria:SuggestWidgetImpl ui:field="suggestSearch" modelSearchField="name" props="{props}" modelInstance="{modelInstance}" addSearchIcon="true"/>
 							</form:widget>
 						</form:FieldLabel>
 					</container:child>
-					
-					<!-- Search button -->
-					<container:child>
-						<container:HBoxLayoutContainer hBoxLayoutAlign="MIDDLE" pack="CENTER">
-							<container:child layoutData="{gwtshowcaseLayout.centralButtonBoxLayout}">
-								<button:TextButton text="{res.usermanagerButtonSearch}" icon="{images.searchIcon}" width="{gwtshowcaseLayout.buttonSize}" ui:field="searchUsersButton"/>
-							</container:child>
-						</container:HBoxLayoutContainer>
-					</container:child>
+
 				</container:VerticalLayoutContainer>
 			</gxt:FramedPanel>
 		</container:child> 

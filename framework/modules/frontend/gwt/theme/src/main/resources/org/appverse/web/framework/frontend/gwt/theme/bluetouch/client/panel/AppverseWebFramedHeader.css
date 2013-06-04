@@ -10,6 +10,13 @@
   border-right: none;
   border-bottom: none;
   padding-left: 0px;
+  
+  /*Estilos añadidos por Marcos*/
+  color:#2e68b1;
+  text-shadow:0 1px 1px #fff;
+  background:none;
+  height:34px;
+  padding-top:8px;
 }
 
 
