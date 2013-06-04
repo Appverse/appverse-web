@@ -1,0 +1,11 @@
+.container {
+  overflow: hidden;
+}
+
+.inner {
+  overflow: hidden;
+  zoom: 1;
+  position: relative;
+  left: 0;
+  top: 0;
+}
