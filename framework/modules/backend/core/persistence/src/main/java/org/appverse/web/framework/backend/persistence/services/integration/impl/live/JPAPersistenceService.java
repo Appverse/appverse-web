@@ -888,7 +888,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * IJPAPersistenceService#retrieveList(java.lang.String, int, int, java.lang.Object[])
 	 */
 	@Override
-	public List<T> retrieveList(final String queryName, final int maxRecords,
+	public List<T> retrieveListPagging(final String queryName, final int maxRecords,
 			final int firstResult, final Object... values)
 			throws Exception {
 		Query queryObject = em.createNamedQuery(queryName);
@@ -987,7 +987,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * java.lang.Object[])
 	 */
 	@Override
-	public List<Object[]> retrieveObjectArrayList(String queryName,
+	public List<Object[]> retrieveObjectArrayListPagging(String queryName,
 			int maxRecords, int firstResult, Object... values) throws Exception {
 		Query queryObject = em.createNamedQuery(queryName);
 		QueryJpaCallback<Object[]> queryJpaCallback = new QueryJpaCallback<Object[]>(
@@ -1087,7 +1087,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * java.lang.Object[])
 	 */
 	@Override
-	public <U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
+	public <U extends ResultIntegrationBean> List<U> retrieveResultTypeListPagging(
 			String queryName, int maxRecords, int firstResult, Object... values)
 			throws Exception {
 		Query queryObject = em.createNamedQuery(queryName);

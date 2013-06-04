@@ -541,7 +541,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 *         retrieves.
 	 * @throws Exception
 	 */
-	List<T> retrieveList(String queryName, int maxRecords, int firstResult, 
+	List<T> retrieveListPagging(String queryName, int maxRecords, int firstResult, 
 			final Object... values) throws Exception;
 
 	/**
@@ -694,7 +694,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return List<Object[]> List of Object[] retrieved
 	 * @throws Exception
 	 */
-	List<Object[]> retrieveObjectArrayList(final String queryName, final int maxRecords,
+	List<Object[]> retrieveObjectArrayListPagging(final String queryName, final int maxRecords,
 			final int firstResult, final Object... values) throws Exception;
 	
 	/**
@@ -807,7 +807,7 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return
 	 * @throws Exception
 	 */
-	<U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
+	<U extends ResultIntegrationBean> List<U> retrieveResultTypeListPagging(
 			final String queryName, final int maxRecords,
 			final int firstResult, final Object... values) throws Exception;
 	
