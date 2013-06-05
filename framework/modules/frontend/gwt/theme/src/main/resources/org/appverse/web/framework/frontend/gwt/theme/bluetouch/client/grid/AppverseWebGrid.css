@@ -29,6 +29,9 @@
   border-right: 0 solid #EDEDED;
   height:32px !important;
   width:100%;
+  color:#666 !important;
+  text-shadow:1px 1px 0 #fff !important;
+  font-size:12px;
 }
 .cell >div
 {
@@ -36,6 +39,8 @@
 	line-height:20px;
 	
 }
+
+
 .cell input[type="checkbox"]{
 	visibility:hidden;
 }

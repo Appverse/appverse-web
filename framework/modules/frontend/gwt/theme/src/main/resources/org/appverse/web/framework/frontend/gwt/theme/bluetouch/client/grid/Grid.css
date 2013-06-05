@@ -29,6 +29,7 @@
 .body {
 }
 
+
 TH {
   border-bottom: none !important;
 }
@@ -81,6 +82,8 @@ TH {
   font: 11px 'PT Sans', sans-serif; 
   overflow: hidden;
 }
+
+
 
 .cellInner {
   overflow: hidden;

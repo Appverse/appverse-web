@@ -32,7 +32,7 @@
 	<container:HorizontalLayoutContainer ui:field="horizontalLayoutContainer">
 		<container:child>
 			<!-- TODO: See how to remove fixed width so that the field is taking the spare room in the container -->
-			<form:ComboBox ui:field="searchText" width="300"/>
+			<form:ComboBox ui:field="searchText" width="380"/>
 		</container:child>
 	</container:HorizontalLayoutContainer>
 	

@@ -1,9 +1,9 @@
 .container {
-  overflow: hidden;
+  overflow: visible;
 }
 
 .inner {
-  overflow: hidden;
+  overflow: visible;
   zoom: 1;
   position: relative;
   left: 0;

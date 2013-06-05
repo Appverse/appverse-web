@@ -30,7 +30,7 @@
   	-moz-box-sizing: border-box;
 }
 .hasWidth{
-  box-shadow:1px 2px 0 #999999;
+  box-shadow:2px 2px 0 #999999;
   border:none;
 }
 .button:hover td, .button:hover td div{
