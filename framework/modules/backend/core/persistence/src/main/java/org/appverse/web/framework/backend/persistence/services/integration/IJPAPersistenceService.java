@@ -526,6 +526,23 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 */
 	List<T> retrieveList(final String queryName, final Object... values)
 			throws Exception;
+	/**
+	 * This method allows you to retrieve objects according to a JPQL query
+	 * byName, set of parameters the query requires and pagination attributes. 
+	 * Queries byName must be added in your orm.xml file
+	 * 
+	 * @param queryName
+	 *            Name of the query in your orm.xml file
+	 * @param maxRecords The number of records to retrieve
+	 * @param firstResult The index of the first record to retrieve
+	 * @param values
+	 *            The set of parameters the query requires
+	 * @return List The list containing all the objects your JPQL query
+	 *         retrieves.
+	 * @throws Exception
+	 */
+	List<T> retrieveListPagging(String queryName, int maxRecords, int firstResult, 
+			final Object... values) throws Exception;
 
 	/**
 	 * This methods allows you to perform any JPA operation providing direct
@@ -652,6 +669,34 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	List<Object[]> retrieveObjectArrayList(final String queryName,
 			final Object... values) throws Exception;
 
+
+	/**
+	 * This method allows you to perform counts according to a JPQL query byName
+	 * , the set of parameters the query requires and pagination attributes, 
+	 * returning a List of <Object[]> . Queries byName must be added in your orm.xml 
+	 * file. Use this method when you need to return directly objects that does not 
+	 * match neither the type of the managed objects of your repository <T> a result
+	 * of your query nor a "resultType". A typical usage is when you do not want
+	 * to retrieve a full object or a combination of different attributes of
+	 * different objects involved in the query or just calculated fields. In
+	 * summary, use this method when you do not have an IntegrationBean or
+	 * "resultType" to act as a container of the data returned by the query. In
+	 * this case you get directly a List with an array of objects including the
+	 * selected data. Of course, in this case, you are responsible to parse this
+	 * data to objects so do not use this method if you have an specific object
+	 * to hold the data.
+	 * 
+	 * @param queryName
+	 *            Name of the query in your orm.xml file
+	 * @param maxRecords The number of records to retrieve
+	 * @param firstResult The index of the first record to retrieve
+	 * @param values
+	 * @return List<Object[]> List of Object[] retrieved
+	 * @throws Exception
+	 */
+	List<Object[]> retrieveObjectArrayListPagging(final String queryName, final int maxRecords,
+			final int firstResult, final Object... values) throws Exception;
+	
 	/**
 	 * This methods allows you to perform any JPA operation providing direct
 	 * access to the EntityManager by means a QueryJpaCallback<U> returning <U>
@@ -745,7 +790,27 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 */
 	<U extends ResultIntegrationBean> List<U> retrieveResultTypeList(
 			final String queryName, final Object... values) throws Exception;
-
+	
+	/**
+	 * This method allows you to perform counts according to a JPQL query byName
+	 * and the set of parameters the query requires, returning a List of <T>
+	 * beans returning <U> beans that extend ResultIntegrationBean. Queries
+	 * byName must be added in your orm.xml file. Use this method when you need
+	 * to return as IntegrationBeans that does not match the type of the managed
+	 * objects of your repository <T> a result of your query.
+	 * 
+	 * @param queryName
+	 *            Name of the query in your orm.xml file
+	 * @param maxRecords The number of records to retrieve
+	 * @param firstResult The index of the first record to retrieve
+	 * @param values
+	 * @return
+	 * @throws Exception
+	 */
+	<U extends ResultIntegrationBean> List<U> retrieveResultTypeListPagging(
+			final String queryName, final int maxRecords,
+			final int firstResult, final Object... values) throws Exception;
+	
 	/**
 	 * Executes an update JPQL query
 	 * 
@@ -796,5 +861,6 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 * @throws Exception
 	 */
 	void update(UpdateJpaCallback<T> query) throws Exception;
+
 
 }

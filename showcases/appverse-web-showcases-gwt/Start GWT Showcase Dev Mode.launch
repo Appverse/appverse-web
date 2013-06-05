@@ -24,7 +24,7 @@
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gdt.eclipse.maven.mavenClasspathProvider"/>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.dev.DevMode"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-war C:\Workspace\gwtdev\repositories\git\appverse-web\showcases\appverse-web-showcases-gwt\appverse-web-showcases-gwt-backend\target\appverse-web-showcases-gwt-backend-1.1-SNAPSHOT -remoteUI &quot;${gwt_remote_ui_server_port}:${unique_id}&quot; -logLevel INFO -codeServerPort 9997 -port 8888 org.appverse.web.showcases.gwtshowcase.gwtfrontend.Admin"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-war C:\git\appverse-web-fork\showcases\appverse-web-showcases-gwt\appverse-web-showcases-gwt-backend\target\appverse-web-showcases-gwt-backend-1.1-SNAPSHOT -remoteUI &quot;${gwt_remote_ui_server_port}:${unique_id}&quot; -logLevel INFO -port 8888 -codeServerPort 9997 org.appverse.web.showcases.gwtshowcase.gwtfrontend.Admin"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="appverse-web-showcases-gwt-gwtfrontend"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx512m"/>
 </launchConfiguration>

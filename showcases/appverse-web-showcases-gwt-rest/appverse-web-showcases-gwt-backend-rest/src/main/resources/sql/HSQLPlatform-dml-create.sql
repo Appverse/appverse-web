@@ -1,0 +1,3 @@
+INSERT INTO USER(ID, CREATED, CREATED_BY, EMAIL, LASTNAME, NAME, PASSWORD, ACTIVE, UPDATED, UPDATED_BY, VERSION, STATUS) VALUES (1, current_date, 'GWTShowcase', 'test@email.com', '', 'Surname', 'Name', true, current_date, 'GWTShowcase', 1, 'a');
+INSERT INTO USER(ID, CREATED, CREATED_BY, EMAIL, LASTNAME, NAME, PASSWORD, ACTIVE, UPDATED, UPDATED_BY, VERSION, STATUS) VALUES (2, current_date, 'GWTShowcase', 'test2@email.com', '', 'Surname2', 'Name2', true, current_date, 'GWTShowcase', 1, 'a');
+UPDATE SEQUENCE SET SEQ_COUNT = SEQ_COUNT + 2 WHERE SEQ_NAME = 'USER_SEQ';

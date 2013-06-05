@@ -28,5 +28,7 @@
   <inherits name="org.appverse.web.framework.backend.api.API"/>
   <source path="common"/>
   <source path="model/presentation"/>
-  <source path="services/presentation"/>
+  <source path="services/presentation" excludes="*Impl.java"/>
+<!--   <source path="services/presentation" includes="GWTAuthenticationSServiceFacade"/> -->
+  
 </module>

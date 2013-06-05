@@ -7,15 +7,15 @@
 		<groupId>org.appverse.web.framework.poms</groupId>
 		<artifactId>appverse-web-masterpom</artifactId>
 		<version>1.1.1-SNAPSHOT</version>
-		<relativePath>../../</relativePath>
+		<relativePath></relativePath>
 	</parent>
 
 	<groupId>org.appverse.web.framework.archetypes.gwt</groupId>
-	<artifactId>appverse-web-archetypes-gwt@@artifactsuffix@@</artifactId>
+	<artifactId>appverse-web-archetypes-gwt||ARCHETYPE__POM__ARTIFACT_SUFFIX-LOWERCASE||</artifactId>
 	<packaging>maven-archetype</packaging>
 
-	<name>Appverse Web Framework Archetypes GWT@@ARTIFACTSUFFIX@@ Archetype</name>
-	<description>Appverse Web Framework Archetypes GWT@@ARTIFACTSUFFIX@@ Archetype</description>
+	<name>Appverse Web Framework Archetypes GWT||ARCHETYPE__POM__ARTIFACT_SUFFIX-UPPERCASE|| Archetype</name>
+	<description>Appverse Web Framework Archetypes GWT||ARCHETYPE__POM__ARTIFACT_SUFFIX-UPPERCASE|| Archetype</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2013</inceptionYear>
 

@@ -885,6 +885,25 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 	 * (non-Javadoc)
 	 * 
 	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveList(java.lang.String, int, int, java.lang.Object[])
+	 */
+	@Override
+	public List<T> retrieveListPagging(final String queryName, final int maxRecords,
+			final int firstResult, final Object... values)
+			throws Exception {
+		Query queryObject = em.createNamedQuery(queryName);
+		QueryJpaCallback<T> queryJpaCallback = new QueryJpaCallback<T>(
+				queryObject);
+		queryJpaCallback.setFirstResult(firstResult);
+		queryJpaCallback.setMaxRecords(maxRecords);
+		queryJpaCallback.setIndexedParameters(values);
+		return queryJpaCallback.doInJpa(em);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
 	 * IJPAPersistenceService
 	 * #retrieveObjectArrayList(org.appverse.web.framework.
 	 * backend.persistence.services.integration.helpers.QueryJpaCallback)
@@ -958,6 +977,24 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		QueryJpaCallback<Object[]> queryJpaCallback = new QueryJpaCallback<Object[]>(
 				queryObject);
 		queryJpaCallback.setIndexedParameters(values);
+		return queryJpaCallback.doInJpa(em);
+	}
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveObjectArrayList(java.lang.String, int, int,
+	 * java.lang.Object[])
+	 */
+	@Override
+	public List<Object[]> retrieveObjectArrayListPagging(String queryName,
+			int maxRecords, int firstResult, Object... values) throws Exception {
+		Query queryObject = em.createNamedQuery(queryName);
+		QueryJpaCallback<Object[]> queryJpaCallback = new QueryJpaCallback<Object[]>(
+				queryObject);
+		queryJpaCallback.setIndexedParameters(values);
+		queryJpaCallback.setFirstResult(firstResult);
+		queryJpaCallback.setMaxRecords(maxRecords);
 		return queryJpaCallback.doInJpa(em);
 	}
 
@@ -1042,6 +1079,26 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		return queryJpaCallback.doInJpa(em);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.appverse.web.framework.backend.persistence.services.integration.
+	 * IJPAPersistenceService#retrieveResultType(java.lang.String, int, int,
+	 * java.lang.Object[])
+	 */
+	@Override
+	public <U extends ResultIntegrationBean> List<U> retrieveResultTypeListPagging(
+			String queryName, int maxRecords, int firstResult, Object... values)
+			throws Exception {
+		Query queryObject = em.createNamedQuery(queryName);
+		QueryJpaCallback<U> queryJpaCallback = new QueryJpaCallback<U>(
+				queryObject);
+		queryJpaCallback.setIndexedParameters(values);
+		queryJpaCallback.setFirstResult(firstResult);
+		queryJpaCallback.setMaxRecords(maxRecords);		
+		return queryJpaCallback.doInJpa(em);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -225,8 +225,15 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<scope>provided</scope>
+		</dependency>		
+		<dependency>
+			<groupId>org.fusesource.restygwt</groupId>
+			<artifactId>restygwt</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.appverse.web.framework.modules.backend.frontfacade.json</groupId>
+			<artifactId>appverse-web-modules-backend-frontfacade-json</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>

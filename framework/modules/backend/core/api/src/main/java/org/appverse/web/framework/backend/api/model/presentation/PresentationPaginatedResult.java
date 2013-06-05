@@ -27,6 +27,14 @@ import java.util.List;
 public class PresentationPaginatedResult<Data extends AbstractPresentationBean>
 		extends AbstractPresentationBean {
 
+	public List<Data> getList() {
+		return list;
+	}
+
+	public void setList(List<Data> list) {
+		this.list = list;
+	}
+
 	private static final long serialVersionUID = -6635834909081873281L;
 
 	/**

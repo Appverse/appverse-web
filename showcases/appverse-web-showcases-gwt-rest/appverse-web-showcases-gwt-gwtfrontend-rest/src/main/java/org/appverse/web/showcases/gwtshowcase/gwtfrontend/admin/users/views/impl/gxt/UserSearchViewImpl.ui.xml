@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+
+ This Source Code Form is subject to the terms of the Appverse Public License 
+ Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+ file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+
+ Redistribution and use in source and binary forms, with or without modification, 
+ are permitted provided that the conditions of the AppVerse Public License v2.0 
+ are met.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+ SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ POSSIBILITY OF SUCH DAMAGE.
+ -->
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:c="urn:import:com.sencha.gxt.widget.core.client"
+	xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container" xmlns:gxt="urn:import:com.sencha.gxt.widget.core.client"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:layout="urn:import:org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.layout.views.impl.gxt"
+	xmlns:form="urn:import:com.sencha.gxt.widget.core.client.form" xmlns:grid="urn:import:com.sencha.gxt.widget.core.client.grid"
+	xmlns:button="urn:import:com.sencha.gxt.widget.core.client.button" xmlns:toolbar="urn:import:com.sencha.gxt.widget.core.client.toolbar"
+	xmlns:ria="urn:import:org.appverse.web.framework.frontend.gwt.widgets.search.suggest.impl.gxt">
+
+	<ui:with type="org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminMessages" field="res" />
+	<ui:with type="org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminImages" field="images" />
+	<ui:with type="org.appverse.web.showcases.gwtshowcase.gwtfrontend.common.layout.GWTShowcaseBodyLayout"	field="gwtshowcaseLayout" />
+
+	<ui:with type="com.sencha.gxt.widget.core.client.grid.ColumnModel" field="cm"></ui:with>
+	<ui:with type="com.sencha.gxt.data.shared.ListStore" field="store"></ui:with>
+	<ui:with type="com.sencha.gxt.widget.core.client.grid.GridView" field="view">
+		<ui:attributes stripeRows="true" forceFit="true"></ui:attributes>
+	</ui:with>
+	
+	<ui:with type="org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.views.impl.gxt.UserSearchViewImpl.UserVOSugProperties" field="props"></ui:with>
+	<ui:with type="org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO" field="modelInstance"></ui:with>	
+
+	<container:VerticalLayoutContainer ui:field="containerBody">
+		<!-- Title -->
+		<container:child layoutData="{gwtshowcaseLayout.headerLayout}">
+			<gxt:Header text="{res.usermanagerTitle}" />
+		</container:child>
+
+		<container:child layoutData="{gwtshowcaseLayout.bodyLayout}">
+			<gxt:FramedPanel ui:field="formPanel" headerVisible="true" buttonAlign="END"
+				headingText="{res.usermanagerSearchUser}">
+				<container:VerticalLayoutContainer ui:field="fieldSetContainer"
+					title="{res.usermanagerSearchUser}{res.separator}" layoutData="{gwtshowcaseLayout.fieldSetLayout}">
+					
+					<!-- Search Field text -->
+					<container:child layoutData="{gwtshowcaseLayout.fullWidthTextLayout}">
+						<form:FieldLabel text="{res.usermanagerName}" labelWidth="{gwtshowcaseLayout.labelSize}">
+							<form:widget>
+								<ria:SuggestWidgetImpl ui:field="suggestSearch" modelSearchField="name" props="{props}" modelInstance="{modelInstance}" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					
+					<!-- Search button -->
+					<container:child>
+						<container:HBoxLayoutContainer hBoxLayoutAlign="MIDDLE" pack="CENTER">
+							<container:child layoutData="{gwtshowcaseLayout.centralButtonBoxLayout}">
+								<button:TextButton text="{res.usermanagerButtonSearch}" icon="{images.searchIcon}" width="{gwtshowcaseLayout.buttonSize}" ui:field="searchUsersButton"/>
+							</container:child>
+						</container:HBoxLayoutContainer>
+					</container:child>
+				</container:VerticalLayoutContainer>
+			</gxt:FramedPanel>
+		</container:child> 
+
+		<container:child layoutData="{gwtshowcaseLayout.buttonsLayout}">
+			<container:HBoxLayoutContainer ui:field="buttonsContainer"
+				hBoxLayoutAlign="MIDDLE" pack="END">
+				<container:child layoutData="{gwtshowcaseLayout.boxLayoutButtons}" >
+					<!-- Add Role button -->
+					<button:TextButton text="{res.usermanagerAddUser}" icon="{images.addIcon}" width="{gwtshowcaseLayout.buttonSize}"
+						ui:field="addUserButton" />
+				</container:child>
+			</container:HBoxLayoutContainer>
+		</container:child>
+
+		<!-- List container -->
+		<container:child layoutData="{gwtshowcaseLayout.bodyLayout}">
+			<gxt:FramedPanel ui:field="panel" headingText="{res.usermanagerList}"
+				pixelSize="600, 300" collapsible="false" addStyleNames="margin-10">
+				<container:VerticalLayoutContainer borders="true">
+					<container:child layoutData="{gwtshowcaseLayout.basicLayout}">
+						<grid:Grid ui:field="userListTable" cm="{cm}" store="{store}" view="{view}"
+							loadMask="true" columnReordering="true" borders="false">
+						</grid:Grid>
+					</container:child>
+					<container:child layoutData="{gwtshowcaseLayout.toolbarLayout}">
+						<toolbar:PagingToolBar pageSize="20" ui:field="toolBar"></toolbar:PagingToolBar>
+					</container:child>
+				</container:VerticalLayoutContainer>
+			</gxt:FramedPanel>
+		</container:child>
+
+
+	</container:VerticalLayoutContainer>
+
+</ui:UiBinder>

@@ -46,12 +46,27 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
     <filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  <servlet>
-    <servlet-name>dispatcher</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>dispatcher</servlet-name>
-    <url-pattern>*.rpc</url-pattern>
-  </servlet-mapping>
+	<!-- Appverse-Web JSON Front Facade configuration -->
+	<servlet>
+		<servlet-name>JerseyServlet</servlet-name>
+		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
+		<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>org.appverse.web.framework.backend.frontfacade.gxt.controllers</param-value>
+			<!-- <param-value>org.appverse.web.framework.backend.frontfacade.json.controllers,org.appverse.web.framework.backend.frontfacade.gxt.controllers</param-value>-->
+		</init-param>
+		<init-param>
+			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>JerseyServlet</servlet-name> -->
+<!-- 		<url-pattern>/admin/rest/*</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+	<servlet-mapping>
+		<servlet-name>JerseyServlet</servlet-name>
+		<url-pattern>/admin/services/*</url-pattern>
+ 	</servlet-mapping> 
 </web-app>
