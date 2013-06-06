@@ -26,8 +26,10 @@
 		field="eastData">
 		<ui:attributes size="200" margins="{margins5555}" />
 	</ui:with>
-	
-  	<ui:with type="com.sencha.gxt.widget.core.client.container.BoxLayoutContainer.BoxLayoutData" field="boxLayoutDataMargins0500">
+
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.BoxLayoutContainer.BoxLayoutData"
+		field="boxLayoutDataMargins0500">
     	<ui:attributes margins="{margins0500}" />
   	</ui:with>	
 	
@@ -46,47 +48,45 @@
 			border-bottom:solid 1px #efebe8;
 		}
 		.headerContentPanelBackground {
-			background-image: url('header_background.png');
-			background-repeat: no-repeat;
-			background-size:100% auto;
-			height:125px;
-		}		
-		.inner {
-  			height: 200;
+			background-image: url('headerPattern.png');
+			background-repeat: repeat;
+			height:125px;			
 		}		
 	</ui:style>
 
-	<gxt:ContentPanel headerVisible="false"
-		bodyStyleName="{style.headerContentPanelBackground}">
-		<container:VerticalLayoutContainer
-			ui:field="flow" scrollMode="NONE">
-			<container:child>
-				<container:BorderLayoutContainer
-					borders="false" ui:field="headerBorderContainer" width="1024"
-					height="125">
-					<container:west layoutData="{westData}">
-						<container:CenterLayoutContainer>
-							<g:Image resource="{images.logoIcon}" />
-						</container:CenterLayoutContainer>
-					</container:west>
-					<container:east layoutData="{eastData}">
-						<container:HBoxLayoutContainer hBoxLayoutAlign="MIDDLE" pack="CENTER">
-							<container:child layoutData="{boxLayoutDataMargins0500}">
-								<g:Image resource="{images.iconHome}" />
-							</container:child>
-							<container:child layoutData="{boxLayoutDataMargins0500}">
-								<g:Label text="{res.headerHome}" ui:field="homeLink" styleName="{style.linkLabel}" />
-							</container:child>
-							<container:child layoutData="{boxLayoutDataMargins0500}">
-								<g:Image resource="{images.iconLogout}" />
-							</container:child>
-							<container:child>
-								<g:Label text="{res.headerLogout}" ui:field="logoutLink" styleName="{style.linkLabel}" />
-							</container:child>
-						</container:HBoxLayoutContainer>
-					</container:east>
-				</container:BorderLayoutContainer>
-			</container:child>
-		</container:VerticalLayoutContainer>
+	<container:VerticalLayoutContainer scrollMode="NONE">
+<!-- 	<g:Image resource="{images.headerBackground}" />	 -->
+	<gxt:ContentPanel headerVisible="false" bodyStyleName="{style.headerContentPanelBackground}">			
+		<container:BorderLayoutContainer
+			borders="false" ui:field="headerBorderContainer" width="1024">
+			<container:west layoutData="{westData}">
+				<container:CenterLayoutContainer>
+					<g:Image resource="{images.logoIcon}" />
+				</container:CenterLayoutContainer>
+			</container:west>
+			<container:east layoutData="{eastData}">
+				<container:HBoxLayoutContainer
+					hBoxLayoutAlign="MIDDLE" pack="CENTER">
+					<container:child layoutData="{boxLayoutDataMargins0500}">
+						<g:Image resource="{images.iconHome}" />
+					</container:child>
+					<container:child layoutData="{boxLayoutDataMargins0500}">
+						<g:Label text="{res.headerHome}" ui:field="homeLink"
+							styleName="{style.linkLabel}" />
+					</container:child>
+					<container:child layoutData="{boxLayoutDataMargins0500}">
+						<g:Image resource="{images.iconLogout}" />
+					</container:child>
+					<container:child>
+						<g:Label text="{res.headerLogout}" ui:field="logoutLink"
+							styleName="{style.linkLabel}" />
+					</container:child>
+				</container:HBoxLayoutContainer>
+			</container:east>
+		</container:BorderLayoutContainer>
+
 	</gxt:ContentPanel>
+
+</container:VerticalLayoutContainer>
+	
 </ui:UiBinder>

@@ -54,22 +54,16 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 		<ui:attributes margins="{centerMargins}" />
 	</ui:with>
 
-	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="outerMargins">
-		<ui:attributes top="20" right="20" bottom="20" left="20" />
-	</ui:with>
-
 	<ui:with
 		type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
 		field="centerLayoutData">
-<!-- 		<ui:attributes width="1024" height="-1" margins="{outerMargins}" /> -->
-		<ui:attributes width="1024" height="-1" margins="{outerMargins}" />
+		<ui:attributes width="1024" height="-1"/>
 	</ui:with>
 
-<!-- <container:FlowLayoutContainer ui:field="flow"> -->
-	<container:VerticalLayoutContainer ui:field="flow">
+	<container:VerticalLayoutContainer ui:field="flow">	
 		<container:child>
 			<layout:AdminHeaderViewImpl ui:field="adminHeader"/>
-		</container:child>
+		</container:child>	
 		<container:child layoutData="{centerLayoutData}">
 			<container:BorderLayoutContainer
 				borders="true" ui:field="borderCon">
@@ -82,7 +76,7 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 					</gxt:ContentPanel>
 				</container:center>
 			</container:BorderLayoutContainer>
-		</container:child>
+		</container:child>			
 	</container:VerticalLayoutContainer>
-<!-- 	</container:FlowLayoutContainer> -->
+
 </ui:UiBinder>
