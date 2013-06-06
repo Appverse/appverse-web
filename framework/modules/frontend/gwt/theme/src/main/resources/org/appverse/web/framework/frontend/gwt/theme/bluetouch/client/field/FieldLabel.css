@@ -26,6 +26,9 @@
   position: relative;
   z-index: 2;
   -moz-user-select: none;
+  color:#2e68b1;
+  text-shadow:#fff;
+  font-weight:bold;
 }
 
 .fieldItemLabelTop .fieldLabel {
