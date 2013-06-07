@@ -8,8 +8,11 @@
  .scroller {
   background-color: #fafafa;
 }
+.row{
+	
+}
+
 .rowHighlight {
-  border: 1px dotted #545352;
 }
 
 .rowAlt .cell {
@@ -30,11 +33,13 @@
   height:32px !important;
   width:100%;
   color:#666 !important;
+  background-color:transparent;
   text-shadow:1px 1px 0 #fff !important;
   font-size:12px;
-  border-bottom: 1px dotted #676767;
+  border-bottom: none !important;
   border-top:none !important;
   margin-right:1px;
+  border-bottom: 1px dotted #676767 !important;
 }
 .cell >div
 {
