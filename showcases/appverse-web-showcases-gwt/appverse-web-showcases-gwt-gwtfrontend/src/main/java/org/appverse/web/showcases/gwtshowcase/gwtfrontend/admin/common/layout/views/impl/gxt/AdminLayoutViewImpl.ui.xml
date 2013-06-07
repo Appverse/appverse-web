@@ -28,15 +28,15 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 	xmlns:c="urn:import:com.sencha.gxt.widget.core.client" xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container"
 	xmlns:gxt="urn:import:com.sencha.gxt.widget.core.client" xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:layout="urn:import:org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.layout.views.impl.gxt">
-
+	
 	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="northMargins">
 		<ui:attributes top="0" right="5" bottom="0" left="5" />
 	</ui:with>
 	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="westMargins">
-		<ui:attributes top="5" right="5" bottom="5" left="5" />
+		<ui:attributes top="30" right="5" bottom="5" left="5" />
 	</ui:with>
 	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="centerMargins">
-		<ui:attributes top="5" right="5" bottom="5" left="5" />
+		<ui:attributes top="30" right="5" bottom="5" left="5" />
 	</ui:with>
 
 	<ui:with
