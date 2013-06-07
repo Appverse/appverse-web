@@ -14,7 +14,7 @@
 	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="margins0500">
 		<ui:attributes top="0" right="5" bottom="0" left="0" />
 	</ui:with>
-	
+		
 	<ui:with
 		type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
 		field="westData">
@@ -50,19 +50,21 @@
 		.headerContentPanelBackground {
 			background-image: url('headerPattern.png');
 			background-repeat: repeat;
-			height:125px;			
 		}		
 	</ui:style>
 
 	<container:VerticalLayoutContainer scrollMode="NONE">
-<!-- 	<g:Image resource="{images.headerBackground}" />	 -->
-	<gxt:ContentPanel headerVisible="false" bodyStyleName="{style.headerContentPanelBackground}">			
+	<g:Image resource="{images.headerBackground}" />				
+	<gxt:ContentPanel headerVisible="false" bodyStyleName="{style.headerContentPanelBackground}" height="125">
 		<container:BorderLayoutContainer
 			borders="false" ui:field="headerBorderContainer" width="1024">
 			<container:west layoutData="{westData}">
-				<container:CenterLayoutContainer>
-					<g:Image resource="{images.logoIcon}" />
-				</container:CenterLayoutContainer>
+				<container:HBoxLayoutContainer
+					hBoxLayoutAlign="MIDDLE" pack="CENTER">
+					<container:child>
+						<g:Image resource="{images.logoIcon}" />
+					</container:child>					
+				</container:HBoxLayoutContainer>
 			</container:west>
 			<container:east layoutData="{eastData}">
 				<container:HBoxLayoutContainer
