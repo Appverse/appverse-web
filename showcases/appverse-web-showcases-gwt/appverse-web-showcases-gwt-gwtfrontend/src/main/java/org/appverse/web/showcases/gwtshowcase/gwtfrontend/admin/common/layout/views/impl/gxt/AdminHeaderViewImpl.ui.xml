@@ -34,6 +34,11 @@
   	</ui:with>	
 	
 	<ui:style>
+
+		/* It would be great to be able to use multiple images URL as background-image in vars calculated with @eval but unfortunately, it only works with one.*/
+		/* @eval headerBackground com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("gwtshowcase/images/header/headerBackground.png");	
+		   @eval headerPattern com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("gwtshowcase/images/header/headerPattern.jpg"); */
+	
 		.linkLabel {
 			cursor: pointer;
 			cursor: hand;
@@ -48,7 +53,10 @@
 			border-bottom:solid 1px #efebe8;
 		}
 		.headerContentPanelBackground {
-			background-image: url('headerBackground.png'), url('headerPattern.png');
+			/* It would be great to be able to use multiple images URL as background-image in vars calculated with @eval but unfortunately, it only works with one, so we use 
+			one var with the concatenated value */
+			/*background-image : headerBackground, headerPattern);*/
+			background-image : url("/admin/gwtshowcase/images/header/headerBackground.png"), url("/admin/gwtshowcase/images/header/headerPattern.jpg");
 			background-repeat: no-repeat, repeat;
 			background-size: 100% auto, auto;
 			background-position: top center, center center;
