@@ -5,7 +5,7 @@
  *
  * http://www.sencha.com/products/gxt/license/
  */
-@eval rowExpand com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("base/images/grid/row-expand-sprite.gif");
+@eval rowExpand com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("bluetouch/images/grid/row-expand-sprite.gif");
 
 @external x-expander;
 @external x-grid-td-expander;

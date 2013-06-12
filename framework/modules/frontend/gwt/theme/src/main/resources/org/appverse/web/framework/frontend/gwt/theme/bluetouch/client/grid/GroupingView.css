@@ -5,7 +5,7 @@
  *
  * http://www.sencha.com/products/gxt/license/
  */
-@eval groupExpand com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("base/images/grid/group-expand-sprite.gif");
+@eval groupExpand com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("bluetouch/images/grid/group-expand-sprite.gif");
 
 @external x-grid-group-hd;
 

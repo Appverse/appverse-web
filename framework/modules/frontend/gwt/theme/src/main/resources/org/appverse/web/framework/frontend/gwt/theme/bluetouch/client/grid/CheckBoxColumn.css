@@ -5,9 +5,9 @@
  *
  * http://www.sencha.com/products/gxt/license/
  */
-@eval rowCheck com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("base/images/grid/row-check-sprite.gif");
-@eval checked com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("base/images/grid/checked.gif");
-@eval unchecked com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("base/images/grid/unchecked.gif");
+@eval rowCheck com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("bluetouch/images/grid/row-check-sprite.gif");
+@eval checked com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("bluetouch/images/grid/checked.gif");
+@eval unchecked com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("bluetouch/images/grid/unchecked.gif");
 
 @external x-grid-td-checker x-grid-hd-checker;
 @external x-grid-row-checker;
