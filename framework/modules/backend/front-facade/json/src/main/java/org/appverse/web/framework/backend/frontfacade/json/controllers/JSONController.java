@@ -2,7 +2,7 @@
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source Code Form is subject to the terms of the Appverse Public License 
- Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+ Version 2.0 (â€œAPL v2.0â€�). If a copy of the APL was not distributed with this 
  file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
 
  Redistribution and use in source and binary forms, with or without modification, 
@@ -25,6 +25,8 @@ package org.appverse.web.framework.backend.frontfacade.json.controllers;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
@@ -129,17 +131,24 @@ public class JSONController {
 	// }
 
 	/**
-	 * Method to handle all requests to the Appverse Services Presentation Layer.
-	 * It only accepts POST requests, with the parameter set on the payload.
-	 * The URL must contain the servicename (spring name of the Presentation Service) and also the method name.
-	 * The URL musb be something like: {protocol}://{host}:{port}/{appcontext}/{servicename}/{methodname}
+	 * Method to handle all requests to the Appverse Services Presentation
+	 * Layer. It only accepts POST requests, with the parameter set on the
+	 * payload. The URL must contain the servicename (spring name of the
+	 * Presentation Service) and also the method name. The URL musb be something
+	 * like: {protocol}://{host}:{port}/{appcontext}/{servicename}/{methodname}
 	 * 
-	 * @param requestServiceName The "spring" name of the Service.
-	 * @param requestMethodName The method name
-	 * @param response The HttpServletResponse, injected by Jersey.
-	 * @param payload The payload must contain the parameter as json.
+	 * @param requestServiceName
+	 *            The "spring" name of the Service.
+	 * @param requestMethodName
+	 *            The method name
+	 * @param response
+	 *            The HttpServletResponse, injected by Jersey.
+	 * @param payload
+	 *            The payload must contain the parameter as json.
 	 * @return
-	 * @throws Exception In case of any Bad Request or an uncontrolled exception raised by the Service.
+	 * @throws Exception
+	 *             In case of any Bad Request or an uncontrolled exception
+	 *             raised by the Service.
 	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -148,71 +157,99 @@ public class JSONController {
 	public String handleRequest(
 			@PathParam("servicename") String requestServiceName,
 			@PathParam("methodname") String requestMethodName,
-//			@Context HttpServletRequest request,
-			@Context HttpServletResponse response,
-			String payload) throws Exception {
+			// @Context HttpServletRequest request,
+			@Context HttpServletResponse response, String payload)
+			throws Exception {
 		// String path = request.getServletPath();
-		System.out.println("Request Received - " + requestServiceName+"."+requestMethodName);
-		
-		Object presentationService = applicationContext.getBean(requestServiceName);
+		System.out.println("Request Received - " + requestServiceName + "."
+				+ requestMethodName);
+
+		Object presentationService = applicationContext
+				.getBean(requestServiceName);
 		if (presentationService == null) {
 			throw new BadRequestException(
-					"Requested ServiceFacade don't exists " + requestServiceName);
+					"Requested ServiceFacade don't exists "
+							+ requestServiceName);
 		}
 		// if (!(presentationService instanceof AuthenticationServiceFacade)) {
 		// checkXSRFToken(request);
 		Method[] methods = presentationService.getClass().getMethods();
-		Method method = null;
+		List<Method> availableMethod = new ArrayList<Method>();
 		for (Method methodItem : methods) {
 			if (methodItem.getName().equals(requestMethodName)) {
-				method = methodItem;
-				break;
+				availableMethod.add(methodItem);
+				// method = methodItem;
+				// break;
 			}
 		}
-		if (method == null) {
+		if (availableMethod != null && availableMethod.size() == 0) {
 			throw new BadRequestException("Requested Method don't exists "
-					+ requestMethodName + " for serviceFacade " + requestServiceName);
-//			throw new IllegalArgumentException("Requested Method don't exists "
-//					+ requestMethodName + " for serviceFacade " + requestServiceName);
+					+ requestMethodName + " for serviceFacade "
+					+ requestServiceName);
+			// throw new
+			// IllegalArgumentException("Requested Method don't exists "
+			// + requestMethodName + " for serviceFacade " +
+			// requestServiceName);
 		}
-		Class<?>[] parameterTypes = method.getParameterTypes();
-		Class<?> parameterType = null;
-		if (parameterTypes.length > 1) {
-			throw new BadRequestException("Requested Method" + requestMethodName
-					+ " for serviceFacade " + requestServiceName
-					+ " only accepts 0 or 1 parameter");
-		}
-		Object parameter = null;
-		if (parameterTypes.length > 0) {
-			parameterType = parameterTypes[0];
-			try {
-				parameter = customMappingJacksonHttpMessageConverter.readInternal(
-						parameterType, payload);
-			}catch(Throwable th) {
-				throw new BadRequestException("Parameter of type " + parameterType.getCanonicalName()
-						+ " can't be parsed from [" + payload
-						+ "]");
+		boolean badRequest = false;
+		StringBuffer sbf = new StringBuffer();
+		Method methodFound = null;
+		Object parameterFound = null;
+		for (Method methodItem : availableMethod) {
+			Class<?>[] parameterTypes = methodItem.getParameterTypes();
+			Class<?> parameterType = null;
+			if (parameterTypes.length > 1) {
+				continue;
+//				throw new BadRequestException("Requested Method"
+//						+ requestMethodName + " for serviceFacade "
+//						+ requestServiceName + " only accepts 0 or 1 parameter");
 			}
-		} 
+			if (parameterTypes.length > 0) {
+				parameterType = parameterTypes[0];
+				try {
+					parameterFound = customMappingJacksonHttpMessageConverter
+							.readInternal(parameterType, payload);
+					methodFound = methodItem;
+					badRequest = false;
+				} catch (Throwable th) {
+					badRequest = true;
+					sbf.append("{Parameter of type "
+							+ parameterType.getCanonicalName()
+							+ " can't be parsed}");
+				}
+			} else {
+				//only accepting parameters less methods in case payload is empty
+				if( payload != null && payload.length()==0) {
+					methodFound = methodItem;
+					badRequest = false;
+				}
+			}
+		}
+		if( badRequest) {
+			sbf.append(" from [" + payload + "]");
+			throw new BadRequestException(sbf.toString());
+		}
 		try {
 			Object result = null;
-			if( parameter != null ) {
-				result = method.invoke(presentationService, parameter);
+			if (parameterFound != null) {
+				result = methodFound.invoke(presentationService, parameterFound);
 			} else {
-				result = method.invoke(presentationService);
+				result = methodFound.invoke(presentationService);
 			}
-//			return Response.ok(result, MediaType.APPLICATION_JSON).build();
+			// return Response.ok(result, MediaType.APPLICATION_JSON).build();
 			ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
 					response);
 			customMappingJacksonHttpMessageConverter.write(result,
-					org.springframework.http.MediaType.APPLICATION_JSON, outputMessage);
+					org.springframework.http.MediaType.APPLICATION_JSON,
+					outputMessage);
 			addDefaultResponseHeaders(response);
 		} catch (Throwable th) {
-//			response.sendError(500, th.getMessage());
+			// response.sendError(500, th.getMessage());
 			th.printStackTrace();
 			ResponseBuilderImpl builder = new ResponseBuilderImpl();
 			builder.status(Response.Status.INTERNAL_SERVER_ERROR);
-			builder.entity("Service Internal Error ["+th.getCause()!=null?th.getCause().getMessage():th.getMessage()+"]");
+			builder.entity("Service Internal Error [" + th.getCause() != null ? th
+					.getCause().getMessage() : th.getMessage() + "]");
 			Response resp = builder.build();
 			throw new WebApplicationException(resp);
 		}
