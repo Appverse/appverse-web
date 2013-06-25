@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
+import javax.lang.model.type.ArrayType;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -44,7 +45,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.appverse.web.framework.backend.frontfacade.json.controllers.exceptions.BadRequestException;
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonToken;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.JavaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.server.ServletServerHttpResponse;
@@ -173,6 +178,7 @@ public class JSONController {
 		}
 		// if (!(presentationService instanceof AuthenticationServiceFacade)) {
 		// checkXSRFToken(request);
+		// Determine if method exist by name.
 		Method[] methods = presentationService.getClass().getMethods();
 		List<Method> availableMethod = new ArrayList<Method>();
 		for (Method methodItem : methods) {
@@ -186,23 +192,28 @@ public class JSONController {
 			throw new BadRequestException("Requested Method don't exists "
 					+ requestMethodName + " for serviceFacade "
 					+ requestServiceName);
-			// throw new
-			// IllegalArgumentException("Requested Method don't exists "
-			// + requestMethodName + " for serviceFacade " +
-			// requestServiceName);
 		}
 		boolean badRequest = false;
 		StringBuffer sbf = new StringBuffer();
 		Method methodFound = null;
 		Object parameterFound = null;
+		Object[] parametersFound = null;
+		// Identify on the available methods the correct method to execute,
+		// based on the parameters and its types (trying to convert them).
 		for (Method methodItem : availableMethod) {
 			Class<?>[] parameterTypes = methodItem.getParameterTypes();
 			Class<?> parameterType = null;
 			if (parameterTypes.length > 1) {
-				continue;
-//				throw new BadRequestException("Requested Method"
-//						+ requestMethodName + " for serviceFacade "
-//						+ requestServiceName + " only accepts 0 or 1 parameter");
+				try {
+					parametersFound = customMappingJacksonHttpMessageConverter.readInternal(parameterTypes, payload);
+					methodFound = methodItem;
+					badRequest = false;
+					//method found and objects correctly parsed
+					break;
+				}catch(Throwable th) {
+					badRequest = true;
+					sbf.append("{Error parsing json ["+th.getMessage()+"]");
+				}
 			}
 			if (parameterTypes.length > 0) {
 				parameterType = parameterTypes[0];
@@ -211,6 +222,7 @@ public class JSONController {
 							.readInternal(parameterType, payload);
 					methodFound = methodItem;
 					badRequest = false;
+					break; //found the correct method to execute.
 				} catch (Throwable th) {
 					badRequest = true;
 					sbf.append("{Parameter of type "
@@ -218,22 +230,28 @@ public class JSONController {
 							+ " can't be parsed}");
 				}
 			} else {
-				//only accepting parameters less methods in case payload is empty
-				if( payload != null && payload.length()==0) {
+				// only accepting parameters less methods in case payload is
+				// empty
+				if (payload != null && payload.length() == 0) {
 					methodFound = methodItem;
 					badRequest = false;
+					break; //found the correct method to execute
 				}
 			}
 		}
-		if( badRequest) {
+		if (badRequest) {
 			sbf.append(" from [" + payload + "]");
 			throw new BadRequestException(sbf.toString());
 		}
 		try {
+			//invoke the method
 			Object result = null;
-			if (parameterFound != null) {
-				result = methodFound.invoke(presentationService, parameterFound);
-			} else {
+			if (parameterFound != null) { //method with one parameter
+				result = methodFound
+						.invoke(presentationService, parameterFound);
+			} else if (parametersFound != null ){ //method with multiple parameters
+				result = methodFound.invoke(presentationService, parametersFound);
+			} else { //method with no parameters
 				result = methodFound.invoke(presentationService);
 			}
 			// return Response.ok(result, MediaType.APPLICATION_JSON).build();
