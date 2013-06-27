@@ -80,6 +80,8 @@ public class JSONController {
 		// mapper.setDateFormat(new
 		// SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS"));
 		// SerializationConfig sc = mapper.getSerializationConfig();
+		mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+
 		customMappingJacksonHttpMessageConverter.setObjectMapper(mapper);
 	}
 
