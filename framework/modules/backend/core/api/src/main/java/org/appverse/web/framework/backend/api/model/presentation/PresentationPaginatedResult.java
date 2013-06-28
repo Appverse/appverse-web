@@ -27,20 +27,20 @@ import java.util.List;
 public class PresentationPaginatedResult<Data extends AbstractPresentationBean>
 		extends AbstractPresentationBean {
 
-	public List<Data> getList() {
-		return list;
-	}
-
-	public void setList(List<Data> list) {
-		this.list = list;
-	}
+//	public List<Data> getList() {
+//		return list;
+//	}
+//
+//	public void setList(List<Data> list) {
+//		this.list = list;
+//	}
 
 	private static final long serialVersionUID = -6635834909081873281L;
 
 	/**
 	 * The remote data.
 	 */
-	private List<Data> list;
+	private List<Data> data;
 	private int totalLength;
 	private int offset;
 
@@ -61,15 +61,15 @@ public class PresentationPaginatedResult<Data extends AbstractPresentationBean>
 	 * @param offset
 	 *            the paging offset
 	 */
-	public PresentationPaginatedResult(List<Data> list, int totalLength,
+	public PresentationPaginatedResult(List<Data> data, int totalLength,
 			int offset) {
-		this.list = list;
+		this.data = data;
 		this.totalLength = totalLength;
 		this.offset = offset;
 	}
 
 	public List<Data> getData() {
-		return list;
+		return data;
 	}
 
 	public int getOffset() {
@@ -80,8 +80,8 @@ public class PresentationPaginatedResult<Data extends AbstractPresentationBean>
 		return totalLength;
 	}
 
-	public void setData(List<Data> list) {
-		this.list = list;
+	public void setData(List<Data> data) {
+		this.data = data;
 	}
 
 	public void setOffset(int offset) {
