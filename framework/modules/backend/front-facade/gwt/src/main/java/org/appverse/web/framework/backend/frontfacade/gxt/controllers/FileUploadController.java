@@ -23,12 +23,20 @@
  */
 package org.appverse.web.framework.backend.frontfacade.gxt.controllers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Enumeration;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 
 import org.appverse.web.framework.backend.api.services.presentation.IFileUploadPresentationService;
 import org.appverse.web.framework.backend.api.services.presentation.PresentationException;
@@ -37,15 +45,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
 import com.google.gwt.user.server.rpc.RPC;
+import com.sun.jersey.multipart.FormDataMultiPart;
+import com.sun.jersey.multipart.FormDataParam;
 
 @Controller
-@RequestMapping(value = "/*/fileupload")
+@Path("/fileupload")
 public class FileUploadController {
 
 	@Autowired
@@ -55,7 +61,7 @@ public class FileUploadController {
 
 	private final String MAX_FILE_SIZE_PARAM_NAME = "maxFileSize";
 
-	private void checkXSRFToken(final DefaultMultipartHttpServletRequest request)
+	private void checkXSRFToken(final HttpServletRequest request)
 			throws IOException {
 		String requestValue = request.getParameter("X-XSRF-Cookie");
 		String sessionValue = (String) request.getSession().getAttribute(
@@ -65,28 +71,67 @@ public class FileUploadController {
 					"XSRF attribute not found in session.");
 		}
 	}
+	/**
+	 * 
+------WebKitFormBoundaryx2lXibtD2G3Y2Qkz
+Content-Disposition: form-data; name="file"; filename="iphone100x100.png"
+Content-Type: image/png
 
-	@RequestMapping(value = "/*.rpc", method = RequestMethod.POST)
+
+------WebKitFormBoundaryx2lXibtD2G3Y2Qkz
+Content-Disposition: form-data; name="hiddenFileName"
+
+iphone100x100.png
+------WebKitFormBoundaryx2lXibtD2G3Y2Qkz
+Content-Disposition: form-data; name="hiddenMediaCategory"
+
+2
+------WebKitFormBoundaryx2lXibtD2G3Y2Qkz
+Content-Disposition: form-data; name="maxFileSize"
+
+14745600000
+------WebKitFormBoundaryx2lXibtD2G3Y2Qkz--	 */
+
+	@POST
+	@Path("{servicemethodname}")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public void handleFormUpload(
-			final DefaultMultipartHttpServletRequest request,
-			final HttpServletResponse response) throws Exception {
-		MultipartFile file = request.getFile("file");
-		Enumeration<String> parameterNames = request.getParameterNames();
+			@PathParam("servicemethodname") String servicemethodname,
+			@FormDataParam("file") InputStream stream,
+			@FormDataParam("hiddenFileName") String hiddenFileName,
+			@FormDataParam("hiddenMediaCategory") String hiddenMediaCategory,
+			@FormDataParam("maxFileSize") String maxSize,
+			FormDataMultiPart multiPart,
+			@Context HttpServletRequest request,
+			@Context HttpServletResponse response) throws Exception {
+//		multiPart.getBodyParts().get(0);
+//		MultipartFile file = request.getFile("file");
+//		Enumeration<String> parameterNames = request.getParameterNames();
 		Map<String, String> parameters = new HashMap<String, String>();
-		while (parameterNames.hasMoreElements()) {
-			String parameterName = parameterNames.nextElement();
-			String parameter = request.getParameter(parameterName);
-			parameters.put(parameterName, parameter);
-		}
+		parameters.put("hiddenFileName", hiddenFileName);
+		parameters.put("hiddenMediaCategory", hiddenMediaCategory);
+		parameters.put("maxFileSize", maxSize);
+		
+//		while (parameterNames.hasMoreElements()) {
+//			String parameterName = parameterNames.nextElement();
+//			String parameter = request.getParameter(parameterName);
+//			parameters.put(parameterName, parameter);
+//		}
 		checkXSRFToken(request);
+//
+		serviceName.set(servicemethodname.substring(0, servicemethodname.lastIndexOf(".")));
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		int read = 0;
+		byte[] bytes = new byte[1024];
 
-		String path = request.getServletPath();
-		serviceName.set(path.substring(path.lastIndexOf('/') + 1,
-				path.lastIndexOf('.')));
-
-		if (!file.isEmpty()) {
-			byte[] bytes = file.getBytes();
-			processCall(response, bytes, parameters);
+		while ((read = stream.read(bytes)) != -1) {
+			baos.write(bytes, 0, read);
+		}
+		baos.flush();
+		baos.close();
+		
+		if ( baos!= null && baos.size()>0) {
+			processCall(response, baos.toByteArray(), parameters);
 		} else {
 			throw new Exception("The file is empty");
 		}
@@ -130,5 +175,6 @@ public class FileUploadController {
 									bytes.getClass(), Map.class), pex);
 		}
 		response.getOutputStream().write(encodedResult.getBytes());
+		response.getOutputStream().flush();
 	}
 }
