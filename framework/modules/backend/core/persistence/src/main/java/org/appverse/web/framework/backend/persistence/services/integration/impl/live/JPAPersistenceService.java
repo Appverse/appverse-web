@@ -669,6 +669,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		} catch (final Exception e) {
 			logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK_ERROR,
 					new Object[] { classP, this.BEAN_PK_NAME });
+			logger.error(PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK_ERROR, e);
 			throw new PersistenceException(
 					PersistenceMessageBundle.MSG_DAO_RETRIEVEBYPK_ERROR
 							+ this.BEAN_PK_NAME);
