@@ -23,7 +23,6 @@
  */
 package org.appverse.web.framework.frontend.gwt.rmvp;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;
 import com.mvp4g.client.view.ReverseViewInterface;
 
@@ -39,7 +38,6 @@ public class ReverseComposite<T> extends Composite implements
 
 	@Override
 	public void setPresenter(T presenter) {
-		GWT.log("Reverse composite. Set presenter: " + presenter + this);
 		this.presenter = presenter;
 	}
 

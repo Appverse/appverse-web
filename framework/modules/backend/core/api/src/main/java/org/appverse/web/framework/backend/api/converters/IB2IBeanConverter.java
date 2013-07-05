@@ -36,11 +36,17 @@ public interface IB2IBeanConverter<BusinessBean extends AbstractBusinessBean, In
 	IntegrationBean convert(BusinessBean businessBean,
 			ConversionType conversionType) throws Exception;
 
+    IntegrationBean convert(BusinessBean businessBean,
+                                   String scope) throws Exception;
+
 	void convert(BusinessBean businessBean, IntegrationBean integrationBean)
 			throws Exception;
 
 	void convert(BusinessBean businessBean, IntegrationBean integrationBean,
 			ConversionType conversionType) throws Exception;
+
+    void convert(final BusinessBean businessBean, IntegrationBean integrationBean, String scope)
+            throws Exception;
 
 	BusinessBean convert(IntegrationBean integrationBean) throws Exception;
 
@@ -50,8 +56,14 @@ public interface IB2IBeanConverter<BusinessBean extends AbstractBusinessBean, In
 	void convert(IntegrationBean integrationBean, BusinessBean businessBean,
 			ConversionType conversionType) throws Exception;
 
+    void convert(final IntegrationBean integrationBean,
+                        BusinessBean businessBean, String scope) throws Exception;
+
 	BusinessBean convert(IntegrationBean integrationBean,
 			ConversionType conversionType) throws Exception;
+
+    BusinessBean convert(IntegrationBean integrationBean,
+                                String scope) throws Exception;
 
 	List<IntegrationBean> convertBusinessList(List<BusinessBean> businessBeans)
 			throws Exception;
@@ -59,6 +71,9 @@ public interface IB2IBeanConverter<BusinessBean extends AbstractBusinessBean, In
 	List<IntegrationBean> convertBusinessList(List<BusinessBean> businessBeans,
 			ConversionType conversionType) throws Exception;
 
+    List<IntegrationBean> convertBusinessList(
+            List<BusinessBean> businessBeans, String scope) throws Exception;
+
 	void convertBusinessList(final List<BusinessBean> businessBeans,
 			List<IntegrationBean> integrationBeans) throws Exception;
 
@@ -66,12 +81,20 @@ public interface IB2IBeanConverter<BusinessBean extends AbstractBusinessBean, In
 			List<IntegrationBean> integrationBeans,
 			ConversionType conversionType) throws Exception;
 
+    void convertBusinessList(final List<BusinessBean> businessBeans,
+                                    List<IntegrationBean> integrationBeans,
+                                    String scope) throws Exception;
+
 	List<BusinessBean> convertIntegrationList(
 			List<IntegrationBean> integrationBeans) throws Exception;
 
 	List<BusinessBean> convertIntegrationList(
 			List<IntegrationBean> integrationBeans,
 			ConversionType conversionType) throws Exception;
+
+    List<BusinessBean> convertIntegrationList(
+            List<IntegrationBean> integrationBeans,
+            String scope) throws Exception;
 
 	void convertIntegrationList(final List<IntegrationBean> integrationBeans,
 			List<BusinessBean> businessBeans) throws Exception;
@@ -79,4 +102,9 @@ public interface IB2IBeanConverter<BusinessBean extends AbstractBusinessBean, In
 	void convertIntegrationList(final List<IntegrationBean> integrationBeans,
 			List<BusinessBean> businessBeans, ConversionType conversionType)
 			throws Exception;
+
+    void convertIntegrationList(
+            final List<IntegrationBean> integrationBeans,
+            List<BusinessBean> businessBeans, String scope) throws Exception;
+
 }
