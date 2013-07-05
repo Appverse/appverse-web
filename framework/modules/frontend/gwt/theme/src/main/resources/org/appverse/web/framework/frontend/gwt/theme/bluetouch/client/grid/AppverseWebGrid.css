@@ -8,13 +8,17 @@
  .scroller {
   background-color: #fafafa;
 }
+.row{
+	
+}
+
 .rowHighlight {
-  border: 1px dotted #545352;
 }
 
 .rowAlt .cell {
   background-color: #fafafa;
 }
+
 
 .rowOver .cell {
   background-color: #EFEFEF;
@@ -25,17 +29,26 @@
 }
 
 .cell {
-  border-color: #FAFAFA #EDEDED #EDEDED;
-  border-right: 0 solid #EDEDED;
+  
   height:32px !important;
   width:100%;
+  color:#666 !important;
+  background-color:transparent;
+  text-shadow:1px 1px 0 #fff !important;
+  font-size:12px;
+  border-bottom: none !important;
+  border-top:none !important;
+  margin-right:1px;
+  border-bottom: 1px dotted #676767 !important;
 }
 .cell >div
 {
 	height:100%;
-	line-height:20px;
+	line-height:24px;
 	
 }
+
+
 .cell input[type="checkbox"]{
 	visibility:hidden;
 }
@@ -95,7 +108,7 @@
 }
 
 .rowOver .cell, .rowOver .rowWrap {
-  border-color: #DDDDDD;
+  border-bottom: 1px dotted #676767;
 }
 
 .rowWrap {
@@ -107,8 +120,8 @@
 }
 
 .rowSelected .cell, .rowSelected .rowWrap {
-  background-color: #DFE8F6 !important;
-  border-color: #A3BAE9;
+  background-color: #e6e6e6 !important;
+  border-color: #676767;
 }
 
 .footer {

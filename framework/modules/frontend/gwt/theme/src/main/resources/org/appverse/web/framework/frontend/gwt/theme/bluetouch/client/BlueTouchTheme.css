@@ -10,7 +10,23 @@
 @def backgroundColorLight #e0e8f8;
 
 @import url('http://fonts.googleapis.com/css?family=PT+Sans');
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans);
 
+/* @font-face { */
+/*     font-family: MyriadPro; */
+/*     src: url(MyriadPro-Regular.otf); */
+/* } */
+/* body{ */
+/* 	font-family: MyriadPro, arial !important; */
+/* } */
+
+body{
+	font-family: 'Droid Sans', sans-serif !important;
+}
+body div{
+	
+	font-family: 'Droid Sans', sans-serif !important;
+}
 .border {
   /*border: 1px solid borderColor; */
 }

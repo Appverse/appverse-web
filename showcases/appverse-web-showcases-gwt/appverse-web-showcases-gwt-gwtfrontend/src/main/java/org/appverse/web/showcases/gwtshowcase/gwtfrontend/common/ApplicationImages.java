@@ -48,5 +48,5 @@ public interface ApplicationImages extends FrameworkImages {
 	ImageResource iconHome();	
 	
 	@Source("images/iconLogout.png")
-	ImageResource iconLogout();		
+	ImageResource iconLogout();	
 }

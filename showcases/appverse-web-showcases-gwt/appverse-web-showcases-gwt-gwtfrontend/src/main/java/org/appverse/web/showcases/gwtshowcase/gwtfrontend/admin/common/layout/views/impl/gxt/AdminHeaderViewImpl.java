@@ -54,10 +54,7 @@ public class AdminHeaderViewImpl extends
 
 	@UiField
 	Label logoutLink, homeLink;
-	
-	@UiField
-	VerticalLayoutContainer flow;	
-	
+		
 	@UiField
 	BorderLayoutContainer headerBorderContainer;
 
@@ -73,8 +70,6 @@ public class AdminHeaderViewImpl extends
 	@Override
 	public void createView() {
 		initWidget(uiBinder.createAndBindUi(this));
-		flow.setScrollMode(ScrollMode.NONE);
-		flow.setHeight(Window.getClientHeight() - 40);		
 		centerBorderLayout();
 		Window.addResizeHandler(new ResizeHandler() {
 			@Override

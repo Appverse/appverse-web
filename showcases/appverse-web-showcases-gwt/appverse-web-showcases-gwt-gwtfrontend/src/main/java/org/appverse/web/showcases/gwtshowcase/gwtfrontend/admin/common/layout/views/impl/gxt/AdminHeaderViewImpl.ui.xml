@@ -14,7 +14,7 @@
 	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="margins0500">
 		<ui:attributes top="0" right="5" bottom="0" left="0" />
 	</ui:with>
-	
+		
 	<ui:with
 		type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
 		field="westData">
@@ -26,12 +26,19 @@
 		field="eastData">
 		<ui:attributes size="200" margins="{margins5555}" />
 	</ui:with>
-	
-  	<ui:with type="com.sencha.gxt.widget.core.client.container.BoxLayoutContainer.BoxLayoutData" field="boxLayoutDataMargins0500">
+
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.BoxLayoutContainer.BoxLayoutData"
+		field="boxLayoutDataMargins0500">
     	<ui:attributes margins="{margins0500}" />
   	</ui:with>	
 	
 	<ui:style>
+
+		/* It would be great to be able to use multiple images URL as background-image in vars calculated with @eval but unfortunately, it only works with one.*/
+		/* @eval headerBackground com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("gwtshowcase/images/header/headerBackground.png");	
+		   @eval headerPattern com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("gwtshowcase/images/header/headerPattern.jpg"); */
+	
 		.linkLabel {
 			cursor: pointer;
 			cursor: hand;
@@ -46,47 +53,50 @@
 			border-bottom:solid 1px #efebe8;
 		}
 		.headerContentPanelBackground {
-			background-image: url('header_background.png');
-			background-repeat: no-repeat;
-			background-size:100% auto;
-			height:125px;
-		}		
-		.inner {
-  			height: 200;
+			/* It would be great to be able to use multiple images URL as background-image in vars calculated with @eval but unfortunately, it only works with one, so we use 
+			one var with the concatenated value */
+			/*background-image : headerBackground, headerPattern);*/
+			background-image : url("/admin/gwtshowcase/images/header/headerBackground.png"), url("/admin/gwtshowcase/images/header/headerPattern.jpg");
+			background-repeat: no-repeat, repeat;
+			background-size: 100% auto, auto;
+			background-position: top center, center center;
+			box-shadow: inset 0 -20px 25px rgba(122, 122, 122, 0.15) !important;
+			border-bottom: 1px solid rgb(139, 139, 139) !important;
 		}		
 	</ui:style>
 
-	<gxt:ContentPanel headerVisible="false"
-		bodyStyleName="{style.headerContentPanelBackground}">
-		<container:VerticalLayoutContainer
-			ui:field="flow" scrollMode="NONE">
-			<container:child>
-				<container:BorderLayoutContainer
-					borders="false" ui:field="headerBorderContainer" width="1024"
-					height="125">
-					<container:west layoutData="{westData}">
-						<container:CenterLayoutContainer>
-							<g:Image resource="{images.logoIcon}" />
-						</container:CenterLayoutContainer>
-					</container:west>
-					<container:east layoutData="{eastData}">
-						<container:HBoxLayoutContainer hBoxLayoutAlign="MIDDLE" pack="CENTER">
-							<container:child layoutData="{boxLayoutDataMargins0500}">
-								<g:Image resource="{images.iconHome}" />
-							</container:child>
-							<container:child layoutData="{boxLayoutDataMargins0500}">
-								<g:Label text="{res.headerHome}" ui:field="homeLink" styleName="{style.linkLabel}" />
-							</container:child>
-							<container:child layoutData="{boxLayoutDataMargins0500}">
-								<g:Image resource="{images.iconLogout}" />
-							</container:child>
-							<container:child>
-								<g:Label text="{res.headerLogout}" ui:field="logoutLink" styleName="{style.linkLabel}" />
-							</container:child>
-						</container:HBoxLayoutContainer>
-					</container:east>
-				</container:BorderLayoutContainer>
-			</container:child>
-		</container:VerticalLayoutContainer>
+	<gxt:ContentPanel headerVisible="false" bodyStyleName="{style.headerContentPanelBackground}" height="125">
+		<container:BorderLayoutContainer
+			borders="false" ui:field="headerBorderContainer" width="1024">
+			<container:west layoutData="{westData}">
+				<container:HBoxLayoutContainer
+					hBoxLayoutAlign="MIDDLE" pack="CENTER">
+					<container:child>
+						<g:Image resource="{images.logoIcon}" />
+					</container:child>					
+				</container:HBoxLayoutContainer>
+			</container:west>
+			<container:east layoutData="{eastData}">
+				<container:HBoxLayoutContainer
+					hBoxLayoutAlign="MIDDLE" pack="CENTER">
+					<container:child layoutData="{boxLayoutDataMargins0500}">
+						<g:Image resource="{images.iconHome}" />
+					</container:child>
+					<container:child layoutData="{boxLayoutDataMargins0500}">
+						<g:Label text="{res.headerHome}" ui:field="homeLink"
+							styleName="{style.linkLabel}" />
+					</container:child>
+					<container:child layoutData="{boxLayoutDataMargins0500}">
+						<g:Image resource="{images.iconLogout}" />
+					</container:child>
+					<container:child>
+						<g:Label text="{res.headerLogout}" ui:field="logoutLink"
+							styleName="{style.linkLabel}" />
+					</container:child>
+				</container:HBoxLayoutContainer>
+			</container:east>
+		</container:BorderLayoutContainer>
+
 	</gxt:ContentPanel>
+	
 </ui:UiBinder>

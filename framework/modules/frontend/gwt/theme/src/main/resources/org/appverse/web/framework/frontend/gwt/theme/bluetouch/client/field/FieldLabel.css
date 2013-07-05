@@ -26,6 +26,9 @@
   position: relative;
   z-index: 2;
   -moz-user-select: none;
+  color:#2e68b1;
+  text-shadow:#fff;
+  font-weight:bold;
 }
 
 .fieldItemLabelTop .fieldLabel {
@@ -44,6 +47,53 @@
 
 .fieldElement {
   
+}
+.fieldElement input[type="checkbox"]{
+	display:none;
+}
+.fieldElement input[type=checkbox]:checked + label:after {
+	-ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=100)';
+	filter: 'alpha(opacity=100)';
+	opacity: 1;
+}
+.fieldElement label{
+	cursor: pointer;
+	position: absolute;
+	width: 12px !important;
+	height: 20px !important;
+	margin-left:0;
+	background: #f2f2f2;
+	border:1px solid #e6e6e6;
+	box-shadow:1px 1px 0 #999999;	
+	filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#222', endColorstr='#45484d',GradientType=0 )";
+}
+.fieldElement label:after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: 'alpha(opacity=0)';
+	opacity: 0;
+	content: '';
+	position: absolute;
+	width: 9px;
+	height: 5px;
+	background: transparent;
+	top: 4px;
+	left: 4px;
+	border: 3px solid #3ccb20;
+	border-top: none;
+	border-right: none;
+
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	
+}
+.fieldElement label:hover::after{
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+	filter: 'alpha(opacity=30)';
+	opacity: 0.3;
+	
 }
 
 .hideLabel {
