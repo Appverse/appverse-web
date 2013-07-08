@@ -31,36 +31,54 @@ import org.appverse.web.framework.backend.api.model.presentation.AbstractPresent
 public interface IP2IBeanConverter<PresentationBean extends AbstractPresentationBean, IntegrationBean extends AbstractIntegrationBean>
 		extends IBeanConverter {
 
-	PresentationBean convert(IntegrationBean IntegrationBean) throws Exception;
+	PresentationBean convert(IntegrationBean integrationBean) throws Exception;
 
-	PresentationBean convert(IntegrationBean IntegrationBean,
+	PresentationBean convert(IntegrationBean integrationBean,
 			ConversionType conversionType) throws Exception;
 
-	void convert(IntegrationBean IntegrationBean,
+    PresentationBean convert(IntegrationBean integrationBean,
+                             String scope) throws Exception;
+
+	void convert(IntegrationBean integrationBean,
 			PresentationBean presentationBean) throws Exception;
 
-	void convert(IntegrationBean IntegrationBean,
+	void convert(IntegrationBean integrationBean,
 			PresentationBean presentationBean, ConversionType conversionType)
 			throws Exception;
+
+    void convert(IntegrationBean integrationBean,
+                 PresentationBean presentationBean, String scope)
+            throws Exception;
 
 	IntegrationBean convert(PresentationBean presentationBean) throws Exception;
 
 	IntegrationBean convert(PresentationBean presentationBean,
 			ConversionType conversionType) throws Exception;
 
-	void convert(PresentationBean presentationBean,
-			IntegrationBean IntegrationBean) throws Exception;
+    IntegrationBean convert(PresentationBean presentationBean,
+                            String scope) throws Exception;
 
 	void convert(PresentationBean presentationBean,
-			IntegrationBean IntegrationBean, ConversionType conversionType)
+			IntegrationBean integrationBean) throws Exception;
+
+	void convert(PresentationBean presentationBean,
+			IntegrationBean integrationBean, ConversionType conversionType)
 			throws Exception;
 
+    void convert(PresentationBean presentationBean,
+                 IntegrationBean integrationBean, String scope)
+            throws Exception;
+
 	List<PresentationBean> convertIntegrationList(
 			List<IntegrationBean> integrationBeans) throws Exception;
 
 	List<PresentationBean> convertIntegrationList(
 			List<IntegrationBean> integrationBeans,
 			ConversionType conversionType) throws Exception;
+
+    List<PresentationBean> convertIntegrationList(
+            List<IntegrationBean> integrationBeans,
+            String scope) throws Exception;
 
 	void convertIntegrationList(List<IntegrationBean> integrationBeans,
 			List<PresentationBean> presentationBeans) throws Exception;
@@ -69,6 +87,10 @@ public interface IP2IBeanConverter<PresentationBean extends AbstractPresentation
 			List<PresentationBean> presentationBeans,
 			ConversionType conversionType) throws Exception;
 
+    void convertIntegrationList(List<IntegrationBean> integrationBeans,
+                                List<PresentationBean> presentationBeans,
+                                String scope) throws Exception;
+
 	List<IntegrationBean> convertPresentationList(
 			List<PresentationBean> presentationBeans) throws Exception;
 
@@ -76,10 +98,18 @@ public interface IP2IBeanConverter<PresentationBean extends AbstractPresentation
 			List<PresentationBean> presentationBeans,
 			ConversionType conversionType) throws Exception;
 
+    List<IntegrationBean> convertPresentationList(
+            List<PresentationBean> presentationBeans,
+            String scope) throws Exception;
+
 	void convertPresentationList(List<PresentationBean> presentationBeans,
 			List<IntegrationBean> integrationBeans) throws Exception;
 
 	void convertPresentationList(List<PresentationBean> presentationBeans,
 			List<IntegrationBean> integrationBeans,
 			ConversionType conversionType) throws Exception;
+
+    void convertPresentationList(List<PresentationBean> presentationBeans,
+                                 List<IntegrationBean> integrationBeans,
+                                 String scope) throws Exception;
 }
