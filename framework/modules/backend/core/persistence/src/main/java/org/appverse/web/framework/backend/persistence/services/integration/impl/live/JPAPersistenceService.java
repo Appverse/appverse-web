@@ -798,6 +798,9 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 			logger.error(
 					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR,
 					new Object[] { filter.toString(), getClassP() });
+			logger.error(
+					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR,
+					e);
 			throw new PersistenceException(
 					PersistenceMessageBundle.MSG_DAO_RETRIEVEFILTERED_ERROR_P1
 							+ filter.toString()
