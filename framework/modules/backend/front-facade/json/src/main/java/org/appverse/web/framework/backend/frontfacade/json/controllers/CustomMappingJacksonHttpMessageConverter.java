@@ -234,6 +234,7 @@ public class CustomMappingJacksonHttpMessageConverter extends
 		while ((token = jp.nextToken()) != null) {
 		    switch (token) {
 		    	case VALUE_NUMBER_INT:
+                case VALUE_STRING:
 		        case START_OBJECT:
 		        	Object obj = jp.readValueAs(parameterTypes[i]);
 		        	lObjs.add(obj);
