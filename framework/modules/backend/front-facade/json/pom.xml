@@ -186,7 +186,7 @@
 				<executions>
 					<execution>
 						<goals>
-							<goal>generateAsync</goal>
+							<!--<goal>generateAsync</goal>-->
 							<goal>resources</goal>
 						</goals>
 						<configuration>
