@@ -31,7 +31,7 @@ public class AppverseWebPlainTabPanelAppearance extends AppverseWebTabPanelAppea
   public interface AppverseWebPlainTabPanelStyle extends AppverseWebTabPanelStyle {
 
     String tabStripSpacer();
-
+    String tabStripText();
   }
 
   public interface PlainTabPanelTemplates extends Template {

@@ -7,7 +7,7 @@
  */
 @sprite .tabStripTop .tabRight {
   gwt-image: "tabLeft";
-  padding-left: 10px;
+  padding-left: 8px;
   /* Override @sprite behavior */
   width: auto;
   height: auto;
@@ -15,7 +15,7 @@
 
 @sprite .tabStripTop .tabLeft {
   gwt-image: "tabRight";
-  padding-right: 10px;
+  padding-right: 14px;
   /* Override @sprite behavior */
   width: auto;
   height: auto;
@@ -83,13 +83,14 @@
 
 .tabHeader,.tabFooter {
   background-color: #deecfd;
-  border-color: #8db2e3;
+  border-color: #F9F9F9;
+    height: 35px;
 }
 
 @sprite .tabStripTop {
   gwt-image: "tabStripBackground";
   background-color: #cedff5;
-  border-bottom-color: #8db2e3;
+  border-bottom-color: #F9F9F9;
   /* Override @sprite behavior */
   height: auto;
   overflow: visible;
@@ -98,7 +99,7 @@
 @sprite .tabStripBottom {
   gwt-image: "tabStripBottomBackground";
   background-color: #cedff5;
-  border-top-color: #8db2e3;
+  border-top-color: #F9F9F9;
   /* Override @sprite behavior */
   height: auto;
   overflow: visible;
@@ -171,12 +172,18 @@
 }
 
 .tabBody {
-  border-color: #8db2e3;
-  background-color: #fff;
+    /*-moz-border-image:url("panel_border.png") 0 3 3 3 repeat;
+    -webkit-border-image:url("panel_border.png") 0 3 3 3 repeat;
+    border-image:url("panel_border.png") 0 3 3 3 repeat;*/
+  border-color: #E6E6E6;
+  background-color: #F9F9F9;
 }
 
 .tabBodyTop {
-  border-top: 0 none;
+    border-left: 3px #e6e6e6 solid;
+    border-right: 3px #e6e6e6 solid;
+    border-bottom: 3px #e6e6e6 solid;
+    background-color: #F9F9F9;
 }
 
 .tabBodyBottom {
@@ -185,7 +192,7 @@
 
 @sprite .tabScrollerLeft {
   gwt-image: "scrollerLeft";
-  border-bottom-color: #8db2e3;
+  border-bottom-color: #E6E6E6;
 }
 
 @sprite .tabScrollerLeftOver {
@@ -194,7 +201,7 @@
 
 @sprite .tabScrollerRight {
   gwt-image: "scrollerRight";
-  border-bottom-color: #8db2e3;
+  border-bottom-color: #E6E6E6;
 }
 
 @sprite .tabScrollerRightOver {
@@ -202,7 +209,7 @@
 }
 
 .tabBbar .xToolbar,.tabTbar .xToolbar {
-  border-color: #99bbe8;
+  border-color: #E6E6E6;
 }
 
 .tabNoborder .tabBodyNoborder {
