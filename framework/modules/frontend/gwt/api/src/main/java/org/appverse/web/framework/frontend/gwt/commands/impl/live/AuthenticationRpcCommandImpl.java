@@ -24,13 +24,7 @@ public class AuthenticationRpcCommandImpl extends
 	private final GWTAuthenticationServiceFacadeAsync service = GWT
 			.create(GWTAuthenticationServiceFacade.class);
 
-	private final AsyncCallback<String> authenticationCallback = new AsyncCallback<String>() {
-
-		@Override
-		public void onFailure(Throwable caught) {
-
-		}
-
+	private final AppverseCallback<String> authenticationCallback = new AppverseCallback<String>() {
 		@Override
 		public void onSuccess(String result) {
 			XsrfRpcRequestBuilder.setXSRFToken(result);
@@ -38,13 +32,7 @@ public class AuthenticationRpcCommandImpl extends
 		}
 	};
 
-	private final AsyncCallback<String> principalCallback = new AsyncCallback<String>() {
-
-		@Override
-		public void onFailure(Throwable caught) {
-
-		}
-
+	private final AppverseCallback<String> principalCallback = new AppverseCallback<String>() {
 		@Override
 		public void onSuccess(String principal) {
 			PrincipalInformation.setPrincipal(principal);
@@ -54,13 +42,7 @@ public class AuthenticationRpcCommandImpl extends
 	};
 
 	@SuppressWarnings("rawtypes")
-	private final AsyncCallback<List> authoritiesCallback = new AsyncCallback<List>() {
-
-		@Override
-		public void onFailure(Throwable caught) {
-
-		}
-
+	private final AppverseCallback<List> authoritiesCallback = new AppverseCallback<List>() {
 		@SuppressWarnings({ "unchecked" })
 		@Override
 		public void onSuccess(List authorities) {
