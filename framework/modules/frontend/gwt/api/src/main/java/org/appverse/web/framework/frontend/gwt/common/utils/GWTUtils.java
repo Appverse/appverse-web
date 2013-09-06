@@ -33,7 +33,9 @@ public class GWTUtils {
 	public static String getModuleIndependentBaseURL() {
 		String moduleBaseUrl = GWT.getModuleBaseURL();
 		String moduleName = GWT.getModuleName() + "/";
-		return moduleBaseUrl.replace(moduleName, "");
+        // We need to replace the last 'moduleName' in case context path is the same
+        // or the string appears somewhere in the URL
+        return moduleBaseUrl.replaceFirst(moduleName, "");
 	}
 
 	public static String getUserAgent() {
