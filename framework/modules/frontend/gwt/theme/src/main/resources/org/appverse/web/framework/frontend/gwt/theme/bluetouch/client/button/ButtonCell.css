@@ -23,7 +23,7 @@
   background: #f6f6f6 !important;
 }
 
-/*Añadido por Marcos*/
+/*Aï¿½adido por Marcos*/
 .button{
 	border:1px solid #ccc;
 	box-sizing:border-box;
@@ -36,11 +36,16 @@
 .button:hover td, .button:hover td div{
 	background: #ffffff !important;	
 }
+
+.hasWidth:hover td, .hasWidth:hover td div .text{
+    color: white;
+}
+
 .hasWidth:hover td, .hasWidth:hover td div{
-	background: #5d99db !important;	
+	background: #2e68b1 !important;
 }
 .hasWidth td, .hasWidth td div{
-	background: #2e68b1 !important;	
+	background: #FBFBFB !important;
 }
 
 @if !user.agent ie6  {
@@ -68,7 +73,7 @@
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
-  color:#ffffff;
+  color:#989898;
 }
 
 .iconWrap div {
