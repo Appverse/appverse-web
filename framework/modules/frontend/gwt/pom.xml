@@ -1,6 +1,5 @@
-﻿<?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -11,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms.modules.frontend.gwt</groupId>
 	<artifactId>appverse-web-modules-frontend-gwt-pom</artifactId>
-	<version>1.2.1-SNAPSHOT</version>
+	<version>1.2.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Modules GWT Frontend POM</name>
