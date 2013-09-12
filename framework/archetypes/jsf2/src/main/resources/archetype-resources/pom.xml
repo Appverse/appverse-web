@@ -15,7 +15,7 @@
     <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.richfaces.bom.version>4.3.0.Final</org.richfaces.bom.version>
-        <appverse.framework.version>1.2.4-RELEASE</appverse.framework.version>
+        <appverse.framework.version>${archetypeVersion}</appverse.framework.version>
         <appverse.ddl-generator.version>1.0.5.1</appverse.ddl-generator.version>
 		<app.context.root>${project.artifactId}</app.context.root>
 	</properties>
