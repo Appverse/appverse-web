@@ -10,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms.archetypes</groupId>
 	<artifactId>appverse-web-archetypes-pom</artifactId>
-	<version>1.2.4-SNAPSHOT</version>
+	<version>1.2.5-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Archetypes POM</name>
