@@ -10,6 +10,8 @@
     
     <name>${newProjectName}</name>
     <description>${newProjectName}</description>
+	<url>http://appverse.org/projects/appverse-web/</url>
+	<inceptionYear>2013</inceptionYear>
 
 	<modules>
 	    <module>${artifactId}-backend</module>
