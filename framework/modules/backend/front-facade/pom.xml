@@ -10,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms.modules.backend.frontfacade</groupId>
 	<artifactId>appverse-web-modules-backend-frontfacade-pom</artifactId>
-	<version>1.2.5-SNAPSHOT</version>
+	<version>1.2.5-RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Modules Backend Front-Facade POM</name>
@@ -174,7 +174,7 @@
 	<scm>
 		<connection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</connection>
 		<developerConnection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</developerConnection>
-		<tag>master</tag>
+		<tag>appverse-web-masterpom-1.2.5-RELEASE</tag>
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
