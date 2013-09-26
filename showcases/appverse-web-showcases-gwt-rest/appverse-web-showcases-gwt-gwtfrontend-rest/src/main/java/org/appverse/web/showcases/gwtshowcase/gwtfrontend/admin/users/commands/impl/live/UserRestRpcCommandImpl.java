@@ -47,4 +47,9 @@ public class UserRestRpcCommandImpl extends AbstractRestCommand<AdminEventBus> i
 
 	}
 
+    @Override
+    public void saveUser(UserVO user, ApplicationRestAsyncCallback<Long> applicationRestAsyncCallback) {
+        UserRestTestServiceFacade.Util.get("saveUser").saveUser(user, applicationRestAsyncCallback);
+    }
+
 }

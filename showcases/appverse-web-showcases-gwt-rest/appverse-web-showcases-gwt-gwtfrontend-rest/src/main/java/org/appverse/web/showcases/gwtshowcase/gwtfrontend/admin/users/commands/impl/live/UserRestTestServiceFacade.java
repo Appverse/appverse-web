@@ -48,7 +48,9 @@ public interface UserRestTestServiceFacade extends RestService {
 	
 	@POST
 	void loadUsers(GWTPresentationPaginatedDataFilter config, MethodCallback<GWTPresentationPaginatedResult<UserVO>> callback);
-	
+
+    @POST
+    void saveUser(UserVO userVo, MethodCallback<Long> callback);
 	
 	
 

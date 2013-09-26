@@ -145,7 +145,7 @@ public class UserEditPresenter extends
 	public void save(final UserVO user) {
 		boolean valid = view.validate(user);
 		if (valid) {
-			userRpcCommand.saveUser(user, new ApplicationAsyncCallback<Long>() {
+			userRestRpcCommand.saveUser(user, new ApplicationRestAsyncCallback<Long>() {
 				@Override
 				public void onSuccess(final Long ret) {
 					// TODO: Show here an alert confirming that the

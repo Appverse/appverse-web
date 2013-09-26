@@ -21,29 +21,15 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands;
+package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.layout.presenters;
 
-import java.util.List;
+import com.mvp4g.client.annotation.Presenter;
+import org.appverse.web.framework.frontend.gwt.presenters.LayoutManagerPresenter;
+import org.appverse.web.framework.frontend.gwt.views.impl.gxt.LayoutManagerViewGxtImpl;
+import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminEventBus;
 
-import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
-import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
-import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.common.frontend.gwt.rest.ApplicationRestAsyncCallback;
+@Presenter(view = LayoutManagerViewGxtImpl.class)
+public class AdminModuleLayoutManagerPresenter extends
+		LayoutManagerPresenter<AdminEventBus> {
 
-import com.google.gwt.core.client.Callback;
-
-public interface UserRestRpcCommand {
-
-	void deleteUser(UserVO user, ApplicationRestAsyncCallback<Void> asyncCallback);
-
-	void loadUsers(ApplicationRestAsyncCallback<List<UserVO>> callback);
-	
-	void loadUser(long userId, ApplicationRestAsyncCallback<UserVO> callback);
-
-	void loadUsers(GWTPresentationPaginatedDataFilter config,
-			ApplicationRestAsyncCallback<GWTPresentationPaginatedResult<UserVO>> callback);
-
-    void saveUser(UserVO user, ApplicationRestAsyncCallback<Long> applicationRestAsyncCallback);
-
-    //	void saveUser(UserVO user, ApplicationAsyncCallback<Long> asyncCallback);
 }
