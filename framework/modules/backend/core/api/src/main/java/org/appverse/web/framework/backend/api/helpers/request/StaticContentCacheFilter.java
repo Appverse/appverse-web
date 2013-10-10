@@ -114,7 +114,6 @@ public class StaticContentCacheFilter implements Filter {
     /**
      * Determine if uri is eligible for caching
      */
-    @Override
     private boolean isCacheableEligible(HttpServletRequest req) {
         String uri = req.getRequestURI();
         if (uri == null) {
