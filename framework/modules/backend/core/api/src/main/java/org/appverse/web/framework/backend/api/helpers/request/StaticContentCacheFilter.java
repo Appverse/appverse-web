@@ -67,7 +67,7 @@ public class StaticContentCacheFilter implements Filter {
             SimpleDateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
             httpResponse.addHeader("Expires", df.format(date));
         }
-        else if (isCacheableEligible(httpRequest) == true) {
+        else if (isCacheableEligible(httpRequest) == false) {
             // We do not mofidy the response
         }
         chain.doFilter(httpRequest, httpResponse);
