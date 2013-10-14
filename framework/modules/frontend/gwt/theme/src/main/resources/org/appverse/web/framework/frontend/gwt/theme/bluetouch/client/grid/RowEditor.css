@@ -1,0 +1,60 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+.editor {
+  position: absolute;
+}
+
+.label {
+  padding: 2px 3px 3px 0px;
+  font-size: 12px; 
+}
+
+.outer {
+  border-top: 1px solid #c4c4c4;
+  border-bottom: 1px solid #a0a0a0;
+  background-color: #ebf2fc;
+
+}
+
+.inner {
+  border-top: 1px solid #f6f9fe;
+  border-bottom: 1px solid #d6e4f8;
+  padding: 0px 0px 0px 0px;
+}
+
+.body {
+  height: 25px;
+  position: relative; 
+}
+
+.buttons {
+  position: absolute;
+  top: 27px;
+}
+
+@sprite .buttonsLeft {
+  gwt-image: 'editorButtonLeft';
+  padding-left: value('editorButtonLeft.getWidth', 'px');
+  zoom:1;
+  height: 31px;
+  width: auto;
+}
+
+@sprite .buttonsRight {
+  gwt-image: 'editorButtonRight';
+  background-position: right 0;
+  padding-right: value('editorButtonRight.getWidth', 'px');
+  overflow: visible;
+  width: auto;
+  height: auto;
+}
+
+@sprite .buttonsContent {
+  background-color: #ebf2fc;
+  gwt-image: 'editorButtonBackground';
+}

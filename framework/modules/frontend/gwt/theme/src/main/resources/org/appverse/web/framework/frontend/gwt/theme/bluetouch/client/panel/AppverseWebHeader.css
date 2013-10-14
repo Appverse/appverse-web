@@ -1,0 +1,24 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+ 
+@sprite .header {
+	color: #15428b;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: 'PT Sans', sans-serif;
+	border-color: #99BBE8;
+	gwt-image: "headerBackground";
+	height: auto;
+	line-height: 15px;
+	border: 1px solid #99BBE8;
+	border-top: none;
+}
+
+.headerText {
+	font-size: 12px;
+}

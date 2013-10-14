@@ -35,6 +35,12 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 		field="gwtshowcaseLayout" />
 
 	<!-- Styles -->
+	<ui:style>
+		.userToolbar{
+			margin-bottom: 15px !important;
+		}
+	</ui:style>
+	
 	<container:VerticalLayoutContainer ui:field="containerBody">
 		<container:child layoutData="{gwtshowcaseLayout.headerLayout}">
 			<gxt:Header text="{res.usermanagerEditTitle}" />
@@ -46,7 +52,7 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 			</gxt:FramedPanel>
 		</container:child>
 		<container:child layoutData="{gwtshowcaseLayout.buttonsLayout}">
-			<widget:ToolbarWidgetImpl ui:field="userToolbar"/>
+			<widget:ToolbarWidgetImpl ui:field="userToolbar" styleName="{style.userToolbar}"/>
 		</container:child>
 	</container:VerticalLayoutContainer>
 		

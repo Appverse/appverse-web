@@ -36,11 +36,17 @@ public interface IP2BBeanConverter<PresentationBean extends AbstractPresentation
 	PresentationBean convert(BusinessBean businessBean,
 			ConversionType conversionType) throws Exception;
 
+    PresentationBean convert(BusinessBean businessBean,
+                             String scope) throws Exception;
+
 	void convert(BusinessBean businessBean, PresentationBean presentationBean)
 			throws Exception;
 
 	void convert(BusinessBean businessBean, PresentationBean presentationBean,
 			ConversionType conversionType) throws Exception;
+
+    void convert(BusinessBean businessBean, PresentationBean presentationBean,
+                 String scope) throws Exception;
 
 	BusinessBean convert(PresentationBean presentationBean) throws Exception;
 
@@ -50,8 +56,14 @@ public interface IP2BBeanConverter<PresentationBean extends AbstractPresentation
 	void convert(PresentationBean presentationBean, BusinessBean businessBean,
 			ConversionType conversionType) throws Exception;
 
+    void convert(PresentationBean presentationBean, BusinessBean businessBean,
+                 String scope) throws Exception;
+
 	BusinessBean convert(PresentationBean presentationBean,
 			ConversionType conversionType) throws Exception;
+
+    BusinessBean convert(PresentationBean presentationBean,
+                         String scope) throws Exception;
 
 	List<PresentationBean> convertBusinessList(List<BusinessBean> bean)
 			throws Exception;
@@ -60,12 +72,20 @@ public interface IP2BBeanConverter<PresentationBean extends AbstractPresentation
 			List<BusinessBean> businessBeans, ConversionType conversionType)
 			throws Exception;
 
+    List<PresentationBean> convertBusinessList(
+            List<BusinessBean> businessBeans, String scope)
+            throws Exception;
+
 	void convertBusinessList(List<BusinessBean> businessBean,
 			List<PresentationBean> presentationBean) throws Exception;
 
 	void convertBusinessList(List<BusinessBean> businessBean,
 			List<PresentationBean> presentationBean,
 			ConversionType conversionType) throws Exception;
+
+    void convertBusinessList(List<BusinessBean> businessBean,
+                             List<PresentationBean> presentationBean,
+                             String scope) throws Exception;
 
 	List<BusinessBean> convertPresentationList(
 			List<PresentationBean> presentationBeans) throws Exception;
@@ -74,10 +94,18 @@ public interface IP2BBeanConverter<PresentationBean extends AbstractPresentation
 			List<PresentationBean> presentationBeans,
 			ConversionType conversionType) throws Exception;
 
+    List<BusinessBean> convertPresentationList(
+            List<PresentationBean> presentationBeans,
+            String scope) throws Exception;
+
 	void convertPresentationList(List<PresentationBean> presentationBean,
 			List<BusinessBean> businessBean) throws Exception;
 
 	void convertPresentationList(List<PresentationBean> presentationBean,
 			List<BusinessBean> businessBean, ConversionType conversionType)
 			throws Exception;
+
+    void convertPresentationList(List<PresentationBean> presentationBean,
+                                 List<BusinessBean> businessBean, String scope)
+            throws Exception;
 }

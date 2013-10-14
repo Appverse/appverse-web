@@ -30,6 +30,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
 
 import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
 import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
@@ -37,8 +41,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.SerializationException;
@@ -47,7 +49,7 @@ import com.google.gwt.user.server.rpc.RPCRequest;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @Controller
-@RequestMapping(value = "/*/services")
+@Path("/")
 public class GwtRpcController extends RemoteServiceServlet {
 
 	private static final long serialVersionUID = 4147354200774086984L;
@@ -93,19 +95,23 @@ public class GwtRpcController extends RemoteServiceServlet {
 		return servletContext;
 	}
 
-	@RequestMapping(value = "/*.rpc")
-	public ModelAndView handleRequest(final HttpServletRequest request,
-			final HttpServletResponse response) throws Exception {
-		String path = request.getServletPath();
-		serviceName.set(path.substring(path.lastIndexOf('/') + 1,
-				path.lastIndexOf('.')));
+	@POST
+	@Path("{servicemethodname}")
+	public String handleRequest(
+			@PathParam("servicemethodname") String servicemethodname,
+			@Context HttpServletRequest request,
+			@Context HttpServletResponse response) throws Exception {
+		
+//		String path = request.getServletPath();
+		serviceName.set(servicemethodname.substring(0,
+				servicemethodname.lastIndexOf('.')));
 		Object presentationService = applicationContext.getBean(serviceName
 				.get());
 		if (!(presentationService instanceof AuthenticationServiceFacade)) {
 			checkXSRFToken(request);
 		}
 		super.doPost(request, response);
-		return null;
+		return "";
 	}
 
 	@Override

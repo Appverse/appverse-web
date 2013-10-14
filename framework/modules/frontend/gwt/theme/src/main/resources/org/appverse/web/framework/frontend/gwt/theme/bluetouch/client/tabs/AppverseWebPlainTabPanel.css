@@ -1,0 +1,38 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+.tabHeader .tabStripSpacer,.tabFooter .tabStripSpacer {
+  border-color: #F9F9F9;
+  background-color: #F9F9F9;
+}
+
+.tabStripText {
+    font-family: "Droid Sans", sans-serif !important;
+    font-size: 12px !important;
+    color: #666666 !important;
+    text-shadow: 0.1em 0.1em #fff;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    line-height: 25px !important;
+}
+
+.tabStrip li {
+    margin-left: -6px;
+    z-index: 1;
+}
+
+.tabStripActive {
+    z-index: 2 !important;
+}
+
+.tabStrip li:first-child {
+    margin-left: 0px;
+}
+
+.tabStripInner .tabLeft .tabRight{
+    height: 35px;
+}

@@ -1,0 +1,109 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+.fieldItem {
+  display: block;
+  margin-bottom: 5px;
+  position: relative;
+  font: 12px 'PT Sans', sans-serif;
+}
+
+.fieldItemLabelTop {
+  margin-bottom: 2px;
+  padding-bottom: 0;
+  padding-bottom: 4px;
+}
+
+.fieldItem .fieldLabel {
+  clear: left;
+  display: block;
+  float: left;
+  padding: 3px 0 0;
+  position: relative;
+  z-index: 2;
+  -moz-user-select: none;
+  color:#2e68b1;
+  text-shadow:#fff;
+  font-weight:bold;
+}
+
+.fieldItemLabelTop .fieldLabel {
+  width: auto !important;
+  float: none !important;
+  clear: none;
+  display: inline;
+  margin-bottom: 4px;
+  position: static;
+}
+
+.fieldItemLabelTop .fieldElement {
+  padding-left: 0 !important;
+  padding-top: 4px;
+}
+
+.fieldElement {
+  
+}
+.fieldElement input[type="checkbox"]{
+	display:none;
+}
+.fieldElement input[type=checkbox]:checked + label:after {
+	-ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=100)';
+	filter: 'alpha(opacity=100)';
+	opacity: 1;
+}
+.fieldElement label{
+	cursor: pointer;
+	position: absolute;
+	width: 12px !important;
+	height: 20px !important;
+	margin-left:0;
+	background: #f2f2f2;
+	border:1px solid #e6e6e6;
+	box-shadow:1px 1px 0 #999999;	
+	filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#222', endColorstr='#45484d',GradientType=0 )";
+}
+.fieldElement label:after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: 'alpha(opacity=0)';
+	opacity: 0;
+	content: '';
+	position: absolute;
+	width: 9px;
+	height: 5px;
+	background: transparent;
+	top: 4px;
+	left: 4px;
+	border: 3px solid #3ccb20;
+	border-top: none;
+	border-right: none;
+
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	
+}
+.fieldElement label:hover::after{
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+	filter: 'alpha(opacity=30)';
+	opacity: 0.3;
+	
+}
+
+.hideLabel {
+  
+}
+
+.clearLeft {
+  clear: left;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+  overflow: hidden;
+}

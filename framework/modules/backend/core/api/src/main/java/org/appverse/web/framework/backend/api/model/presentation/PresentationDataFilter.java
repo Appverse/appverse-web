@@ -24,6 +24,7 @@
 package org.appverse.web.framework.backend.api.model.presentation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PresentationDataFilter extends AbstractPresentationBean {
 
@@ -36,14 +37,14 @@ public class PresentationDataFilter extends AbstractPresentationBean {
 	// 'true'.
 	// In case negate or like does not apply for the current condition we need
 	// to add a null object to keep the positions.
-	private ArrayList<String> columns;
-	private ArrayList<Object> values;
-	private ArrayList<Boolean> negates;
-	private ArrayList<Boolean> likes;
-	private ArrayList<Boolean> ignoreCase;
-	private ArrayList<Boolean> equalsOrGreaterThan;
-	private ArrayList<Boolean> equalsOrLessThan;
-	private ArrayList<String> booleanConditions;
+	private List<String> columns;
+	private List<Object> values;
+	private List<Boolean> negates;
+	private List<Boolean> likes;
+	private List<Boolean> ignoreCase;
+	private List<Boolean> equalsOrGreaterThan;
+	private List<Boolean> equalsOrLessThan;
+	private List<String> booleanConditions;
 
 	// This fields go in a group. If a column is added a value has to be added
 	// to every array as the stragy is to match by position.
@@ -51,16 +52,16 @@ public class PresentationDataFilter extends AbstractPresentationBean {
 	// For instance: columnToSort 'name', sortingDirection 'ASC'
 	// In case the sortingDirection is not specified, we will add a default in
 	// constructor to keep the positions.
-	private ArrayList<String> columnsToSort;
-	private ArrayList<String> sortingDirections;
+	private List<String> columnsToSort;
+	private List<String> sortingDirections;
 
 	private String defaultBooleanCondition;
 
 	// This fields go in a group as they do not have the field 'value' and other
 	// operators do not apply
-	private ArrayList<String> columnsIsNull;
-	private ArrayList<Boolean> negatesIsNull;
-	private ArrayList<String> booleanConditionsIsNull;
+	private List<String> columnsIsNull;
+	private List<Boolean> negatesIsNull;
+	private List<String> booleanConditionsIsNull;
 
 	public static String ASC = "ASC";
 	public static String DESC = "DESC";
@@ -413,23 +414,79 @@ public class PresentationDataFilter extends AbstractPresentationBean {
 		booleanConditions.add(booleanCondition);
 	}
 
-	public ArrayList<String> getBooleanConditions() {
+	public List<String> getBooleanConditions() {
 		return booleanConditions;
 	}
 
-	public ArrayList<String> getBooleanConditionsIsNull() {
+	public List<String> getBooleanConditionsIsNull() {
 		return booleanConditionsIsNull;
 	}
 
-	public ArrayList<String> getColumns() {
+	public List<String> getColumns() {
 		return columns;
 	}
 
-	public ArrayList<String> getColumnsIsNull() {
+	public void setColumns(List<String> columns) {
+		this.columns = (ArrayList<String>) columns;
+	}
+
+	public void setValues(List<Object> values) {
+		this.values = (ArrayList<Object>) values;
+	}
+
+	public void setNegates(List<Boolean> negates) {
+		this.negates = (ArrayList<Boolean>) negates;
+	}
+
+	public void setLikes(List<Boolean> likes) {
+		this.likes = (ArrayList<Boolean>) likes;
+	}
+
+	public void setIgnoreCase(List<Boolean> ignoreCase) {
+		this.ignoreCase = (ArrayList<Boolean>) ignoreCase;
+	}
+
+	public void setEqualsOrGreaterThan(List<Boolean> equalsOrGreaterThan) {
+		this.equalsOrGreaterThan = (ArrayList<Boolean>) equalsOrGreaterThan;
+	}
+
+	public void setEqualsOrLessThan(List<Boolean> equalsOrLessThan) {
+		this.equalsOrLessThan = (ArrayList<Boolean>) equalsOrLessThan;
+	}
+
+	public void setBooleanConditions(List<String> booleanConditions) {
+		this.booleanConditions = (ArrayList<String>) booleanConditions;
+	}
+
+	public void setColumnsToSort(List<String> columnsToSort) {
+		this.columnsToSort = (ArrayList<String>) columnsToSort;
+	}
+
+	public void setSortingDirections(List<String> sortingDirections) {
+		this.sortingDirections = (ArrayList<String>) sortingDirections;
+	}
+
+	public void setDefaultBooleanCondition(String defaultBooleanCondition) {
+		this.defaultBooleanCondition = defaultBooleanCondition;
+	}
+
+	public void setColumnsIsNull(List<String> columnsIsNull) {
+		this.columnsIsNull = (ArrayList<String>) columnsIsNull;
+	}
+
+	public void setNegatesIsNull(List<Boolean> negatesIsNull) {
+		this.negatesIsNull = (ArrayList<Boolean>) negatesIsNull;
+	}
+
+	public void setBooleanConditionsIsNull(List<String> booleanConditionsIsNull) {
+		this.booleanConditionsIsNull = (ArrayList<String>) booleanConditionsIsNull;
+	}
+
+	public List<String> getColumnsIsNull() {
 		return columnsIsNull;
 	}
 
-	public ArrayList<String> getColumnsToSort() {
+	public List<String> getColumnsToSort() {
 		return columnsToSort;
 	}
 
@@ -441,35 +498,35 @@ public class PresentationDataFilter extends AbstractPresentationBean {
 		return defaultBooleanCondition;
 	}
 
-	public ArrayList<Boolean> getEqualsOrGreaterThan() {
+	public List<Boolean> getEqualsOrGreaterThan() {
 		return equalsOrGreaterThan;
 	}
 
-	public ArrayList<Boolean> getEqualsOrLessThan() {
+	public List<Boolean> getEqualsOrLessThan() {
 		return equalsOrLessThan;
 	}
 
-	public ArrayList<Boolean> getIgnoreCase() {
+	public List<Boolean> getIgnoreCase() {
 		return ignoreCase;
 	}
 
-	public ArrayList<Boolean> getLikes() {
+	public List<Boolean> getLikes() {
 		return likes;
 	}
 
-	public ArrayList<Boolean> getNegates() {
+	public List<Boolean> getNegates() {
 		return negates;
 	}
 
-	public ArrayList<Boolean> getNegatesIsNull() {
+	public List<Boolean> getNegatesIsNull() {
 		return negatesIsNull;
 	}
 
-	public ArrayList<String> getSortingDirections() {
+	public List<String> getSortingDirections() {
 		return sortingDirections;
 	}
 
-	public ArrayList<Object> getValues() {
+	public List<Object> getValues() {
 		return values;
 	}
 

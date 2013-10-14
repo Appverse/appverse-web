@@ -1,0 +1,42 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+.handle {
+  background-color: #fff;
+}
+
+@sprite .over .handleEast,.pinned .handleEast,.over .handleWest,.pinned .handleWest {
+  gwt-image: "handleEast";
+}
+
+@sprite .over .handleSouth,.pinned .handleSouth,.over .handleNorth,.pinned .handleNorth {
+  gwt-image: "handleSouth";
+}
+
+@sprite .over .handleSoutheast,.pinned .handleSoutheast {
+  gwt-image: "handleSoutheast";
+}
+
+@sprite .over .handleNorthwest,.pinned .handleNorthwest {
+  gwt-image: "handleNorthwest";
+}
+
+@sprite .over .handleNortheast,.pinned .handleNortheast {
+  gwt-image: "handleNortheast";
+}
+
+@sprite .over .handleSouthwest,.pinned .handleSouthwest {
+  gwt-image: "handleSouthwest";
+}
+
+.proxy {
+  border-color: #3b5a82;
+}
+
+.overlay {
+  background-color: #fff;
+}

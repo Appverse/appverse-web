@@ -1,0 +1,187 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+@external x-toolbar-mark;
+
+.button {
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.hasWidth .mainTable {
+  width: 100%;
+}
+
+.button td, .button td div {
+  text-align: center;
+  /*Modificado por Marcos*/
+  background-image:none !important;
+  background: #f6f6f6 !important;
+}
+
+/*A�adido por Marcos*/
+.button{
+	border:1px solid #ccc;
+	box-sizing:border-box;
+  	-moz-box-sizing: border-box;
+}
+.hasWidth{
+  box-shadow:2px 2px 0 #999999;
+  border:none;
+}
+.button:hover td, .button:hover td div{
+	background: #ffffff !important;	
+}
+
+.hasWidth:hover td, .hasWidth:hover td div .text{
+    color: white;
+}
+
+.hasWidth:hover td, .hasWidth:hover td div{
+	background: #2e68b1 !important;
+}
+.hasWidth td, .hasWidth td div{
+	background: #FBFBFB !important;
+}
+
+@if !user.agent ie6  {
+  .button td img {
+    float: left;
+  }
+  .iconTop td img, .iconBottom td img {
+    float: none;
+  }
+} @else {
+  .iconTop {}
+  .iconBottom {}
+}
+
+.iconWrap {
+  padding: 0px 2px;
+}
+
+.text {
+  padding: 0px 2px;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  color:#989898;
+}
+
+.iconWrap div {
+  font-size: 1px;
+}
+
+.small .iconLeft td, .small .iconRight td, .small .noIcon td {
+  line-height: 18px;
+}
+
+.medium .iconTop .iconWrap div, .medium .iconBottom .iconWrap div {
+  height: 20px;
+}
+
+.medium .iconLeft td, .medium .iconRight td, .medium .noIcon td {
+  line-height: 24px;
+}
+
+.medium .iconTop .iconWrap div, .medium .iconBottom .iconWrap div {
+  height: 26px;
+}
+
+.large .iconLeft td, .large .iconRight td, .large .noIcon td, .large .iconWrap div {
+  line-height: 32px;
+}
+
+.large .iconTop .iconWrap div, .large .iconBottom .iconWrap div {
+  height: 34px;
+}
+
+@if user.agent ie6 {
+  @eval SPLIT com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("base/images/button/split.gif");
+  .split {
+    background-image: SPLIT;
+  }
+} @else {
+  @sprite .split  {
+    gwt-image: 'split';
+    width: auto;
+    height: auto;
+  }
+}
+
+.split {
+  background-position: right center;
+  padding-right: 14px;
+  background-repeat: no-repeat;
+}
+
+
+
+@if user.agent ie6 {
+  @eval SPLITBOTTOM com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("base/images/button/splitBottom.gif");
+  .splitBottom {
+    background-image: SPLITBOTTOM;
+  }
+} @else {
+  @sprite .splitBottom  {
+    gwt-image: 'splitBottom';
+    width: auto;
+    height: auto;
+  }
+}
+
+.splitBottom {
+  gwt-image: 'splitBottom';
+  background-position: center bottom;
+  padding-bottom: 14px;
+  background-repeat: no-repeat;
+}
+
+.over {}
+
+@if user.agent ie6 {
+  @eval ARROW com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("base/images/button/arrow.gif");
+  .arrow {
+    background-image: ARROW;
+  }
+} @else {
+  @sprite .arrow  {
+    gwt-image: 'arrow';
+    width: auto;
+    height: auto;
+  }
+}
+
+.arrow {
+  padding-right: 10px;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+@if user.agent ie6 {
+  @eval ARROWBOTTOM com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("base/images/button/arrowBottom.gif");
+  .arrowBottom {
+    background-image: ARROWBOTTOM;
+  }
+} @else {
+  @sprite .arrowBottom  {
+    gwt-image: 'arrowBottom';
+    width: auto;
+    height: auto;
+  }
+}
+
+.arrowBottom {
+  background-position: center bottom;
+  padding-bottom:14px;
+  background-repeat: no-repeat;
+}
+

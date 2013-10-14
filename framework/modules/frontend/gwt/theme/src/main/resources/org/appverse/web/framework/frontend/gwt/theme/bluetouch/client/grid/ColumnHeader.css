@@ -1,0 +1,167 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+@eval headerBtn com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("bluetouch/images/grid/grid3-hd-btn.gif");
+
+.headerInner {
+  
+}
+
+.header {
+  cursor: default;
+  zoom: 1;
+  padding: 0px 0 0 0;
+  background-image: none !important;
+  background-color: #e6e6e6 !important;
+  border: 1px solid #ccc;
+  box-sizing:border-box;
+  -moz-box-sizing: border-box;
+  color: #999;
+  text-shadow: 1px 1px 0 #fff;
+}
+.header:hover{
+	
+}
+
+
+@sprite .header {
+  gwt-image: 'columnHeader';
+  height: auto;
+}
+
+@if user.agent ie6  {
+  .header {
+    position: relative;
+  } 
+}
+
+.headRow {
+}
+
+.headRow .head {
+  line-height: 15px;
+  vertical-align: middle;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border: none;
+}
+
+.headRow .head {
+  -moz-outline: none;
+  -moz-user-focus: normal;
+  outline: 0 none;
+  font: 11px 'PT Sans', sans-serif;
+  border-left-color: #EEEEEE;
+  border-right-color: #D0D0D0;
+}
+
+.headInner {
+  background-image: none !important;
+  overflow: hidden;
+  zoom: 1;
+  float: left;
+  cursor: inherit;
+  position: relative;
+  vertical-align: middle;  
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  padding: 4px 3px 4px 5px;
+  white-space: nowrap;
+}
+
+.headInner:hover{
+	background-image: none !important;
+	background-color: #2e68b1 !important;
+	color: #fff;
+	text-shadow: 1px 1px 0 #000;
+}
+
+.head {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: ignore;
+}
+
+.headButton {
+  display: none;
+  position: absolute;
+  width: 14px;
+  background: no-repeat left center;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  cursor: pointer;
+  outline: none;
+}
+
+.headButton {
+  background-color: #c3daf9;
+  background-image: headerBtn;
+}
+
+.headOver .headButton,.headMenuOpen .headButton {
+  display: block;
+}
+
+a.headButton:hover {
+  background-position: -14px center;
+}
+
+
+td.headOver,td.sortDesc,td.sortAsc,td.headMenuOpen {
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+
+td.headOver .headInner, td.sortDesc .headInner, td.sortAsc .headInner, td.headMenuOpen .headInner {
+  background: repeat-x left bottom;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+}
+
+td.headOver, td.sortDesc, td.sortAsc, td.headMenuOpen {
+  border-left-color: #aaccf6;
+  border-right-color: #aaccf6;
+}
+
+@sprite td.headOver .headInner, td.sortDesc .headInner, td.sortAsc .headInner, td.headMenuOpen .headInner {
+  background-color: #2e68b1 !important;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+  gwt-image: 'columnHeaderOver';
+  background-position: left bottom;
+}
+
+.sortIcon {
+  background-repeat: no-repeat;
+  display: none;
+  height: 4px;
+  width: 13px;
+  margin-left: 3px;
+  vertical-align: middle;
+}
+
+.sortAsc .sortIcon, .sortDesc .sortIcon {
+  display: inline;
+}
+
+@sprite .sortAsc .sortIcon {
+  gwt-image: 'sortAsc';
+}
+
+@sprite .sortDesc .sortIcon {
+  gwt-image: 'sortDesc';
+}
+
+@sprite .columnMoveTop {
+  gwt-image: 'columnMoveTop';
+}
+
+@sprite .columnMoveBottom {
+  gwt-image: 'columnMoveBottom';
+}

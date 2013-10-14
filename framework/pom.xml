@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -11,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms</groupId>
 	<artifactId>appverse-web-masterpom</artifactId>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>1.2.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Master POM</name>
@@ -173,18 +172,23 @@
 	</mailingLists>
 
 	<scm>
-		<connection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</connection>
-		<developerConnection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</developerConnection>
+		<connection>scm:git:https://github.com/Appverse/appverse-web.git</connection>
+		<developerConnection>scm:git:https://github.com/Appverse/appverse-web.git</developerConnection>
 		<tag>master</tag>
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
 	<properties>
-		<framework.version>1.1.1-SNAPSHOT</framework.version>
+		<framework.version>1.2.6-SNAPSHOT</framework.version>
 		<spring.version>3.2.1.RELEASE</spring.version>
 		<spring.security.version>3.1.3.RELEASE</spring.security.version>
 		<slf4j.version>1.5.11</slf4j.version>
 		<gwt.version>2.5.0</gwt.version>
+		<restygwt.version>1.3</restygwt.version>
+		<jsr311.version>1.1.1</jsr311.version>
+		<jersey.version>1.17</jersey.version>
+                <jdk.source>1.6</jdk.source>
+                <jdk.target>1.6</jdk.target>
 	</properties>
 
 	<modules>
@@ -213,8 +217,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.0</version>
 					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
+						<source>${jdk.source}</source>
+						<target>${jdk.target}</target>
 						<encoding>UTF-8</encoding>
 					</configuration>
 				</plugin>
@@ -318,8 +322,8 @@
 					<artifactId>aspectj-maven-plugin</artifactId>
 					<version>1.4</version>
 					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
+						<source>${jdk.source}</source>
+						<target>${jdk.target}</target>
 					</configuration>
 					<executions>
 						<execution>
@@ -406,11 +410,17 @@
 			</dependency>
 
 			<dependency>
+				<groupId>org.appverse.web.framework.modules.frontend.gwt.theme</groupId>
+				<artifactId>appverse-web-modules-frontend-gwt-theme</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
 				<artifactId>appverse-web-modules-frontend-gwt-api</artifactId>
 				<version>${framework.version}</version>
 				<scope>provided</scope>
-			</dependency>
+			</dependency>			
 			<!-- END OF APPVERSE WEB FRAMEWORK MANAGED DEPENDENCIES -->
 
 			<!-- SPRING FRAMEWORK MANAGED DEPENDENCIES -->
@@ -624,7 +634,61 @@
 				<version>2.6</version>
 			</dependency>
 			<!-- END OF APACHE COMMONS MANAGED DEPENDENCIES -->
-
+			<!--  JSR311 DEPENDENCIES -->
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>jsr311-api</artifactId>
+				<version>${jsr311.version}</version>
+			</dependency>
+			<!--  END JSR311 DEPENDENCIES -->
+			<!-- JERSEY DEPENDENCIES -->
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-server</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-grizzly2</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+					<!-- Jersey + Spring -->
+			<dependency>
+				<groupId>com.sun.jersey.contribs</groupId>
+				<artifactId>jersey-spring</artifactId>
+				<version>${jersey.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-core</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-web</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-beans</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-context</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			
+			<!-- END JERSEY DEPENDENCIES -->
+			<!-- RESTY DEPENDENCIES -->
+			<dependency>
+				<groupId>org.fusesource.restygwt</groupId>
+				<artifactId>restygwt</artifactId>
+				<version>${restygwt.version}</version>
+			</dependency>
+			<!-- END OF RESTY DEPENDENCIES -->
 			<!-- LOGGING MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -929,6 +993,13 @@
 				<artifactId>plexus-utils</artifactId>
 				<version>3.0.1</version>
 			</dependency>
+
+            <dependency>
+                <groupId>org.jodd</groupId>
+                <artifactId>jodd</artifactId>
+                <version>3.3.8</version>
+            </dependency>
+
 		</dependencies>
 	</dependencyManagement>
 

@@ -36,14 +36,40 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 			cursor: hand;
 			font-family: ProximaNovaSemibold, arial, verdana, sans-serif;
 			font-size: 12px;
+			color:#656565;
+			text-shadow:1px 1px 0 #fff;
+			
 		}
 		.linkLabel:hover{
-			color: #d52b1e;	
+			color: #2f68af;	
+			font-weight:bold;
 		}
 		.borderTopBottom {
 			border-top:solid 1px #efebe8;
 			border-bottom:solid 1px #efebe8;
 		}
+		.leftMenu
+		{
+			margin-left: 8px;
+			height: 579px;
+			background: #f2f2f2;
+			box-shadow: 1px 1px 6px #999999;		
+		}
+		
+		.leftMenuItem >div:first-child{
+			border-bottom:1px solid #aaa;
+		}
+		.leftMenuItem >div:first-child, .leftMenuItem >div:first-child >div, .leftMenuItem >div:first-child >div >div 
+		{
+			background-image:none;
+			background-color:#fff;
+			
+		}
+		.leftMenuItem >div:last-child div{
+			background-image:none;
+			background-color:#f2f2f2;
+		}
+		
 	</ui:style>	
 
 	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="outerMargins">
@@ -54,11 +80,11 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 		field="centerLayoutData">
 		<ui:attributes width="-1" height="-1" margins="{outerMargins}" />
 	</ui:with>
-	<container:VerticalLayoutContainer>
+	<container:VerticalLayoutContainer styleName="{style.leftMenu}">
 
 		<container:child layoutData="{centerLayoutData}">
 			<gxt:FramedPanel headingText="{res.menuExampleMenuGroup}" pixelSize="200, 100"
-				collapsible="true" expanded="true">
+				collapsible="true" expanded="true" styleName="{style.leftMenuItem}">
 				<container:VBoxLayoutContainer>
 					<container:child>
 						<g:Label text="{res.menuHome}" ui:field="homeLink" styleName="{style.linkLabel}" />
@@ -69,7 +95,7 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
 		<container:child layoutData="{centerLayoutData}">
 			<gxt:FramedPanel headingText="{res.menuUsersManagement}" pixelSize="200, 100"
-				collapsible="true" expanded="true">
+				collapsible="true" expanded="true" styleName="{style.leftMenuItem}">
 				<g:Label text="{res.menuUsersListManagement}" ui:field="usersLink" styleName="{style.linkLabel}" />
 			</gxt:FramedPanel>
 		</container:child>

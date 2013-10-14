@@ -28,15 +28,15 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 	xmlns:c="urn:import:com.sencha.gxt.widget.core.client" xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container"
 	xmlns:gxt="urn:import:com.sencha.gxt.widget.core.client" xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:layout="urn:import:org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.layout.views.impl.gxt">
-
+	
 	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="northMargins">
 		<ui:attributes top="0" right="5" bottom="0" left="5" />
 	</ui:with>
 	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="westMargins">
-		<ui:attributes top="5" right="5" bottom="5" left="5" />
+		<ui:attributes top="30" right="5" bottom="5" left="5" />
 	</ui:with>
 	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="centerMargins">
-		<ui:attributes top="5" right="5" bottom="5" left="5" />
+		<ui:attributes top="30" right="5" bottom="5" left="5" />
 	</ui:with>
 
 	<ui:with
@@ -54,27 +54,19 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 		<ui:attributes margins="{centerMargins}" />
 	</ui:with>
 
-	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="outerMargins">
-		<ui:attributes top="20" right="20" bottom="20" left="20" />
-	</ui:with>
-
 	<ui:with
 		type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
 		field="centerLayoutData">
-<!-- 		<ui:attributes width="1024" height="-1" margins="{outerMargins}" /> -->
-		<ui:attributes width="1024" height="-1" margins="{outerMargins}" />
+		<ui:attributes width="1024" height="-1"/>
 	</ui:with>
 
-<!-- <container:FlowLayoutContainer ui:field="flow"> -->
-	<container:VerticalLayoutContainer ui:field="flow">
-<!-- 		<container:child layoutData="{centerLayoutData}"> -->
+	<container:VerticalLayoutContainer ui:field="flow">	
+		<container:child>
+			<layout:AdminHeaderViewImpl ui:field="adminHeader"/>
+		</container:child>	
 		<container:child layoutData="{centerLayoutData}">
 			<container:BorderLayoutContainer
 				borders="true" ui:field="borderCon">
-				<container:north layoutData="{northData}">
-					<layout:AdminHeaderViewImpl ui:field="adminHeader"/>
-<!-- 					<gxt:ContentPanel headerVisible="false"/> -->
-				</container:north>
 				<container:west layoutData="{westData}">
 					<layout:AdminMenuViewImpl ui:field="adminMenu"></layout:AdminMenuViewImpl>
 				</container:west>
@@ -84,7 +76,7 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 					</gxt:ContentPanel>
 				</container:center>
 			</container:BorderLayoutContainer>
-		</container:child>
+		</container:child>			
 	</container:VerticalLayoutContainer>
-<!-- 	</container:FlowLayoutContainer> -->
+
 </ui:UiBinder>

@@ -23,12 +23,17 @@
  POSSIBILITY OF SUCH DAMAGE.
  --> 
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:form="urn:import:com.sencha.gxt.widget.core.client.form"
+	xmlns:button="urn:import:com.sencha.gxt.widget.core.client.button"
 	xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container" xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
 	<ui:with type="com.sencha.gxt.data.shared.ListStore" field="listStoreSuggest"></ui:with>
 	<ui:with type="com.sencha.gxt.widget.core.client.ListView" field="listViewSuggest"></ui:with>
 	
-	<form:ComboBox ui:field="searchText" />
-
-
+	<container:HorizontalLayoutContainer ui:field="horizontalLayoutContainer">
+		<container:child>
+			<!-- TODO: See how to remove fixed width so that the field is taking the spare room in the container -->
+			<form:ComboBox ui:field="searchText" width="380"/>
+		</container:child>
+	</container:HorizontalLayoutContainer>
+	
 </ui:UiBinder>

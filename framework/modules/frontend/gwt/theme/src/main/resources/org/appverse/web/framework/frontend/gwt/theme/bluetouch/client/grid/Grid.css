@@ -1,0 +1,201 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+@eval dirty com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("bluetouch/images/grid/dirty.gif");
+@eval invalidLine com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("bluetouch/images/grid/invalid_line.gif");
+@eval dirty com.sencha.gxt.core.client.util.ImageHelper.createModuleBasedUrl("bluetouch/images/grid/dirty.gif");
+
+@external x-treegrid x-treegrid-column;
+@external x-grid-td-numberer;
+@external x-grid-footer;
+
+.grid {
+  position: relative;
+  overflow: hidden;
+  outline: 0 none;
+}
+
+.scroller {
+  overflow: auto;
+  zoom: 1;
+  position: relative;
+  background-color: #fafafa;
+}
+
+.body {
+}
+
+
+TH {
+  border-bottom: none !important;
+}
+
+.dataTable {
+  table-layout: fixed; 
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.headerRow {}
+
+.row {
+  cursor: default;
+  padding: 0 1px;
+  vertical-align: top; 
+  
+}
+
+.rowHighlight {
+  border: 1px dotted #545352;
+} 
+
+.rowSelected .cell {
+  background-color: #DFE8F6 !important;
+  border-color: #A3BAE9;
+  border-style: dotted;
+}
+
+.rowAlt .cell {
+  background-color: #fafafa;
+}
+
+.rowOver .cell {
+  background-color: #EFEFEF;
+  border-width: 1px 0;
+  border-style: solid;
+}
+
+.rowDirty {
+  
+}
+
+.cell {
+  background-color: white;
+  border-color: #FAFAFA #EDEDED #EDEDED;
+  border-right: 0 solid #EDEDED;
+  border-style: solid;
+  border-width: 1px 0;
+  font: 11px 'PT Sans', sans-serif; 
+  overflow: hidden;
+}
+
+
+
+.cellInner {
+  overflow: hidden;
+  padding: 4px 3px 3px 5px;
+  line-height: 13px;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+
+.cellDirty {
+  background: transparent no-repeat 0 0; 
+  background-image: dirty;
+}
+
+.cellInvalid {
+  background: repeat-x bottom;
+  background-image: invalidLine;
+}
+
+.cellDirty {
+  background: transparent no-repeat 0 0;
+  background-image: dirty;
+}
+
+.cellSelected {
+  background-color: #b8cfee !important;
+  color: #000;
+}
+
+.rowOver .cell, .rowOver .rowWrap {
+  border-color: #DDDDDD;
+}
+
+.columnLines .cell {
+  padding-right: 0;
+  border-right: 1px solid;
+}
+
+.empty {
+  padding: 10px;
+  color: gray;
+  font: normal 11px 'PT Sans', sans-serif; 
+}
+
+.rowBodyRow {}
+
+.rowBody {
+  font: 11px/13px 'PT Sans',sans-serif;
+  padding: 4px;
+}
+
+.rowWrap {
+  border-color: #FAFAFA #EDEDED #EDEDED;
+  border-right: 0 solid #EDEDED;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+}
+
+.rowSelected .cell, .rowSelected .rowWrap {
+  background-color: #DFE8F6 !important;
+  border-color: #A3BAE9;
+  border-style: dotted;
+}
+
+.rowWrap .cell, .rowWrap .cellInner {
+  border: none; 
+}
+
+.x-grid-td-numberer {
+  background: transparent repeat-y right;
+}
+
+.x-grid-td-numberer .cellInner {
+  padding: 3px 5px 0 0 !important;
+  text-align: center;
+}
+
+.rowSelected .x-grid-td-numberer {
+  background: transparent repeat-y right;
+}
+
+@sprite .row .x-grid-td-numberer {
+  gwt-image: 'specialColumn';
+  height: auto;
+  width: auto;
+}
+
+.x-grid-td-numberer .cellInner {
+  color: #444;
+}
+
+@sprite .rowSelected .x-grid-td-numberer {
+  gwt-image: 'specialColumnSelected';
+  height: auto;
+  width: auto;
+}
+
+.footer {
+  background: #f7f7f7 none repeat scroll 0 0;
+  border-top: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.footer .cell {
+  background: none; 
+}
+
+.x-treegrid .x-treegrid-column .cellInner {
+  padding: 0 !important;
+}

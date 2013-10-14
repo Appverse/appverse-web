@@ -1,0 +1,6 @@
+<module>
+  <inherits name="org.appverse.web.framework.frontend.gwt.theme.AppverseFramework" />
+
+  <!-- Add 'replace-with' here to override extended theme appearances --> 
+
+</module>

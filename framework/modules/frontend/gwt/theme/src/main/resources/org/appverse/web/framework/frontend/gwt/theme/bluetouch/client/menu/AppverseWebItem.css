@@ -1,0 +1,26 @@
+/**
+ * Sencha GXT 3.0.1 - Sencha for GWT
+ * Copyright(c) 2007-2012, Sencha, Inc.
+ * licensing@sencha.com
+ *
+ * http://www.sencha.com/products/gxt/license/
+ */
+@sprite .active {
+  gwt-image: "itemOver";
+  width: auto; /* override gwt-image behavior */
+  height: auto; /* override gwt-image behavior */
+  
+  background-image: none !important;
+  background-color: #2e68b1 !important;
+  border: none;
+  /*background-color: #ebf3fd;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  border: 1px solid #aaccf6;
+  padding: 0;*/
+  padding: 1px !important;
+}
+
+.active a {
+  color: #fff !important;
+}

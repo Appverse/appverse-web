@@ -32,8 +32,10 @@ import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWT
 import org.appverse.web.framework.frontend.gwt.helpers.filters.GxtPaginationConverter;
 import org.appverse.web.framework.frontend.gwt.theme.client.search.SuggestTemplate;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events.LoadSuggestEvent;
+import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events.SearchSuggestEvent;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events.SelectSuggestEvent;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.LoadSuggestEventHandler;
+import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.SearchSuggestEventHandler;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.SelectSuggestEventHandler;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.model.SuggestModel;
 
@@ -46,6 +48,7 @@ import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiConstructor;
@@ -66,8 +69,12 @@ import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoader;
 import com.sencha.gxt.widget.core.client.Composite;
 import com.sencha.gxt.widget.core.client.ListView;
+import com.sencha.gxt.widget.core.client.button.TextButton;
+import com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.BlurEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.BlurEvent.BlurHandler;
+import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.sencha.gxt.widget.core.client.form.ComboBox;
 
 @Singleton
@@ -83,10 +90,11 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	 * }
 	 */
 	/**
-	 * The appearance of the date picker.
+	 * The appearance of the suggest widget
 	 */
 	public interface SuggestAppearance<M> {
-		void render(SafeHtmlBuilder sb, M model, SuggestTemplate<M> template);
+		void render(SafeHtmlBuilder sb, M model, SuggestTemplate<M> template);		
+		ImageResource iconSearch();
 	}
 
 	public interface SuggestWidgetImplUiBinder extends
@@ -106,6 +114,11 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 
 	@UiField(provided = true)
 	ComboBox<M> searchText;
+	
+	private TextButton iconSearch;
+	
+	@UiField(provided = false)
+	HorizontalLayoutContainer horizontalLayoutContainer;
 
 	private M value;
 
@@ -120,6 +133,7 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	private final SuggestAppearance<M> appearance;
 	// Model Field to search for
 	private String modelSearchField;
+	private boolean addSearchIcon = false;
 	private boolean ignoreCase = true;
 	private boolean forceSelection = false;
 	//workaround to solve keypressed event bug
@@ -142,7 +156,7 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 				.<SuggestAppearance> create(SuggestAppearance.class);
 
 		this.props = props;
-		this.instance = modelInstance;
+		this.instance = modelInstance;				
 		initWidget();
 	}
 
@@ -159,6 +173,13 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 		reg = handlerManager.addHandler(SelectSuggestEvent.TYPE, handler);
 		return reg;
 	}
+	
+	public HandlerRegistration addSuggestEventHandler(
+			final SearchSuggestEventHandler handler) {
+		HandlerRegistration reg = null;
+		reg = handlerManager.addHandler(SearchSuggestEvent.TYPE, handler);
+		return reg;
+	}	
 
 	public String getClickSelectionMethod() {
 		return clickSelectionMethod;
@@ -433,5 +454,29 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	public M getValue() {
 		return value;
 	}
+	
+	public boolean isAddSearchIcon() {
+		return addSearchIcon;
+	}
 
+	public void setAddSearchIcon(boolean addSearchIcon) {
+		this.addSearchIcon = addSearchIcon;
+		// optional search icon		
+		if (addSearchIcon){
+			iconSearch = new TextButton();			
+			iconSearch.setIcon(appearance.iconSearch());
+			iconSearch.setWidth(appearance.iconSearch().getWidth());
+			iconSearch.setHeight(appearance.iconSearch().getHeight());
+			iconSearch.addSelectHandler(new SelectHandler() {
+				@Override
+				public void onSelect(SelectEvent event) {
+					handlerManager.fireEvent(new SearchSuggestEvent());
+				}
+			});
+			horizontalLayoutContainer.add(iconSearch);
+		}
+		else{
+			iconSearch.removeFromParent();
+		}
+	}
 }

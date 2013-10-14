@@ -1,4 +1,4 @@
-/*
+ /*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source Code Form is subject to the terms of the Appverse Public License 
@@ -28,6 +28,7 @@ import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.impl.gxt.S
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.sencha.gxt.core.client.resources.StyleInjectorHelper;
 
@@ -36,6 +37,8 @@ public class AppverseSuggestAppearance<M> implements SuggestAppearance<M> {
 	public interface RiaSuggestResources extends ClientBundle {
 		@Source({ "Suggest.css" })
 		RiaSuggestStyle css();
+		
+	    ImageResource iconSearch();
 	}
 
 	public interface RiaSuggestStyle extends CssResource {
@@ -60,6 +63,11 @@ public class AppverseSuggestAppearance<M> implements SuggestAppearance<M> {
 	public void render(SafeHtmlBuilder sb, M model, SuggestTemplate<M> template) {
 		sb.append(template.render(model, style));
 
+	}
+
+	@Override
+	public ImageResource iconSearch() {
+		return resources.iconSearch();
 	}
 
 }

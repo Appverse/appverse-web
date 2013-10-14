@@ -76,9 +76,9 @@ public class FileVO extends AbstractPresentationBean {
 		} else if (filename.endsWith(".apk")) {
 			return "application/vnd.android.package-archive";
 		} else if (filename.endsWith(".ipa")) {
-			return ".ipa application/octet-stream";
+			return "application/octet-stream";
 		} else if (filename.endsWith(".plist")) {
-			return ".plist text/xml";
+			return "text/xml";
 		} else if (filename.endsWith(".crx")) {
 			return "application/x-chrome-extension";
 		} else if (filename.endsWith(".xpi")) {

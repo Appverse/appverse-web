@@ -2,7 +2,7 @@
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source Code Form is subject to the terms of the Appverse Public License 
- Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+ Version 2.0 (â€œAPL v2.0â€�). If a copy of the APL was not distributed with this 
  file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
 
  Redistribution and use in source and binary forms, with or without modification, 
@@ -28,9 +28,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.codehaus.jackson.JsonEncoding;
+import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonToken;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.type.TypeFactory;
 import org.codehaus.jackson.type.JavaType;
@@ -91,6 +97,11 @@ public class CustomMappingJacksonHttpMessageConverter extends
 		}
 
 	}
+	
+	public ObjectMapper getObjectMapper() {
+		return objectMapper;
+	}
+	
 
 	private JsonEncoding getEncoding(MediaType contentType) {
 		if (contentType != null && contentType.getCharSet() != null) {
@@ -212,6 +223,32 @@ public class CustomMappingJacksonHttpMessageConverter extends
 		this.objectMapper.writeValue(baosjsonGenerator, o);
 		logger.debug("Middleware returns " + o.getClass().getName() + " "
 				+ baos.toString());
+	}
+	
+	protected Object[] readInternal(Class<?>[] parameterTypes, String payload) throws Exception {
+		JsonFactory jsonFactory = this.objectMapper.getJsonFactory();
+		JsonParser jp = jsonFactory.createJsonParser(payload);
+		JsonToken token;
+		List<Object> lObjs = new ArrayList<Object>();
+		int i=0;
+		while ((token = jp.nextToken()) != null) {
+		    switch (token) {
+		    	case VALUE_NUMBER_INT:
+                case VALUE_STRING:
+		        case START_OBJECT:
+		        	Object obj = jp.readValueAs(parameterTypes[i]);
+		        	lObjs.add(obj);
+				    i++;
+		            break;
+			default:
+				break;
+		    }
+		}
+		if( lObjs.size() != parameterTypes.length) {
+			throw new Exception("Parsed parameters do not match requested types.");
+		}
+		Object [] parametersFound = lObjs.toArray();
+		return parametersFound;
 	}
 
 }
