@@ -82,4 +82,14 @@ public abstract class AbstractRpcCommand<E extends EventBusWithLookup> extends
 			eventBus.dispatch(initPlaceEvent);
 		}
 	}
+
+    /**
+     * Check hash (#) in URL to detect place event on module loading. If
+     * detected, the URL is returned. This should be used with
+     * eventBus historyOnStart = false
+     *
+     */
+    protected String getInitPlaceEvent() {
+        return GWTUtils.checkInitPlaceEvent();
+    }
 }
