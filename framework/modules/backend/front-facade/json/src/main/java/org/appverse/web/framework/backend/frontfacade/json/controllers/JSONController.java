@@ -259,9 +259,12 @@ public class JSONController {
 			// return Response.ok(result, MediaType.APPLICATION_JSON).build();
 			ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
 					response);
-			customMappingJacksonHttpMessageConverter.write(result,
-					org.springframework.http.MediaType.APPLICATION_JSON,
-					outputMessage);
+           if( result != null ) {
+               //only write result in case it is not void!
+                customMappingJacksonHttpMessageConverter.write(result,
+                        org.springframework.http.MediaType.APPLICATION_JSON,
+                        outputMessage);
+               }
 			addDefaultResponseHeaders(response);
 		} catch (Throwable th) {
 			// response.sendError(500, th.getMessage());
