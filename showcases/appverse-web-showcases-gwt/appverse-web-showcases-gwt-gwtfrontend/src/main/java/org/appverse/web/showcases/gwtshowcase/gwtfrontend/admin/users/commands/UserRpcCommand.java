@@ -27,6 +27,7 @@ import java.util.List;
 
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 import org.appverse.web.framework.frontend.gwt.rpc.ApplicationAsyncCallback;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
 
@@ -39,7 +40,7 @@ public interface UserRpcCommand {
 	void loadUsers(ApplicationAsyncCallback<List<UserVO>> callback);
 
 	void loadUsers(GWTPresentationPaginatedDataFilter config,
-			AsyncCallback<GWTPresentationPaginatedResult<UserVO>> callback);
+			AppverseCallback<GWTPresentationPaginatedResult<UserVO>> callback);
 
 	void saveUser(UserVO user, ApplicationAsyncCallback<Long> asyncCallback);
 }

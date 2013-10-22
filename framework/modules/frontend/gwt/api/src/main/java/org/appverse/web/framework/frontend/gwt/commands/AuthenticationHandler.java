@@ -32,7 +32,7 @@ public interface AuthenticationHandler {
 	void onAuthenticate();
 
 	void onAuthenticatePrincipal(UserInfoVO userInfo,
-			AppverseCallback<AuthorizationDataVO> callback);
+                                 AppverseCallback<AuthorizationDataVO> callback);
 
 	void onGetXSRFSessionToken();
 

@@ -23,15 +23,37 @@
  */
 package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.views.impl.gxt;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.gwt.core.client.Callback;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.editor.client.Editor.Path;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiFactory;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Singleton;
+import com.sencha.gxt.cell.core.client.form.CheckBoxCell;
+import com.sencha.gxt.core.client.ValueProvider;
+import com.sencha.gxt.data.shared.LabelProvider;
+import com.sencha.gxt.data.shared.ListStore;
+import com.sencha.gxt.data.shared.ModelKeyProvider;
+import com.sencha.gxt.data.shared.PropertyAccess;
+import com.sencha.gxt.data.shared.loader.*;
+import com.sencha.gxt.widget.core.client.button.TextButton;
+import com.sencha.gxt.widget.core.client.event.RowDoubleClickEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
+import com.sencha.gxt.widget.core.client.grid.ColumnModel;
+import com.sencha.gxt.widget.core.client.grid.Grid;
+import com.sencha.gxt.widget.core.client.grid.GridView;
+import com.sencha.gxt.widget.core.client.toolbar.PagingToolBar;
 import org.appverse.web.framework.backend.api.model.presentation.PresentationDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
 import org.appverse.web.framework.frontend.gwt.helpers.filters.GxtPaginationConverter;
+import org.appverse.web.framework.frontend.gwt.json.ApplicationJsonAsyncCallback;
 import org.appverse.web.framework.frontend.gwt.rmvp.ReverseComposite;
-import org.appverse.web.framework.frontend.gwt.rpc.ApplicationAsyncCallback;
 import org.appverse.web.framework.frontend.gwt.theme.client.search.AppverseSuggestAppearance.RiaSuggestStyle;
 import org.appverse.web.framework.frontend.gwt.theme.client.search.SuggestTemplate;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events.LoadSuggestEvent;
@@ -44,42 +66,10 @@ import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminMessages;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.injection.AdminInjector;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.presenters.interfaces.UserSearchView;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.common.frontend.gwt.rest.ApplicationRestAsyncCallback;
 import org.fusesource.restygwt.client.Method;
 
-import com.google.gwt.core.client.Callback;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.editor.client.Editor.Path;
-import com.google.gwt.http.client.RequestBuilder;
-import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiFactory;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Singleton;
-import com.sencha.gxt.cell.core.client.form.CheckBoxCell;
-import com.sencha.gxt.core.client.ValueProvider;
-import com.sencha.gxt.data.client.loader.HttpProxy;
-import com.sencha.gxt.data.client.loader.RpcProxy;
-import com.sencha.gxt.data.shared.LabelProvider;
-import com.sencha.gxt.data.shared.ListStore;
-import com.sencha.gxt.data.shared.ModelKeyProvider;
-import com.sencha.gxt.data.shared.PropertyAccess;
-import com.sencha.gxt.data.shared.loader.DataProxy;
-import com.sencha.gxt.data.shared.loader.LoadResultListStoreBinding;
-import com.sencha.gxt.data.shared.loader.PagingLoadConfig;
-import com.sencha.gxt.data.shared.loader.PagingLoadResult;
-import com.sencha.gxt.data.shared.loader.PagingLoader;
-import com.sencha.gxt.widget.core.client.button.TextButton;
-import com.sencha.gxt.widget.core.client.event.RowDoubleClickEvent;
-import com.sencha.gxt.widget.core.client.event.SelectEvent;
-import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
-import com.sencha.gxt.widget.core.client.grid.ColumnModel;
-import com.sencha.gxt.widget.core.client.grid.Grid;
-import com.sencha.gxt.widget.core.client.grid.GridView;
-import com.sencha.gxt.widget.core.client.toolbar.PagingToolBar;
+import java.util.ArrayList;
+import java.util.List;
 
 @Singleton
 public class UserSearchViewImpl extends
@@ -157,9 +147,9 @@ public class UserSearchViewImpl extends
 	@UiField
 	SuggestWidgetImpl<UserVO> suggestSearch;
 
-	ApplicationAsyncCallback<GWTPresentationPaginatedResult<UserVO>> callbackListUsers;
+	//ApplicationAsyncCallback<GWTPresentationPaginatedResult<UserVO>> callbackListUsers;
 	
-	ApplicationRestAsyncCallback<GWTPresentationPaginatedResult<UserVO>> callbackRestListUsers;
+	ApplicationJsonAsyncCallback<GWTPresentationPaginatedResult<UserVO>> callbackRestListUsers;
 	
 	GWTPresentationPaginatedDataFilter dataFilter;
 
@@ -213,13 +203,13 @@ public class UserSearchViewImpl extends
 		disableEditFeature = true;
 	}
 
-	@Override
-	public ApplicationAsyncCallback<GWTPresentationPaginatedResult<UserVO>> getCallbackListUsers() {
-		return callbackListUsers;
-	}
+	/*@Override
+	public ApplicationJsonAsyncCallback<GWTPresentationPaginatedResult<UserVO>> getCallbackListUsers() {
+		return callbackRestListUsers;
+	} */
 
 	@Override
-	public ApplicationRestAsyncCallback<GWTPresentationPaginatedResult<UserVO>> getCallbackRestListUsers() {
+	public ApplicationJsonAsyncCallback<GWTPresentationPaginatedResult<UserVO>> getCallbackRestListUsers() {
 		return callbackRestListUsers;
 	}
 
@@ -245,54 +235,37 @@ public class UserSearchViewImpl extends
 	}
 
 	public void initLoader() {
-		final RestyGWTProxy<PagingLoadConfig, PagingLoadResult<UserVO>> proxyResty = new RestyGWTProxy<PagingLoadConfig, PagingLoadResult<UserVO>>() {
+		final DataProxy<PagingLoadConfig, PagingLoadResult<UserVO>> proxyResty = new DataProxy<PagingLoadConfig, PagingLoadResult<UserVO>>() {
+            @Override
+            public void load(final PagingLoadConfig loadConfig,
+                             final Callback<PagingLoadResult<UserVO>, Throwable> callback) {
+                callbackRestListUsers = new ApplicationJsonAsyncCallback<GWTPresentationPaginatedResult<UserVO>>() {
 
-			@Override
-			public void load(
-					final PagingLoadConfig loadConfig,
-					final ApplicationRestAsyncCallback<PagingLoadResult<UserVO>> callback) {
-				callbackRestListUsers = new ApplicationRestAsyncCallback<GWTPresentationPaginatedResult<UserVO>>() {
+                    @SuppressWarnings("unchecked")
+                    @Override
+                    public void onSuccess(
+                            GWTPresentationPaginatedResult<UserVO> result) {
 
-					@SuppressWarnings("unchecked")
-					@Override
-					public void onSuccess(
-							GWTPresentationPaginatedResult<UserVO> result) {
-						callback.onSuccess((PagingLoadResult<UserVO>) GxtPaginationConverter
-								.convert(result));
-					}
+                        callback.onSuccess((PagingLoadResult<UserVO>) GxtPaginationConverter
+                                .convert(result));
+                    }
 
-					@SuppressWarnings("unchecked")
-					@Override
-					public void onSuccess(Method method,
-							GWTPresentationPaginatedResult<UserVO> result) {
-						callback.onSuccess((PagingLoadResult<UserVO>) GxtPaginationConverter
-								.convert(result));
-					}
-					
-				};
-				dataFilter = GxtPaginationConverter.convert(loadConfig);
-				presenter.loadUsers(getDataFilter(), callbackRestListUsers);
-			}
+                    @SuppressWarnings("unchecked")
+                    @Override
+                    public void onSuccess(Method method,
+                                          GWTPresentationPaginatedResult<UserVO> result) {
+                        callback.onSuccess((PagingLoadResult<UserVO>) GxtPaginationConverter
+                                .convert(result));
+                    }
 
-			
-		};
-		/*final RpcProxy<PagingLoadConfig, PagingLoadResult<UserVO>> proxy = new RpcProxy<PagingLoadConfig, PagingLoadResult<UserVO>>() {
-			@Override
-			public void load(final PagingLoadConfig loadConfig,
-					final AsyncCallback<PagingLoadResult<UserVO>> callback) {
-				callbackListUsers = new ApplicationAsyncCallback<GWTPresentationPaginatedResult<UserVO>>() {
-					@SuppressWarnings("unchecked")
-					@Override
-					public void onSuccess(
-							final GWTPresentationPaginatedResult<UserVO> result) {
-						callback.onSuccess((PagingLoadResult<UserVO>) GxtPaginationConverter
-								.convert(result));
-					}
-				};
-				dataFilter = GxtPaginationConverter.convert(loadConfig);
-				presenter.loadUsers(getDataFilter(), callbackListUsers);
-			}
-		};*/
+                };
+                dataFilter = GxtPaginationConverter.convert(loadConfig);
+                presenter.loadUsers(getDataFilter(), callbackRestListUsers);
+            }
+
+
+
+        };
 
 		final PagingLoader<PagingLoadConfig, PagingLoadResult<UserVO>> loader = new PagingLoader<PagingLoadConfig, PagingLoadResult<UserVO>>(
 				proxyResty);

@@ -26,10 +26,11 @@ package org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTAbstractPresentationBean;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.LoadSuggestEventHandler;
 
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.user.client.rpc.AsyncCallback;
+
 
 @SuppressWarnings("rawtypes")
 public class LoadSuggestEvent<M extends GWTAbstractPresentationBean> extends
@@ -38,10 +39,10 @@ public class LoadSuggestEvent<M extends GWTAbstractPresentationBean> extends
 	public static Type<LoadSuggestEventHandler> TYPE = new Type<LoadSuggestEventHandler>();
 
 	private final GWTPresentationPaginatedDataFilter config;
-	private final AsyncCallback<GWTPresentationPaginatedResult<M>> callback;
+	private final AppverseCallback<GWTPresentationPaginatedResult<M>> callback;
 
 	public LoadSuggestEvent(GWTPresentationPaginatedDataFilter config,
-			AsyncCallback<GWTPresentationPaginatedResult<M>> callback) {
+                            AppverseCallback<GWTPresentationPaginatedResult<M>> callback) {
 		this.config = config;
 		this.callback = callback;
 	}
@@ -57,7 +58,7 @@ public class LoadSuggestEvent<M extends GWTAbstractPresentationBean> extends
 		return TYPE;
 	}
 
-	public AsyncCallback<GWTPresentationPaginatedResult<M>> getCallback() {
+	public AppverseCallback<GWTPresentationPaginatedResult<M>> getCallback() {
 		return callback;
 	}
 

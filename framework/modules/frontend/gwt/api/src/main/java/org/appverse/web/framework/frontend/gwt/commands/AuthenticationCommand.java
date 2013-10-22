@@ -23,13 +23,12 @@
  */
 package org.appverse.web.framework.frontend.gwt.commands;
 
+import com.google.inject.ImplementedBy;
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 import org.appverse.web.framework.frontend.gwt.commands.impl.live.AuthenticationRpcCommandImpl;
 import org.appverse.web.framework.frontend.gwt.common.FrameworkEventBus;
-
-import com.google.inject.ImplementedBy;
 
 /**
  * Defines the Authentication interface used from AuthenticationHandler.
@@ -44,7 +43,7 @@ public interface AuthenticationCommand {
 	void onAuthenticate();
 
 	void onAuthenticatePrincipal(UserInfoVO userInfo,
-			AppverseCallback<AuthorizationDataVO> callback);
+                                 AppverseCallback<AuthorizationDataVO> callback);
 
 	void onGetXSRFSessionToken();
 

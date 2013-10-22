@@ -24,24 +24,20 @@
 package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.presenters;
 
 import org.appverse.web.framework.frontend.gwt.helpers.security.PrincipalInformation;
-import org.appverse.web.framework.frontend.gwt.rpc.ApplicationAsyncCallback;
+import org.appverse.web.framework.frontend.gwt.json.ApplicationJsonAsyncCallback;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminEventBus;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminMessages;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.injection.AdminInjector;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.UserRestRpcCommand;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.UserRpcCommand;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.presenters.interfaces.UserEditView;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.views.impl.gxt.UserEditViewImpl;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.common.frontend.gwt.rest.ApplicationRestAsyncCallback;
 import org.appverse.web.showcases.gwtshowcase.backend.constants.AuthoritiesConstants;
 import org.fusesource.restygwt.client.Method;
 
 import com.mvp4g.client.annotation.Presenter;
 import com.mvp4g.client.presenter.LazyPresenter;
 import com.sencha.gxt.widget.core.client.Dialog;
-import com.sencha.gxt.widget.core.client.Dialog.PredefinedButton;
-import com.sencha.gxt.widget.core.client.Dialog.DialogMessages;
 import com.sencha.gxt.widget.core.client.box.ConfirmMessageBox;
 import com.sencha.gxt.widget.core.client.event.HideEvent;
 import com.sencha.gxt.widget.core.client.event.HideEvent.HideHandler;
@@ -53,7 +49,6 @@ public class UserEditPresenter extends
 
 	private AdminInjector injector;
 	private AdminMessages adminMessages;
-	private UserRpcCommand userRpcCommand;
 	private UserRestRpcCommand userRestRpcCommand;
 	
 	@Override
@@ -87,24 +82,13 @@ public class UserEditPresenter extends
 				Dialog btn = (Dialog) event.getSource();
 				String answer = btn.getHideButton().getText();
 				if (btn.getDialogMessages().yes().equals(answer)) {
-					userRpcCommand.deleteUser(user,
-							new ApplicationAsyncCallback<Void>() {
-								@Override
-								public void onSuccess(final Void v) {
-									// TODO: Show here an alert confirming that
-									// the object was succesfully deleted
-									eventBus.usersSearch(true);
-								}
+					userRestRpcCommand.deleteUser(user,
+							new ApplicationJsonAsyncCallback<Void>() {
+                                @Override
+                                public void onSuccess(Method method, Void o) {
+                                    eventBus.usersSearch(true);
+                                }
 							});
-
-//					userRestRpcCommand.deleteUser(user, new ApplicationRestAsyncCallback<Void>() {
-//
-//						@Override
-//						public void onSuccess(Method method, Void response) {
-//							eventBus.usersSearch(true);
-//						}
-//						
-//					});
 				}
 			}
 		});
@@ -118,26 +102,19 @@ public class UserEditPresenter extends
 
 	@Override
 	public void onUserEdit(final UserVO user) {
-		userRestRpcCommand.loadUser(user.getId(), new ApplicationRestAsyncCallback<UserVO>() {
-
-			@Override
-			public void onSuccess(Method method, UserVO response) {
-				view.setUser(response);
-				if (user.getId() == 0) {
-					view.setCreationMode(PrincipalInformation
-							.hasPrincialAuthority(AuthoritiesConstants.ROLE_USER_CREATE));
-				} else {
-					view.setEditMode(
-							PrincipalInformation
-									.hasPrincialAuthority(AuthoritiesConstants.ROLE_USER_EDIT),
-							PrincipalInformation
-									.hasPrincialAuthority(AuthoritiesConstants.ROLE_USER_DISABLE));
-				}
-				loadMappings();
-				eventBus.adminLayoutChangeBody(view.asWidget());
-			}
-			
-		});
+        view.setUser(user);
+        if (user.getId() == 0) {
+            view.setCreationMode(PrincipalInformation
+                    .hasPrincialAuthority(AuthoritiesConstants.ROLE_USER_CREATE));
+        } else {
+            view.setEditMode(
+                    PrincipalInformation
+                            .hasPrincialAuthority(AuthoritiesConstants.ROLE_USER_EDIT),
+                    PrincipalInformation
+                            .hasPrincialAuthority(AuthoritiesConstants.ROLE_USER_DISABLE));
+        }
+        loadMappings();
+        eventBus.adminLayoutChangeBody(view.asWidget());
 	}
 
 	// Button save pressed
@@ -145,13 +122,11 @@ public class UserEditPresenter extends
 	public void save(final UserVO user) {
 		boolean valid = view.validate(user);
 		if (valid) {
-			userRestRpcCommand.saveUser(user, new ApplicationRestAsyncCallback<Long>() {
-				@Override
-				public void onSuccess(final Long ret) {
-					// TODO: Show here an alert confirming that the
-					// object was successfully saved
-					eventBus.usersSearch(true);
-				}
+			userRestRpcCommand.saveUser(user, new ApplicationJsonAsyncCallback<Long>() {
+                @Override
+                public void onSuccess(Method method, Long o) {
+                    eventBus.usersSearch(true);
+                }
 			});
 		}
 	}

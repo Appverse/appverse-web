@@ -27,23 +27,22 @@ import java.util.List;
 
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
+import org.appverse.web.framework.frontend.gwt.json.ApplicationJsonAsyncCallback;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.common.frontend.gwt.rest.ApplicationRestAsyncCallback;
-
-import com.google.gwt.core.client.Callback;
 
 public interface UserRestRpcCommand {
 
-	void deleteUser(UserVO user, ApplicationRestAsyncCallback<Void> asyncCallback);
+	void deleteUser(UserVO user, ApplicationJsonAsyncCallback<Void> asyncCallback);
 
-	void loadUsers(ApplicationRestAsyncCallback<List<UserVO>> callback);
+	void loadUsers(ApplicationJsonAsyncCallback<List<UserVO>> callback);
 	
-	void loadUser(long userId, ApplicationRestAsyncCallback<UserVO> callback);
+	void loadUser(long userId, ApplicationJsonAsyncCallback<UserVO> callback);
 
 	void loadUsers(GWTPresentationPaginatedDataFilter config,
-			ApplicationRestAsyncCallback<GWTPresentationPaginatedResult<UserVO>> callback);
+			AppverseCallback<GWTPresentationPaginatedResult<UserVO>> callback);
 
-    void saveUser(UserVO user, ApplicationRestAsyncCallback<Long> applicationRestAsyncCallback);
+    void saveUser(UserVO user, ApplicationJsonAsyncCallback<Long> applicationJsonAsyncCallback);
 
     //	void saveUser(UserVO user, ApplicationAsyncCallback<Long> asyncCallback);
 }

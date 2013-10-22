@@ -48,5 +48,4 @@ public class AdminGinModule extends AbstractGinModule {
 		bind(UserRestRpcCommand.class).to(UserRestRpcCommandImpl.class);
 	}
 
-//	bind(UserRpcCommand.class).to(UserRpcCommandImpl.class);
 }

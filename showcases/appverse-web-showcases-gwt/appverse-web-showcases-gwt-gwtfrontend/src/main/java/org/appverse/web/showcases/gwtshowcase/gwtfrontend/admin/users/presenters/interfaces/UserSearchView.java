@@ -23,15 +23,14 @@
  */
 package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.presenters.interfaces;
 
-import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
-import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
-import org.appverse.web.framework.frontend.gwt.rpc.ApplicationAsyncCallback;
-import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
-
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.mvp4g.client.view.LazyView;
 import com.mvp4g.client.view.ReverseViewInterface;
+import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
+import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
+import org.appverse.web.framework.frontend.gwt.rpc.ApplicationAsyncCallback;
+import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
 
 public interface UserSearchView extends
 		ReverseViewInterface<UserSearchView.IUserSearchPresenter>, LazyView,
@@ -45,7 +44,7 @@ public interface UserSearchView extends
 		
 		public void loadUsers(
 				GWTPresentationPaginatedDataFilter convert,
-				AsyncCallback<GWTPresentationPaginatedResult<UserVO>> asyncCallback);
+				AppverseCallback<GWTPresentationPaginatedResult<UserVO>> asyncCallback);
 
 		void searchUsers();
 		

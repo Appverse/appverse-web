@@ -25,19 +25,16 @@ package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.presenter
 
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 import org.appverse.web.framework.frontend.gwt.helpers.security.PrincipalInformation;
 import org.appverse.web.showcases.gwtshowcase.backend.constants.AuthoritiesConstants;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminEventBus;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.common.injection.AdminInjector;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.UserRestRpcCommand;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.UserRpcCommand;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.presenters.interfaces.UserSearchView;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.views.impl.gxt.UserSearchViewImpl;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.common.frontend.gwt.rest.ApplicationRestAsyncCallback;
 
-import com.google.gwt.core.client.Callback;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.mvp4g.client.annotation.Presenter;
 import com.mvp4g.client.presenter.LazyPresenter;
 
@@ -47,7 +44,6 @@ public class UserSearchPresenter extends
 		UserSearchView.IUserSearchPresenter {
 
 	private AdminInjector injector;
-//	private UserRpcCommand userRpcCommand;
 	private UserRestRpcCommand userRestRpcCommand;
 
 	@Override
@@ -90,15 +86,6 @@ public class UserSearchPresenter extends
 	}
 
 	@Override
-	public void loadUsers(
-			final GWTPresentationPaginatedDataFilter config,
-			final AsyncCallback<GWTPresentationPaginatedResult<UserVO>> asyncCallback) {
-//		userRpcCommand.loadUsers(config, asyncCallback);
-	}
-
-
-	
-	@Override
 	public void onPlaceUserSearch() {
 		onUsersSearch(false);
 	}
@@ -123,15 +110,8 @@ public class UserSearchPresenter extends
 	@Override
 	public void loadUsers(
 			GWTPresentationPaginatedDataFilter dataFilter,
-			ApplicationRestAsyncCallback<GWTPresentationPaginatedResult<UserVO>> callbackRestListUsers) {
+			AppverseCallback<GWTPresentationPaginatedResult<UserVO>> callbackRestListUsers) {
 		userRestRpcCommand.loadUsers(dataFilter, callbackRestListUsers);
 	}
-
-//	@Override
-//	public void loadUsers(
-//			GWTPresentationPaginatedDataFilter dataFilter,
-//			Callback<GWTPresentationPaginatedResult<UserVO>, Throwable> callbackRestListUsers) {
-//		userRestRpcCommand.loadUsers(dataFilter, callbackRestListUsers);
-//	}
 
 }

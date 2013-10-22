@@ -38,23 +38,7 @@ import com.google.gwt.core.client.GWT;
 //@RemoteServiceRelativePath("services/userServiceFacade.rpc")
 public interface UserRestTestServiceFacade extends RestService {
 
-//	UserVO loadUser(long userId) throws Exception;
-
-	@POST
-	void loadUser(Long userId, MethodCallback<UserVO> callback );
-	
-	@POST
-	void deleteUser(UserVO userVo, MethodCallback<Void> callback );
-	
-	@POST
-	void loadUsers(GWTPresentationPaginatedDataFilter config, MethodCallback<GWTPresentationPaginatedResult<UserVO>> callback);
-
-    @POST
-    void saveUser(UserVO userVo, MethodCallback<Long> callback);
-	
-	
-
-    /**
+   /**
      * Utility class to get the instance of the Rest Service
      */
     public static final class Util {

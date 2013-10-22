@@ -23,15 +23,6 @@
  */
 package org.appverse.web.showcases.gwtshowcase.backend.services.presentation.impl.live;
 
-import java.util.List;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
-
 import org.appverse.web.framework.backend.api.converters.p2b.PaginatedDataFilterP2BBeanConverter;
 import org.appverse.web.framework.backend.api.model.business.BusinessPaginatedDataFilter;
 import org.appverse.web.framework.backend.api.services.presentation.AbstractPresentationService;
@@ -42,15 +33,14 @@ import org.appverse.web.showcases.gwtshowcase.backend.converters.p2b.UserP2BBean
 import org.appverse.web.showcases.gwtshowcase.backend.model.business.User;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
 import org.appverse.web.showcases.gwtshowcase.backend.services.business.UserService;
-import org.appverse.web.showcases.gwtshowcase.backend.services.presentation.UserRestServiceFacade;
 import org.appverse.web.showcases.gwtshowcase.backend.services.presentation.UserServiceFacade;
-import org.fusesource.restygwt.client.MethodCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("userRestServiceFacade")
-@Path("hello")
-public class UserRestServiceFacadeImpl extends AbstractPresentationService {
+public class UserRestServiceFacadeImpl extends AbstractPresentationService implements UserServiceFacade {
 
 	@Autowired
 	private UserService userService;
@@ -65,12 +55,6 @@ public class UserRestServiceFacadeImpl extends AbstractPresentationService {
 	public UserRestServiceFacadeImpl() {
 	}
 	
-	  @GET
-	  @Produces(MediaType.TEXT_HTML)
-	  public String sayHtmlHello() {
-	    return "<html> " + "<title>" + "Hello Jersey" + "</title>"
-	        + "<body><h1>" + "Hello Jersey" + "</body></h1>" + "</html> ";
-	  }
 
 //	@Override
 //	public UserVO loadUser(final long userId) throws Exception {
@@ -106,18 +90,14 @@ public class UserRestServiceFacadeImpl extends AbstractPresentationService {
 				config.getOffset());
 	}
 //
-//	@Override
-//	public long saveUser(final UserVO userVO) throws Exception {
-//		final User user = userP2BBeanConverter.convert(userVO);
-//		return userService.saveUser(user);
-//	}
-//	
+
+	public long saveUser(final UserVO userVO) throws Exception {
+		final User user = userP2BBeanConverter.convert(userVO);
+		return userService.saveUser(user);
+	}
+
 	public void deleteUser(final UserVO userVO) throws Exception {
 		final User user = userP2BBeanConverter.convert(userVO);
-		System.out.println("UserRestServiceFacadeImpl, delete user ["+userVO.getName()+"]");
-		if( true ) {
-			throw new Exception("I WANNA SEE THIS MESSAGE ON THE CLIENT.");
-		}
 		userService.deleteUser(user);
 	}
 
