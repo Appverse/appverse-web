@@ -23,39 +23,26 @@
  */
 package org.appverse.web.framework.frontend.gwt.history;
 
-import com.mvp4g.client.annotation.History;
-import com.mvp4g.client.annotation.History.HistoryConverterType;
 import com.mvp4g.client.event.EventBus;
 import com.mvp4g.client.history.HistoryConverter;
 
-import java.util.HashMap;
-
-@History(type = HistoryConverterType.DEFAULT)
+/**
+ * Abstract History converter extension holding common features
+ * @param <E> extends EventBus
+ */
 public abstract class AbstractHistoryConverter<E extends EventBus> implements HistoryConverter<E> {
 
+    /** Parameter separator in tokens */
     public static final String QUERY_STRING_PARAM_SEPARATOR = "&";
 
-	@Override
-	public void convertFromToken(final String name, final String queryString, final E eventBus){
-        HashMap<String, String> params = null;
-        if (queryString != null){
-            params = getParams(queryString);
-        }
-        convertFromToken(name, params, eventBus);
+    /** Null value string representation in tokens */
+    public static final String PARAM_NIL = "_";
+
+    protected String getNilIfNull(final String parameter) {
+        return parameter != null ? parameter : PARAM_NIL;
     }
 
-    public HashMap getParams(String queryString){
-        HashMap<String, String> params = new HashMap<String, String>();
-        for (String param : queryString.split(QUERY_STRING_PARAM_SEPARATOR)) {
-            String[] pair = param.split("=");
-            String key = pair[0];
-            String value = pair[1];
-            params.put(key, value);
-        }
-        return params;
+    protected String getNullOrValue(final String parameter) {
+        return parameter != null && !PARAM_NIL.equals(parameter) ? parameter : null;
     }
-
-    public abstract void convertFromToken(final String name, final HashMap<String, String> params,
-                                 final E eventBus);
-
 }
