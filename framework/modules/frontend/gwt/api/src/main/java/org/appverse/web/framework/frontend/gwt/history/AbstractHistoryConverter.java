@@ -36,10 +36,13 @@ public abstract class AbstractHistoryConverter<E extends EventBus> implements Hi
     public static final String QUERY_STRING_PARAM_SEPARATOR = "&";
 
 	@Override
-	public abstract void convertFromToken(final String name, final String queryString, final E eventBus);
-
-	@Override
-	public abstract boolean isCrawlable();
+	public void convertFromToken(final String name, final String queryString, final E eventBus){
+        HashMap<String, String> params = null;
+        if (queryString != null){
+            params = getParams(queryString);
+        }
+        convertFromToken(name, params, eventBus);
+    }
 
     public HashMap getParams(String queryString){
         HashMap<String, String> params = new HashMap<String, String>();
@@ -51,4 +54,8 @@ public abstract class AbstractHistoryConverter<E extends EventBus> implements Hi
         }
         return params;
     }
+
+    public abstract void convertFromToken(final String name, final HashMap<String, String> params,
+                                 final E eventBus);
+
 }
