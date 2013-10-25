@@ -26,20 +26,13 @@ package org.appverse.web.framework.frontend.gwt.history;
 import com.mvp4g.client.annotation.History;
 import org.appverse.web.framework.frontend.gwt.common.FrameworkEventBus;
 
-import java.util.HashMap;
-
-/*
+/**
  * This history converter it is useful when you follow a strategy that allows only navigation between "pages" (places)
  * in your application but you do NOT restore the status of the application (the status is keept in the view itself).
  * This is the simpler strategy, the one that requires less code and allows to reuse more boilerplate code.
- * The tokens does not have parameters, just the "page" (place) to go. Take into account that this simple history converter is NOT
+ * The tokens does not have parameters, just the name of the token / event to dispatch. Take into account that this simple history converter is NOT
  * designed to restore the status of the application to a certain point using parameters, as this converter does not allows parameters.
  * This will work with events that does not require any parameter, instead.
- *
- * Please note that is extremely important to define which will be the back and forward transitions that your application allows from a functional point of view.
- *
- * For hyperlinks support / bookmarks that need to restore application status, you might need to develop custom history converters. It might be useful for you
- * to extend AbstractHistoryConverter for this.
  */
 @History(type = History.HistoryConverterType.SIMPLE)
 public class SimpleHistoryConverter extends AbstractHistoryConverter<FrameworkEventBus> {
@@ -49,12 +42,12 @@ public class SimpleHistoryConverter extends AbstractHistoryConverter<FrameworkEv
     }
 
     @Override
-    public boolean isCrawlable() {
-        return false;
+    public void convertFromToken(String name, String param, FrameworkEventBus eventBus) {
+        eventBus.dispatch(name);
     }
 
     @Override
-    public void convertFromToken(String name, HashMap<String, String> params, FrameworkEventBus eventBus) {
-        eventBus.dispatch(name);
+    public boolean isCrawlable() {
+        return false;
     }
 }
