@@ -1,12 +1,12 @@
 /*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
- This Source Code Form is subject to the terms of the Appverse Public License 
- Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
- file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+ This Source Code Form is subject to the terms of the Mozilla Public 
+ License, v. 2.0. If a copy of the MPL was not distributed with this 
+ file, You can obtain one at http://mozilla.org/MPL/2.0/. 
 
  Redistribution and use in source and binary forms, with or without modification, 
- are permitted provided that the conditions of the AppVerse Public License v2.0 
+ are permitted provided that the conditions of the Mozilla Public License v2.0 
  are met.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
@@ -23,26 +23,79 @@
  */
 package org.appverse.web.showcases.gwtshowcase.backend.services.presentation;
 
+import com.google.gwt.core.client.GWT;
 import org.appverse.web.framework.backend.api.services.presentation.IPresentationService;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
+import org.fusesource.restygwt.client.MethodCallback;
+import org.fusesource.restygwt.client.Resource;
+import org.fusesource.restygwt.client.RestService;
+import org.fusesource.restygwt.client.RestServiceProxy;
 
-import com.google.gwt.user.client.rpc.RemoteService;
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import javax.ws.rs.POST;
 
-@RemoteServiceRelativePath("services/userServiceFacade.rpc")
-//@RemoteServiceRelativePath("gwtrpc/services/userServiceFacade.rpc")
-public interface UserServiceFacade extends IPresentationService, RemoteService {
+/**
+ * This UserServiceFacade, is the interface for our presentation service.
+ * As it is not RPC, it does not have the RemoteServiceRelativePath annotation, RestyGWT works slightly different.
+ * See the UserRestServiceFacade interface below.
+ */
+//@RemoteServiceRelativePath("services/userServiceFacade.rpc")
+public interface UserServiceFacade extends IPresentationService {
 
-	UserVO loadUser(long userId) throws Exception;
-
-//	List<UserVO> loadUsers() throws Exception;
+	//List<UserVO> loadUsers() throws Exception;
+	
+    UserVO loadUser(long userId) throws Exception;
 
 	long saveUser(UserVO userVO) throws Exception;
 
+    void deleteUser(UserVO userVO) throws Exception;
+
 	GWTPresentationPaginatedResult<UserVO> loadUsers(
 			GWTPresentationPaginatedDataFilter config) throws Exception;
-	
-	void deleteUser(final UserVO userVO) throws Exception;
+
+
+    /**
+     * This is the RestyGWT interface for our Presentation Service.
+     * The fact that it must be with a MethodCallback parameter, make it a bit difficult to cleanly integrate.
+     * It must extend RestService.
+     * The Client class is a candidate to become part of AbstractRestCommandImpl, so part of Appverse Framework.
+     */
+    interface UserRestServiceFacade extends RestService {
+        @POST
+        void loadUser(Long userId, MethodCallback<UserVO> callback );
+
+        @POST
+        void deleteUser(UserVO userVo, MethodCallback<Void> callback );
+
+        @POST
+        void loadUsers(GWTPresentationPaginatedDataFilter config, MethodCallback<GWTPresentationPaginatedResult<UserVO>> callback);
+
+        @POST
+        void saveUser(UserVO userVo, MethodCallback<Long> callback);
+    }
+
+    /**
+     * Utility class to get the instance of the Rest Service
+     */
+    public static final class Client {
+
+        private static UserServiceFacade.UserRestServiceFacade instance;
+
+        public static final UserRestServiceFacade get(String methodName) {
+            if (instance == null) {
+                instance = GWT.create(UserRestServiceFacade.class);
+            }
+            //http://localhost:8888/services/userRestServiceFacade-loadUser.json
+            ((RestServiceProxy) instance).setResource(new Resource(
+                    GWT.getModuleBaseURL()+"rest/jsonservices/userRestServiceFacade/"+methodName/*+".json"*/));
+            return instance;
+        }
+
+        private Client() {
+            // Utility class should not be instantiated
+        }
+    }
+
+
 }

@@ -1,5 +1,7 @@
 package org.appverse.web.framework.frontend.gwt.commands.impl.live;
 
+import com.google.inject.Inject;
+import com.mvp4g.client.annotation.EventHandler;
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
@@ -7,9 +9,6 @@ import org.appverse.web.framework.frontend.gwt.commands.AbstractRpcCommand;
 import org.appverse.web.framework.frontend.gwt.commands.AuthenticationCommand;
 import org.appverse.web.framework.frontend.gwt.commands.AuthenticationHandler;
 import org.appverse.web.framework.frontend.gwt.common.FrameworkEventBus;
-
-import com.google.inject.Inject;
-import com.mvp4g.client.annotation.EventHandler;
 
 @EventHandler
 public class AuthenticationHandlerImpl extends
@@ -38,7 +37,7 @@ public class AuthenticationHandlerImpl extends
 
 	@Override
 	public void onAuthenticatePrincipal(UserInfoVO userInfo,
-			AppverseCallback<AuthorizationDataVO> callback) {
+                                        AppverseCallback<AuthorizationDataVO> callback) {
 		authCommand.onAuthenticatePrincipal(userInfo, callback);
 	}
 

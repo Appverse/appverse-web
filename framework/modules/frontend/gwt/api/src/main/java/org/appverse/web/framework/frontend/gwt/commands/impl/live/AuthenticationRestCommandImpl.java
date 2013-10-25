@@ -10,6 +10,7 @@ import org.appverse.web.framework.frontend.gwt.commands.AbstractRestCommand;
 import org.appverse.web.framework.frontend.gwt.commands.AuthenticationCommand;
 import org.appverse.web.framework.frontend.gwt.common.FrameworkEventBus;
 import org.appverse.web.framework.frontend.gwt.helpers.security.PrincipalInformation;
+import org.appverse.web.framework.frontend.gwt.json.ApplicationJsonAsyncCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.RestService;
@@ -81,7 +82,7 @@ public class AuthenticationRestCommandImpl extends
 			AppverseCallback<AuthorizationDataVO> callback) {
 		getRestService(
 				"authenticationServiceFacade/authenticatePrincipal")
-				.authenticatePrincipal(userInfo, wrapCallback(callback));
+				.authenticatePrincipal(userInfo, wrapCallback((ApplicationJsonAsyncCallback)callback));
 	}
 
 	@Override
@@ -95,7 +96,7 @@ public class AuthenticationRestCommandImpl extends
 	public void onIsPrincipalAuthenticated(AppverseCallback<Boolean> callback) {
 		getRestService(
 				"authenticationServiceFacade/isPrincipalAuthenticated")
-				.isPrincipalAuthenticated(wrapCallback(callback));
+				.isPrincipalAuthenticated(wrapCallback((ApplicationJsonAsyncCallback)callback));
 	}
 
 	@Override

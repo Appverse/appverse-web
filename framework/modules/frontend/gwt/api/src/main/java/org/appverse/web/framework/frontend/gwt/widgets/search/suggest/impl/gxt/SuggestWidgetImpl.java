@@ -25,10 +25,13 @@ package org.appverse.web.framework.frontend.gwt.widgets.search.suggest.impl.gxt;
 
 import java.util.ArrayList;
 
+import com.google.gwt.core.client.Callback;
+import com.sencha.gxt.data.shared.loader.*;
 import org.appverse.web.framework.backend.api.model.presentation.PresentationDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTAbstractPresentationBean;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 import org.appverse.web.framework.frontend.gwt.helpers.filters.GxtPaginationConverter;
 import org.appverse.web.framework.frontend.gwt.theme.client.search.SuggestTemplate;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events.LoadSuggestEvent;
@@ -63,10 +66,6 @@ import com.sencha.gxt.data.client.loader.RpcProxy;
 import com.sencha.gxt.data.shared.LabelProvider;
 import com.sencha.gxt.data.shared.ListStore;
 import com.sencha.gxt.data.shared.SortInfo;
-import com.sencha.gxt.data.shared.loader.LoadResultListStoreBinding;
-import com.sencha.gxt.data.shared.loader.PagingLoadConfig;
-import com.sencha.gxt.data.shared.loader.PagingLoadResult;
-import com.sencha.gxt.data.shared.loader.PagingLoader;
 import com.sencha.gxt.widget.core.client.Composite;
 import com.sencha.gxt.widget.core.client.ListView;
 import com.sencha.gxt.widget.core.client.button.TextButton;
@@ -125,7 +124,7 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 	private String loadDataMethod;
 	private String clickSelectionMethod;
 
-	AsyncCallback<GWTPresentationPaginatedResult<M>> callbackSuggest;
+    AppverseCallback<GWTPresentationPaginatedResult<M>> callbackSuggest;
 	private GWTPresentationPaginatedDataFilter dataFilter;
 	private SuggestTemplate<M> template;
 	private final SuggestModel<M> props;
@@ -230,14 +229,14 @@ public class SuggestWidgetImpl<M extends GWTAbstractPresentationBean> extends
 		/**** SUGGEST *****/
 
 		// proxy for getting suggestions from server
-		final RpcProxy<PagingLoadConfig, PagingLoadResult<M>> proxySuggest = new RpcProxy<PagingLoadConfig, PagingLoadResult<M>>() {
+		final DataProxy<PagingLoadConfig, PagingLoadResult<M>> proxySuggest = new DataProxy<PagingLoadConfig, PagingLoadResult<M>>() {
 			@Override
 			public void load(final PagingLoadConfig loadConfig,
-					final AsyncCallback<PagingLoadResult<M>> callback) {
+					final Callback<PagingLoadResult<M>, Throwable> callback) {
 				GWT.log("Proxy load method called");
 				// We clean any possible previously selected value
 				value = null;
-				callbackSuggest = new AsyncCallback<GWTPresentationPaginatedResult<M>>() {
+				callbackSuggest = new AppverseCallback<GWTPresentationPaginatedResult<M>>() {
 					@Override
 					public void onFailure(final Throwable caught) {
 						GWT.log("list load failed!! " + caught.getMessage());

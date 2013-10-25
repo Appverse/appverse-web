@@ -1,12 +1,12 @@
 /*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
- This Source Code Form is subject to the terms of the Appverse Public License 
- Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
- file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+ This Source Code Form is subject to the terms of the Mozilla Public 
+ License, v. 2.0. If a copy of the MPL was not distributed with this 
+ file, You can obtain one at http://mozilla.org/MPL/2.0/. 
 
  Redistribution and use in source and binary forms, with or without modification, 
- are permitted provided that the conditions of the AppVerse Public License v2.0 
+ are permitted provided that the conditions of the Mozilla Public License v2.0 
  are met.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
@@ -27,23 +27,22 @@ import java.util.List;
 
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
+import org.appverse.web.framework.frontend.gwt.json.ApplicationJsonAsyncCallback;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.common.frontend.gwt.rest.ApplicationRestAsyncCallback;
-
-import com.google.gwt.core.client.Callback;
 
 public interface UserRestRpcCommand {
 
-	void deleteUser(UserVO user, ApplicationRestAsyncCallback<Void> asyncCallback);
+	void deleteUser(UserVO user, ApplicationJsonAsyncCallback<Void> asyncCallback);
 
-	void loadUsers(ApplicationRestAsyncCallback<List<UserVO>> callback);
+	void loadUsers(ApplicationJsonAsyncCallback<List<UserVO>> callback);
 	
-	void loadUser(long userId, ApplicationRestAsyncCallback<UserVO> callback);
+	void loadUser(long userId, ApplicationJsonAsyncCallback<UserVO> callback);
 
 	void loadUsers(GWTPresentationPaginatedDataFilter config,
-			ApplicationRestAsyncCallback<GWTPresentationPaginatedResult<UserVO>> callback);
+			AppverseCallback<GWTPresentationPaginatedResult<UserVO>> callback);
 
-    void saveUser(UserVO user, ApplicationRestAsyncCallback<Long> applicationRestAsyncCallback);
+    void saveUser(UserVO user, ApplicationJsonAsyncCallback<Long> applicationJsonAsyncCallback);
 
     //	void saveUser(UserVO user, ApplicationAsyncCallback<Long> asyncCallback);
 }

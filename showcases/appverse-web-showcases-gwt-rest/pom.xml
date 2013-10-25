@@ -14,18 +14,18 @@
 
 	<licenses>
 		<license>
-			<name>Appverse Public License Version 2.0</name>
+			<name>Mozilla Public License Version 2.0</name>
 			<url>http://appverse.org/legal/appverse-license/</url>
 			<distribution>repo</distribution>		
 			<comments>
 	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 			
-			 This Source Code Form is subject to the terms of the Appverse Public License 
-			 Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
-			 file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+			 This Source Code Form is subject to the terms of the Mozilla Public 
+			 License, v. 2.0. If a copy of the MPL was not distributed with this 
+			 file, You can obtain one at http://mozilla.org/MPL/2.0/. 
 			
 			 Redistribution and use in source and binary forms, with or without modification, 
-			 are permitted provided that the conditions of the AppVerse Public License v2.0 
+			 are permitted provided that the conditions of the Mozilla Public License v2.0 
 			 are met.
 			
 			 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
@@ -125,7 +125,9 @@
 		<main.group>org.appverse.web.showcases.gwt</main.group>
 		<main.name>appverse-web-showcases-gwt-rest</main.name>
 		<app.context.root>showcase</app.context.root>
-	</properties>
+        <appverse.framework.version>1.2.6-SNAPSHOT</appverse.framework.version>
+        <appverse.ddl-generator.version>1.0.5.1</appverse.ddl-generator.version>
+    </properties>
 	
  	<build>
  		<defaultGoal>clean package tomcat7:deploy-only</defaultGoal>
@@ -294,7 +296,7 @@
 			    <plugin>
 					<groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
 					<artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
-					<version>1.0.4-SNAPSHOT</version> 
+					<version>${appverse.ddl-generator.version}</version>
 					<executions>
 						<execution>
 							<goals>
@@ -323,7 +325,7 @@
 			<dependency>
 				<groupId>org.appverse.web.framework.poms</groupId>
 				<artifactId>appverse-web-masterpom</artifactId>
-				<version>1.1.1-SNAPSHOT</version>
+				<version>${appverse.framework.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

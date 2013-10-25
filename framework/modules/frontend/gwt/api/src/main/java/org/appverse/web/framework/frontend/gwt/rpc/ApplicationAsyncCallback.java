@@ -23,107 +23,18 @@
  */
 package org.appverse.web.framework.frontend.gwt.rpc;
 
-import java.util.Date;
-
-import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
-import org.appverse.web.framework.frontend.gwt.common.utils.GWTUtils;
-import org.appverse.web.framework.frontend.gwt.managers.NotificationManager;
-
-import com.google.gwt.http.client.UrlBuilder;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.StatusCodeException;
+import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 
-public class ApplicationAsyncCallback<T> implements AsyncCallback<T> {
-
-	public static final int CUSTOM_SESSION_EXPIRED_CODE = 901;
-	public static final String CUSTOM_EXPIRED_JSP = "login.jsp?sessionExpired=true";
-
-	// TODO: See how to do this so that we can have a ExceptionTranslator (with
-	// property files in the application) but
-	// supported by the framework. See for instance if we can use
-	// "GWT Injection" / Deferred binding using an interface class
-	// an use a "replace-with" to change the implementation (which has to be in
-	// the application)
-	/**
-	 * Default Presentation Exception treatment closing the browser tab. If the
-	 * exception code is informed and is coded in ExceptionMessages.properties
-	 * it will be automatically translated and the corresponding message will be
-	 * shown to the user. If the exception code is not informed or is not coded
-	 * in ExceptionMessages.properties a generic exception notification will be
-	 * shown to the user using the exception message information.
-	 * 
-	 * @param PresentationException
-	 *            PresentationException instance to handle
-	 */
-	// public void defaultPresentationExceptionTreatmentClosingWindow(
-	// PresentationException ex) {
-	// String translatedMessage = ExceptionTranslationManager.translate(ex);
-	// ApplicationNotificationManager am = new ApplicationNotificationManager();
-	// am.showExceptionAndClose(ex, translatedMessage);
-	// }
-
-	// TODO: See how to do this so that we can have a ExceptionTranslator (with
-	// property files in the application) but
-	// supported by the framework. See for instance if we can use
-	// "GWT Injection" / Deferred binding using an interface class
-	// an use a "replace-with" to change the implementation (which has to be in
-	// the application)
-	/**
-	 * Default Presentation Exception treatment without closing the browser tab.
-	 * If the exception code is informed and is coded in
-	 * ExceptionMessages.properties it will be automatically translated and the
-	 * corresponding message will be shown to the user. If the exception code is
-	 * not informed or is not coded in ExceptionMessages.properties a generic
-	 * exception notification will be shown to the user using the exception
-	 * message information.
-	 * 
-	 * @param PresentationException
-	 *            PresentationException instance to handle
-	 */
-	// public void defaultPresentationExceptionTreatmentWithoutClosingWindow(
-	// final PresentationException ex) {
-	// String translatedMessage = ExceptionTranslationManager.translate(ex);
-	// ApplicationNotificationManager am = new ApplicationNotificationManager();
-	// am.showException(ex, translatedMessage);
-	// }
-
-	public void defaultPresentationExceptionTreatmentWithoutClosingWindow(
-			final GWTPresentationException ex) {
-		NotificationManager.showError("Error Message:"
-				+ ex.getMessage()
-				+ "Error Time:"
-				+ DateTimeFormat.getFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZ")
-						.format(new Date()));
-	}
-
-	/**
-	 * This method produces client url redirection to a custom expired JSP with a 
-	 * default name in your application context. This is the default treatment for 
-	 * expired session (or unauthorized), but can be overriden
-	 */
-	public void handleExpiredSessionException()
-	{
-		String expiredPageUrl = GWTUtils.getModuleIndependentBaseURL() + CUSTOM_EXPIRED_JSP;
-		Window.Location.replace(expiredPageUrl);
-	}
-
-	/**
-	 * Default Presentation Exception treatment. Default treatment will not
-	 * close the browser tab This method can be overriden (without calling
-	 * super()) to implement a particular treatment
-	 * 
-	 * @param PresentationException
-	 *            PresentationException instance to handle.
-	 */
-	// public void handlePresentationException(final PresentationException ex) {
-	// defaultPresentationExceptionTreatmentWithoutClosingWindow(ex);
-	// }
-
-	public void handlePresentationException(final GWTPresentationException ex) {
-		defaultPresentationExceptionTreatmentWithoutClosingWindow(ex);
-	}
+/**
+ * This is the Async Callback provided by Appverse for RPC style communications.
+ * It implements the @see com.google.gwt.user.client.rpc.AsyncCallback.
+ * Main logic for onFailure method can be reused by Application, since it makes use of Appverse Notification Manager.
+ * @param <T> Expected return type for onSuccess method.
+ */
+public class ApplicationAsyncCallback<T> extends AppverseCallback<T> implements AsyncCallback<T> {
 
 	/**
 	 * Default onFailure() method. If the exception is an instance of
@@ -136,31 +47,12 @@ public class ApplicationAsyncCallback<T> implements AsyncCallback<T> {
 	 * If receive StatusCodeException, check expired session and call 
 	 * handleExpiredSessionException(), which can be overridden
 	 * 
-	 * @param Throwable
+	 * @param ex
 	 *            Exception to handle.
 	 */
 	@Override
 	public void onFailure(final Throwable ex) {
-		GWTPresentationException pex = null;
-		if (ex instanceof GWTPresentationException) {
-			pex = (GWTPresentationException) ex;
-		} else if (ex instanceof StatusCodeException) {
-			if (((StatusCodeException) ex).getStatusCode() == CUSTOM_SESSION_EXPIRED_CODE)
-			{
-				handleExpiredSessionException();
-				return;
-			}
-			else
-				return;
-			// Application exception (with an application code)
-		} else {
-			// We should not receive exceptions different from
-			// GWTPresentationException in RPC commands. We control this just
-			// for security.
-			pex = new GWTPresentationException(ex.getMessage(), null);
-		}
-		handlePresentationException(pex);
-		return;
+        super.onFailure(ex);
 	}
 
 	@Override

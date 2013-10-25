@@ -1,12 +1,12 @@
 /*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
- This Source Code Form is subject to the terms of the Appverse Public License 
- Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
- file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+ This Source Code Form is subject to the terms of the Mozilla Public 
+ License, v. 2.0. If a copy of the MPL was not distributed with this 
+ file, You can obtain one at http://mozilla.org/MPL/2.0/. 
 
  Redistribution and use in source and binary forms, with or without modification, 
- are permitted provided that the conditions of the AppVerse Public License v2.0 
+ are permitted provided that the conditions of the Mozilla Public License v2.0 
  are met.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
@@ -27,6 +27,7 @@ import java.util.List;
 
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 import org.appverse.web.framework.frontend.gwt.commands.AbstractRpcCommand;
 import org.appverse.web.framework.frontend.gwt.rpc.ApplicationAsyncCallback;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
@@ -61,7 +62,9 @@ public class UserRpcCommandImpl extends AbstractRpcCommand<AdminEventBus>
 
 	@Override
 	public void loadUsers(final GWTPresentationPaginatedDataFilter config,
-			final AsyncCallback<GWTPresentationPaginatedResult<UserVO>> callback) {
+			final AppverseCallback<GWTPresentationPaginatedResult<UserVO>> callback) {
+        //TODO check why this cast throws a ClassCastException!
+        System.out.println(callback.getClass().getName());
 		getService().loadUsers(config, callback);
 
 	}

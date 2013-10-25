@@ -50,7 +50,8 @@
     <source path="common"/>
     <source path="helpers"/>
     <source path="history"/>
-    <source path="managers" />  
+    <source path="json"/>
+    <source path="managers" />
     <source path="model" />
     <source path="presenters"/>    
     <source path="rmvp" />        

@@ -1,12 +1,12 @@
 /*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
- This Source Code Form is subject to the terms of the Appverse Public License 
- Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
- file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+ This Source Code Form is subject to the terms of the Mozilla Public 
+ License, v. 2.0. If a copy of the MPL was not distributed with this 
+ file, You can obtain one at http://mozilla.org/MPL/2.0/. 
 
  Redistribution and use in source and binary forms, with or without modification, 
- are permitted provided that the conditions of the AppVerse Public License v2.0 
+ are permitted provided that the conditions of the Mozilla Public License v2.0 
  are met.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
@@ -25,12 +25,10 @@ package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.presenter
 
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
-import org.appverse.web.framework.frontend.gwt.rpc.ApplicationAsyncCallback;
+import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
+import org.appverse.web.framework.frontend.gwt.json.ApplicationJsonAsyncCallback;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.common.frontend.gwt.rest.ApplicationRestAsyncCallback;
 
-import com.google.gwt.core.client.Callback;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.mvp4g.client.view.LazyView;
 import com.mvp4g.client.view.ReverseViewInterface;
@@ -45,10 +43,6 @@ public interface UserSearchView extends
 		
 		void editUser(UserVO user);
 		
-		public void loadUsers(
-				GWTPresentationPaginatedDataFilter convert,
-				AsyncCallback<GWTPresentationPaginatedResult<UserVO>> asyncCallback);
-
 		void searchUsers();
 		
 		// Presenter methods to force presenter to implementation to implement the methods here.
@@ -57,13 +51,13 @@ public interface UserSearchView extends
 
 		void loadUsers(
 				GWTPresentationPaginatedDataFilter dataFilter,
-				ApplicationRestAsyncCallback<GWTPresentationPaginatedResult<UserVO>> callbackRestListUsers);
+				AppverseCallback<GWTPresentationPaginatedResult<UserVO>> callbackRestListUsers);
 	}
 
 	// View methods here. The presenter will invoke this methods
 	public void disableAddFeature();
 	public void disableEditFeature();
-	public ApplicationRestAsyncCallback<GWTPresentationPaginatedResult<UserVO>> getCallbackRestListUsers();
-	public ApplicationAsyncCallback<GWTPresentationPaginatedResult<UserVO>> getCallbackListUsers();
+	public ApplicationJsonAsyncCallback<GWTPresentationPaginatedResult<UserVO>> getCallbackRestListUsers();
+	//public ApplicationAsyncCallback<GWTPresentationPaginatedResult<UserVO>> getCallbackListUsers();
 	public GWTPresentationPaginatedDataFilter getDataFilter();
 }

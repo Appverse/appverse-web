@@ -16,6 +16,7 @@ import org.appverse.web.framework.frontend.gwt.helpers.security.XsrfRpcRequestBu
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.mvp4g.client.annotation.EventHandler;
+import org.appverse.web.framework.frontend.gwt.rpc.ApplicationAsyncCallback;
 
 @EventHandler
 public class AuthenticationRpcCommandImpl extends
@@ -24,7 +25,7 @@ public class AuthenticationRpcCommandImpl extends
 	private final GWTAuthenticationServiceFacadeAsync service = GWT
 			.create(GWTAuthenticationServiceFacade.class);
 
-	private final AppverseCallback<String> authenticationCallback = new AppverseCallback<String>() {
+	private final ApplicationAsyncCallback<String> authenticationCallback = new ApplicationAsyncCallback<String>() {
 		@Override
 		public void onSuccess(String result) {
 			XsrfRpcRequestBuilder.setXSRFToken(result);
@@ -32,7 +33,7 @@ public class AuthenticationRpcCommandImpl extends
 		}
 	};
 
-	private final AppverseCallback<String> principalCallback = new AppverseCallback<String>() {
+	private final ApplicationAsyncCallback<String> principalCallback = new ApplicationAsyncCallback<String>() {
 		@Override
 		public void onSuccess(String principal) {
 			PrincipalInformation.setPrincipal(principal);
@@ -42,7 +43,7 @@ public class AuthenticationRpcCommandImpl extends
 	};
 
 	@SuppressWarnings("rawtypes")
-	private final AppverseCallback<List> authoritiesCallback = new AppverseCallback<List>() {
+	private final ApplicationAsyncCallback<List> authoritiesCallback = new ApplicationAsyncCallback<List>() {
 		@SuppressWarnings({ "unchecked" })
 		@Override
 		public void onSuccess(List authorities) {
@@ -64,9 +65,9 @@ public class AuthenticationRpcCommandImpl extends
 
 	@Override
 	public void onAuthenticatePrincipal(UserInfoVO userInfo,
-			AppverseCallback<AuthorizationDataVO> callback) {
+                                        AppverseCallback<AuthorizationDataVO> callback) {
 		getService().authenticatePrincipal(userInfo.getUser(), userInfo.getPassword(),
-				wrapCallback(callback));
+				wrapCallback((ApplicationAsyncCallback)callback));
 	}
 
 	@Override
@@ -76,7 +77,7 @@ public class AuthenticationRpcCommandImpl extends
 
 	@Override
 	public void onIsPrincipalAuthenticated(AppverseCallback<Boolean> callback) {
-		getService().isPrincipalAuthenticated(wrapCallback(callback));
+		getService().isPrincipalAuthenticated(wrapCallback((ApplicationAsyncCallback)callback));
 	}
 
 	@Override
