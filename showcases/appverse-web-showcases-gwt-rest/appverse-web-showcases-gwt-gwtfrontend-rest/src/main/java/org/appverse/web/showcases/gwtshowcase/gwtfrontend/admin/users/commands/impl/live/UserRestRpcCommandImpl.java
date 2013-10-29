@@ -2,32 +2,32 @@ package org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.
 
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
 import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
+import org.appverse.web.framework.frontend.gwt.commands.AbstractRestCommand;
 import org.appverse.web.framework.frontend.gwt.json.ApplicationJsonAsyncCallback;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
 import org.appverse.web.showcases.gwtshowcase.backend.services.presentation.UserServiceFacade;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.AdminEventBus;
 import org.appverse.web.showcases.gwtshowcase.gwtfrontend.admin.users.commands.UserRestRpcCommand;
-import org.appverse.web.showcases.gwtshowcase.gwtfrontend.common.gwt.commands.AbstractRestCommand;
+import org.fusesource.restygwt.client.RestService;
 
 
-public class UserRestRpcCommandImpl extends AbstractRestCommand<AdminEventBus> implements UserRestRpcCommand {
+public class UserRestRpcCommandImpl extends AbstractRestCommand<AdminEventBus,UserServiceFacade.UserRestServiceFacade> implements UserRestRpcCommand {
 
-	static {
-		org.fusesource.restygwt.client.Defaults.setDateFormat(null);
-	}
 	
 	@Override
 	public void deleteUser(UserVO user,
                            ApplicationJsonAsyncCallback<Void> asyncCallback) {
-        UserServiceFacade.Client.get("deleteaUser").deleteUser(user, asyncCallback);
+        //UserServiceFacade.Client.get("deleteaUser").deleteUser(user, asyncCallback);
+        getRestService("userRestServiceFacade","deleteUser").deleteUser(user, asyncCallback);
 	}
 
 	@Override
 	public void loadUsers(ApplicationJsonAsyncCallback<List<UserVO>> callback) {
-		// TODO Auto-generated method stub
+		// TOREMOVE loadUsers is not used without paging.
 		
 	}
 
@@ -49,4 +49,8 @@ public class UserRestRpcCommandImpl extends AbstractRestCommand<AdminEventBus> i
         UserServiceFacade.Client.get("saveUser").saveUser(user, applicationRestAsyncCallback);
     }
 
+    @Override
+    public UserServiceFacade.UserRestServiceFacade createService() {
+        return GWT.create(UserServiceFacade.UserRestServiceFacade.class);
+    }
 }

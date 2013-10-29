@@ -79,6 +79,7 @@
 			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.frontfacade.json</groupId>
 			<artifactId>appverse-web-modules-backend-frontfacade-json</artifactId>

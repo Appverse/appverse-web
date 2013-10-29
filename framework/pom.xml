@@ -185,8 +185,8 @@
 		<slf4j.version>1.5.11</slf4j.version>
 		<gwt.version>2.5.0</gwt.version>
 		<restygwt.version>1.3</restygwt.version>
-		<jsr311.version>1.1.1</jsr311.version>
-		<jersey.version>1.17</jersey.version>
+		<jsr311.version>2.0</jsr311.version>
+		<jersey.version>2.4</jersey.version>
                 <jdk.source>1.6</jdk.source>
                 <jdk.target>1.6</jdk.target>
 	</properties>
@@ -637,50 +637,33 @@
 			<!--  JSR311 DEPENDENCIES -->
 			<dependency>
 				<groupId>javax.ws.rs</groupId>
-				<artifactId>jsr311-api</artifactId>
+                <artifactId>javax.ws.rs-api</artifactId>
+				<!--<artifactId>jsr311-api</artifactId>-->
 				<version>${jsr311.version}</version>
 			</dependency>
 			<!--  END JSR311 DEPENDENCIES -->
 			<!-- JERSEY DEPENDENCIES -->
-			<dependency>
-				<groupId>com.sun.jersey</groupId>
-				<artifactId>jersey-server</artifactId>
-				<version>${jersey.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.sun.jersey</groupId>
-				<artifactId>jersey-grizzly2</artifactId>
-				<version>${jersey.version}</version>
-			</dependency>
-					<!-- Jersey + Spring -->
-			<dependency>
-				<groupId>com.sun.jersey.contribs</groupId>
-				<artifactId>jersey-spring</artifactId>
-				<version>${jersey.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-core</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-web</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-beans</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-context</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			
+            <dependency>
+                <groupId>org.glassfish.jersey.containers</groupId>
+                <!-- if your container implements Servlet API older than 3.0, use "jersey-container-servlet-core"  -->
+                <artifactId>jersey-container-servlet</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.ext</groupId>
+                <artifactId>jersey-spring3</artifactId>
+                <version>${jersey.version}</version>
+                <!-- Do we need to exclude something? checkit!
+                <exclusions>
+
+                </exclusions>
+                -->
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-multipart</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
 			<!-- END JERSEY DEPENDENCIES -->
 			<!-- RESTY DEPENDENCIES -->
 			<dependency>

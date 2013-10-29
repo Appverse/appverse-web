@@ -23,12 +23,18 @@
  */
 package org.appverse.web.framework.backend.frontfacade.gxt.controllers;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gwt.user.server.rpc.RPC;
+import org.appverse.web.framework.backend.api.services.presentation.IFileUploadPresentationService;
+import org.appverse.web.framework.backend.api.services.presentation.PresentationException;
+import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
+import org.springframework.stereotype.Component;
 
+import javax.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -37,29 +43,23 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.appverse.web.framework.backend.api.services.presentation.IFileUploadPresentationService;
-import org.appverse.web.framework.backend.api.services.presentation.PresentationException;
-import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
-import org.springframework.stereotype.Controller;
-
-import com.google.gwt.user.server.rpc.RPC;
-import com.sun.jersey.multipart.FormDataMultiPart;
-import com.sun.jersey.multipart.FormDataParam;
-
-@Controller
+@Component
+@Singleton
 @Path("/fileupload")
-public class FileUploadController {
+public class FileUploadController implements ApplicationContextAware {
 
-	@Autowired
 	private ApplicationContext applicationContext;
 
 	private final ThreadLocal<String> serviceName = new ThreadLocal<String>();
 
 	private final String MAX_FILE_SIZE_PARAM_NAME = "maxFileSize";
+
 
 	private void checkXSRFToken(final HttpServletRequest request)
 			throws IOException {
@@ -94,31 +94,23 @@ Content-Disposition: form-data; name="maxFileSize"
 
 	@POST
 	@Path("{servicemethodname}")
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public void handleFormUpload(
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public void handleFormUpload(
 			@PathParam("servicemethodname") String servicemethodname,
 			@FormDataParam("file") InputStream stream,
 			@FormDataParam("hiddenFileName") String hiddenFileName,
 			@FormDataParam("hiddenMediaCategory") String hiddenMediaCategory,
 			@FormDataParam("maxFileSize") String maxSize,
-			FormDataMultiPart multiPart,
 			@Context HttpServletRequest request,
 			@Context HttpServletResponse response) throws Exception {
-//		multiPart.getBodyParts().get(0);
-//		MultipartFile file = request.getFile("file");
-//		Enumeration<String> parameterNames = request.getParameterNames();
+
 		Map<String, String> parameters = new HashMap<String, String>();
 		parameters.put("hiddenFileName", hiddenFileName);
 		parameters.put("hiddenMediaCategory", hiddenMediaCategory);
 		parameters.put("maxFileSize", maxSize);
-		
-//		while (parameterNames.hasMoreElements()) {
-//			String parameterName = parameterNames.nextElement();
-//			String parameter = request.getParameter(parameterName);
-//			parameters.put(parameterName, parameter);
-//		}
+
 		checkXSRFToken(request);
-//
+
 		serviceName.set(servicemethodname.substring(0, servicemethodname.lastIndexOf(".")));
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		int read = 0;
@@ -177,4 +169,9 @@ Content-Disposition: form-data; name="maxFileSize"
 		response.getOutputStream().write(encodedResult.getBytes());
 		response.getOutputStream().flush();
 	}
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

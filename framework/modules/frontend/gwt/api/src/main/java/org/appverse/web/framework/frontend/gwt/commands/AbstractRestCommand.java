@@ -1,30 +1,27 @@
 package org.appverse.web.framework.frontend.gwt.commands;
 
-import java.util.Date;
-
-import org.appverse.web.framework.backend.api.services.presentation.AuthenticationRestServiceFacade;
-import org.appverse.web.framework.frontend.gwt.managers.NotificationManager;
-import org.fusesource.restygwt.client.Method;
-import org.fusesource.restygwt.client.MethodCallback;
-import org.fusesource.restygwt.client.Resource;
-import org.fusesource.restygwt.client.RestService;
-import org.fusesource.restygwt.client.RestServiceProxy;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.mvp4g.client.event.EventBusWithLookup;
+import org.appverse.web.framework.frontend.gwt.managers.NotificationManager;
+import org.fusesource.restygwt.client.*;
+
+import java.util.Date;
 
 public abstract class AbstractRestCommand<E extends EventBusWithLookup, T extends RestService>
 		extends AbstractCommand<E> {
 
+    static {
+        org.fusesource.restygwt.client.Defaults.setDateFormat(null);
+    }
 	private T  instance = null;
 
-	public final T getRestService(String methodName) {
+	public final T getRestService(String serviceName, String methodName) {
 		if (instance == null) {
 			instance = createService();
 		}
 		((RestServiceProxy) instance).setResource(new Resource(GWT
-				.getModuleBaseURL() + "rest/jsonservices/" + methodName));
+				.getModuleBaseURL() + "rest/jsonservices/"+serviceName+"/"+ methodName));
 		return instance;
 
 	}

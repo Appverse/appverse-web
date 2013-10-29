@@ -23,9 +23,21 @@
  */
 package org.appverse.web.framework.backend.frontfacade.gxt.controllers;
 
-import java.io.IOException;
-import java.util.Random;
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.SerializationException;
+import com.google.gwt.user.server.rpc.RPC;
+import com.google.gwt.user.server.rpc.RPCRequest;
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
+import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
+import org.springframework.stereotype.Component;
 
+import javax.inject.Singleton;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,28 +46,22 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
+import java.io.IOException;
+import java.util.Random;
 
-import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
-import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
-import org.springframework.stereotype.Controller;
-
-import com.google.gwt.user.client.rpc.RemoteService;
-import com.google.gwt.user.client.rpc.SerializationException;
-import com.google.gwt.user.server.rpc.RPC;
-import com.google.gwt.user.server.rpc.RPCRequest;
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
-@Controller
+@Singleton
+@Component
 @Path("/")
-public class GwtRpcController extends RemoteServiceServlet {
+public class GwtRpcController extends RemoteServiceServlet implements ApplicationContextAware {
 
 	private static final long serialVersionUID = 4147354200774086984L;
 
-	@Autowired
+    /**
+     * With Jersey 2.x applicationContext is not Autowired (see https://java.net/jira/browse/JERSEY-2169)
+     * It must implement ApplicationContextAware to get the ApplicationContext instance
+     */
 	private ApplicationContext applicationContext;
+
 	@Autowired
 	private ServletContext servletContext;
 	private final ThreadLocal<String> serviceName = new ThreadLocal<String>();
@@ -144,4 +150,9 @@ public class GwtRpcController extends RemoteServiceServlet {
 			return RPC.encodeResponseForFailure(null, pex);
 		}
 	}
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

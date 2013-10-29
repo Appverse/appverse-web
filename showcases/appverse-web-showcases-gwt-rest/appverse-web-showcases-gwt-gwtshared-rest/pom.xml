@@ -168,5 +168,11 @@
 				appverse-web-modules-backend-frontfacade-json
 			</artifactId>
 		</dependency>
-	</dependencies>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+        </dependency>
+
+    </dependencies>
 </project>

@@ -23,45 +23,40 @@
  */
 package org.appverse.web.framework.backend.frontfacade.json.controllers;
 
+import org.appverse.web.framework.backend.frontfacade.json.controllers.exceptions.BadRequestException;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.http.server.ServletServerHttpResponse;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Singleton;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.PostConstruct;
-import javax.lang.model.type.ArrayType;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import org.appverse.web.framework.backend.frontfacade.json.controllers.exceptions.BadRequestException;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonToken;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.JavaType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.http.server.ServletServerHttpResponse;
-import org.springframework.stereotype.Controller;
-
-import com.sun.jersey.core.spi.factory.ResponseBuilderImpl;
-
-@Controller
+@Component
+@Singleton
 @Path("jsonservices")
-public class JSONController {
-	@Autowired
-	private ApplicationContext applicationContext;
+public class JSONController implements ApplicationContextAware {
+    /**
+     * With Jersey 2.x applicationContext is not Autowired (see https://java.net/jira/browse/JERSEY-2169)
+     * It must implement ApplicationContextAware to get the ApplicationContext instance
+     */
+    private ApplicationContext applicationContext;
 
 	@Autowired
 	CustomMappingJacksonHttpMessageConverter customMappingJacksonHttpMessageConverter;
@@ -159,7 +154,7 @@ public class JSONController {
 	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+        @Produces(MediaType.APPLICATION_JSON)
 	@Path("{servicename}/{methodname}")
 	public String handleRequest(
 			@PathParam("servicename") String requestServiceName,
@@ -269,15 +264,26 @@ public class JSONController {
 		} catch (Throwable th) {
 			// response.sendError(500, th.getMessage());
 			th.printStackTrace();
-			ResponseBuilderImpl builder = new ResponseBuilderImpl();
+            throw new WebApplicationException(
+                    Response.status(
+                            Response.Status.INTERNAL_SERVER_ERROR)
+                            .entity("Service Internal Error [" + th.getCause() != null ? th
+                                    .getCause().getMessage() : th.getMessage() + "]")
+                            .build()
+            );
+			/*ResponseBuilderImpl builder = new ResponseBuilderImpl();
 			builder.status(Response.Status.INTERNAL_SERVER_ERROR);
 			builder.entity("Service Internal Error [" + th.getCause() != null ? th
 					.getCause().getMessage() : th.getMessage() + "]");
 			Response resp = builder.build();
-			throw new WebApplicationException(resp);
+			throw new WebApplicationException(resp);*/
 		}
 		return "";
 
 	}
 
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

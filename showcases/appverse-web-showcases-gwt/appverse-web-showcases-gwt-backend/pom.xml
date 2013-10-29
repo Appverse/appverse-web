@@ -205,7 +205,12 @@
 			<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
 		</dependency>
 
-		<dependency>
+        <!--<dependency>
+            <groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
+            <artifactId>appverse-web-modules-backend-core-api</artifactId>
+        </dependency>-->
+
+        <dependency>
 			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
 		</dependency>
