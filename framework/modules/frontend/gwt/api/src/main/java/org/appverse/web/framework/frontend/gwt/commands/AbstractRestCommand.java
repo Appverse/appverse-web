@@ -3,6 +3,7 @@ package org.appverse.web.framework.frontend.gwt.commands;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.mvp4g.client.event.EventBusWithLookup;
+import org.appverse.web.framework.frontend.gwt.helpers.dispatcher.AppverseDispatcher;
 import org.appverse.web.framework.frontend.gwt.managers.NotificationManager;
 import org.fusesource.restygwt.client.*;
 
@@ -22,8 +23,8 @@ public abstract class AbstractRestCommand<E extends EventBusWithLookup, T extend
 		}
 		((RestServiceProxy) instance).setResource(new Resource(GWT
 				.getModuleBaseURL() + "rest/jsonservices/"+serviceName+"/"+ methodName));
+        ((RestServiceProxy) instance).setDispatcher(AppverseDispatcher.INSTANCE);
 		return instance;
-
 	}
 
 	public abstract T createService();

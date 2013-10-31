@@ -23,15 +23,12 @@
  */
 package org.appverse.web.showcases.gwtshowcase.backend.services.presentation;
 
-import com.google.gwt.core.client.GWT;
 import org.appverse.web.framework.backend.api.services.presentation.IPresentationService;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
 import org.appverse.web.showcases.gwtshowcase.backend.model.presentation.UserVO;
 import org.fusesource.restygwt.client.MethodCallback;
-import org.fusesource.restygwt.client.Resource;
 import org.fusesource.restygwt.client.RestService;
-import org.fusesource.restygwt.client.RestServiceProxy;
 
 import javax.ws.rs.POST;
 
@@ -75,27 +72,7 @@ public interface UserServiceFacade extends IPresentationService {
         void saveUser(UserVO userVo, MethodCallback<Long> callback);
     }
 
-    /**
-     * Utility class to get the instance of the Rest Service
-     */
-    public static final class Client {
 
-        private static UserServiceFacade.UserRestServiceFacade instance;
-
-        public static final UserRestServiceFacade get(String methodName) {
-            if (instance == null) {
-                instance = GWT.create(UserRestServiceFacade.class);
-            }
-            //http://localhost:8888/services/userRestServiceFacade-loadUser.json
-            ((RestServiceProxy) instance).setResource(new Resource(
-                    GWT.getModuleBaseURL()+"rest/jsonservices/userRestServiceFacade/"+methodName/*+".json"*/));
-            return instance;
-        }
-
-        private Client() {
-            // Utility class should not be instantiated
-        }
-    }
 
 
 }

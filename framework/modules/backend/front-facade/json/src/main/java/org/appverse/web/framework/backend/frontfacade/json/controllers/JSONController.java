@@ -23,6 +23,7 @@
  */
 package org.appverse.web.framework.backend.frontfacade.json.controllers;
 
+import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
 import org.appverse.web.framework.backend.frontfacade.json.controllers.exceptions.BadRequestException;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -159,7 +160,7 @@ public class JSONController implements ApplicationContextAware {
 	public String handleRequest(
 			@PathParam("servicename") String requestServiceName,
 			@PathParam("methodname") String requestMethodName,
-			// @Context HttpServletRequest request,
+			@Context HttpServletRequest request,
 			@Context HttpServletResponse response, String payload)
 			throws Exception {
 		// String path = request.getServletPath();
@@ -173,9 +174,23 @@ public class JSONController implements ApplicationContextAware {
 					"Requested ServiceFacade don't exists "
 							+ requestServiceName);
 		}
-		// if (!(presentationService instanceof AuthenticationServiceFacade)) {
-		// checkXSRFToken(request);
-		// Determine if method exist by name.
+		if (!(presentationService instanceof AuthenticationServiceFacade)) {
+		    checkXSRFToken(request);
+        }
+        if (presentationService instanceof AuthenticationServiceFacade
+                && requestMethodName.equals("getXSRFSessionToken")) {
+            ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
+                    response);
+            customMappingJacksonHttpMessageConverter.write(
+                        createXSRFToken(request),
+                        org.springframework.http.MediaType.APPLICATION_JSON,
+                        outputMessage);
+            addDefaultResponseHeaders(response);
+            return "";
+
+        }
+
+        // Determine if method exist by name.
 		Method[] methods = presentationService.getClass().getMethods();
 		List<Method> availableMethod = new ArrayList<Method>();
 		for (Method methodItem : methods) {

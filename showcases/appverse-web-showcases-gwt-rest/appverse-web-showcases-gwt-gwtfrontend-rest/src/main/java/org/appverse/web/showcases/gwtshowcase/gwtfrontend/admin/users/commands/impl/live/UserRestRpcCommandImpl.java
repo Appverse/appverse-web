@@ -33,20 +33,20 @@ public class UserRestRpcCommandImpl extends AbstractRestCommand<AdminEventBus,Us
 
 	@Override
 	public void loadUser(long userId, ApplicationJsonAsyncCallback<UserVO> callback) {
-        UserServiceFacade.Client.get("loadUser").loadUser(Long.valueOf(userId), callback);
+        getRestService("userRestServiceFacade","loadUser").loadUser(Long.valueOf(userId), callback);
 	}
 
 	@Override
 	public void loadUsers(
 			GWTPresentationPaginatedDataFilter config,
 			AppverseCallback<GWTPresentationPaginatedResult<UserVO>> callback) {
-        UserServiceFacade.Client.get("loadUsers").loadUsers(config, callback);
+        getRestService("userRestServiceFacade","loadUsers").loadUsers(config, callback);
 
 	}
 
     @Override
     public void saveUser(UserVO user, ApplicationJsonAsyncCallback<Long> applicationRestAsyncCallback) {
-        UserServiceFacade.Client.get("saveUser").saveUser(user, applicationRestAsyncCallback);
+        getRestService("userRestServiceFacade","saveUser").saveUser(user, applicationRestAsyncCallback);
     }
 
     @Override

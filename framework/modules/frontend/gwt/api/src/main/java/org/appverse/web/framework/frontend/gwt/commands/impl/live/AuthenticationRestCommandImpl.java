@@ -28,6 +28,7 @@ import java.util.List;
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 import org.appverse.web.framework.backend.api.services.presentation.AuthenticationRestServiceFacade;
+import org.appverse.web.framework.frontend.gwt.helpers.dispatcher.AppverseDispatcher;
 import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 import org.appverse.web.framework.frontend.gwt.commands.AbstractRestCommand;
 import org.appverse.web.framework.frontend.gwt.commands.AuthenticationCommand;
@@ -52,6 +53,7 @@ public class AuthenticationRestCommandImpl extends
 		@Override
 		public void onSuccess(Method method, String response) {
 			// TODO XSRF token comes into response...
+            AppverseDispatcher.setXSRFToken(response);
 			getRestService(SERVICE_NAME,"getPrincipal").getPrincipal(
 					wrapCallback(principalCallback));
 		}
