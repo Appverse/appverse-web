@@ -35,8 +35,6 @@ public interface UserRestRpcCommand {
 
 	void deleteUser(UserVO user, ApplicationJsonAsyncCallback<Void> asyncCallback);
 
-	void loadUsers(ApplicationJsonAsyncCallback<List<UserVO>> callback);
-	
 	void loadUser(long userId, ApplicationJsonAsyncCallback<UserVO> callback);
 
 	void loadUsers(GWTPresentationPaginatedDataFilter config,

@@ -21,14 +21,7 @@ public class UserRestRpcCommandImpl extends AbstractRestCommand<AdminEventBus,Us
 	@Override
 	public void deleteUser(UserVO user,
                            ApplicationJsonAsyncCallback<Void> asyncCallback) {
-        //UserServiceFacade.Client.get("deleteaUser").deleteUser(user, asyncCallback);
         getRestService("userRestServiceFacade","deleteUser").deleteUser(user, asyncCallback);
-	}
-
-	@Override
-	public void loadUsers(ApplicationJsonAsyncCallback<List<UserVO>> callback) {
-		// TOREMOVE loadUsers is not used without paging.
-		
 	}
 
 	@Override
@@ -41,7 +34,6 @@ public class UserRestRpcCommandImpl extends AbstractRestCommand<AdminEventBus,Us
 			GWTPresentationPaginatedDataFilter config,
 			AppverseCallback<GWTPresentationPaginatedResult<UserVO>> callback) {
         getRestService("userRestServiceFacade","loadUsers").loadUsers(config, callback);
-
 	}
 
     @Override
