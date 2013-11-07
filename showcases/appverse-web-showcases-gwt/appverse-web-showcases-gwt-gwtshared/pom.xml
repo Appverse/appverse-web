@@ -1,4 +1,4 @@
-?<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -69,7 +69,7 @@
 		</developer>
 		<developer>
 			<id>miguelfgar</id>
-			<name>Miguel Fernández</name>
+			<name>Miguel Fernï¿½ndez</name>
 			<email>miguelfgar@gmail.com</email>
 			<organization>Appverse</organization>
 			<organizationUrl>http://appverse.org</organizationUrl>
@@ -94,7 +94,7 @@
 		</developer>
 		<developer>
 			<id>slanau</id>
-			<name>Sergi Lanau Rodríguez</name>
+			<name>Sergi Lanau Rodrï¿½guez</name>
 			<email>sergi@lanau.net</email>
 			<url>http://www.lanau.net</url>
 			<organization>Appverse</organization>
