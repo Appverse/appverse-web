@@ -33,6 +33,9 @@ import org.glassfish.jersey.server.ResourceConfig;
  * In order to make use of MultiPart in Jersey Resources we are forced to register it manually.
  * Therefore, we need to define a Jersey Application instead of using the package auto-discovery feature of resources in Jersey, and manually register the MultiPartFeature.class.
  *
+ * Update: Jersey 2 have been designed to not autodiscover multipart resources. So this is the correct way to manage it.
+ * Check the above jersey jira link for more information.
+ *
  *
  */
 public class JerseyInitRpcApplication extends ResourceConfig {
