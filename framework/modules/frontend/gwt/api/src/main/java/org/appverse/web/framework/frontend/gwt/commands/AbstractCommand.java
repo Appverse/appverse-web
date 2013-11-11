@@ -24,9 +24,32 @@
 package org.appverse.web.framework.frontend.gwt.commands;
 
 import com.mvp4g.client.event.BaseEventHandler;
-import com.mvp4g.client.event.EventBus;
+import com.mvp4g.client.event.EventBusWithLookup;
+import org.appverse.web.framework.frontend.gwt.common.utils.GWTUtils;
 
-public abstract class AbstractCommand<E extends EventBus> extends
+public abstract class AbstractCommand<E extends EventBusWithLookup> extends
 		BaseEventHandler<E> {
 
+    /**
+     * Check hash (#) in URL to detect place event on module loading. If
+     * detected, dispatch eventBus to that event. This should be used with
+     * eventBus historyOnStart = false
+     *
+     */
+    protected void checkInitPlaceEvent() {
+        String initPlaceEvent = GWTUtils.checkInitPlaceEvent();
+        if (initPlaceEvent != null && initPlaceEvent.trim().length() > 0) {
+            eventBus.dispatch(initPlaceEvent);
+        }
+    }
+
+    /**
+     * Check hash (#) in URL to detect place event on module loading. If
+     * detected, the URL is returned. This should be used with
+     * eventBus historyOnStart = false
+     *
+     */
+    protected String getInitPlaceEvent() {
+        return GWTUtils.checkInitPlaceEvent();
+    }
 }
