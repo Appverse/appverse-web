@@ -213,8 +213,19 @@
         <dependency>
 			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 			<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
+            <!--<exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>-->
 		</dependency>
-
+<!--        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>15.0</version>
+            <classifier>cdi1.0</classifier>
+        </dependency>-->
 		<dependency>
 			<groupId>org.appverse.web.showcases.gwt.gwtshared</groupId>
 			<artifactId>appverse-web-showcases-gwt-gwtshared</artifactId>

@@ -211,6 +211,12 @@
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
 			<artifactId>appverse-web-modules-frontend-gwt-api</artifactId>
-		</dependency>
+            <!--<exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>-->
+        </dependency>
 	</dependencies>
 </project>
