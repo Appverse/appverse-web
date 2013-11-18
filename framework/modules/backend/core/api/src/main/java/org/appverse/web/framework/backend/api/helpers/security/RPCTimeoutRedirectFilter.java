@@ -108,6 +108,18 @@ public class RPCTimeoutRedirectFilter extends GenericFilterBean
 							.getAuthentication()))
 					{
 						logger.info("User session expired or not logged in yet");
+
+                        if (SecurityContextHolder.getContext().getAuthentication() == null){
+                            logger.debug("SecurityContextHolder.getContext().getAuthentication() is NULL" +  SecurityContextHolder.getContext().getAuthentication());
+                        }
+                        else{
+                            logger.debug(new StringBuffer().append("SecurityContextHolder.getContext().getAuthentication().getPrincipal(): ").append(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).toString());
+                            logger.debug(new StringBuffer().append("SecurityContextHolder.getContext().getAuthentication().getAuthorities(): ").append(SecurityContextHolder.getContext().getAuthentication().getAuthorities()).toString());
+                            logger.debug(new StringBuffer().append("SecurityContextHolder.getContext().getAuthentication().getCredentials(): ").append(SecurityContextHolder.getContext().getAuthentication().getCredentials()).toString());
+                            logger.debug(new StringBuffer().append("SecurityContextHolder.getContext().getAuthentication().getDetails(): ").append(SecurityContextHolder.getContext().getAuthentication().getDetails()).toString());
+                            logger.debug(new StringBuffer().append("SecurityContextHolder.getContext().getAuthentication().isAuthenticated(): ").append(SecurityContextHolder.getContext().getAuthentication().isAuthenticated()).toString());
+                        }
+
 						String rpcContentType = ((HttpServletRequest) request)
 								.getHeader("Content-Type");
 
