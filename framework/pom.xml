@@ -659,11 +659,60 @@
                 </exclusions>
                 -->
             </dependency>
+            
+            <!-- auto registered feature // default JSON support module-->
+			<dependency>
+			    <groupId>org.glassfish.jersey.media</groupId>
+			    <artifactId>jersey-media-moxy</artifactId>
+			    <version>${jersey.version}</version>
+			</dependency>		
+            
+			<dependency>
+    			<groupId>org.glassfish.jersey.media</groupId>
+    			<artifactId>jersey-media-json-jackson</artifactId>
+			    <version>${jersey.version}</version>
+			</dependency>		
+            
+            
             <dependency>
                 <groupId>org.glassfish.jersey.media</groupId>
                 <artifactId>jersey-media-multipart</artifactId>
                 <version>${jersey.version}</version>
             </dependency>
+
+			<!-- JAX-RS 2 client api -->            
+			<dependency>
+	    		<groupId>org.glassfish.jersey.core</groupId>
+	    		<artifactId>jersey-client</artifactId>
+                <version>${jersey.version}</version>	    		
+			</dependency>     
+
+			<!-- Testing support -->			
+			
+			<!-- Use it ONLY if you want to include all Test Factories providers--> 
+	        <dependency>
+	            <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+	            <artifactId>jersey-test-framework-provider-bundle</artifactId>
+	            <type>pom</type>
+                <version>${jersey.version}</version>	    		
+	        </dependency>
+	        
+	        <!--  Include both to use grizzly web container test factory-->
+			<dependency>
+				<groupId>org.glassfish.jersey.containers</groupId>
+				<artifactId>jersey-container-grizzly2-servlet</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+				<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>	     
+			<!--  End Testing Support -->   
+	        
+	        			       
+            
 			<!-- END JERSEY DEPENDENCIES -->
 			<!-- RESTY DEPENDENCIES -->
 			<dependency>

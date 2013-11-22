@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+		<groupId>org.appverse.web.framework.poms</groupId>
+		<artifactId>appverse-web-masterpom</artifactId>
+		<version>1.2.6-SNAPSHOT</version>
+		<relativePath>../../../..</relativePath>
 	</parent>
 
-	<groupId>org.appverse.web.framework.poms.modules.backend.core</groupId>
-	<artifactId>appverse-web-modules-backend-core-pom</artifactId>
-	<version>1.2.6-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<groupId>org.appverse.web.framework.modules.backend.core.rest</groupId>
+	<artifactId>appverse-web-modules-backend-core-rest</artifactId>
+	<packaging>jar</packaging>
 
-	<name>Appverse Web Framework Modules Backend Core POM</name>
-	<description>Appverse Web Framework Modules Backend Core POM</description>
+	<name>Appverse Web Framework Modules Backend Core Rest Module</name>
+	<description>Appverse Web Framework Modules Backend Core Rest Module</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2011</inceptionYear>
 
@@ -178,12 +179,72 @@
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
-	<modules>
-		<module>api</module>
-		<module>cache</module>
-		<module>persistence</module>
-		<module>ws</module>
-		<module>rest</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
+			<artifactId>appverse-web-modules-backend-core-api</artifactId>
+		</dependency>
 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+		</dependency>
+
+		<!-- auto registered feature // default JSON support module -->
+		<!-- JAXB-RI is still used for XML support, since MoxyXmlFeature is disabled 
+			on default -->
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-moxy</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+		</dependency>
+		
+		<!-- Only if you want to include all Test Factories providers 
+		<dependency> 
+			<groupId>org.glassfish.jersey.test-framework.providers</groupId> 
+			<artifactId>jersey-test-framework-provider-bundle</artifactId> 
+			<type>pom</type> 
+			<scope>test</scope> 
+		</dependency> -->
+
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-grizzly2-servlet</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+			<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- <dependency> <groupId>com.sun.xml.bind</groupId> <artifactId>jaxb-impl</artifactId> 
+			</dependency> -->
+	</dependencies>
 </project>
