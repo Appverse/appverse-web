@@ -28,6 +28,10 @@ import java.util.List;
 
 import org.appverse.web.framework.backend.api.model.business.AbstractBusinessBean;
 
+/**
+ * Page of data which contains also pagination information 
+ * 
+ */
 public class BusinessPaginatedResult<Data extends AbstractBusinessBean>
 		extends AbstractBusinessBean implements Serializable {
 

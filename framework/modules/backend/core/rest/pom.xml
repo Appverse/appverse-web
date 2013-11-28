@@ -213,6 +213,7 @@
 			<artifactId>jersey-media-moxy</artifactId>
 		</dependency>
 
+		<!-- We have configured WebTargetFactory to register Jackson Feature, so Moxy is not used -->
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
@@ -243,8 +244,5 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<!-- <dependency> <groupId>com.sun.xml.bind</groupId> <artifactId>jaxb-impl</artifactId> 
-			</dependency> -->
 	</dependencies>
 </project>

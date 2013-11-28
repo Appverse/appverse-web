@@ -28,6 +28,10 @@ import java.util.List;
 
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 
+/**
+ * Page of data which contains also pagination information 
+ * 
+ */
 public class IntegrationPaginatedResult<Data extends AbstractIntegrationBean>
 		extends AbstractIntegrationBean implements Serializable {
 

@@ -70,12 +70,18 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 	@AutowiredLogger
 	private static Logger logger;
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieve(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long)
+	 */
 	@Override
 	public T retrieve(final WebTarget webClient, final String idName, final Long id)
 			throws Exception {
 		return retrieve(webClient, idName, id, null, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieve(javax.ws.rs.client.WebTarget, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public T retrieve(final WebTarget webClient, final Map<String, Object> pathParams,
 			final Map<String, Object> queryParams)
@@ -83,6 +89,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return this.retrieve(webClient, null, null, pathParams, queryParams);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieve(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public T retrieve(WebTarget webClient, final String idName, final Long id,
 			final Map<String, Object> pathParams,
@@ -107,12 +116,18 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return object;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveList(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long)
+	 */
 	@Override
 	public List<T> retrieveList(final WebTarget webClient, final String idName, final Long id)
 			throws Exception {
 		return retrieveList(webClient, idName, id, null, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveList(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public List<T> retrieveList(WebTarget webClient, final String idName, final Long id,
 			final Map<String, Object> pathParams, final Map<String, Object> queryParams)
@@ -144,11 +159,17 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 	 * com.gft.riaframework.backend.services.integration.IRestPersistenceService
 	 * #retrieveList()
 	 */
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveList(javax.ws.rs.client.WebTarget)
+	 */
 	@Override
 	public List<T> retrieveList(final WebTarget webClient) throws Exception {
 		return retrieveList(webClient, (Map<String, Object>) null, (Map<String, Object>) null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveList(javax.ws.rs.client.WebTarget, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public List<T> retrieveList(final WebTarget webClient, final Map<String, Object> pathParams,
 			final Map<String, Object> queryParams)
@@ -156,6 +177,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return retrieveList(webClient, (String) null, (Long) null, pathParams, queryParams);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveList(javax.ws.rs.client.WebTarget, java.lang.String, java.util.List)
+	 */
 	@Override
 	public List<T> retrieveList(final WebTarget webClient, final String idsName,
 			final List<Long> ids)
@@ -163,6 +187,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return retrieveList(webClient, idsName, ids, null, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveList(javax.ws.rs.client.WebTarget, java.lang.String, java.util.List, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public List<T> retrieveList(WebTarget webClient, final String idsName,
 			final List<Long> ids, final Map<String, Object> pathParams,
@@ -227,6 +254,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 
 	// DELETE METHODS
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#deleteStatusReturn(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long)
+	 */
 	@Override
 	public StatusResult deleteStatusReturn(final WebTarget webClient, final String idName,
 			final Long id)
@@ -235,6 +265,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return deleteStatusReturn(webClient, idName, id, null, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#deleteStatusReturn(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public StatusResult deleteStatusReturn(WebTarget webClient, final String idName, final Long id,
 			final Map<String, Object> pathParams,
@@ -256,12 +289,18 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#delete(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long)
+	 */
 	@Override
 	public T delete(final WebTarget webClient, final String idName, final Long id) throws Exception
 	{
 		return delete(webClient, idName, id, null, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#delete(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public T delete(WebTarget webClient, final String idName, final Long id,
 			final Map<String, Object> pathParams,
@@ -285,11 +324,17 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 
 	//INSERT METHODS
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insert(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean)
+	 */
 	@Override
 	public T insert(final WebTarget webClient, final T object) throws Exception {
 		return insert(webClient, object, null, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insert(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public T insert(WebTarget webClient, final T object,
 			final Map<String, Object> pathParams,
@@ -308,12 +353,18 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return builder.post(Entity.entity(object, getMediaType()), genericType);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insertStatusReturn(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean)
+	 */
 	@Override
 	public StatusResult insertStatusReturn(final WebTarget webClient, final T object)
 			throws Exception {
 		return insertStatusReturn(webClient, object, null, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insertStatusReturn(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public StatusResult insertStatusReturn(WebTarget webClient, final T object,
 			final Map<String, Object> pathParams,
@@ -332,6 +383,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 
 	// UPDATE Methods
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#update(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.lang.String, java.lang.Long)
+	 */
 	@Override
 	public T update(final WebTarget webClient, final T object, final String idName, final Long id)
 			throws Exception {
@@ -339,6 +393,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return update(webClient, object, idName, id, null, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#update(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public T update(WebTarget webClient, final T object, final String idName, final Long id,
 			final Map<String, Object> pathParams, final Map<String, Object> queryParams)
@@ -360,6 +417,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return builder.put(Entity.entity(object, getMediaType()), genericType);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#updateStatusReturn(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.lang.String, java.lang.Long)
+	 */
 	@Override
 	public StatusResult updateStatusReturn(final WebTarget webClient, final T object,
 			final String idName, final Long id)
@@ -367,6 +427,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return updateStatusReturn(webClient, object, idName, id, null, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#updateStatusReturn(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public StatusResult updateStatusReturn(WebTarget webClient, final T object,
 			final String idName, final Long id,
@@ -389,6 +452,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#applyQuery(javax.ws.rs.client.WebTarget, java.util.Map)
+	 */
 	@Override
 	public WebTarget applyQuery(WebTarget webClient, final Map<String, Object> queryParams)
 			throws Exception {
@@ -410,37 +476,30 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		throw new UnsupportedOperationException("You must overwrite 'mapPagedResult' method");
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#getOffsetParamName()
+	 */
 	@Override
 	public String getOffsetParamName() {
 		return OFFSET_PARAM_NAME;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#getMaxRecordsParamName()
+	 */
 	@Override
 	public String getMaxRecordsParamName() {
 		return MAX_RECORDS_PARAM_NAME;
 	}
 
+	/**
+	 * Use reflection to get the actual generic type
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	@SuppressWarnings("unchecked")
 	protected Class<T> getClassP() throws Exception {
-		/*
-				Class<T> classP = null;
-				final Type type = this.getClass().getGenericSuperclass();
-				if (type instanceof ParameterizedType) {
-					final ParameterizedType pType = (ParameterizedType) type;
-					if (pType.getActualTypeArguments()[0] instanceof Class) {
-						classP = (Class<T>) pType.getActualTypeArguments()[0];
-					} else {
-						logger.error("", this.getClass());
-						throw new Exception(this.getClass().getSimpleName());
-					}
-				} else {
-					logger.error("", this.getClass());
-					throw new Exception(this.getClass().getSimpleName());
-
-				}
-
-				return classP;
-		*/
 		Method method = this.getClass().getMethod("getTypeSafeList");
 
 		Type returnType = method.getGenericReturnType();
@@ -458,15 +517,28 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 
 	}
 
+	/**
+	 * Use reflection to get the actual generic list type
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	protected Type getTypeListP() throws Exception {
 		return this.getClass().getMethod("getTypeSafeList").getGenericReturnType();
 	}
 
+	/**
+	 * @param builder
+	 * @return
+	 */
 	protected Invocation.Builder acceptMediaType(final Invocation.Builder builder)
 	{
 		return builder.accept(getMediaType());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#getMediaType()
+	 */
 	@Override
 	public String getMediaType()
 	{

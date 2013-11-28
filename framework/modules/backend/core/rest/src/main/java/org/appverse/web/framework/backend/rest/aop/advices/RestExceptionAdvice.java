@@ -29,6 +29,10 @@ import org.appverse.web.framework.backend.api.aop.advices.technical.AbstractThro
 import org.appverse.web.framework.backend.rest.aop.managers.RestExceptionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * Advice to intercept throwing of Rest exceptions
+ *
+ */
 public class RestExceptionAdvice extends AbstractThrowsAOPAdvice {
 
 	@Autowired

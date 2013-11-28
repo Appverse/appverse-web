@@ -32,6 +32,11 @@ import org.appverse.web.framework.backend.rest.aop.managers.RestExceptionManager
 import org.appverse.web.framework.backend.rest.exceptions.RestWebAppException;
 import org.slf4j.Logger;
 
+/**
+ * This class manages the error handling of rest integration services
+ * Any JAX-RS WebApplicationException is encapsulated into RestWebAppException and propaged 
+ *
+ */
 public class RestExceptionManagerImpl implements RestExceptionManager {
 
 	@AutowiredLogger
