@@ -26,6 +26,7 @@ package org.appverse.web.framework.backend.rest.services.integration;
 import java.util.List;
 
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
+import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 import org.appverse.web.framework.backend.rest.model.integration.SampleDTO;
 import org.appverse.web.framework.backend.rest.model.integration.StatusResult;
 
@@ -59,5 +60,9 @@ public interface SampleRepository {
 	SampleDTO deleteSampleException(Long id) throws Exception;
 
 	StatusResult deleteSampleStatus(Long sampleId) throws Exception;
+
+	IntegrationPaginatedResult<SampleDTO> retrievePagedSamples(
+			IntegrationPaginatedDataFilter filter)
+			throws Exception;
 
 }

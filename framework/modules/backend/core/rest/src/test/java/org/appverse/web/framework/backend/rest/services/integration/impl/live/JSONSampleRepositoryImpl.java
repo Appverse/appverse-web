@@ -28,11 +28,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.Response;
 
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
+import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 import org.appverse.web.framework.backend.rest.model.integration.SampleDTO;
 import org.appverse.web.framework.backend.rest.model.integration.StatusResult;
+import org.appverse.web.framework.backend.rest.model.integration.json.PageDTO;
 import org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService;
 import org.appverse.web.framework.backend.rest.services.integration.SampleRepository;
 import org.slf4j.Logger;
@@ -56,6 +60,65 @@ public class JSONSampleRepositoryImpl extends RestPersistenceService<SampleDTO>
 	public List<SampleDTO> getTypeSafeList()
 	{
 		return null;
+	}
+
+	/* 
+	 * We are using distinct PageDTO objects, since Jackson read Jaxb annotations and It's complex to get a generic list page for XML and JSON 
+	 * 
+	 * (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.SampleRepository#retrievePagedSamples(org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter)
+	 */
+	@Override
+	public IntegrationPaginatedResult<SampleDTO> retrievePagedSamples(
+			final IntegrationPaginatedDataFilter filter) throws Exception
+	{
+		Map<String, Object> queryParams = new HashMap<String, Object>();
+
+		queryParams.put("columnName", filter.getColumns().get(0));
+		queryParams.put("value", filter.getValues().get(0));
+
+		return this.retrievePagedQuery(sampleClient.path("samples/paged/json/{page}/{pageSize}"),
+				filter, null,
+				queryParams);
+
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.impl.live.RestPersistenceService#mapPagedResult(javax.ws.rs.core.Response)
+	 */
+	@Override
+	public IntegrationPaginatedResult<SampleDTO> mapPagedResult(final Response response)
+			throws Exception {
+
+		PageDTO<SampleDTO> sample = new PageDTO<SampleDTO>();
+
+		GenericType<PageDTO<SampleDTO>> genericType = new GenericType<PageDTO<SampleDTO>>() {
+		};
+
+		PageDTO<SampleDTO> page = response.readEntity(genericType);
+		IntegrationPaginatedResult<SampleDTO> result = new IntegrationPaginatedResult<SampleDTO>();
+
+		result.setData(page.getDataList());
+		result.setTotalLength(page.getTotalSize());
+		result.setOffset(page.getInitialPos());
+
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.impl.live.RestPersistenceService#getOffsetParamName()
+	 */
+	@Override
+	public String getOffsetParamName() {
+		return "page";
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.impl.live.RestPersistenceService#getMaxRecordsParamName()
+	 */
+	@Override
+	public String getMaxRecordsParamName() {
+		return "pageSize";
 	}
 
 	@Override

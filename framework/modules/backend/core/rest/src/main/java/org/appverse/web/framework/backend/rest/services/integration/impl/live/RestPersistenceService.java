@@ -136,7 +136,6 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		if (queryParams != null)
 			webClient = applyQuery(webClient, queryParams);
 
-		//We need jackson json unmarshaller, since Moxy is unable to deserialize generics collections List<T>
 		GenericType<List<T>> genericType = new GenericType<List<T>>(getTypeListP()) {
 		};
 
@@ -201,6 +200,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrievePagedQuery(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter)
+	 */
 	@Override
 	public IntegrationPaginatedResult<T> retrievePagedQuery(final WebTarget webClient,
 			final IntegrationPaginatedDataFilter filter)
@@ -209,6 +211,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return retrievePagedQuery(webClient, filter, null, null);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrievePagedQuery(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public IntegrationPaginatedResult<T> retrievePagedQuery(WebTarget webClient,
 			final IntegrationPaginatedDataFilter filter, final Map<String, Object> pathParams,
@@ -224,8 +229,10 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			if (pathParams != null)
 				webClient = webClient.resolveTemplates(pathParams);
 
-			Builder builder = webClient.queryParam(getOffsetParamName(), filter.getOffset())
-					.queryParam(getMaxRecordsParamName(), filter.getLimit()).request();
+			webClient = webClient.resolveTemplate(getOffsetParamName(), filter.getOffset());
+			webClient = webClient.resolveTemplate(getMaxRecordsParamName(), filter.getLimit());
+
+			Builder builder = webClient.request();
 
 			resp = acceptMediaType(builder).get();
 

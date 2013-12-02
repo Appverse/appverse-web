@@ -26,10 +26,12 @@ package org.appverse.web.framework.backend.rest.aop.managers.impl.live;
 import java.lang.reflect.Method;
 
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.rest.aop.managers.RestExceptionManager;
 import org.appverse.web.framework.backend.rest.exceptions.RestWebAppException;
+import org.glassfish.jersey.message.internal.OutboundJaxrsResponse;
 import org.slf4j.Logger;
 
 /**
@@ -49,10 +51,15 @@ public class RestExceptionManagerImpl implements RestExceptionManager {
 
 		if (ex instanceof WebApplicationException)
 		{
+
 			WebApplicationException wae = (WebApplicationException) ex;
-			String reason = wae.getResponse().readEntity(String.class);
-			RestWebAppException rex = new RestWebAppException(reason,
-					wae.getResponse().getStatus(), wae);
+			Response response = wae.getResponse();
+			if (response instanceof OutboundJaxrsResponse)
+			{
+				throw new RestWebAppException("", response.getStatus(), wae);
+			}
+			String reason = response.readEntity(String.class);
+			RestWebAppException rex = new RestWebAppException(reason, response.getStatus(), wae);
 			throw rex;
 		}
 		else

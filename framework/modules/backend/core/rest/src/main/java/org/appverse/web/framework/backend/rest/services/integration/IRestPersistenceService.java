@@ -197,10 +197,11 @@ public interface IRestPersistenceService<T extends AbstractIntegrationBean> {
 			Map<String, Object> pathParams, Map<String, Object> queryParams) throws Exception;
 
 	/**
-	 * It performs paginated query using params in filterDTO.
-	 * Pagination info and data is returned in IntegrationPaginatedResult
-	 * Filtering is performed by overwriting applyFilter and defineQuery
-	 * 
+	 * This method performs paginated query.
+	 * Only offset and maxRegs params are read from IntegrationPaginatedDataFilter.
+	 * This method could be overriden at application level to provide more customized behaviour
+	 *
+	 * @param webClient
 	 * @param filter
 	 * @return
 	 * @throws Exception
@@ -209,6 +210,21 @@ public interface IRestPersistenceService<T extends AbstractIntegrationBean> {
 			final IntegrationPaginatedDataFilter filter)
 			throws Exception;
 
+	/**
+	 * This method performs paginated query.
+	 * Only offset and maxRegs params are read from IntegrationPaginatedDataFilter.
+	 * This method could be overriden at application level to provide more customized behaviour
+	 * 
+	 * "pathParams" Map allows user to perform every template path resolution is needed.
+	 * "queryParams" elements are included as parameters in request.
+	 * 
+	 * @param webClient
+	 * @param filter
+	 * @param pathParams
+	 * @param queryParams
+	 * @return
+	 * @throws Exception
+	 */
 	IntegrationPaginatedResult<T> retrievePagedQuery(WebTarget webClient,
 			IntegrationPaginatedDataFilter filter,
 			Map<String, Object> pathParams, final Map<String, Object> queryParams) throws Exception;
@@ -421,7 +437,7 @@ public interface IRestPersistenceService<T extends AbstractIntegrationBean> {
 
 	/** 
 	 * Implementations must overwrite this method to manage mapping from DTO.
-	 * Main task of this method is to convert the received DTO message to IntegrationPaginatedResult 
+	 * Main task of this method is to unmarshall data and convert the received DTO message to IntegrationPaginatedResult 
 	 * 
 	 * This method can also define deserialization policy, 
 	 * Implementation could depend on the supported message format ( json, xml...)

@@ -3,6 +3,7 @@ package server.org.appverse.service.rest.sample;
 import javax.ws.rs.ext.ContextResolver;
 
 import org.glassfish.jersey.filter.LoggingFilter;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.moxy.json.MoxyJsonConfig;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
@@ -17,6 +18,7 @@ public class SampleRestApplication {
 	public static ResourceConfig createApp() {
 		return new ResourceConfig(MockResource.class).register(LoggingFilter.class)
 				.register(WebApplicationExceptionMapper.class)
+				.register(JacksonFeature.class)
 				.property(ServerProperties.TRACING,
 						"ALL").property(ServerProperties.TRACING_THRESHOLD, "VERBOSE");
 

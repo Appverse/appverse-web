@@ -40,6 +40,22 @@ public interface SampleResource {
 	public Response updateResponseStatus(final SampleBean s);
 
 	@GET
+	@Path("paged/xml/{page}/{pageSize}")
+	public server.org.appverse.service.rest.sample.xml.Page retrieveXMLPagedByFilter(
+			@PathParam("page") final Long page,
+			@PathParam("pageSize") final Long pageSize,
+			@QueryParam("columnName") final String columnName,
+			@QueryParam("value") final String value);
+
+	@GET
+	@Path("paged/json/{page}/{pageSize}")
+	public server.org.appverse.service.rest.sample.json.Page retrieveJSONPagedByFilter(
+			@PathParam("page") final Long page,
+			@PathParam("pageSize") final Long pageSize,
+			@QueryParam("columnName") final String columnName,
+			@QueryParam("value") final String value);
+
+	@GET
 	@Path("{sampleId}")
 	public SampleBean retrieveSample(@PathParam("sampleId") Long sampleId) throws Exception;
 

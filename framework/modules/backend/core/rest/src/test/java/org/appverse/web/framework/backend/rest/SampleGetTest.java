@@ -46,6 +46,8 @@ import javax.ws.rs.core.Application;
 
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
+import org.appverse.web.framework.backend.api.services.integration.IntegrationException;
+import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 import org.appverse.web.framework.backend.rest.model.integration.SampleDTO;
 import org.appverse.web.framework.backend.rest.services.integration.SampleRepository;
 import org.glassfish.jersey.client.ClientConfig;
@@ -117,6 +119,84 @@ public class SampleGetTest extends JerseyTest {
 	@Override
 	protected TestContainerFactory getTestContainerFactory() throws TestContainerException {
 		return new ExtendedGrizzlyTestContainerFactory();
+	}
+
+	@Test
+	public void retrievePagedSamples() throws Exception {
+
+		/*
+		WebTarget resource = target().queryParam("columnName", "name").queryParam("value", "John");
+		resource = resource.path("samples/paged/json/1/30");
+		Response response = resource.request().accept(MediaType.APPLICATION_JSON).get();
+		*/
+
+		try
+		{
+			IntegrationPaginatedDataFilter filter = new IntegrationPaginatedDataFilter();
+			filter.getColumns().add("name");
+			filter.getValues().add("John");
+			//Request for page 3, each page contains 45 rows
+			filter.setOffset(3);
+			filter.setLimit(45);
+			IntegrationPaginatedResult<SampleDTO> dto = jsonSampleRepository
+					.retrievePagedSamples(filter);
+			//final WebTarget resource = target().path("samples/1");
+			//Response response = resource.request().get();
+			assertNotNull(dto);
+			assertNotNull(dto.getData());
+			assertNotNull(dto.getData().get(0).getId());
+			assertEquals(45, dto.getData().size());
+
+			logger.info("Total num regs::" + dto.getTotalLength());
+
+			logger.info("retrievePagedSamples OK");
+		} catch (IntegrationException ie)
+		{
+			logger.info("WebAppException has been catched by advice and transformed in IntegrationException");
+			logger.info("Currently, Integration exception contains error code and reason");
+			logger.info("Error code::" + ie.getCode());
+			logger.info("Error code::" + ie.getMessage());
+			assertTrue(ie.getMessage(), false);
+		}
+
+	}
+
+	@Test
+	public void retrievePagedSamplesXml() throws Exception {
+
+		/*
+		WebTarget resource = target().queryParam("columnName", "name").queryParam("value", "John");
+		resource = resource.path("samples/paged/xml/1/30");
+		Response response = resource.request().accept(MediaType.APPLICATION_XML).get();
+		*/
+
+		try
+		{
+			IntegrationPaginatedDataFilter filter = new IntegrationPaginatedDataFilter();
+			filter.getColumns().add("name");
+			filter.getValues().add("John");
+			//Request for page 3, each page contains 45 rows
+			filter.setOffset(3);
+			filter.setLimit(45);
+			IntegrationPaginatedResult<SampleDTO> dto = xmlSampleRepository
+					.retrievePagedSamples(filter);
+			assertNotNull(dto);
+			assertNotNull(dto.getData());
+			assertNotNull(dto.getData().get(0).getId());
+			assertEquals(45, dto.getData().size());
+
+			logger.info("Total num regs::" + dto.getTotalLength());
+
+			logger.info("retrievePagedSamples OK");
+		} catch (IntegrationException ie)
+		{
+			logger.info("WebAppException has been catched by advice and transformed in IntegrationException");
+			logger.info("Currently, Integration exception contains error code and reason");
+			logger.info("Error code::" + ie.getCode());
+			logger.info("Error code::" + ie.getMessage());
+			assertTrue(ie.getMessage(), false);
+		}
+
 	}
 
 	@Test

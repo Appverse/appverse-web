@@ -23,17 +23,65 @@
  */
 package org.appverse.web.framework.backend.rest.services.integration.impl.live;
 
-import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
+import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
+import org.appverse.web.framework.backend.rest.model.integration.SampleDTO;
+import org.appverse.web.framework.backend.rest.model.integration.xml.PageDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository("sampleRepositoryXml")
 public class XMLSampleRepositoryImpl extends JSONSampleRepositoryImpl
 {
+
+	@Autowired
+	private WebTarget sampleClient;
+
 	@Override
 	public String getMediaType()
 	{
 		return MediaType.APPLICATION_XML;
 	}
 
+	@Override
+	public IntegrationPaginatedResult<SampleDTO> retrievePagedSamples(
+			final IntegrationPaginatedDataFilter filter) throws Exception
+	{
+		Map<String, Object> queryParams = new HashMap<String, Object>();
+
+		queryParams.put("columnName", filter.getColumns().get(0));
+		queryParams.put("value", filter.getValues().get(0));
+
+		return this.retrievePagedQuery(sampleClient.path("samples/paged/xml/{page}/{pageSize}"),
+				filter, null,
+				queryParams);
+
+	}
+
+	@Override
+	public IntegrationPaginatedResult<SampleDTO> mapPagedResult(final Response response)
+			throws Exception {
+
+		PageDTO<SampleDTO> sample = new PageDTO<SampleDTO>();
+
+		GenericType<PageDTO<SampleDTO>> genericType = new GenericType<PageDTO<SampleDTO>>() {
+		};
+
+		PageDTO<SampleDTO> page = response.readEntity(genericType);
+		IntegrationPaginatedResult<SampleDTO> result = new IntegrationPaginatedResult<SampleDTO>();
+
+		result.setData(page.getDataList());
+		result.setTotalLength(page.getTotalSize());
+		result.setOffset(page.getInitialPos());
+
+		return result;
+	}
 }

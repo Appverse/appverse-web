@@ -100,6 +100,93 @@ public class MockResource implements SampleResource {
 	}
 
 	@Override
+	public server.org.appverse.service.rest.sample.xml.Page retrieveXMLPagedByFilter(Long numPage,
+			Long pageSize, final String columnName, final String value)
+	{
+		server.org.appverse.service.rest.sample.xml.Page pageResult = new server.org.appverse.service.rest.sample.xml.Page();
+
+		List<SampleBean> data = new ArrayList<SampleBean>();
+
+		if (numPage == null)
+			numPage = new Long(0);
+
+		if (pageSize == null)
+			pageSize = new Long(30);
+
+		if (columnName != null && columnName.equals("name"))
+		{
+			SampleBean one = null;
+			for (long i = numPage * pageSize; i < (numPage * pageSize) + pageSize; i++)
+			{
+				int tmp = Long.valueOf(i).intValue();
+				one = new SampleBean(tmp, tmp, value + tmp, "test" + tmp);
+				data.add(one);
+			}
+
+		}
+		else if (columnName != null && columnName.equals("surname"))
+		{
+			SampleBean one = null;
+			for (long i = numPage * pageSize; i < (numPage * pageSize) + pageSize; i++)
+			{
+				int tmp = Long.valueOf(i).intValue();
+				one = new SampleBean(tmp, tmp, "test" + tmp, value + tmp);
+				data.add(one);
+			}
+		}
+
+		pageResult.setData(data);
+		pageResult.setCurrentOffset(numPage);
+		pageResult.setTotal(10000);
+
+		return pageResult;
+	}
+
+	@Override
+	public server.org.appverse.service.rest.sample.json.Page retrieveJSONPagedByFilter(
+			Long numPage,
+			Long pageSize, final String columnName, final String value)
+	{
+		server.org.appverse.service.rest.sample.json.Page pageResult = new server.org.appverse.service.rest.sample.json.Page();
+
+		List<SampleBean> data = new ArrayList<SampleBean>();
+
+		if (numPage == null)
+			numPage = new Long(0);
+
+		if (pageSize == null)
+			pageSize = new Long(30);
+
+		if (columnName != null && columnName.equals("name"))
+		{
+			SampleBean one = null;
+			for (long i = numPage * pageSize; i < (numPage * pageSize) + pageSize; i++)
+			{
+				int tmp = Long.valueOf(i).intValue();
+				one = new SampleBean(tmp, tmp, value + tmp, "test" + tmp);
+				data.add(one);
+			}
+
+		}
+		else if (columnName != null && columnName.equals("surname"))
+		{
+			SampleBean one = null;
+			for (long i = numPage * pageSize; i < (numPage * pageSize) + pageSize; i++)
+			{
+				int tmp = Long.valueOf(i).intValue();
+				one = new SampleBean(tmp, tmp, "test" + tmp, value + tmp);
+				data.add(one);
+			}
+		}
+
+		pageResult.setData(data);
+		pageResult.setCurrentOffset(numPage);
+		pageResult.setTotal(10000);
+
+		return pageResult;
+	}
+
+	@Override
 	public SampleBean retrieveSample(final Long sampleId) throws Exception {
 		return new SampleBean(sampleId.intValue(), 34, "test", "test1");
 	}
