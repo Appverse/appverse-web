@@ -1,3 +1,26 @@
+/*
+ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+
+ This Source Code Form is subject to the terms of the Appverse Public License 
+ Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+ file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+
+ Redistribution and use in source and binary forms, with or without modification, 
+ are permitted provided that the conditions of the AppVerse Public License v2.0 
+ are met.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+ SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ POSSIBILITY OF SUCH DAMAGE.
+ */
 package server.org.appverse.service.rest.sample.resources;
 
 import java.util.ArrayList;
@@ -9,9 +32,14 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
@@ -143,10 +171,14 @@ public class MockResource implements SampleResource {
 	}
 
 	@Override
-	public server.org.appverse.service.rest.sample.json.Page retrieveJSONPagedByFilter(
+	public Response retrieveJSONPagedByFilter(
 			Long numPage,
-			Long pageSize, final String columnName, final String value)
+			Long pageSize, final String columnName, final String value, final Request request)
+
 	{
+		CacheControl cc = new CacheControl();
+		cc.setMaxAge(1);
+
 		server.org.appverse.service.rest.sample.json.Page pageResult = new server.org.appverse.service.rest.sample.json.Page();
 
 		List<SampleBean> data = new ArrayList<SampleBean>();
@@ -183,12 +215,37 @@ public class MockResource implements SampleResource {
 		pageResult.setCurrentOffset(numPage);
 		pageResult.setTotal(10000);
 
-		return pageResult;
+		String hash = Integer.toString(pageResult.hashCode());
+		logger.info("page hash:: " + hash);
+		EntityTag etag = new EntityTag(hash);
+
+		ResponseBuilder builder = request.evaluatePreconditions(etag);
+		if (builder != null) {
+			//means the preconditions have been met and the cache is valid
+			//we just need to reset the cachecontrol max age (optional)
+			builder.cacheControl(cc);
+			return builder.build();
+		}
+
+		builder = Response.ok(pageResult);
+		//reset cache control and eTag (mandatory)
+		//both cache control and eTag and compatible
+		builder.cacheControl(cc);
+		builder.tag(etag);
+		return builder.build();
 	}
 
 	@Override
-	public SampleBean retrieveSample(final Long sampleId) throws Exception {
-		return new SampleBean(sampleId.intValue(), 34, "test", "test1");
+	public Response retrieveSample(final Long sampleId) throws Exception {
+
+		SampleBean sb = new SampleBean(sampleId.intValue(), 34, "test", "test1");
+
+		CacheControl cc = new CacheControl();
+		cc.setMaxAge(30000);
+
+		ResponseBuilder builder = Response.ok(sb);
+		builder.cacheControl(cc);
+		return builder.build();
 	}
 
 	@Override
@@ -203,7 +260,7 @@ public class MockResource implements SampleResource {
 	}
 
 	@Override
-	public List<SampleBean> retrieveSomeSamples(final String ids) throws Exception {
+	public Response retrieveSomeSamples(final String ids) throws Exception {
 
 		Integer[] keys = Util.parseAsLongArray(ids);
 
@@ -216,7 +273,16 @@ public class MockResource implements SampleResource {
 			data.add(one);
 		}
 
-		return data;
+		CacheControl cc = new CacheControl();
+		cc.setMaxAge(30000);
+
+		GenericEntity<List<SampleBean>> entity =
+				new GenericEntity<List<SampleBean>>(data) {
+				};
+
+		ResponseBuilder builder = Response.ok(entity);
+		builder.cacheControl(cc);
+		return builder.build();
 	}
 
 	@Override
@@ -235,15 +301,21 @@ public class MockResource implements SampleResource {
 	}
 
 	@Override
-	public List<SampleBean> retrieveByFilter(final String columnName, final String value)
+	public Response retrieveByFilter(final String columnName, final String value,
+			final Request request)
 			throws Exception {
+
+		//Create cache control header
+		CacheControl cc = new CacheControl();
+		//Set max age to one day
+		cc.setMaxAge(86400);
 
 		List<SampleBean> data = new ArrayList<SampleBean>();
 
 		if (columnName != null && columnName.equals("name"))
 		{
 			SampleBean one = new SampleBean(1, 3, value, "testaaaa");
-			SampleBean two = new SampleBean(2, 3, value, "testbbb");
+			SampleBean two = new SampleBean(2, 3, value, "testbbbb");
 			SampleBean three = new SampleBean(3, 4, value, "testcc");
 			data.add(one);
 			data.add(two);
@@ -257,12 +329,42 @@ public class MockResource implements SampleResource {
 			data.add(two);
 
 		}
-		return data;
+		String hash = Integer.toString(data.hashCode());
+		logger.info("list hash:: " + hash);
+		EntityTag etag = new EntityTag(hash);
+
+		ResponseBuilder builder = request.evaluatePreconditions(etag);
+		if (builder != null) {
+			//means the preconditions have been met and the cache is valid
+			//we just need to reset the cachecontrol max age (optional)
+			//builder.cacheControl(cc);
+			return builder.build();
+		}
+
+		//preconditions are not met and the cache is invalid
+		//need to send new value with reponse code 200 (OK)
+		GenericEntity<List<SampleBean>> entity =
+				new GenericEntity<List<SampleBean>>(data) {
+				};
+
+		builder = Response.ok(entity);
+		//reset cache control and eTag (mandatory)
+		//both cache control and eTag and compatible
+		//builder.cacheControl(cc);
+		builder.tag(etag);
+		return builder.build();
 	}
 
 	@Override
-	public SampleBean retrieveOneByFilter(final String columnName, final String value)
+	public Response retrieveOneByFilter(final String columnName, final String value,
+			final Request request)
 			throws Exception {
+
+		//Create cache control header
+		CacheControl cc = new CacheControl();
+		//Set max age to one day
+		cc.setMaxAge(1);
+
 		SampleBean one = null;
 		if (columnName != null && columnName.equals("name"))
 		{
@@ -274,7 +376,25 @@ public class MockResource implements SampleResource {
 			one = new SampleBean(1, 3, "name1", value);
 
 		}
-		return one;
+
+		String hash = Integer.toString(one.hashCode());
+		logger.info("SampleBean hash:: " + hash);
+		EntityTag etag = new EntityTag(hash);
+
+		ResponseBuilder builder = request.evaluatePreconditions(etag);
+		if (builder != null) {
+			//means the preconditions have been met and the cache is valid
+			//we just need to reset the cachecontrol max age (optional)
+			builder.cacheControl(cc);
+			return builder.build();
+		}
+
+		builder = Response.ok(one);
+		//reset cache control and eTag (mandatory)
+		//both cache control and eTag and compatible
+		builder.cacheControl(cc);
+		builder.tag(etag);
+		return builder.build();
 	}
 
 	@Override

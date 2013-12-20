@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
 @Path("samples")
@@ -49,15 +50,15 @@ public interface SampleResource {
 
 	@GET
 	@Path("paged/json/{page}/{pageSize}")
-	public server.org.appverse.service.rest.sample.json.Page retrieveJSONPagedByFilter(
+	public Response retrieveJSONPagedByFilter(
 			@PathParam("page") final Long page,
 			@PathParam("pageSize") final Long pageSize,
 			@QueryParam("columnName") final String columnName,
-			@QueryParam("value") final String value);
+			@QueryParam("value") final String value, @Context Request request);
 
 	@GET
 	@Path("{sampleId}")
-	public SampleBean retrieveSample(@PathParam("sampleId") Long sampleId) throws Exception;
+	public Response retrieveSample(@PathParam("sampleId") Long sampleId) throws Exception;
 
 	@GET
 	@Path("type/{fkId}")
@@ -65,7 +66,7 @@ public interface SampleResource {
 
 	@GET
 	@Path("/multi/{sampleId_array:[\\d,(%2C)]+}")
-	public List<SampleBean> retrieveSomeSamples(@PathParam("sampleId_array") final String ids)
+	public Response retrieveSomeSamples(@PathParam("sampleId_array") final String ids)
 			throws Exception;
 
 	@GET
@@ -73,14 +74,14 @@ public interface SampleResource {
 
 	@GET
 	@Path("filter")
-	public List<SampleBean> retrieveByFilter(@QueryParam("columnName") final String columnName,
-			@QueryParam("value") final String value)
+	public Response retrieveByFilter(@QueryParam("columnName") final String columnName,
+			@QueryParam("value") final String value, @Context Request request)
 			throws Exception;
 
 	@GET
 	@Path("filterOne")
-	public SampleBean retrieveOneByFilter(@QueryParam("columnName") final String columnName,
-			@QueryParam("value") final String value)
+	public Response retrieveOneByFilter(@QueryParam("columnName") final String columnName,
+			@QueryParam("value") final String value, @Context Request request)
 			throws Exception;
 
 	@DELETE

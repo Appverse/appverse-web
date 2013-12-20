@@ -192,17 +192,32 @@
 
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>		
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
 		</dependency>
 
 		<!-- auto registered feature // default JSON support module -->
@@ -213,19 +228,60 @@
 			<artifactId>jersey-media-moxy</artifactId>
 		</dependency>
 
-		<!-- We have configured WebTargetFactory to register Jackson Feature, so Moxy is not used -->
+		<!-- We have configured WebTargetFactory to register Jackson Feature, so 
+			Moxy is not used -->
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
 		</dependency>
+
+		<!-- Only if you want to include all Test Factories providers <dependency> 
+			<groupId>org.glassfish.jersey.test-framework.providers</groupId> <artifactId>jersey-test-framework-provider-bundle</artifactId> 
+			<type>pom</type> <scope>test</scope> </dependency> -->
+
 		
-		<!-- Only if you want to include all Test Factories providers 
-		<dependency> 
-			<groupId>org.glassfish.jersey.test-framework.providers</groupId> 
-			<artifactId>jersey-test-framework-provider-bundle</artifactId> 
-			<type>pom</type> 
-			<scope>test</scope> 
-		</dependency> -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <!-- 
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <scope>test</scope>
+      </dependency>
+		 -->
+		
+		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>		
 
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
@@ -238,7 +294,7 @@
 			<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>

@@ -23,6 +23,7 @@
  */
 package org.appverse.web.framework.backend.rest.aop.managers.impl.live;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import javax.ws.rs.WebApplicationException;
@@ -61,6 +62,15 @@ public class RestExceptionManagerImpl implements RestExceptionManager {
 			String reason = response.readEntity(String.class);
 			RestWebAppException rex = new RestWebAppException(reason, response.getStatus(), wae);
 			throw rex;
+		}
+		else if (ex instanceof InvocationTargetException)
+		{
+			InvocationTargetException ite = (InvocationTargetException) ex;
+			Throwable targetEx = ite.getTargetException();
+			if (targetEx != null)
+				convertAndRethrowException(method, args, target, targetEx);
+			else
+				throw ex;
 		}
 		else
 			throw ex;

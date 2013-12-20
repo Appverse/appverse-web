@@ -21,39 +21,78 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.rest.factories;
+package org.appverse.web.framework.backend.rest.helpers.cache;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
+import java.sql.Date;
 
-import net.sf.ehcache.Cache;
+import javax.ws.rs.core.EntityTag;
 
-import org.appverse.web.framework.backend.rest.filters.cache.RestRequestCachingFilter;
-import org.glassfish.jersey.filter.LoggingFilter;
-import org.glassfish.jersey.jackson.JacksonFeature;
+public class CacheEntry {
+	private Object o;
+	private Long expiration = null;
+	private EntityTag etag;
+	private int status;
 
-public class WebTargetFactory {
+	public CacheEntry()
+	{
 
-	public static WebTarget create(final String baseAddress) {
-
-		return WebTargetFactory.create(baseAddress, null);
 	}
 
-	public static WebTarget create(final String baseAddress, final Cache cache) {
+	public CacheEntry(final Object o, final EntityTag etag, final Long maxAge) {
+		this.o = o;
+		this.etag = etag;
+		if (maxAge != null)
+		{
+			Date d = new Date(System.currentTimeMillis() + (maxAge * 1000));
+			expiration = d.getTime();
+		}
+	}
 
-		Client client = ClientBuilder.newBuilder()
-				.register(JacksonFeature.class)
-				.build();
+	public Object getObject() {
+		return o;
+	}
 
-		//client = client.property("jersey.config.test.logging.enable", Boolean.TRUE);
-		//client = client.property("jersey.config.test.logging.dumpEntity", Boolean.TRUE);
-		client = client.register(LoggingFilter.class);
+	public void setObject(final Object o)
+	{
+		this.o = o;
+	}
 
-		if (cache != null)
-			client = client.register(new RestRequestCachingFilter(cache));
+	public void setMaxAge(final Long maxAge)
+	{
+		Date d = new Date(System.currentTimeMillis() + (maxAge * 1000));
+		expiration = d.getTime();
+	}
 
-		WebTarget target = client.target(baseAddress);
-		return target;
+	public EntityTag getEtag() {
+		return etag;
+	}
+
+	public void setEtag(final EntityTag etag)
+	{
+		this.etag = etag;
+	}
+
+	public boolean hasExpired()
+	{
+		boolean expired = true;
+		if (expiration != null && System.currentTimeMillis() < expiration)
+			expired = false;
+		return expired;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(final int status) {
+		this.status = status;
+	}
+
+	public Long getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(final Long expiration) {
+		this.expiration = expiration;
 	}
 }

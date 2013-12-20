@@ -46,12 +46,13 @@ import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
 import org.appverse.web.framework.backend.api.services.integration.AbstractIntegrationService;
-import org.appverse.web.framework.backend.api.services.integration.IntegrationException;
 import org.appverse.web.framework.backend.api.services.integration.ServiceUnavailableException;
+import org.appverse.web.framework.backend.rest.managers.RestCachingManager;
 import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 import org.appverse.web.framework.backend.rest.model.integration.StatusResult;
 import org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This class provides integration with Rest services 
@@ -64,8 +65,8 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 	public static final String MAX_RECORDS_PARAM_NAME = "maxRecords";
 	public static final String OFFSET_PARAM_NAME = "offset";
 
-	//	@Autowired
-	//	private ObjectMapper objectMapper;
+	@Autowired(required = false)
+	RestCachingManager restCachingManager;
 
 	@AutowiredLogger
 	private static Logger logger;
@@ -110,8 +111,16 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		if (pathParams != null)
 			webClient = webClient.resolveTemplates(pathParams);
 
-		Builder builder = webClient.request();
-		T object = acceptMediaType(builder).get(genericType);
+		Builder builder = acceptMediaType(webClient.request());
+
+		Method methodGet = Builder.class.getMethod("get", GenericType.class);
+
+		T object = null;
+		if (restCachingManager != null)
+			object = restCachingManager.manageRestCaching(builder, methodGet, genericType, this,
+					getKey(webClient));
+		else
+			object = builder.get(genericType);
 
 		return object;
 	}
@@ -145,8 +154,18 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		if (id != null && idName != null)
 			webClient = webClient.resolveTemplate(idName, id);
 
-		Builder builder = webClient.request();
-		List<T> objects = acceptMediaType(builder).get(genericType);
+		Builder builder = acceptMediaType(webClient.request());
+
+		Method methodGet = Builder.class.getMethod("get", GenericType.class);
+
+		List<T> objects = null;
+		if (restCachingManager != null)
+			objects = restCachingManager.manageRestCaching(builder, methodGet, genericType,
+					this,
+					getKey(webClient));
+		else
+			objects = builder.get(genericType);
+
 		return objects;
 
 	}
@@ -223,24 +242,42 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		if (queryParams != null)
 			webClient = applyQuery(webClient, queryParams);
 
-		Response resp = null;
-		try {
+		Builder builder = null;
+		if (pathParams != null)
+			webClient = webClient.resolveTemplates(pathParams);
 
-			if (pathParams != null)
-				webClient = webClient.resolveTemplates(pathParams);
+		webClient = webClient.resolveTemplate(getOffsetParamName(), filter.getOffset());
+		webClient = webClient.resolveTemplate(getMaxRecordsParamName(), filter.getLimit());
 
-			webClient = webClient.resolveTemplate(getOffsetParamName(), filter.getOffset());
-			webClient = webClient.resolveTemplate(getMaxRecordsParamName(), filter.getLimit());
+		builder = acceptMediaType(webClient.request());
 
-			Builder builder = webClient.request();
+		Method methodGet = this.getClass().getMethod("retrieveAndUnmarshall", WebTarget.class,
+				Builder.class);
 
-			resp = acceptMediaType(builder).get();
+		IntegrationPaginatedResult<T> result = null;
+		if (restCachingManager != null)
+			result = restCachingManager.manageRestCaching(builder,
+					webClient, methodGet, this,
+					getKey(webClient));
+		else
+			result = retrieveAndUnmarshall(webClient, builder);
 
-		} catch (Exception exc) {
-			logger.error("The service threw an exception at call{" + webClient.getUri()
-					+ "} . Response status: " + resp.getStatus());
-			throw new IntegrationException(exc);
-		}
+		return result;
+	}
+
+	/**
+	 * Join in the same method retrieving and unmarshalling
+	 * 
+	 * @param webClient
+	 * @param builder
+	 * @return
+	 * @throws Exception
+	 */
+	public IntegrationPaginatedResult<T> retrieveAndUnmarshall(final WebTarget webClient,
+			final Builder builder) throws Exception
+	{
+		Response resp = builder.get();
+
 		IntegrationPaginatedResult<T> result = new IntegrationPaginatedResult<T>(
 				Collections.<T> emptyList(), 0, 0);
 
@@ -255,7 +292,6 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			logger.error("Problem with call {" + webClient.getUri()
 					+ "} . Response status: " + resp.getStatus());
 		}
-
 		return result;
 	}
 
@@ -573,6 +609,15 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		} catch (Exception e) {
 		}
 		return result;
+	}
+
+	protected String getKey(final WebTarget webClient)
+	{
+		StringBuilder sb = new StringBuilder(webClient.getUri().getPath());
+		String query = webClient.getUri().getQuery();
+		if (query != null && !query.isEmpty())
+			sb.append(query);
+		return sb.toString();
 	}
 
 }

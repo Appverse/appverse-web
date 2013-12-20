@@ -21,39 +21,16 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.rest.factories;
+package org.appverse.web.framework.backend.rest.annotations;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import net.sf.ehcache.Cache;
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.TYPE })
+public @interface RestCaching {
 
-import org.appverse.web.framework.backend.rest.filters.cache.RestRequestCachingFilter;
-import org.glassfish.jersey.filter.LoggingFilter;
-import org.glassfish.jersey.jackson.JacksonFeature;
-
-public class WebTargetFactory {
-
-	public static WebTarget create(final String baseAddress) {
-
-		return WebTargetFactory.create(baseAddress, null);
-	}
-
-	public static WebTarget create(final String baseAddress, final Cache cache) {
-
-		Client client = ClientBuilder.newBuilder()
-				.register(JacksonFeature.class)
-				.build();
-
-		//client = client.property("jersey.config.test.logging.enable", Boolean.TRUE);
-		//client = client.property("jersey.config.test.logging.dumpEntity", Boolean.TRUE);
-		client = client.register(LoggingFilter.class);
-
-		if (cache != null)
-			client = client.register(new RestRequestCachingFilter(cache));
-
-		WebTarget target = client.target(baseAddress);
-		return target;
-	}
+	String cacheName();
 }
