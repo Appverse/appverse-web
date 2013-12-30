@@ -97,7 +97,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 
 		if (isCount) {
 			// We are interested just in the total rows number
-			queryString.append("select count(distinct(p)) from ")
+			queryString.append("select count(distinct p) from ")
 					.append(getClassP().getSimpleName()).append(" p");
 		} else {
 			// It is a select
