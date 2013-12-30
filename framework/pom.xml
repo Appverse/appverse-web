@@ -1053,7 +1053,7 @@
 		</repository>
 	</repositories>
 
-	<!-- <distributionManagement> -->
+	<!-- <distributionManagement>  -->
 	<!-- <site> -->
 	<!-- <id>appverse.web.maven</id> -->
 	<!-- <name>Appverse Web Maven Site</name> -->
