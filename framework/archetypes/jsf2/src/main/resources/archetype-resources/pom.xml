@@ -166,8 +166,8 @@
 					</executions>
 					<dependencies>
 						<dependency>
-							<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
-							<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
+							<groupId>org.appverse.web.framework.modules.backend.core.persistence.eclipselink</groupId>
+							<artifactId>appverse-web-modules-backend-core-persistence-eclipselink</artifactId>
 							<version>${appverse.framework.version}</version>
 						</dependency>
 					</dependencies>
@@ -272,8 +272,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
-			<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
+			<groupId>org.appverse.web.framework.modules.backend.core.persistence.eclipselink</groupId>
+			<artifactId>appverse-web-modules-backend-core-persistence-eclipselink</artifactId>
 			<scope>compile</scope>
 		</dependency>
 

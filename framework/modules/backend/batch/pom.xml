@@ -185,8 +185,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.appverse.web.framework.modules.backend.core.persistence</groupId>
-			<artifactId>appverse-web-modules-backend-core-persistence</artifactId>
+			<groupId>org.appverse.web.framework.modules.backend.core.persistence.eclipselink</groupId>
+			<artifactId>appverse-web-modules-backend-core-persistence-eclipselink</artifactId>
 		</dependency>
 
 		<dependency>
