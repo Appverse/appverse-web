@@ -96,13 +96,11 @@ public abstract class AbstractIntegrationAuditedJPABean extends
 		return updatedBy;
 	}
 
-/* TODO: HIBERNATE. Temporary commented. See how to address this.
 	@Override
 	@Column(nullable = false)
 	public long getVersion() {
 		return version;
 	}
-*/
 
 	// Required so that Dozer non-cummulative collections and remove-orphans in
 	// mappings works fine
