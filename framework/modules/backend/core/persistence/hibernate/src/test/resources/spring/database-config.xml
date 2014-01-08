@@ -30,13 +30,12 @@
 
       <!-- ============================================================================================= --> 
 	  <!-- JPA ORM       							                               						 -->
-      <!-- ============================================================================================= --> 
- 
-      <bean id="jpaVendorAdapter"
-	        class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter"
-		    p:databasePlatform="org.eclipse.persistence.platform.database.HSQLPlatform"		  
-		    p:showSql="true" />
-		   
+      <!-- ============================================================================================= -->
+
+     <bean id="jpaVendorAdapter"
+          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+          p:databasePlatform="org.hibernate.dialect.HSQLDialect"
+          p:showSql="true"/>
 
       <!-- ============================================================================================= --> 
 	  <!-- Data Source    							                               						 -->

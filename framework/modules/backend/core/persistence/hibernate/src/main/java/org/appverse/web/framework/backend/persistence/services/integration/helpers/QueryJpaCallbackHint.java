@@ -23,7 +23,7 @@
  */
 package org.appverse.web.framework.backend.persistence.services.integration.helpers;
 
-import org.eclipse.persistence.config.QueryHints;
+import org.hibernate.annotations.QueryHints;
 
 public class QueryJpaCallbackHint {
 
@@ -32,10 +32,7 @@ public class QueryJpaCallbackHint {
 	private final String value;
 
 	public final static QueryJpaCallbackHint FETCH_SIZE_1024 = new QueryJpaCallbackHint(
-			QueryHints.JDBC_FETCH_SIZE, "1024");
-
-	public final static QueryJpaCallbackHint REFRESH = new QueryJpaCallbackHint(
-			QueryHints.REFRESH, "TRUE");
+			QueryHints.FETCH_SIZE, "1024");
 
 	public QueryJpaCallbackHint(String hint, String value) {
 		this.hint = hint;
