@@ -96,7 +96,10 @@ public abstract class AbstractIntegrationAuditedJPABean extends
 		return updatedBy;
 	}
 
-/* TODO: HIBERNATE. Temporary commented. See how to address this.
+/* Difference with EclipseLink
+   This does not work for Hibernate as it manages override of annotations in JPA entities different than Eclipselink.
+   Overriding this field and adding @Version for optimistic locking would not work (it does with EclipseLink).
+   For optimistic locking with Hibernate this has to be added directly in the project classes.
 	@Override
 	@Column(nullable = false)
 	public long getVersion() {
