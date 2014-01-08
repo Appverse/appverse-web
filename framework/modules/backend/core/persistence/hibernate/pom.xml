@@ -9,12 +9,12 @@
 		<relativePath>../../../../..</relativePath>
 	</parent>
 
-	<groupId>org.appverse.web.framework.modules.backend.core.persistence.eclipselink</groupId>
-	<artifactId>appverse-web-modules-backend-core-persistence-eclipselink</artifactId>
+	<groupId>org.appverse.web.framework.modules.backend.core.persistence.hibernate</groupId>
+	<artifactId>appverse-web-modules-backend-core-persistence-hibernate</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Appverse Web Framework Modules Backend Core Persistence EclipseLink Module</name>
-	<description>Appverse Web Framework Modules Backend Core Persistence EclipseLink Module</description>
+	<name>Appverse Web Framework Modules Backend Core Persistence Hibernate Module</name>
+	<description>Appverse Web Framework Modules Backend Core Persistence Hibernate Module</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2011</inceptionYear>
 

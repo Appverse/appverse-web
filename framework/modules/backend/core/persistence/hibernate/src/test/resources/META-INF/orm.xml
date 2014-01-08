@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+
+ This Source Code Form is subject to the terms of the Appverse Public License 
+ Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+ file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+
+ Redistribution and use in source and binary forms, with or without modification, 
+ are permitted provided that the conditions of the AppVerse Public License v2.0 
+ are met.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+ SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ POSSIBILITY-->
+<entity-mappings  xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			      xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+			      version="2.0">
+	<persistence-unit-metadata>
+		<persistence-unit-defaults>
+			<entity-listeners>
+				<entity-listener class="org.appverse.web.framework.backend.persistence.services.integration.helpers.EntityListener">
+					<pre-persist method-name="prePersist"/>
+					<pre-update method-name="preUpdate"/>
+				</entity-listener>
+			</entity-listeners>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+
+</entity-mappings>

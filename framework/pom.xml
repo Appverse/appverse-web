@@ -373,6 +373,12 @@
 				<version>${framework.version}</version>
 			</dependency>
 
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.core.persistence.hibernate</groupId>
+                <artifactId>appverse-web-modules-backend-core-persistence-hibernate</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.core.cache</groupId>
 				<artifactId>appverse-web-modules-backend-core-cache</artifactId>

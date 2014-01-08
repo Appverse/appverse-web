@@ -180,6 +180,7 @@
 
 	<modules>
 		<module>eclipselink</module>
+        <module>hibernate</module>
 	</modules>
 
 </project>
