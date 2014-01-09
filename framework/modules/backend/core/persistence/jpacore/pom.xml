@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+		<groupId>org.appverse.web.framework.poms</groupId>
+		<artifactId>appverse-web-masterpom</artifactId>
+		<version>1.3.1-SNAPSHOT</version>
+		<relativePath>../../../../..</relativePath>
 	</parent>
 
-	<groupId>org.appverse.web.framework.poms.modules.backend.core.persistence</groupId>
-	<artifactId>appverse-web-modules-backend-core-persistence-pom</artifactId>
-	<version>1.3.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<groupId>org.appverse.web.framework.modules.backend.core.persistence.jpacore</groupId>
+	<artifactId>appverse-web-modules-backend-core-persistence-jpacore</artifactId>
+	<packaging>jar</packaging>
 
-	<name>Appverse Web Framework Modules Backend Core POM</name>
-	<description>Appverse Web Framework Modules Backend Core POM</description>
+	<name>Appverse Web Framework Modules Backend Core Persistence JPA Core Module</name>
+	<description>Appverse Web Framework Modules Backend Core Persistence JPA Core Module</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2011</inceptionYear>
 
@@ -178,10 +178,33 @@
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
-	<modules>
-        <module>jpacore</module>
-		<module>eclipselink</module>
-        <module>hibernate</module>
-	</modules>
-
+	<dependencies>
+        <dependency>
+            <groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
+            <artifactId>appverse-web-modules-backend-core-api</artifactId>
+        </dependency>
+        <!-- JPA Core contains common JPA classes that both Hibernate and EclipseLink specific modules uses.
+             JPA Core requires JPA2 specification classes (javax.persistence) and specific appverse classes that are implementation
+             (Hibernate or EclipseLink) dependant.
+             For this reason JPA Core classes are copied to every module (Hibernate and EclipseLink) as generated sources and
+             compiled in the own module). JPA Core would not even need to be a Maven module as it just contains code to be
+             copied both to Hibernate and Eclipselink modules in order to avoid code duplication and maintenance.
+             The reason why the maven module exist is for being able to see the code in JPA modules in the IDES. So
+             this is possible, we need to include at least an "implementation".
+             That's why we add the EclipseLink and Appverse Web EclipseLink modules dependencies as 'provided'.
+             The fact that they are provided, will allow the IDE to show JPA Core without errors but the specific implementations
+             (Hibernate or Eclipse) link will include this code an compile it in their own module.
+             See hibernate and eclipselink module poms to see the copy of files as generated sources.
+             We use EclipseLink JPA2 API spec (javax.persistence) classes as EclipseLink is the reference implementation of JPA2 -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.appverse.web.framework.modules.backend.core.persistence.eclipselink</groupId>
+            <artifactId>appverse-web-modules-backend-core-persistence-eclipselink</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>
