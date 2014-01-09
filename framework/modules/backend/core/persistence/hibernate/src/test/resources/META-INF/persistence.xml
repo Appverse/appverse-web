@@ -29,10 +29,7 @@
 		<shared-cache-mode>NONE</shared-cache-mode>
 	    <validation-mode>NONE</validation-mode>
 		<properties>
-<!-- TODO: Set equivalent
-        	<property name="eclipselink.jdbc.batch-writing.size" value="1000" />
-        	<property name="eclipselink.jdbc.fetch-size" value="5000"/>
--->
+            <!-- You could set JPA or Hibernate properties here -->
 	    </properties>
 	</persistence-unit>
 </persistence>
