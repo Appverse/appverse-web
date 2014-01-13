@@ -862,5 +862,10 @@ public interface IJPAPersistenceService<T extends AbstractIntegrationBean> {
 	 */
 	void update(UpdateJpaCallback<T> query) throws Exception;
 
-
+    /**
+     * Wrapper of EntityManager unwrap method that provides the JPA provider
+     * underlying session
+     * @see javax.persistence.EntityManager#unwrap(Class)
+     */
+    <S> S unwrap(Class<S> cls);
 }

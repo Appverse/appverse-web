@@ -1160,4 +1160,14 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 		query.doInJpa(em);
 	}
 
+
+    /**
+     * Wrapper of EntityManager unwrap method that provides the JPA provider
+     * underlying session
+     * @see javax.persistence.EntityManager#unwrap(Class)
+     */
+    @Override
+    public <S> S unwrap(Class<S> cls) {
+        return em.unwrap(cls);
+    }
 }
