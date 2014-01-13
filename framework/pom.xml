@@ -187,8 +187,9 @@
 		<restygwt.version>1.3</restygwt.version>
 		<jsr311.version>2.0</jsr311.version>
 		<jersey.version>2.4</jersey.version>
-                <jdk.source>1.6</jdk.source>
-                <jdk.target>1.6</jdk.target>
+        <jdk.source>1.6</jdk.source>
+        <jdk.target>1.6</jdk.target>
+        <ehcache.version>2.4.5</ehcache.version>
 	</properties>
 
 	<modules>
@@ -665,11 +666,74 @@
                 </exclusions>
                 -->
             </dependency>
+            
+            <!-- auto registered feature // default JSON support module-->
+			<dependency>
+			    <groupId>org.glassfish.jersey.media</groupId>
+			    <artifactId>jersey-media-moxy</artifactId>
+			    <version>${jersey.version}</version>
+			</dependency>		
+            
+			<dependency>
+    			<groupId>org.glassfish.jersey.media</groupId>
+    			<artifactId>jersey-media-json-jackson</artifactId>
+			    <version>${jersey.version}</version>
+			</dependency>		
+            
+            
             <dependency>
                 <groupId>org.glassfish.jersey.media</groupId>
                 <artifactId>jersey-media-multipart</artifactId>
                 <version>${jersey.version}</version>
             </dependency>
+
+			<!-- JAX-RS 2 client api -->            
+			<dependency>
+	    		<groupId>org.glassfish.jersey.core</groupId>
+	    		<artifactId>jersey-client</artifactId>
+                <version>${jersey.version}</version>	    		
+			</dependency>     
+
+			<!-- EHCache version -->
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache-core</artifactId>
+				<version>${ehcache.version}</version>
+			</dependency>
+			
+			<!-- Spring Instrument version, for aspectj load time weaving -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-instrument</artifactId>
+				<version>${spring.version}</version>
+			</dependency>			
+
+			<!-- Testing support -->			
+			
+			<!-- Use it ONLY if you want to include all Test Factories providers--> 
+	        <dependency>
+	            <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+	            <artifactId>jersey-test-framework-provider-bundle</artifactId>
+	            <type>pom</type>
+                <version>${jersey.version}</version>	    		
+	        </dependency>
+	        
+	        <!--  Include both to use grizzly web container test factory-->
+			<dependency>
+				<groupId>org.glassfish.jersey.containers</groupId>
+				<artifactId>jersey-container-grizzly2-servlet</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+				<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>	     
+			<!--  End Testing Support -->   
+	        
+	        			       
+            
 			<!-- END JERSEY DEPENDENCIES -->
 			<!-- RESTY DEPENDENCIES -->
 			<dependency>

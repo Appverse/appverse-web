@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal. This Source 
+	Code Form is subject to the terms of the Appverse Public License Version 
+	2.0 (“APL v2.0”). If a copy of the APL was not distributed with this file, 
+	You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^] 
+	Redistribution and use in source and binary forms, with or without modification, 
+	are permitted provided that the conditions of the AppVerse Public License 
+	v2.0 are met. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED 
+	TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+	PURPOSE ARE DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, 
+	IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+	INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF 
+	USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+	THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING 
+	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+	EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	default-autowire="byName">
+
+	<!-- ============================================================================================= -->
+	<!-- Property Files -->
+	<!-- ============================================================================================= -->
+
+	<context:property-placeholder location="classpath:properties/*.properties" />
+
+
+	<!-- ============================================================================================= -->
+	<!-- Autowired Logger BeanFactoryPostProcessor -->
+	<!-- ============================================================================================= -->
+
+	<bean
+		class="org.appverse.web.framework.backend.api.helpers.log.AutowiredLoggerBeanPostProcessor" />
+
+
+	<!-- ============================================================================================= -->
+	<!-- Imports and Component Scans -->
+	<!-- ============================================================================================= -->
+
+	<context:component-scan
+		base-package="org.test.app.web.framework.backend.rest.services.integration.impl.live" />
+<!-- 
+	<context:component-scan
+		base-package="org.appverse.web.framework.backend.rest.providers" />
+ -->
+	<bean id="sampleClient"
+		class="org.appverse.web.framework.backend.rest.factories.WebTargetFactory"
+		factory-method="create">
+		<constructor-arg index="0" value="http://localhost:9998/" />
+		<!-- cache argument is optional -->
+		<constructor-arg index="1" ref="sampleRestClientCache" />
+	</bean>
+
+	<bean id="exceptionAdvice"
+		class="org.appverse.web.framework.backend.rest.aop.advices.RestExceptionAdvice" />
+	<bean id="exceptionManager"
+		class="org.appverse.web.framework.backend.rest.aop.managers.impl.live.RestExceptionManagerImpl" />
+
+ 
+	<bean id="restCachingManager"
+		class="org.appverse.web.framework.backend.rest.managers.impl.live.RestCachingManagerImpl" />
+ 
+
+	<bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		p:shared="true" />
+
+	<bean id="sampleRestClientCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheManager" ref="cacheManager" />
+		<property name="cacheName" value="sampleRestClientCache" />
+		<property name="maxElementsInMemory" value="20000" />
+		<property name="eternal" value="false" />
+		<property name="timeToIdle" value="86400" />
+		<property name="timeToLive" value="86400" />
+		<property name="memoryStoreEvictionPolicy" value="LFU" />
+	</bean>
+
+
+	<aop:config>
+		<aop:pointcut id="allRestMethodsCalls"
+			expression="execution(* org.test.app.web.framework.backend.rest.services.integration..*.*(..))" />
+		<aop:advisor advice-ref="exceptionAdvice" pointcut-ref="allRestMethodsCalls" />
+	</aop:config>
+
+
+</beans> 
