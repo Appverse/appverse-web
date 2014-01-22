@@ -23,6 +23,7 @@
  */
 package org.appverse.web.framework.backend.persistence.services.integration.impl.test;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -157,4 +158,56 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 		userDTORetrieved = userRepository.retrieve(userDTO.getId());
 		Assert.notNull(userDTORetrieved);
 	}
+
+/*
+    @Test
+    public void optimistickLocking() throws Exception {
+
+        // We save an user (id = 1)
+
+        UserDTO testDTO = new UserDTO();
+        testDTO.setName("name");
+        testDTO.setLastName("lastName");
+        testDTO.setPassword("password");
+        testDTO.setEmail("email");
+        System.out.println("*** user version: " + testDTO.getVersion());
+        userRepository.persist(testDTO);
+
+        // We retrieve the user, the version has to be 1
+        UserDTO userDTORetrieved = userRepository.retrieve(1);
+        System.out.println("*** user version: " + userDTORetrieved.getVersion());
+        Assert.notNull(userDTORetrieved);
+        Assert.isTrue(userDTORetrieved.getVersion() == 1);
+
+        // We simulate that the version has been updated
+        userDTORetrieved.setVersion(2);
+        userDTORetrieved.setName("Updated name");
+        userRepository.persist(userDTORetrieved);
+        System.out.println("*** user version: " + userDTORetrieved.getVersion());
+        Assert.isTrue(userDTORetrieved.getVersion() == 2);
+
+        boolean optimistickLockingException = false;
+        try{
+        // We simultate that the userDTO has been received (a form, for instnace) with old version (1)
+        UserDTO staleDTOSimulation = new UserDTO();
+        staleDTOSimulation.setId(1);
+        staleDTOSimulation.setName("");
+        staleDTOSimulation.setLastName("");
+        staleDTOSimulation.setPassword("");
+        staleDTOSimulation.setEmail("");
+        staleDTOSimulation.setActive(true);
+        staleDTOSimulation.setCreated(new Date());
+        staleDTOSimulation.setCreatedBy("");
+        staleDTOSimulation.setStatus("");
+        staleDTOSimulation.setVersion(1);
+        userRepository.persist(staleDTOSimulation);
+        }
+        catch (Throwable e){
+            optimistickLockingException = true;
+            e.printStackTrace();
+        }
+        Assert.isTrue(optimistickLockingException);
+    }
+*/
+
 }
