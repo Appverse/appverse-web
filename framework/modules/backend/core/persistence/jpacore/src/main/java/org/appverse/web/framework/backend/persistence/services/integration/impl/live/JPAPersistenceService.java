@@ -595,6 +595,32 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
 			em.persist(bean);
 			beanId = (Long) PropertyUtils.getProperty(bean, this.BEAN_PK_NAME);
 		} else {
+            Object jpaProviderDelegate = em.getDelegate();
+
+            /* The following treatment is specific for Hibernate.
+             * There is no problem with detached objects but at the moment that a JPA entity is attached to the
+             * hibernate session, the version is cached. Does not matter that we override the cached version value
+             * with the one coming from the business layer (the one kept in an object passed from a front end,
+             * for instance, to check if the bean is stale or not) that the version kept when Hibernate generates the
+             * update query is the one from the cache.
+             * This implies that the version id's always match and so no OptimisticLockException is thrown.
+             * EclipseLink handles this properly. Hibernate and JPA doc says that the application should not modify
+             * the @Version annotated fields but in practice is quite common to retrieve an entity from the session
+             * (it will be attached) and then override only the data that has been changed in the front end before
+             * saving.
+             * Even detaching the object might have a small impact in performance we prefer to ensure that persist
+             * method support properly JPA optimistic locking when JPA Provider is Hibernate.
+             * The reason why we don't use "instance of" here is because depending on the Appverse Web persistence
+             * module you are using (Hibernate or EclipseLink) you will have one classes or another but never both at
+             * the same time, so using "instance of" is not a solution.
+             * Another improvement that has been considered is to check if the annotation @Version is present
+             * in one field or method of the class but this would imply using reflexion and visit every method
+             * to see if the annotation is present or not. We think depending on the case this can affect performance
+             * even more than detaching directly the object always before saving with Hibernate.
+             */
+            if (jpaProviderDelegate.getClass().getName().contains("hibernate")){
+                em.detach(bean);
+            }
 			// update
 			em.merge(bean);
 		}

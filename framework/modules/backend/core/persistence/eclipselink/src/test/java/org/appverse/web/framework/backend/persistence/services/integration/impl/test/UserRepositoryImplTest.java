@@ -159,7 +159,8 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 		Assert.notNull(userDTORetrieved);
 	}
 
-/*
+    /*  Tests optimistic locking. This can not be uncommented because even though it is possible to assert that
+        certain exception is thrown, the transaction fails anyway and the test is flaged as 'failed'.
     @Test
     public void optimistickLocking() throws Exception {
 
@@ -170,12 +171,10 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
         testDTO.setLastName("lastName");
         testDTO.setPassword("password");
         testDTO.setEmail("email");
-        System.out.println("*** user version: " + testDTO.getVersion());
         userRepository.persist(testDTO);
 
         // We retrieve the user, the version has to be 1
         UserDTO userDTORetrieved = userRepository.retrieve(1);
-        System.out.println("*** user version: " + userDTORetrieved.getVersion());
         Assert.notNull(userDTORetrieved);
         Assert.isTrue(userDTORetrieved.getVersion() == 1);
 
@@ -183,7 +182,6 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
         userDTORetrieved.setVersion(2);
         userDTORetrieved.setName("Updated name");
         userRepository.persist(userDTORetrieved);
-        System.out.println("*** user version: " + userDTORetrieved.getVersion());
         Assert.isTrue(userDTORetrieved.getVersion() == 2);
 
         boolean optimistickLockingException = false;
@@ -206,8 +204,6 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
             optimistickLockingException = true;
             e.printStackTrace();
         }
-        Assert.isTrue(optimistickLockingException);
     }
-*/
-
+    */
 }

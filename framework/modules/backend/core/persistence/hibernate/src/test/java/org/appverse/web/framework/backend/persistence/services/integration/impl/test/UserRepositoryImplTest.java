@@ -23,9 +23,11 @@
  */
 package org.appverse.web.framework.backend.persistence.services.integration.impl.test;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceException;
 
 import org.appverse.web.framework.backend.api.helpers.test.AbstractTransactionalTest;
@@ -86,7 +88,10 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 		userDTO.setLastName("lastName");
 		userDTO.setPassword("password");
 		userDTO.setEmail("email");
-
+        userDTO.setActive(true);
+        userDTO.setStatus("");
+        userDTO.setCreated(new Date());
+        userDTO.setCreatedBy("");
 	}
 
 	@Override
@@ -157,4 +162,43 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 		userDTORetrieved = userRepository.retrieve(userDTO.getId());
 		Assert.notNull(userDTORetrieved);
 	}
+
+    /*  Tests optimistic locking. This can not be uncommented because even though it is possible to assert that
+        certain exception is thrown, the transaction fails anyway and the test is flaged as 'failed'.
+    @Test
+    public void optimisticLocking() throws Exception{
+
+        // We save an user (id = 1)
+        UserDTO testDTO = new UserDTO();
+        testDTO.setName("name");
+        testDTO.setLastName("lastName");
+        testDTO.setPassword("password");
+        testDTO.setEmail("email");
+        testDTO.setActive(true);
+        testDTO.setCreated(new Date());
+        testDTO.setCreatedBy("");
+        testDTO.setStatus("");
+        testDTO.setVersion(2);
+
+        userRepository.persist(testDTO);
+
+        // We need to flush here to simulate the first user has updated the object
+        userRepository.flush();
+
+        // We simultate that the userDTO has been received (a form, for instance) with old version (1)
+        UserDTO staleDTOSimulation = userRepository.retrieve(1);
+        staleDTOSimulation.setId(1);
+        staleDTOSimulation.setName("");
+        staleDTOSimulation.setLastName("");
+        staleDTOSimulation.setPassword("");
+        staleDTOSimulation.setEmail("");
+        staleDTOSimulation.setActive(true);
+        staleDTOSimulation.setCreated(new Date());
+        staleDTOSimulation.setCreatedBy("");
+        staleDTOSimulation.setStatus("");
+        staleDTOSimulation.setVersion(1);
+        userRepository.persist(staleDTOSimulation);
+    }
+    */
+
 }
