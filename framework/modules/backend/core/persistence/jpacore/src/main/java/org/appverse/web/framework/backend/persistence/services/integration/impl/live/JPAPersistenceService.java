@@ -608,7 +608,7 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
              * the @Version annotated fields but in practice is quite common to retrieve an entity from the session
              * (it will be attached) and then override only the data that has been changed in the front end before
              * saving.
-             * Even detaching the object might have a small impact in performance we prefer to ensure that persist
+             * Even though detaching the object might have a small impact in performance we prefer to ensure that persist
              * method support properly JPA optimistic locking when JPA Provider is Hibernate.
              * The reason why we don't use "instance of" here is because depending on the Appverse Web persistence
              * module you are using (Hibernate or EclipseLink) you will have one classes or another but never both at
