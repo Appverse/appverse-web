@@ -10,8 +10,8 @@
     
     <name>${newProjectName}</name>
     <description>${newProjectName}</description>
-	<url>http://appverse.org/projects/appverse-web/</url>
-	<inceptionYear>2013</inceptionYear>
+	<url>Your project URL</url>
+	<inceptionYear>2014</inceptionYear>
 
 	<modules>
 	    <module>${artifactId}-backend</module>
@@ -20,7 +20,7 @@
 	</modules>
 
  	<properties>
-        <appverse.framework.version>${archetypeVersion}</appverse.framework.version>
+        <appverse.framework.version>1.4-SNAPSHOT</appverse.framework.version>
 		<appverse.ddl-generator.version>1.0.5.1</appverse.ddl-generator.version>
 	</properties>
 	
@@ -207,7 +207,7 @@
 						<dependency>
 							<groupId>org.appverse.web.framework.modules.backend.core.persistence.eclipselink</groupId>
 							<artifactId>appverse-web-modules-backend-core-persistence-eclipselink</artifactId>
-							<version>${framework.version}</version>
+							<version>${appverse.framework.version}</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -220,7 +220,7 @@
 			<dependency>
 				<groupId>org.appverse.web.framework.poms</groupId>
 				<artifactId>appverse-web-masterpom</artifactId>
-				<version>${framework.version}</version>
+				<version>${appverse.framework.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
