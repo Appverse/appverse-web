@@ -15,7 +15,8 @@
 	<source path="main" />
 
 	<!-- Stylesheets -->
-	<stylesheet src="style/main.css" />
+    <!-- Add stylesheets here if necessary -->
+	<!--<stylesheet src="style/main.css" />-->
 
 	<!-- Possible compiler values: -->
 	<!-- * ie6: Internet Explorer 6 & 7 -->
