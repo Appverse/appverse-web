@@ -15,7 +15,7 @@
 
 	<name>${newProjectName} Backend Module</name>
 	<description>${newProjectName} Backend Module</description>
-	<url>http://appverse.org/projects/appverse-web/</url>
+	<url>Your project URL</url>
 	<inceptionYear>2013</inceptionYear>
 
 	<licenses>

@@ -20,6 +20,69 @@
 		<app.context.root>${project.artifactId}</app.context.root>
 	</properties>
 
+    <licenses>
+        <license>
+            <name>Your license</name>
+            <url>your license URL</url>
+            <distribution>your distribution repo</distribution>
+            <comments>
+                Add comments here
+            </comments>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Your organization</name>
+        <url>Your organization URL</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>developerid</id>
+            <name>Developer Name</name>
+            <email>Developer email</email>
+            <url/>
+            <organization>Developer organization</organization>
+            <organizationUrl>Developer organization URL</organizationUrl>
+            <roles>
+                <role>Developer role</role>
+            </roles>
+            <timezone>Developer timezone</timezone>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>Contributor Name</name>
+            <email>Contributor Email</email>
+            <url/>
+            <organization>Contributor organization</organization>
+            <organizationUrl>Contributor organization URL</organizationUrl>
+            <roles>
+                <role>Contributor Role</role>
+            </roles>
+            <timezone>Contributor timezone</timezone>
+        </contributor>
+    </contributors>
+
+    <issueManagement>
+        <system>Your issue management system</system>
+        <url>Your issue management system URL</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Your continuos integration management system</system>
+        <url>Your continuos integration management system URL</url>
+    </ciManagement>
+
+
+    <scm>
+        <connection>Your SCM connection</connection>
+        <developerConnection>Developer connection</developerConnection>
+        <tag>master</tag>
+        <url>URL</url>
+    </scm>
+
 
 	<build>
 		<!-- Default Maven goal uses embedded Jetty server -->
