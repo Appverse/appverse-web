@@ -97,6 +97,79 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+    <!-- StaticContentCacheFilter -->
+    <filter>
+        <filter-name>staticContentCacheFilter</filter-name>
+        <filter-class>org.appverse.web.framework.backend.api.helpers.request.StaticContentCacheFilter</filter-class>
+        <init-param>
+            <!-- * means 'all' even when wilcards are disabled -->
+            <param-name>match</param-name>
+            <param-value>*</param-value>
+        </init-param>
+        <init-param>
+            <param-name>nocache</param-name>
+            <param-value>.nocache.</param-value>
+        </init-param>
+        <init-param>
+            <!-- wilcards disabled -->
+            <param-name>wilcards</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>staticContentCacheFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>staticContentCacheFilter</filter-name>
+        <url-pattern>*.css</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>staticContentCacheFilter</filter-name>
+        <url-pattern>*.js</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>staticContentCacheFilter</filter-name>
+        <url-pattern>*.png</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>staticContentCacheFilter</filter-name>
+        <url-pattern>*.jpg</url-pattern>
+    </filter-mapping>
+
+    <!-- Jodd GZIP filter -->
+    <filter>
+        <filter-name>GzipFilter</filter-name>
+        <filter-class>jodd.servlet.filter.GzipFilter</filter-class>
+        <init-param>
+            <!-- * means 'all' even when wilcards are disabled -->
+            <param-name>match</param-name>
+            <param-value>*</param-value>
+        </init-param>
+        <init-param>
+            <!-- wilcards disabled -->
+            <param-name>wilcards</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>threshold</param-name>
+            <param-value>128</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>GzipFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>GzipFilter</filter-name>
+        <url-pattern>*.css</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>GzipFilter</filter-name>
+        <url-pattern>*.js</url-pattern>
+    </filter-mapping>
+
+
     <!-- Faces Servlet mappings -->
 
 	<!-- http://www.imixs.org/roller/ralphsjavablog/entry/jsf_2_0_could_not 
