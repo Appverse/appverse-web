@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.appverse.web.framework.poms</groupId>
+		<artifactId>appverse-web-masterpom</artifactId>
+		<version>1.4-SNAPSHOT</version>
+		<relativePath>../../</relativePath>
+	</parent>
+
+	<groupId>org.appverse.web.framework.archetypes.gwt</groupId>
+	<artifactId>appverse-web-archetypes-gwt-hibernate</artifactId>
+	<packaging>maven-archetype</packaging>
+
+	<name>Appverse Web Framework Archetypes GWT Hibernate Archetype</name>
+	<description>Appverse Web Framework Archetypes GWT Hibernate Archetype</description>
+	<url>http://appverse.org/projects/appverse-web/</url>
+	<inceptionYear>2013</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>Appverse Public License Version 2.0</name>
+			<url>http://appverse.org/legal/appverse-license/</url>
+			<distribution>repo</distribution>
+			<comments>
+	 		Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+			
+			 This Source Code Form is subject to the terms of the Appverse Public License 
+			 Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+			 file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+			
+			 Redistribution and use in source and binary forms, with or without modification, 
+			 are permitted provided that the conditions of the AppVerse Public License v2.0 
+			 are met.
+			
+			 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+			 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+			 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+			 DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+			 SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+			 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+			 LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+			 PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+			 WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
+			 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+			 POSSIBILITY OF SUCH DAMAGE.
+			</comments>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>Appverse</name>
+		<url>http://appverse.org</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>carlosrubio</id>
+			<name>Carlos Rubio Manero</name>
+			<email>carlos@rubioonline.es</email>
+			<url />
+			<organization>Appverse</organization>
+			<organizationUrl>http://appverse.org</organizationUrl>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>Europe/Madrid</timezone>
+		</developer>
+		<developer>
+			<id>miguelfgar</id>
+			<name>Miguel Fernández</name>
+			<email>miguelfgar@gmail.com</email>
+			<organization>Appverse</organization>
+			<organizationUrl>http://appverse.org</organizationUrl>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>Europe/Andorra</timezone>
+		</developer>
+		<developer>
+			<id>rrbl</id>
+			<name>Roger Bofarull</name>
+			<email>roger.bofarull@gmail.com</email>
+			<url />
+			<organization>Appverse</organization>
+			<organizationUrl>http://appverse.org</organizationUrl>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>Europe/Andorra</timezone>
+		</developer>
+		<developer>
+			<id>slanau</id>
+			<name>Sergi Lanau Rodríguez</name>
+			<email>sergi@lanau.net</email>
+			<url>http://www.lanau.net</url>
+			<organization>Appverse</organization>
+			<organizationUrl>http://appverse.org</organizationUrl>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>Europe/Andorra</timezone>
+		</developer>
+	</developers>
+
+	<contributors>
+		<contributor>
+			<name>Jesus de Diego</name>
+			<email>jesus.dediego.erles@gmail.com</email>
+			<url />
+			<organization>GFT</organization>
+			<organizationUrl>http://www.gft.com</organizationUrl>
+			<roles>
+				<role>Contributor</role>
+			</roles>
+			<timezone>Europe/Madrid</timezone>
+		</contributor>
+		<contributor>
+			<name>Sergio Roldan</name>
+			<email>cactus.jiropa@gmail.com</email>
+			<url />
+			<organization>GFT</organization>
+			<organizationUrl>http://www.gft.com</organizationUrl>
+			<roles>
+				<role>Contributor</role>
+			</roles>
+			<timezone>Europe/Madrid</timezone>
+		</contributor>
+	</contributors>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/Appverse/appverse-web/issues</url>
+	</issueManagement>
+
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>https://appverseweb-ci.ci.cloudbees.com</url>
+	</ciManagement>
+
+	<mailingLists>
+		<mailingList>
+			<name>User and Developers</name>
+			<subscribe>appverse+subscribe@googlegroups.com</subscribe>
+			<unsubscribe>appverse+unsubscribe@googlegroups.com</unsubscribe>
+			<post>appverse@googlegroups.com</post>
+		</mailingList>
+
+		<mailingList>
+			<name>Questions and Answers</name>
+			<subscribe>appverse-qa+subscribe@googlegroups.com</subscribe>
+			<unsubscribe>appverse-qa+unsubscribe@googlegroups.com</unsubscribe>
+			<post>appverse-qa@googlegroups.com</post>
+		</mailingList>
+
+		<mailingList>
+			<name>Commits</name>
+			<subscribe>appverse-commits+subscribe@googlegroups.com</subscribe>
+			<unsubscribe>appverse-commits+unsubscribe@googlegroups.com</unsubscribe>
+			<post>appverse-commits@googlegroups.com</post>
+		</mailingList>
+
+		<mailingList>
+			<name>Private</name>
+			<post>appverse-private@googlegroups.com</post>
+		</mailingList>
+	</mailingLists>
+
+	<scm>
+		<connection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</connection>
+		<developerConnection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</developerConnection>
+		<tag>master</tag>
+		<url>https://github.com/Appverse/appverse-web</url>
+	</scm>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.archetype</groupId>
+				<artifactId>archetype-packaging</artifactId>
+				<version>2.2</version>
+			</extension>
+		</extensions>
+	</build>
+</project>
