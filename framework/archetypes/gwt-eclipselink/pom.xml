@@ -9,7 +9,7 @@
 		<relativePath>../../</relativePath>
 	</parent>
 
-	<groupId>org.appverse.web.framework.archetypes.gwt.eclipselink</groupId>
+	<groupId>org.appverse.web.framework.archetypes.gwt</groupId>
 	<artifactId>appverse-web-archetypes-gwt-eclipselink</artifactId>
 	<packaging>maven-archetype</packaging>
 

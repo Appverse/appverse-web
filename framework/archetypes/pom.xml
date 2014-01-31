@@ -179,7 +179,8 @@
 	</scm>
 
 	<modules>
-		<module>gwt</module>
+		<module>gwt-eclipselink</module>
+        <module>gwt-hibernate</module>
 		<module>jsf2</module>
 	</modules>
 </project>
