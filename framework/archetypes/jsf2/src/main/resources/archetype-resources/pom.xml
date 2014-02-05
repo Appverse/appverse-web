@@ -221,7 +221,7 @@
 							<goals>
 								<goal>generate-schema</goal>
 							</goals>
-							<phase>prepare-package</phase>
+                            <phase>compile</phase>
 							<configuration>
 								<ddlOutputDir>target/${project.artifactId}-${project.version}/WEB-INF/classes/sql</ddlOutputDir>
 							</configuration>
