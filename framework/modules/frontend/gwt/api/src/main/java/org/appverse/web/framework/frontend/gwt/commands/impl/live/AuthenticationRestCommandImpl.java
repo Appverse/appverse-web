@@ -37,7 +37,7 @@ import org.appverse.web.framework.frontend.gwt.helpers.security.PrincipalInforma
 import org.appverse.web.framework.frontend.gwt.json.ApplicationJsonAsyncCallback;
 import org.fusesource.restygwt.client.Method;
 
-import com.google.gwt.core.shared.GWT;
+import com.google.gwt.core.client.GWT;
 
 public class AuthenticationRestCommandImpl extends
 		AbstractRestCommand<FrameworkEventBus, AuthenticationRestServiceFacade> implements AuthenticationCommand {
