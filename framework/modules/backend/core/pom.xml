@@ -184,6 +184,7 @@
 		<module>persistence</module>
 		<module>ws</module>
 		<module>rest</module>
-	</modules>
+        <module>bpm</module>
+    </modules>
 
 </project>
