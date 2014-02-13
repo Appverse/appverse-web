@@ -190,6 +190,7 @@
         <jdk.source>1.6</jdk.source>
         <jdk.target>1.6</jdk.target>
         <ehcache.version>2.4.5</ehcache.version>
+        <bonita.engine.version>6.2.2</bonita.engine.version>
 	</properties>
 
 	<modules>
@@ -1059,6 +1060,17 @@
                 <version>3.3.8</version>
             </dependency>
 
+            <!-- Bonita BPM Engine -->
+            <dependency>
+                <groupId>org.bonitasoft.engine</groupId>
+                <artifactId>bonita-client</artifactId>
+                <version>${bonita.engine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bonitasoft.engine</groupId>
+                <artifactId>bonita-server</artifactId>
+                <version>${bonita.engine.version}</version>
+            </dependency>
 		</dependencies>
 	</dependencyManagement>
 
