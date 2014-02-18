@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal. This Source 
+	Code Form is subject to the terms of the Appverse Public License Version 
+	2.0 (“APL v2.0”). If a copy of the APL was not distributed with this file, 
+	You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^] 
+	Redistribution and use in source and binary forms, with or without modification, 
+	are permitted provided that the conditions of the AppVerse Public License 
+	v2.0 are met. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED 
+	TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+	PURPOSE ARE DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, 
+	IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+	INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF 
+	USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+	THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING 
+	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+	EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	default-autowire="byName">
+
+	<!-- ============================================================================================= -->
+	<!-- Property Files -->
+	<!-- ============================================================================================= -->
+
+	<context:property-placeholder location="classpath:properties/*.properties" />
+
+    <!-- allow session scope in tests --> <!--
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="session">
+                    <bean class="org.springframework.web.context.request.SessionScope" />
+                </entry>
+                <entry key="request">
+                    <bean class="org.springframework.web.context.request.RequestScope" />
+                </entry>
+            </map>
+        </property>
+    </bean>        -->
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="session">
+                    <bean class="org.springframework.context.support.SimpleThreadScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+	<!-- ============================================================================================= -->
+	<!-- Autowired Logger BeanFactoryPostProcessor -->
+	<!-- ============================================================================================= -->
+
+	<bean
+		class="org.appverse.web.framework.backend.api.helpers.log.AutowiredLoggerBeanPostProcessor" />
+
+
+	<!-- ============================================================================================= -->
+	<!-- Imports and Component Scans -->
+	<!-- ============================================================================================= -->
+
+	<context:component-scan
+		base-package="org.appverse.web.framework.backend.bpm.services.integration.impl.live" />
+<!--
+	<context:component-scan
+		base-package="org.appverse.web.framework.backend.rest.providers" />
+ -->
+
+    <!--
+	<bean id="exceptionAdvice"
+		class="org.appverse.web.framework.backend.rest.aop.advices.RestExceptionAdvice" />
+	<bean id="exceptionManager"
+		class="org.appverse.web.framework.backend.rest.aop.managers.impl.live.RestExceptionManagerImpl" />
+
+
+	<aop:config>
+		<aop:pointcut id="allRestMethodsCalls"
+			expression="execution(* org.test.app.web.framework.backend.rest.services.integration..*.*(..))" />
+		<aop:advisor advice-ref="exceptionAdvice" pointcut-ref="allRestMethodsCalls" />
+	</aop:config>
+	-->
+
+</beans> 
