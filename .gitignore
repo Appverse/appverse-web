@@ -4,3 +4,5 @@ framework\modules\backend\core\notification\target/
 framework/modules/backend/core/bpm/target/classes/org/appverse/web/framework/backend/bpm/services/integration/IBpmService.class
 framework\modules\backend\core\bpm\target/
 framework/modules/backend/core/notification/target/
+*.class
+framework/modules/backend/core/notification/test.uml
