@@ -6,3 +6,4 @@ framework\modules\backend\core\bpm\target/
 framework/modules/backend/core/notification/target/
 *.class
 framework/modules/backend/core/notification/test.uml
+framework\modules\backend\core\bpm\target\test-classes/
