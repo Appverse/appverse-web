@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+
+ This Source Code Form is subject to the terms of the Mozilla Public 
+ License, v. 2.0. If a copy of the MPL was not distributed with this 
+ file, You can obtain one at http://mozilla.org/MPL/2.0/. 
+
+ Redistribution and use in source and binary forms, with or without modification, 
+ are permitted provided that the conditions of the Mozilla Public License v2.0 
+ are met.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+ SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ POSSIBILITY OF SUCH DAMAGE.
+ -->
+<persistence  xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+			  version="2.0">
+	<persistence-unit name="persistence-unit" transaction-type="RESOURCE_LOCAL">
+		<shared-cache-mode>NONE</shared-cache-mode>
+	    <validation-mode>NONE</validation-mode>
+		<properties>
+			<property name="eclipselink.weaving" value="static"/>
+			<property name="eclipselink.weaving.changetracking" value="false"/>
+		    <property name="eclipselink.logging.logger" value="org.appverse.web.framework.backend.persistence.helpers.log.EclipselinkLogger"/>
+<!-- 	        <property name="eclipselink.session.customizer" value="com.gft.riaframework.backend.services.integration.ELCacheSessionCustomizer"/>   -->
+        	<property name="eclipselink.jdbc.batch-writing.size" value="1000" />
+        	<property name="eclipselink.jdbc.fetch-size" value="5000"/>
+	    </properties>
+	</persistence-unit>
+</persistence>
