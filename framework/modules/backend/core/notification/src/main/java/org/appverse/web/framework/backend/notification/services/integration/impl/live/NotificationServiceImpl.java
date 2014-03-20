@@ -28,6 +28,10 @@ import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsService;
+import javapns.Push;
+import javapns.communication.exceptions.CommunicationException;
+import javapns.communication.exceptions.KeystoreException;
+import javapns.notification.PushedNotification;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter;
 import org.appverse.web.framework.backend.api.services.business.AbstractBusinessService;
@@ -43,12 +47,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository("notificationService")
 @Scope(WebApplicationContext.SCOPE_SESSION)
-public class NotificationService extends AbstractBusinessService implements INotificationService {
+public class NotificationServiceImpl extends AbstractBusinessService implements INotificationService {
 
     @AutowiredLogger
     private static Logger logger;
@@ -74,9 +79,9 @@ public class NotificationService extends AbstractBusinessService implements INot
     @Override
     public void registerUser(NUserDTO nUserDTO) throws Exception {
         //To change body of implemented methods use File | Settings | File Templates.
-        System.out.println("Persisting user ["+nUserDTO.getUserId()+"]");
+        logger.info("Persisting user ["+nUserDTO.getUserId()+"]");
         long l = notUserRepository.createUser(nUserDTO);
-        System.out.println("User Persisted with id ["+l+"]");
+        logger.info("User Persisted with id ["+l+"]");
     }
 
     @Override
@@ -116,7 +121,7 @@ public class NotificationService extends AbstractBusinessService implements INot
             nPlatformDTOs.add(nPlatformDTO);
         }
         for( NPlatformDTO platformDTO: nPlatformDTOs) {
-            System.out.println("Sending notification to ("+platformDTO.getnPlatformTypeDTO().getName()+","+platformDTO.getToken()+")");
+            logger.info("Sending notification to ("+platformDTO.getnPlatformTypeDTO().getName()+","+platformDTO.getToken()+")");
             sendNotification(platformDTO.getnPlatformTypeDTO().getName(),platformDTO.getToken(), "Nomina ingressada: 81.333€€");
         }
 
@@ -154,17 +159,43 @@ public class NotificationService extends AbstractBusinessService implements INot
             Message msg = build.build();
             Result rs = googleSender.send(msg, token, 1);
             if( rs != null ) {
-                System.out.println("getCanonicalRegistrationId  :"+rs.getCanonicalRegistrationId());
-                System.out.println("getMessageId                :"+rs.getMessageId());
-                System.out.println("getErrorCodeName            :"+rs.getErrorCodeName());
+                logger.debug("getCanonicalRegistrationId  :"+rs.getCanonicalRegistrationId());
+                logger.debug("getMessageId                :"+rs.getMessageId());
+                logger.debug("getErrorCodeName            :"+rs.getErrorCodeName());
+                return true;
             } else {
-                System.out.println(" Result is null !");
+                logger.debug(" Send Result is null !");
+                return false;
             }
-            return true;
         } else if ("ios".equals(platform)) {
-            String payload = APNS.newPayload().alertBody(body).build();
-            appleSender.push(token, payload);
-            return true;
+            //new code from JAVI -- TODO to be updated... this is just copy/paste.
+            String strRelPath = null;
+            URL resourceURL = NotificationServiceImpl.class.getResource("/appversebak_prod_pns.p12");//"/showcase_prod_pns.p12");//(cert.getPem());
+            if (resourceURL != null) {
+                strRelPath = resourceURL.getPath();
+            }
+
+            try {
+
+                List<PushedNotification> notifications = Push.alert(body, appleP12Path, "cojones2014", true, token);
+                //Push.test(strRelPath, "cojones2014", true, token);
+                for (PushedNotification notification : notifications) {
+                    if (notification.isSuccessful()) {
+                        // Apple accepted the notification and should deliver it
+                    } else {
+                        String invalidToken = notification.getDevice().getToken();
+                        //Add code here to remove invalidToken from your database
+                    }
+                }
+            } catch (CommunicationException ex) {
+                //Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("CommunicationException ["+ex.getMessage()+"]");
+            } catch (KeystoreException ex) {
+                System.out.println("KeyStoreException ["+ex.getMessage()+"]");
+                //Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
         }
 
         return false;

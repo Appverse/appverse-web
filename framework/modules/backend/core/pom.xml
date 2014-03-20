@@ -184,7 +184,8 @@
 		<module>persistence</module>
 		<module>ws</module>
 		<module>rest</module>
-<!--        <module>bpm</module>-->
+        <module>bpm</module>
+        <module>notification</module>
     </modules>
 
 </project>
