@@ -21,16 +21,16 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.messaging.services.integration;
+package org.test.app.web.framework.backend.messaging.services.integration;
 
-import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
+import org.appverse.web.framework.backend.messaging.services.integration.IJMSServiceAsyncConsumer;
+import org.test.app.web.framework.backend.messaging.model.integration.SampleDTO;
 
 /**
- * Interface to provide integration with JMS Broker
- * No method is define. Only conceptual meaning
+ * Interface to define OtherAsyncRepository. 
+ * Purpose of this repository is testing message asynchronous consuming.
  *
- * @param <T>
  */
-public interface IJMSService<T extends AbstractIntegrationBean> {
+public interface OtherAsyncRepository extends IJMSServiceAsyncConsumer<SampleDTO> {
 
 }

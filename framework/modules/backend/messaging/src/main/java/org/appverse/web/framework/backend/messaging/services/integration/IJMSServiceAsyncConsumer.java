@@ -23,14 +23,45 @@
  */
 package org.appverse.web.framework.backend.messaging.services.integration;
 
+import javax.jms.Message;
+import javax.jms.MessageListener;
+
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
+import org.springframework.jms.support.converter.MessageConverter;
 
 /**
- * Interface to provide integration with JMS Broker
- * No method is define. Only conceptual meaning
+ * Interface to define Asynch Message consuming API
  *
  * @param <T>
  */
-public interface IJMSService<T extends AbstractIntegrationBean> {
+public interface IJMSServiceAsyncConsumer<T extends AbstractIntegrationBean> extends
+		MessageListener {
+
+	/**
+	 * 
+	 * Overwrite this method to process message consumed as DTO
+	 * MessageConversion is done within its implemetation 
+	 * 
+	 * @param dto
+	 * @throws Exception
+	 */
+	void processMessage(T dto) throws Exception;
+
+	/**
+	 * 
+	 * Overwrite this method to process message consumed as JMS Message 
+	 * It allows to process JMS Properties.
+	 * 
+	 * @param message
+	 * @throws Exception
+	 */
+	void processMessage(final Message message) throws Exception;
+
+	/**
+	 * Overwrite to provide message converter implementation
+	 * 
+	 * @return
+	 */
+	MessageConverter getMessageConverter();
 
 }

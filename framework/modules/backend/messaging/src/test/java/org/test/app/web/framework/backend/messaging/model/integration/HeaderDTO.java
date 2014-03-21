@@ -21,16 +21,40 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.messaging.services.integration;
+package org.test.app.web.framework.backend.messaging.model.integration;
+
+import java.util.Date;
+
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 
-/**
- * Interface to provide integration with JMS Broker
- * No method is define. Only conceptual meaning
- *
- * @param <T>
- */
-public interface IJMSService<T extends AbstractIntegrationBean> {
+@XmlTransient
+//Header is not be marshalled/unmarshalled. It is manually set up in JMS Headers
+public class HeaderDTO extends AbstractIntegrationBean {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1782580101956952378L;
+
+	private int sequenceId;
+	private Date date;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(final Date date) {
+		this.date = date;
+	}
+
+	public int getSequenceId() {
+		return sequenceId;
+	}
+
+	public void setSequenceId(final int sequenceId) {
+		this.sequenceId = sequenceId;
+	}
 
 }
