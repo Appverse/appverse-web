@@ -29,6 +29,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import org.appverse.web.framework.backend.api.helpers.util.GMTTimeHelper;
+import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.persistence.model.integration.AbstractIntegrationAuditedJPABean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,24 +51,32 @@ public class EntityListener {
 	}
 
 	@PrePersist
-	public void prePersist(AbstractIntegrationAuditedJPABean integrationBean) {
-		Date timestamp = GMTTimeHelper.toGMTDate(new Date());
+	public void prePersist(AbstractIntegrationBean integrationBean) {
+        if (integrationBean instanceof AbstractIntegrationAuditedJPABean){
+            AbstractIntegrationAuditedJPABean integrationAuditedBean = (AbstractIntegrationAuditedJPABean)integrationBean;
 
-		integrationBean.setCreatedBy(getUsername());
-		integrationBean.setCreated(timestamp);
-		integrationBean.setUpdatedBy(getUsername());
-		integrationBean.setUpdated(timestamp);
-		integrationBean.setVersion(1);
-		if (integrationBean.getStatus() == null) {
-			integrationBean
-					.setStatus(AbstractIntegrationAuditedJPABean.STATUS_ACTIVE);
-		}
+            Date timestamp = GMTTimeHelper.toGMTDate(new Date());
+
+            integrationAuditedBean.setCreatedBy(getUsername());
+            integrationAuditedBean.setCreated(timestamp);
+            integrationAuditedBean.setUpdatedBy(getUsername());
+            integrationAuditedBean.setUpdated(timestamp);
+            integrationAuditedBean.setVersion(1);
+            if (integrationAuditedBean.getStatus() == null) {
+                integrationAuditedBean
+                        .setStatus(AbstractIntegrationAuditedJPABean.STATUS_ACTIVE);
+            }
+        }
 	}
 
 	@PreUpdate
-	public void preUpdate(AbstractIntegrationAuditedJPABean integrationBean) {
-		Date timestamp = GMTTimeHelper.toGMTDate(new Date());
-		integrationBean.setUpdatedBy(getUsername());
-		integrationBean.setUpdated(timestamp);
+	public void preUpdate(AbstractIntegrationBean integrationBean) {
+        if (integrationBean instanceof AbstractIntegrationAuditedJPABean){
+            AbstractIntegrationAuditedJPABean integrationAuditedBean = (AbstractIntegrationAuditedJPABean)integrationBean;
+
+            Date timestamp = GMTTimeHelper.toGMTDate(new Date());
+            integrationAuditedBean.setUpdatedBy(getUsername());
+            integrationAuditedBean.setUpdated(timestamp);
+        }
 	}
 }
