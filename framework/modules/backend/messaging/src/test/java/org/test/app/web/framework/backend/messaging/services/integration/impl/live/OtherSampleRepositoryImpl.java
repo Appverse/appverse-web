@@ -24,7 +24,7 @@
 package org.test.app.web.framework.backend.messaging.services.integration.impl.live;
 
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
-import org.appverse.web.framework.backend.messaging.services.integration.impl.live.JMSService;
+import org.appverse.web.framework.backend.messaging.services.integration.impl.live.JMSSyncService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,7 +39,7 @@ import org.test.app.web.framework.backend.messaging.services.integration.OtherSa
  *
  */
 @Repository
-public class OtherSampleRepositoryImpl extends JMSService<SampleDTO> implements
+public class OtherSampleRepositoryImpl extends JMSSyncService<SampleDTO> implements
 		OtherSampleRepository {
 
 	@Autowired

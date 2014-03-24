@@ -28,7 +28,7 @@ import javax.jms.Message;
 
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
-import org.appverse.web.framework.backend.messaging.services.integration.impl.live.JMSService;
+import org.appverse.web.framework.backend.messaging.services.integration.impl.live.JMSSyncService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,7 +45,7 @@ import org.test.app.web.framework.backend.messaging.services.integration.SampleR
  *
  */
 @Repository
-public class SampleRepositoryImpl extends JMSService<SampleDTO> implements SampleRepository {
+public class SampleRepositoryImpl extends JMSSyncService<SampleDTO> implements SampleRepository {
 
 	@Autowired
 	@Qualifier("jmsTemplate")

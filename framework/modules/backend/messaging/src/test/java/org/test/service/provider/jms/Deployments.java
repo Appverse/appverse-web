@@ -57,9 +57,11 @@ public final class Deployments {
 				.addAsWebInfResource("jboss-jms.xml")
 				.addAsResource("spring/application-config-async.xml")
 				.addAsResource("spring/application-config-sync.xml")
+				.addAsResource("spring/application-config-transacted.xml")
 				.addAsResource("spring/jms-async-config.xml")
 				.addAsResource("spring/jms-common-config.xml")
 				.addAsResource("spring/jms-sync-config.xml")
+				.addAsResource("spring/jms-transacted-config.xml")
 				.addAsResource("log4j/log4j.properties")
 				.setWebXML("web.xml")
 				.addAsLibraries(springDependencies());

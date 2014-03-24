@@ -35,6 +35,7 @@ import org.springframework.jms.support.converter.MessageConverter;
  * @param <T>
  */
 public interface IJMSServiceAsyncConsumer<T extends AbstractIntegrationBean> extends
+		IJMSService<T>,
 		MessageListener {
 
 	/**

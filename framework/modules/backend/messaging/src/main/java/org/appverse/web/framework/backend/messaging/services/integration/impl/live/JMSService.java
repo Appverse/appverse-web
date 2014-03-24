@@ -35,15 +35,10 @@ import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.api.services.integration.AbstractIntegrationService;
 import org.appverse.web.framework.backend.messaging.services.integration.IJMSService;
-import org.appverse.web.framework.backend.messaging.services.integration.IJMSServiceAsyncConsumer;
-import org.appverse.web.framework.backend.messaging.services.integration.IJMSServiceConsumer;
-import org.appverse.web.framework.backend.messaging.services.integration.IJMSServicePublisher;
 import org.slf4j.Logger;
-import org.springframework.jms.core.MessagePostProcessor;
-import org.springframework.jms.support.converter.MessageConverter;
 
 /**
- * Implementation to provide integration with JMS broker
+ * JMS API to provide integration with JMS broker
  *
  * @param <T>
  */
@@ -52,151 +47,6 @@ public abstract class JMSService<T extends AbstractIntegrationBean>
 
 	@AutowiredLogger
 	private static Logger logger;
-
-	/**
-	 * @param dto
-	 * @throws Exception
-	 */
-	public final void send(final T dto) throws Exception {
-		if (this instanceof IJMSServicePublisher)
-		{
-			((IJMSServicePublisher<?>) this).getTemplatePublisher().convertAndSend(dto,
-					new MessagePostProcessor() {
-						@Override
-						public Message postProcessMessage(final Message message)
-								throws JMSException {
-							if (logger.isDebugEnabled())
-							{
-								logger.debug("***** SENDING MESSAGE ******");
-								traceMessage(message);
-							}
-							return message;
-						}
-					});
-		}
-		else
-			throw new UnsupportedOperationException("You must implement 'IJMSServicePublisher");
-	}
-
-	/*
-	 * Publish JMS message with header data
-	 * 
-	 */
-	public final void send(final T dto, final AbstractIntegrationBean header) throws Exception {
-
-		if (this instanceof IJMSServicePublisher)
-		{
-			((IJMSServicePublisher<?>) this).getTemplatePublisher().convertAndSend(dto,
-					new MessagePostProcessor() {
-						@Override
-						public Message postProcessMessage(final Message message)
-								throws JMSException {
-							// overwrite in Repositories
-							fillHeader(message, header);
-							if (logger.isDebugEnabled())
-							{
-								logger.debug("***** SENDING MESSAGE WITH HEADER******");
-								traceMessage(message);
-							}
-							return message;
-						}
-					});
-		}
-		else
-			throw new UnsupportedOperationException("You must implement 'IJMSServicePublisher");
-
-	}
-
-	/**
-	 * This method should be overridden in repositories implementations
-	 * 
-	 * @param message
-	 * @param header
-	 */
-	public void fillHeader(final Message message, final AbstractIntegrationBean header)
-			throws JMSException
-	{
-		throw new UnsupportedOperationException(
-				"You must overwrite 'fillHeader(final Message message, final AbstractIntegrationBean header)' method");
-	}
-
-	public final void onMessage(final Message msg) {
-
-		try
-		{
-			if (logger.isDebugEnabled())
-			{
-				logger.debug("***** ASYNC CONSUMING MESSAGE******");
-				traceMessage(msg);
-			}
-			this.processMessage(msg);
-			//Define behaviour
-		} catch (Exception ex)
-		{
-			throw new RuntimeException(ex);
-		}
-
-	}
-
-	public void processMessage(final Message message) throws Exception {
-		Object dto = ((IJMSServiceAsyncConsumer<?>) this).getMessageConverter()
-				.fromMessage(message);
-		this.processMessage((T) dto);
-	}
-
-	public void processMessage(final T dto) throws Exception {
-		throw new UnsupportedOperationException(
-				"You must overwrite 'processMessage(final T dto)' method");
-	}
-
-	@SuppressWarnings("unchecked")
-	public final T syncRetrieve() throws Exception
-	{
-		if (this instanceof IJMSServiceConsumer)
-		{
-			if (logger.isDebugEnabled())
-			{
-				Message msg = ((IJMSServiceConsumer<?>) this).getTemplateConsumer().receive();
-
-				logger.debug("***** SYNC CONSUMING MESSAGE******");
-				traceMessage(msg);
-
-				MessageConverter mc = ((IJMSServiceConsumer<?>) this).getTemplateConsumer()
-						.getMessageConverter();
-				return (T) mc.fromMessage(msg);
-			}
-			else
-				return (T) ((IJMSServiceConsumer<?>) this).getTemplateConsumer()
-						.receiveAndConvert();
-		}
-		else
-			throw new UnsupportedOperationException("You must implement 'IJMSServiceConsumer");
-	}
-
-	@SuppressWarnings("unchecked")
-	public final T syncRetrieve(final String messageSelector) throws Exception
-	{
-		if (this instanceof IJMSServiceConsumer)
-		{
-			if (logger.isDebugEnabled())
-			{
-				Message msg = ((IJMSServiceConsumer<?>) this).getTemplateConsumer().receive(
-						messageSelector);
-
-				logger.debug("***** SYNC CONSUMING MESSAGE - SELECTOR ******");
-				traceMessage(msg);
-
-				MessageConverter mc = ((IJMSServiceConsumer<?>) this).getTemplateConsumer()
-						.getMessageConverter();
-				return (T) mc.fromMessage(msg);
-			}
-			else
-				return (T) ((IJMSServiceConsumer<?>) this).getTemplateConsumer()
-						.receiveAndConvert(messageSelector);
-		}
-		else
-			throw new UnsupportedOperationException("You must implement 'IJMSServiceConsumer");
-	}
 
 	/**
 	 * Trace message body and all its JMS properties

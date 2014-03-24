@@ -34,7 +34,7 @@ import org.springframework.jms.core.JmsTemplate;
  *
  * @param <T>
  */
-public interface IJMSServicePublisher<T extends AbstractIntegrationBean> {
+public interface IJMSServicePublisher<T extends AbstractIntegrationBean> extends IJMSService<T> {
 
 	/**
 	 * Simple message sending through JmsTemplate.

@@ -24,13 +24,14 @@
 package org.test.app.web.framework.backend.messaging.services.integration.impl.live;
 
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
+import org.appverse.web.framework.backend.api.services.integration.IntegrationException;
 import org.appverse.web.framework.backend.messaging.services.integration.impl.live.JMSAsyncService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.stereotype.Repository;
 import org.test.app.web.framework.backend.messaging.model.integration.SampleDTO;
-import org.test.app.web.framework.backend.messaging.services.integration.MyAsyncRepository;
+import org.test.app.web.framework.backend.messaging.services.integration.MyTransactedRepository;
 
 /**
  * MyAsyncRepository implementation. 
@@ -38,7 +39,8 @@ import org.test.app.web.framework.backend.messaging.services.integration.MyAsync
  *
  */
 @Repository
-public class MyAsyncRepositoryImpl extends JMSAsyncService<SampleDTO> implements MyAsyncRepository {
+public class MyTransactedRepositoryImpl extends JMSAsyncService<SampleDTO> implements
+		MyTransactedRepository {
 
 	@AutowiredLogger
 	private static Logger logger;
@@ -46,13 +48,26 @@ public class MyAsyncRepositoryImpl extends JMSAsyncService<SampleDTO> implements
 	@Autowired
 	private MessageConverter messageConverter;
 
+	//Only for testing purposes
+	public static boolean firstAccess = true;
+
 	/* 
 	 * Overwrite this method con process message consumed. 
 	 * JMSMessage has already been converted to DTO.
 	 */
 	@Override
 	public void processMessage(final SampleDTO sample) throws Exception {
+
+		logger.info("Init message processing");
+		//If testing Transacted session and first access, throw exception to avoid consuming message
+		if (firstAccess && sample.getSurname().equals("Testing Transacted"))
+		{
+			firstAccess = false;
+			throw new IntegrationException("rollback");
+		}
+
 		logger.info(sample.toString());
+
 		//Convert DTO to Business model
 		//Use Injected Business Service
 		//Call business Service with Business Model
