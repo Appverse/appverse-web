@@ -404,6 +404,12 @@
 				<version>${framework.version}</version>
 			</dependency>
 
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.frontfacade.rest</groupId>
+                <artifactId>appverse-web-modules-backend-frontfacade-rest</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.messaging</groupId>
 				<artifactId>appverse-web-modules-backend-messaging</artifactId>
