@@ -72,8 +72,9 @@ public class BasicAuthenticationRESTController implements ApplicationContextAwar
     public Response login(@Context HttpServletRequest httpServletRequest,
                                      @Context HttpServletResponse httpServletResponse) throws Exception {
 
-        // Invalidate session
-        httpServletRequest.getSession().invalidate();
+        // Invalidate session if exists
+        HttpSession httpSession = httpServletRequest.getSession(false);
+        if (httpSession != null) httpSession.invalidate();
 
         authenticationServiceFacade = (AuthenticationServiceFacade) applicationContext.getBean(AUTHENTICATION_SERVICE_NAME);
 
