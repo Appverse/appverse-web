@@ -271,6 +271,13 @@
 			<artifactId>mybatis-spring</artifactId>
 		</dependency>
 
+		<!-- 
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>jms</artifactId>
+		</dependency>
+		 -->
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
