@@ -109,6 +109,10 @@ public class BasicAuthenticationRESTController implements ApplicationContextAwar
         Cookie sessionIdCookie = new Cookie("JSESSIONID", jsessionId);
         httpServletResponse.addCookie(sessionIdCookie);
 
+        // Obtain XSRFToken and add it as a response header
+        String xsrfToken = createXSRFToken(httpServletRequest);
+        httpServletResponse.addHeader("X-XSRF-Cookie", xsrfToken);
+
         // Authenticate principal and return authorization data
         AuthorizationDataVO authData = authenticationServiceFacade.authenticatePrincipal(userName, password);
 
