@@ -15,6 +15,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * This filter checks the XSRF token is present in your request.
@@ -28,13 +29,13 @@ public class XSRFCheckFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        if (!checkXSRFToken(req)){
-            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        if (isXsrfCheckEligible(req)){
+            if (!checkXSRFToken(req)){
+                res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
         }
-        else{
-            chain.doFilter(request, response);
-        }
-        return;
+        chain.doFilter(request, response);
     }
 
     protected String[] matches;
@@ -50,8 +51,11 @@ public class XSRFCheckFilter implements Filter {
     private boolean checkXSRFToken(final HttpServletRequest request)
             throws IOException {
         String requestValue = request.getHeader("X-XSRF-Cookie");
-        String sessionValue = (String) request.getSession().getAttribute(
-                "X-XSRF-Cookie");
+        HttpSession session =  request.getSession(false);
+        String sessionValue = null;
+        if (session != null){
+                sessionValue = (String) session.getAttribute("X-XSRF-Cookie");
+        }
         if (requestValue!=null && sessionValue != null && sessionValue.equals(requestValue)) {
             return true;
         }
