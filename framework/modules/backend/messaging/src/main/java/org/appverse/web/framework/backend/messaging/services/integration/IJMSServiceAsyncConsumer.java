@@ -23,38 +23,46 @@
  */
 package org.appverse.web.framework.backend.messaging.services.integration;
 
+import javax.jms.Message;
+import javax.jms.MessageListener;
+
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
-import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.support.converter.MessageConverter;
 
 /**
- * Interface to define synchronous Message consuming API
+ * Interface to define Asynch Message consuming API
  *
  * @param <T>
  */
-public interface IJMSServiceConsumer<T extends AbstractIntegrationBean> extends IJMSService<T> {
+public interface IJMSServiceAsyncConsumer<T extends AbstractIntegrationBean> extends
+		IJMSService<T>,
+		MessageListener {
 
 	/**
-	 * Simple synchronous receive method. It delegates in JmsTemplate
 	 * 
-	 * @return
+	 * Overwrite this method to process message consumed as DTO
+	 * MessageConversion is done within its implemetation 
+	 * 
+	 * @param dto
 	 * @throws Exception
 	 */
-	T syncRetrieve() throws Exception;
+	void processMessage(T dto) throws Exception;
 
 	/**
-	 * Same than {@link #syncRetrieve() syncRetrieve}, but using a messageSelector property 
 	 * 
-	 * @param messageSelector
-	 * @return
+	 * Overwrite this method to process message consumed as JMS Message 
+	 * It allows to process JMS Properties.
+	 * 
+	 * @param message
 	 * @throws Exception
 	 */
-	T syncRetrieve(String messageSelector) throws Exception;
+	void processMessage(final Message message) throws Exception;
 
 	/**
-	 * This method has to be overwritten by user implementations to provide consuming JmsTemplate
+	 * Overwrite to provide message converter implementation
 	 * 
 	 * @return
 	 */
-	JmsTemplate getTemplateConsumer();
+	MessageConverter getMessageConverter();
 
 }

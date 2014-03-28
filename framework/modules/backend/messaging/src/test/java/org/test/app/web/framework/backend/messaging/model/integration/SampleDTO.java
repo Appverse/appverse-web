@@ -21,40 +21,76 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.messaging.services.integration;
+package org.test.app.web.framework.backend.messaging.model.integration;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
-import org.springframework.jms.core.JmsTemplate;
 
-/**
- * Interface to define synchronous Message consuming API
- *
- * @param <T>
- */
-public interface IJMSServiceConsumer<T extends AbstractIntegrationBean> extends IJMSService<T> {
-
+@XmlRootElement(name = "sampleDTO")
+public class SampleDTO extends AbstractIntegrationBean {
 	/**
-	 * Simple synchronous receive method. It delegates in JmsTemplate
 	 * 
-	 * @return
-	 * @throws Exception
 	 */
-	T syncRetrieve() throws Exception;
+	private static final long serialVersionUID = -9092781558512031601L;
 
-	/**
-	 * Same than {@link #syncRetrieve() syncRetrieve}, but using a messageSelector property 
-	 * 
-	 * @param messageSelector
-	 * @return
-	 * @throws Exception
-	 */
-	T syncRetrieve(String messageSelector) throws Exception;
+	private int id;
+	private int foreignKey;
+	private String name;
+	private String surname;
+	private String messageId;
 
-	/**
-	 * This method has to be overwritten by user implementations to provide consuming JmsTemplate
-	 * 
-	 * @return
-	 */
-	JmsTemplate getTemplateConsumer();
+	public SampleDTO(final int id, final int foreignKey, final String name, final String surname,
+			final String messageId) {
+		super();
+		this.id = id;
+		this.foreignKey = foreignKey;
+		this.name = name;
+		this.surname = surname;
+		this.messageId = messageId;
+	}
+
+	public SampleDTO() {
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(final int id) {
+		this.id = id;
+	}
+
+	public int getForeignKey() {
+		return foreignKey;
+	}
+
+	public void setForeignKey(final int foreignKey) {
+		this.foreignKey = foreignKey;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(final String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(final String surname) {
+		this.surname = surname;
+	}
+
+	public String getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(final String messageId) {
+		this.messageId = messageId;
+	}
 
 }
