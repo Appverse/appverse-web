@@ -5,9 +5,8 @@ import org.appverse.web.framework.backend.api.services.presentation.Authenticati
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.WebUtils;
 import sun.misc.BASE64Decoder;
 
 import javax.inject.Singleton;
@@ -72,35 +71,20 @@ public class BasicAuthenticationRESTController implements ApplicationContextAwar
     public Response login(@Context HttpServletRequest httpServletRequest,
                                      @Context HttpServletResponse httpServletResponse) throws Exception {
 
+        String[] userNameAndPassword;
+
         // Invalidate session if exists
         HttpSession httpSession = httpServletRequest.getSession(false);
         if (httpSession != null) httpSession.invalidate();
 
         authenticationServiceFacade = (AuthenticationServiceFacade) applicationContext.getBean(AUTHENTICATION_SERVICE_NAME);
 
-        String userName = null;
-        String password = null;
-
         try{
-            // Authorization header
-            String authHeader = httpServletRequest.getHeader("Authorization");
-
-            // Decode the authorization string
-            BASE64Decoder decoder = new BASE64Decoder();
-            byte[] decoded = decoder.decodeBuffer(authHeader.substring(6));
-            String userNameAndPass = new String(decoded);
-
-            // Get user name and password
-            userName=userNameAndPass.substring(0,userNameAndPass.indexOf(":"));
-            password=userNameAndPass.substring(userNameAndPass.indexOf(":")+1);
+            userNameAndPassword = obtainUserAndPasswordFromBasicAuthenticationHeader(httpServletRequest);
         }
-        catch (Exception e){
-
-            // httpServletResponse.setStatus(Response.Status.FORBIDDEN.getStatusCode());
-            // httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        catch (BadCredentialsException e){
             httpServletResponse.addHeader("WWW-Authenticate", "Basic");
             return Response.status(Response.Status.UNAUTHORIZED).entity(new AuthorizationDataVO()).build();
-            // return Response.status(401).entity(new AuthorizationDataVO()).build();
         }
 
         //Create and set the cookie
@@ -114,10 +98,7 @@ public class BasicAuthenticationRESTController implements ApplicationContextAwar
         httpServletResponse.addHeader("X-XSRF-Cookie", xsrfToken);
 
         // Authenticate principal and return authorization data
-        AuthorizationDataVO authData = authenticationServiceFacade.authenticatePrincipal(userName, password);
-
-        // Set the session attribute that will indicate the user is authenticated
-        WebUtils.setSessionAttribute(httpServletRequest, "REMOTE_USER", userName);
+        AuthorizationDataVO authData = authenticationServiceFacade.authenticatePrincipal(userNameAndPassword[0], userNameAndPassword[1]);
 
         // AuthorizationDataVO
         return Response.status(Response.Status.OK).entity(authData).build();
@@ -127,6 +108,30 @@ public class BasicAuthenticationRESTController implements ApplicationContextAwar
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
+
+
+    private String[] obtainUserAndPasswordFromBasicAuthenticationHeader(HttpServletRequest httpServletRequest) throws Exception{
+        // Authorization header
+        String authHeader = httpServletRequest.getHeader("Authorization");
+
+        // Decode the authorization string
+        BASE64Decoder decoder = new BASE64Decoder();
+        String token;
+        try{
+            byte[] decoded = decoder.decodeBuffer(authHeader.substring(6));
+            token = new String(decoded);
+        } catch (IllegalArgumentException e) {
+            throw new BadCredentialsException("Failed to decode basic authentication token");
+        }
+
+        int separator = token.indexOf(":");
+
+        if (separator == -1) {
+            throw new BadCredentialsException("Invalid basic authentication token");
+        }
+        return new String[] {token.substring(0, separator), token.substring(separator + 1)};
+    }
+
 
     // TODO
     private String createXSRFToken(final HttpServletRequest request)
