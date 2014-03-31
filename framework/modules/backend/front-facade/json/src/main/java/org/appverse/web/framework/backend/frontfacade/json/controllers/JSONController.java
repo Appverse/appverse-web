@@ -23,6 +23,7 @@
  */
 package org.appverse.web.framework.backend.frontfacade.json.controllers;
 
+import org.appverse.web.framework.backend.api.helpers.security.SecurityHelper;
 import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
 import org.appverse.web.framework.backend.frontfacade.json.controllers.exceptions.BadRequestException;
 import org.codehaus.jackson.JsonParser;
@@ -38,16 +39,13 @@ import javax.annotation.PostConstruct;
 import javax.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Component
 @Singleton
@@ -79,46 +77,6 @@ public class JSONController implements ApplicationContextAware {
 		mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
 
 		customMappingJacksonHttpMessageConverter.setObjectMapper(mapper);
-	}
-
-	private String createXSRFToken(final HttpServletRequest request)
-			throws IOException {
-		HttpSession session = request.getSession();
-		String xsrfSessionToken = (String) session
-				.getAttribute("X-XSRF-Cookie");
-		if (xsrfSessionToken == null) {
-			Random r = new Random(System.currentTimeMillis());
-			long value = System.currentTimeMillis() + r.nextLong();
-			char ids[] = session.getId().toCharArray();
-			for (int i = 0; i < ids.length; i++) {
-				value += ids[i] * (i + 1);
-			}
-			xsrfSessionToken = Long.toString(value);
-			session.setAttribute("X-XSRF-Cookie", xsrfSessionToken);
-		}
-		return xsrfSessionToken;
-	}
-
-	/**
-	 * 
-	 * @param request
-	 * @throws Exception
-	 */
-	@SuppressWarnings("unused")
-	private void checkXSRFToken(final HttpServletRequest request)
-			throws Exception {
-		/**
-		 * Currently this method is not used. Needs to be analyzed how this can
-		 * be implemented in a "generic" way.
-		 */
-		String requestValue = request.getHeader("X-XSRF-Cookie");
-		String sessionValue = (String) request.getSession().getAttribute(
-				"X-XSRF-Cookie");
-		if (sessionValue != null && !sessionValue.equals(requestValue)) {
-			// throw new PreAuthenticatedCredentialsNotFoundException(
-			// "XSRF attribute not found in session.");
-			throw new Exception("XSRF attribute not found in session.");
-		}
 	}
 
 	// @POST
@@ -155,7 +113,7 @@ public class JSONController implements ApplicationContextAware {
 	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-        @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
 	@Path("{servicename}/{methodname}")
 	public String handleRequest(
 			@PathParam("servicename") String requestServiceName,
@@ -175,14 +133,14 @@ public class JSONController implements ApplicationContextAware {
 							+ requestServiceName);
 		}
 		if (!(presentationService instanceof AuthenticationServiceFacade)) {
-		    checkXSRFToken(request);
+		    SecurityHelper.checkXSRFToken(request);
         }
         if (presentationService instanceof AuthenticationServiceFacade
                 && requestMethodName.equals("getXSRFSessionToken")) {
             ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
                     response);
             customMappingJacksonHttpMessageConverter.write(
-                        createXSRFToken(request),
+                        SecurityHelper.createXSRFToken(request),
                         org.springframework.http.MediaType.APPLICATION_JSON,
                         outputMessage);
             addDefaultResponseHeaders(response);

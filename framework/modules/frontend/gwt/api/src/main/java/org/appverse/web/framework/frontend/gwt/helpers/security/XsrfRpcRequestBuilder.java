@@ -43,7 +43,7 @@ public class XsrfRpcRequestBuilder extends RpcRequestBuilder {
 		RequestBuilder requestBuilder = super.doCreate(serviceEntryPoint);
 
 		if (xsrfToken != null && xsrfToken.length() > 0) {
-			requestBuilder.setHeader("X-XSRF-Cookie", xsrfToken);
+			requestBuilder.setHeader(SecurityHelper.XSRF_TOKEN_NAME, xsrfToken);
 		}
 		return requestBuilder;
 	}

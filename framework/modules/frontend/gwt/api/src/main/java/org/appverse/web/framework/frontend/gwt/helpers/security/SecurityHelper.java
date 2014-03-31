@@ -2,7 +2,7 @@
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source Code Form is subject to the terms of the Appverse Public License
- Version 2.0 (â€œAPL v2.0â€�). If a copy of the APL was not distributed with this
+ Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this
  file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
 
  Redistribution and use in source and binary forms, with or without modification,
@@ -21,37 +21,10 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.frontend.gwt.helpers.dispatcher;
+package org.appverse.web.framework.frontend.gwt.helpers.security;
 
-import com.google.gwt.http.client.Request;
-import com.google.gwt.http.client.RequestBuilder;
-import com.google.gwt.http.client.RequestException;
-import org.appverse.web.framework.frontend.gwt.helpers.security.SecurityHelper;
-import org.fusesource.restygwt.client.Dispatcher;
-import org.fusesource.restygwt.client.Method;
+public class SecurityHelper {
 
+    public static String XSRF_TOKEN_NAME = "XSRF-TOKEN";
 
-
-
-public class AppverseDispatcher implements Dispatcher{
-    public static final AppverseDispatcher INSTANCE = new AppverseDispatcher();
-
-    private static String xsrfToken = "";
-
-    public static String getXSRFToken() {
-        return xsrfToken;
-    }
-
-    public static void setXSRFToken(String _xsrfToken) {
-        xsrfToken = _xsrfToken;
-    }
-
-    @Override
-    public Request send(Method method, RequestBuilder requestBuilder) throws RequestException {
-        if (xsrfToken != null && xsrfToken.length() > 0) {
-            requestBuilder.setHeader(SecurityHelper.XSRF_TOKEN_NAME, xsrfToken);
-        }
-        return requestBuilder.send();
-
-    }
 }

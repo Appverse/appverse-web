@@ -1,5 +1,29 @@
+/*
+ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+
+ This Source Code Form is subject to the terms of the Appverse Public License
+ Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this
+ file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the conditions of the AppVerse Public License v2.0
+ are met.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+ SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE)
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
+ */
 package org.appverse.web.framework.backend.frontfacade.rest.authentication.controllers;
 
+import org.appverse.web.framework.backend.api.helpers.security.SecurityHelper;
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
 import org.springframework.beans.BeansException;
@@ -94,8 +118,8 @@ public class BasicAuthenticationRESTController implements ApplicationContextAwar
         httpServletResponse.addCookie(sessionIdCookie);
 
         // Obtain XSRFToken and add it as a response header
-        String xsrfToken = createXSRFToken(httpServletRequest);
-        httpServletResponse.addHeader("X-XSRF-Cookie", xsrfToken);
+        String xsrfToken = SecurityHelper.createXSRFToken(httpServletRequest);
+        httpServletResponse.addHeader(SecurityHelper.XSRF_TOKEN_NAME, xsrfToken);
 
         // Authenticate principal and return authorization data
         AuthorizationDataVO authData = authenticationServiceFacade.authenticatePrincipal(userNameAndPassword[0], userNameAndPassword[1]);
@@ -113,6 +137,10 @@ public class BasicAuthenticationRESTController implements ApplicationContextAwar
     private String[] obtainUserAndPasswordFromBasicAuthenticationHeader(HttpServletRequest httpServletRequest) throws Exception{
         // Authorization header
         String authHeader = httpServletRequest.getHeader("Authorization");
+
+        if (authHeader == null) {
+            throw new BadCredentialsException("Authorization header not found");
+        }
 
         // Decode the authorization string
         BASE64Decoder decoder = new BASE64Decoder();
@@ -132,40 +160,4 @@ public class BasicAuthenticationRESTController implements ApplicationContextAwar
         return new String[] {token.substring(0, separator), token.substring(separator + 1)};
     }
 
-
-    // TODO
-    private String createXSRFToken(final HttpServletRequest request)
-            throws IOException {
-        HttpSession session = request.getSession();
-        String xsrfSessionToken = (String) session
-                .getAttribute("X-XSRF-Cookie");
-        if (xsrfSessionToken == null) {
-            Random r = new Random(System.currentTimeMillis());
-            long value = System.currentTimeMillis() + r.nextLong();
-            char ids[] = session.getId().toCharArray();
-            for (int i = 0; i < ids.length; i++) {
-                value += ids[i] * (i + 1);
-            }
-            xsrfSessionToken = Long.toString(value);
-            session.setAttribute("X-XSRF-Cookie", xsrfSessionToken);
-        }
-        return xsrfSessionToken;
-    }
-
-    // TODO
-    private void checkXSRFToken(final HttpServletRequest request)
-            throws Exception {
-        /**
-         * Currently this method is not used. Needs to be analyzed how this can
-         * be implemented in a "generic" way.
-         */
-        String requestValue = request.getHeader("X-XSRF-Cookie");
-        String sessionValue = (String) request.getSession().getAttribute(
-                "X-XSRF-Cookie");
-        if (sessionValue != null && !sessionValue.equals(requestValue)) {
-            // throw new PreAuthenticatedCredentialsNotFoundException(
-            // "XSRF attribute not found in session.");
-            throw new Exception("XSRF attribute not found in session.");
-        }
-    }
 }

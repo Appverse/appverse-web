@@ -1,3 +1,26 @@
+/*
+ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+
+ This Source Code Form is subject to the terms of the Appverse Public License
+ Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this
+ file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the conditions of the AppVerse Public License v2.0
+ are met.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+ SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE)
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
+ */
 package org.appverse.web.framework.backend.api.helpers.security;
 
 import jodd.typeconverter.Convert;
@@ -15,7 +38,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * This filter checks the XSRF token is present in your request.
@@ -30,7 +52,10 @@ public class XSRFCheckFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         if (isXsrfCheckEligible(req)){
-            if (!checkXSRFToken(req)){
+            try{
+                SecurityHelper.checkXSRFToken(req);
+            }
+            catch (Exception e){
                 res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
@@ -42,25 +67,6 @@ public class XSRFCheckFilter implements Filter {
     protected String[] excludes;
     protected boolean wildcards;
 
-    /**
-     *  Checks whether a XSRF token exist and is valid or not
-     * @param request
-     * @return
-     * @throws IOException
-     */
-    private boolean checkXSRFToken(final HttpServletRequest request)
-            throws IOException {
-        String requestValue = request.getHeader("X-XSRF-Cookie");
-        HttpSession session =  request.getSession(false);
-        String sessionValue = null;
-        if (session != null){
-                sessionValue = (String) session.getAttribute("X-XSRF-Cookie");
-        }
-        if (requestValue!=null && sessionValue != null && sessionValue.equals(requestValue)) {
-            return true;
-        }
-        else return false;
-    }
 
     /**
      * Filter initialization.

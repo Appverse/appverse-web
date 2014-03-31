@@ -23,15 +23,22 @@
  */
 package org.appverse.web.framework.backend.api.helpers.security;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 public class SecurityHelper {
+
+    public static String XSRF_TOKEN_NAME = "XSRF-TOKEN";
 
 	@SuppressWarnings("unchecked")
 	public static List<String> getAuthorities() {
@@ -51,5 +58,41 @@ public class SecurityHelper {
 				.getContext().getAuthentication();
 		return authentication.getName();
 	}
+
+
+    public static String createXSRFToken(final HttpServletRequest request)
+            throws IOException {
+        // getSession(false) as this method never creates a new session
+        HttpSession session = request.getSession(false);
+        String xsrfSessionToken = (String) session
+                .getAttribute(XSRF_TOKEN_NAME);
+        if (xsrfSessionToken == null) {
+            Random r = new Random(System.currentTimeMillis());
+            long value = System.currentTimeMillis() + r.nextLong();
+            char ids[] = session.getId().toCharArray();
+            for (int i = 0; i < ids.length; i++) {
+                value += ids[i] * (i + 1);
+            }
+            xsrfSessionToken = Long.toString(value);
+            session.setAttribute(XSRF_TOKEN_NAME, xsrfSessionToken);
+        }
+        return xsrfSessionToken;
+    }
+
+    /**
+     *
+     * @param request
+     * @throws Exception
+     */
+    @SuppressWarnings("unused")
+    public static void checkXSRFToken(final HttpServletRequest request)
+            throws Exception {
+        String requestValue = request.getHeader(XSRF_TOKEN_NAME);
+        String sessionValue = (String) request.getSession().getAttribute(
+                XSRF_TOKEN_NAME);
+        if (requestValue == null || sessionValue == null || !sessionValue.equals(requestValue)) {
+            throw new Exception("XSRF attribute not found in request or session or invalid.");
+        }
+    }
 
 }
