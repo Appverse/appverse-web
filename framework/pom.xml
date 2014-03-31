@@ -424,6 +424,12 @@
 				<version>${framework.version}</version>
 			</dependency>
 
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.security.oauth2</groupId>
+                <artifactId>appverse-web-modules-backend-security-oauth2</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.frontend.gwt.theme</groupId>
 				<artifactId>appverse-web-modules-frontend-gwt-theme</artifactId>
@@ -565,6 +571,12 @@
 				<artifactId>spring-security-web</artifactId>
 				<version>${spring.security.version}</version>
 			</dependency>
+
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>2.0.0.M2</version>
+            </dependency>
 			<!-- END OF SPRING FRAMEWORK MANAGED DEPENDENCIES -->
 
 			<!-- JEE MANAGED DEPENDENCIES -->
@@ -1111,6 +1123,13 @@
                 <groupId>org.jodd</groupId>
                 <artifactId>jodd</artifactId>
                 <version>3.3.8</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.3.1</version>
+                <scope>test</scope>
             </dependency>
 
 		</dependencies>

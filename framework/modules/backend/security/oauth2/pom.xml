@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+		<groupId>org.appverse.web.framework.poms</groupId>
+		<artifactId>appverse-web-masterpom</artifactId>
+		<version>1.4-SNAPSHOT</version>
+		<relativePath>../../../..</relativePath>
 	</parent>
 
-	<groupId>org.appverse.web.framework.poms.modules.backend</groupId>
-	<artifactId>appverse-web-modules-backend-pom</artifactId>
-	<version>1.4-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<groupId>org.appverse.web.framework.modules.backend.security.oauth2</groupId>
+	<artifactId>appverse-web-modules-backend-security-oauth2</artifactId>
+	<packaging>jar</packaging>
 
-	<name>Appverse Web Framework Modules Backend POM</name>
-	<description>Appverse Web Framework Modules Backend POM</description>
+	<name>Appverse Web Framework Modules Backend Security OAuth2 Module</name>
+	<description>Appverse Web Framework Modules Backend Security OAuth2 Module</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2011</inceptionYear>
 
@@ -178,14 +178,27 @@
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
-	<modules>
-		<module>aspect</module>
-		<module>batch</module>
-		<module>core</module>
-		<module>front-facade</module>
-		<module>messaging</module>
-		<module>reporting</module>
-        <module>security</module>
-	</modules>
+	<dependencies>
 
+        <!-- OAuth 2.0 -->
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+        </dependency>
+
+        <!-- Junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Required to implement OAuth2 testing -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+	</dependencies>
 </project>
