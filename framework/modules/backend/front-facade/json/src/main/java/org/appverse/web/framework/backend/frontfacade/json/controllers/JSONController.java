@@ -23,6 +23,7 @@
  */
 package org.appverse.web.framework.backend.frontfacade.json.controllers;
 
+import org.appverse.web.framework.backend.api.helpers.json.JacksonContextResolver;
 import org.appverse.web.framework.backend.api.helpers.security.SecurityHelper;
 import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
 import org.appverse.web.framework.backend.frontfacade.json.controllers.exceptions.BadRequestException;
@@ -75,6 +76,7 @@ public class JSONController implements ApplicationContextAware {
 		// SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS"));
 		// SerializationConfig sc = mapper.getSerializationConfig();
 		mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+        mapper.registerModule(JacksonContextResolver.getCustomSimpleModuleWithXSS());
 
 		customMappingJacksonHttpMessageConverter.setObjectMapper(mapper);
 	}
