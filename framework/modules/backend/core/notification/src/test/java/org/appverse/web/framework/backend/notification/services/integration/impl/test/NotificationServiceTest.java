@@ -23,6 +23,7 @@
  */
 package org.appverse.web.framework.backend.notification.services.integration.impl.test;
 
+import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter;
 import org.appverse.web.framework.backend.notification.model.integration.NPlatformDTO;
 import org.appverse.web.framework.backend.notification.model.integration.NPlatformTypeDTO;
@@ -34,11 +35,11 @@ import org.appverse.web.framework.backend.notification.services.integration.NotU
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.context.support.SimpleThreadScope;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -57,8 +58,6 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNotSame;
 
-//@ContextConfiguration(locations = { "classpath:/spring/application-config.xml" })
-//@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 @TestExecutionListeners({NotificationServiceTest.WebContextTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class})
@@ -66,7 +65,10 @@ import static junit.framework.Assert.assertNotSame;
 @WebAppConfiguration
 public class NotificationServiceTest extends AbstractTransactionalTest {
 
+    public static final String SAMPLE_MESSAGE = "Nómina ingresada: 81.333€";
 
+    @AutowiredLogger
+    private static Logger logger;
 
     @Autowired
     INotificationService notificationService;
@@ -107,11 +109,12 @@ public class NotificationServiceTest extends AbstractTransactionalTest {
         nPlatform.setStatus("enabled");
         nPlatform.setAlias("myAndroidPhone");
         nPlatform.setAppVersion("testApp");
-        nPlatform.setToken("APA91bElESbkkgYq84xUxUc5GsiT_TLYSLps-AdUvYYLAHTEPoCQJp7CnYNSSYCWZqejy2ozeRZgW1PPosRFXgWK5sfEu-brvGvflxlPg7hgjhQzkjOwr_wjuZOKHYyaD0c6MYqT08TBq-Q7MtBinWbCIYylqFb11Q");
-        nPlatform.setnPlatformTypeDTO(platformType);
+        nPlatform.setToken("APA91bFZbatlcLrqG-mryOjt0tkxDhGMu66vw0qzpsa7nUfvMuguQXGDqj6f0YJWN800cuR-dCGmveyZpo-hkEgRRfO3Yw1z2hjNbf6x986pLSJO9wUsEjvs-oahKc4wdQQoElpqIM3nqYoM6kE3mxJyjjVoqu_G_A");
+        //nPlatform.setToken("APA91bElESbkkgYq84xUxUc5GsiT_TLYSLps-AdUvYYLAHTEPoCQJp7CnYNSSYCWZqejy2ozeRZgW1PPosRFXgWK5sfEu-brvGvflxlPg7hgjhQzkjOwr_wjuZOKHYyaD0c6MYqT08TBq-Q7MtBinWbCIYylqFb11Q");
+        nPlatform.setNotPlatformType(platformType);
         nPlatform.setPlatformId("theplatformid");
         long platId = notPlatformRepository.persist(nPlatform);
-        System.out.println("Platform persisted ["+platId+"]");
+        logger.info("Platform persisted ["+platId+"]");
         //System.out.println(notPlatformRepository.retrieve(platId));
 
         NUserDTO nUser = new NUserDTO();
@@ -120,7 +123,7 @@ public class NotificationServiceTest extends AbstractTransactionalTest {
         nUser.setStatus("enabled");
         List<NPlatformDTO> platforms = new ArrayList<NPlatformDTO>();
         platforms.add(notPlatformRepository.retrieve(platId));
-        nUser.setNotPlatformDTOs(platforms);
+        nUser.setNotPlatforms(platforms);
         //notificationService.registerUser(nUser);
         long result = notUserRepository.persist(nUser);
         assertNotSame(-1L, result);
@@ -146,16 +149,16 @@ public class NotificationServiceTest extends AbstractTransactionalTest {
         nPlatform.setAlias("myOtherAndroidPhone");
         nPlatform.setAppVersion("testApp");
         nPlatform.setToken("the_other_token_that_i_do_not_know_yet");
-        nPlatform.setnPlatformTypeDTO(notPlatformTypeRepository.retrieve(2));
+        nPlatform.setNotPlatformType(notPlatformTypeRepository.retrieve(2));
 
         notificationService.addPlatformToUser("testuserid",nPlatform);
 
 
         NUserDTO nuser2 = notUserRepository.retrieve(idf);
         assertNotNull("testuserid not retrieved successfully with IntegrationDataFilter by userId after adding platform", nuser);
-        assertEquals("User testuserid should have 2 platforms and has ["+nuser2.getNotPlatformDTOs().size()+"]",nuser2.getNotPlatformDTOs().size(),2);
+        assertEquals("User testuserid should have 2 platforms and has ["+nuser2.getNotPlatforms().size()+"]",2,nuser2.getNotPlatforms().size());
 
-        String theToken = "APA91bHaZB912Fho07RZmdMOm2gVME9AoZXvftXZxdi6lv2fjihC05oF7y-M2s8sS1puKZvOtH4PJst2pMvwDQ9bavFDgU0KTi5HTUXI2G3nqx7QLk2fWEV-3utJ88hdJuAEiCkqbLCQ0XiaFH6XTW_TebI1IhGj3Q";
+        String theToken = "APA91bFZbatlcLrqG-mryOjt0tkxDhGMu66vw0qzpsa7nUfvMuguQXGDqj6f0YJWN800cuR-dCGmveyZpo-hkEgRRfO3Yw1z2hjNbf6x986pLSJO9wUsEjvs-oahKc4wdQQoElpqIM3nqYoM6kE3mxJyjjVoqu_G_A";
         assertNotNull(notificationService);
         notificationService.updatePlatform(
                 "testuserid",
@@ -174,7 +177,7 @@ public class NotificationServiceTest extends AbstractTransactionalTest {
         List<String> platforms = new ArrayList<String>();
         platforms.add("theotherplatformid");
         platforms.add("theplatformid");
-        notificationService.sendNotification("testuserId",platforms);
+        notificationService.sendNotification("testuserId",platforms, SAMPLE_MESSAGE);
 
 
     }
