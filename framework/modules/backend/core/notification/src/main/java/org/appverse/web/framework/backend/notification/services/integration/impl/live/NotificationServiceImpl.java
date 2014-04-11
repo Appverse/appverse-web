@@ -45,14 +45,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository("notificationService")
-@Scope(WebApplicationContext.SCOPE_SESSION)
 public class NotificationServiceImpl extends AbstractBusinessService implements INotificationService {
 
     @AutowiredLogger
@@ -105,14 +103,14 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
         }
         //first persist nPlatformDTO
         long platId = notPlatformRepository.persist(nPlatformDTO);
-        nUserDTO.getNotPlatformDTOs().add(nPlatformDTO);
+        nUserDTO.getNotPlatforms().add(nPlatformDTO);
 
         //now save the User so the relations are finaly set
         notUserRepository.persist(nUserDTO);
     }
 
     @Override
-    public boolean sendNotification(String userId, List<String> platformIds) throws Exception {
+    public boolean sendNotification(String userId, List<String> platformIds, String body) throws Exception {
         List<NPlatformDTO> nPlatformDTOs = new ArrayList<NPlatformDTO>();
         for( String platId: platformIds) {
             IntegrationDataFilter idf = new IntegrationDataFilter();
@@ -121,8 +119,7 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             nPlatformDTOs.add(nPlatformDTO);
         }
         for( NPlatformDTO platformDTO: nPlatformDTOs) {
-            logger.info("Sending notification to ("+platformDTO.getnPlatformTypeDTO().getName()+","+platformDTO.getToken()+")");
-            sendNotification(platformDTO.getnPlatformTypeDTO().getName(),platformDTO.getToken(), "Nomina ingressada: 81.333€€");
+            sendNotification(platformDTO.getNotPlatformType().getName(),platformDTO.getToken(), body);
         }
 
         return false;
@@ -148,6 +145,7 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
     @Override
     public boolean sendNotification(String platform, String token, String body) throws Exception {
+        logger.info("Sending notification to ("+platform+","+token+")");
         checkSenders(platform);
         if ("android".equals(platform)) {
             Message.Builder build = new Message.Builder();
@@ -170,29 +168,32 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
         } else if ("ios".equals(platform)) {
             //new code from JAVI -- TODO to be updated... this is just copy/paste.
             String strRelPath = null;
-            URL resourceURL = NotificationServiceImpl.class.getResource("/appversebak_prod_pns.p12");//"/showcase_prod_pns.p12");//(cert.getPem());
+            URL resourceURL = NotificationServiceImpl.class.getResource(appleP12Path);//"/showcase_prod_pns.p12");//(cert.getPem());
             if (resourceURL != null) {
                 strRelPath = resourceURL.getPath();
             }
 
             try {
 
-                List<PushedNotification> notifications = Push.alert(body, appleP12Path, "cojones2014", true, token);
-                //Push.test(strRelPath, "cojones2014", true, token);
+                List<PushedNotification> notifications = Push.alert(body, appleP12Path, appleP12Password, true, token);
+                //Push.test(strRelPath, "apple2014", true, token);
                 for (PushedNotification notification : notifications) {
                     if (notification.isSuccessful()) {
                         // Apple accepted the notification and should deliver it
                     } else {
                         String invalidToken = notification.getDevice().getToken();
                         //Add code here to remove invalidToken from your database
+                        logger.warn("Invalid token:{}",invalidToken);
                     }
                 }
             } catch (CommunicationException ex) {
                 //Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("CommunicationException ["+ex.getMessage()+"]");
+                logger.error("CommunicationException", ex);
+                throw ex;
             } catch (KeystoreException ex) {
-                System.out.println("KeyStoreException ["+ex.getMessage()+"]");
+                logger.error("KeyStoreException", ex);
                 //Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
+                throw ex;
             }
 
 
@@ -202,9 +203,9 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
     }
 
     public void outputData() throws Exception {
-        System.out.println("Notification Service data output");
-        System.out.println("   google api key ["+googleApiKey+"]");
-        System.out.println("   apple path ["+appleP12Path+"]");
+        logger.info("Notification Service data output");
+        logger.info("   google api key ["+googleApiKey+"]");
+        logger.info("   apple path ["+appleP12Path+"]");
     }
 
     private void checkSenders(String platform) throws Exception {

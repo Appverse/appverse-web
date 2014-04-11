@@ -39,7 +39,7 @@ public interface INotificationService {
 
     public void addPlatformToUser(String userId, NPlatformDTO nPlatformDTO) throws Exception;
 
-    public boolean sendNotification(String userId, List<String> platformId) throws Exception;
+    public boolean sendNotification(String userId, List<String> platformId, String body) throws Exception;
 
     public void updatePlatform(String userId, String platformId, String token) throws Exception;
 

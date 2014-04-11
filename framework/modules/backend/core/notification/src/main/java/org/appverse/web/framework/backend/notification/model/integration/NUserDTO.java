@@ -52,7 +52,7 @@ public class NUserDTO extends AbstractIntegrationAuditedJPABean {
 
     private String userId;
 
-    private List<NPlatformDTO> notPlatformDTOs;
+    private List<NPlatformDTO> notPlatforms;
 
     private boolean banned;
 
@@ -75,12 +75,12 @@ public class NUserDTO extends AbstractIntegrationAuditedJPABean {
 
     @OneToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "NUSER_NPLATFORM", joinColumns = @JoinColumn(name = "NUSER_ID"), inverseJoinColumns = @JoinColumn(name = "NPLATFORM_ID"))
-    public List<NPlatformDTO> getNotPlatformDTOs() {
-        return notPlatformDTOs;
+    public List<NPlatformDTO> getNotPlatforms() {
+        return notPlatforms;
     }
 
-    public void setNotPlatformDTOs(List<NPlatformDTO> notPlatformDTOs) {
-        this.notPlatformDTOs = notPlatformDTOs;
+    public void setNotPlatforms(List<NPlatformDTO> notPlatforms) {
+        this.notPlatforms = notPlatforms;
     }
 
     public void setUserId(String userId) {
