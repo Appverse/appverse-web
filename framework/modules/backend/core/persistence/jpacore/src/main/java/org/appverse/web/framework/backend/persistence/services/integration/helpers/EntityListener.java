@@ -44,8 +44,15 @@ public class EntityListener {
 		if (authentication == null) {
 			username = "batch_process";
 		} else {
-			UserDetails user = (UserDetails) authentication.getPrincipal();
-			username = user.getUsername();
+            Object obj = authentication.getPrincipal();
+            //On unauthenticated applications obj is a simple string and it will fail
+            if (obj instanceof UserDetails){
+                UserDetails user = (UserDetails) authentication.getPrincipal();
+                username = user.getUsername();
+            }else if (obj instanceof String){
+                username = (String)obj;
+            }
+
 		}
 		return username;
 	}

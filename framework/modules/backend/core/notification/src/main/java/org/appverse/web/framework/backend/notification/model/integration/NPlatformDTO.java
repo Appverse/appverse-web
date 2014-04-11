@@ -33,7 +33,7 @@ import javax.persistence.*;
 public class NPlatformDTO extends AbstractIntegrationAuditedJPABean {
 
 
-    private NPlatformTypeDTO nPlatformTypeDTO;
+    private NPlatformTypeDTO nPlatformType;
     private String appVersion;
     private String alias;
     private String platformId;
@@ -59,8 +59,8 @@ public class NPlatformDTO extends AbstractIntegrationAuditedJPABean {
 
     @ManyToOne(cascade = { CascadeType.REFRESH })
     @JoinColumn(name = "NPLATFORMTYPE_ID")
-    public NPlatformTypeDTO getnPlatformTypeDTO() {
-        return nPlatformTypeDTO;
+    public NPlatformTypeDTO getNotPlatformType() {
+        return nPlatformType;
     }
 
     @Column(nullable = false, length = 40)
@@ -94,8 +94,8 @@ public class NPlatformDTO extends AbstractIntegrationAuditedJPABean {
         this.alias = alias;
     }
 
-    public void setnPlatformTypeDTO(NPlatformTypeDTO nPlatformTypeDTO) {
-        this.nPlatformTypeDTO = nPlatformTypeDTO;
+    public void setNotPlatformType(NPlatformTypeDTO nPlatformType) {
+        this.nPlatformType = nPlatformType;
     }
 
     public void setAppVersion(String appVersion) {
