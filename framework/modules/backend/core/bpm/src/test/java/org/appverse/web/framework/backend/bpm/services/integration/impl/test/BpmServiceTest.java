@@ -27,6 +27,7 @@ import org.appverse.web.framework.backend.bpm.services.integration.IBpmService;
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance;
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance;
 import org.bonitasoft.engine.bpm.process.ProcessInstance;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,7 @@ public class BpmServiceTest {
 
 
     @Test
+    @Ignore //Tests won't work if bonita is not started.
     public void testGetProcessAPI() throws Exception {
         assertNotNull(bpmService);
         bpmService.login(userName, password);
