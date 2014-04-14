@@ -23,6 +23,7 @@
  */
 package org.appverse.web.framework.backend.frontfacade.gxt.application;
 
+import org.appverse.web.framework.backend.api.helpers.security.XSSSecurityFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.controllers.FileUploadController;
 import org.appverse.web.framework.backend.frontfacade.gxt.controllers.GwtRpcController;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
@@ -40,7 +41,7 @@ import org.glassfish.jersey.server.ResourceConfig;
  */
 public class JerseyInitRpcApplication extends ResourceConfig {
     public JerseyInitRpcApplication() {
-        super(GwtRpcController.class, FileUploadController.class, MultiPartFeature.class);
+        super(GwtRpcController.class, FileUploadController.class, MultiPartFeature.class, XSSSecurityFilter.class);
         //packages("org.appverse.web.framework.backend.frontfacade.gxt.controllers");
     }
 }

@@ -21,13 +21,13 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.api.helpers.json;
+package org.appverse.web.framework.backend.api.helpers.security;
 
-import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.owasp.esapi.ESAPI;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -39,11 +39,12 @@ import java.util.Map;
 /**
  * A Request Filter to filter out possible XSS attacks in the request query parameters or headers.
  */
+
 public class XSSSecurityFilter implements ContainerRequestFilter
 {
     //private static final Logger LOG = LoggerFactory.getLogger(XSSSecurityFilter.class);
-    @AutowiredLogger
-    private Logger logger;
+    //@AutowiredLogger
+    private Logger logger = LoggerFactory.getLogger(XSSSecurityFilter.class);
 
     /**
      * @see javax.ws.rs.container.ContainerRequestFilter#filter(javax.ws.rs.container.ContainerRequestContext)
@@ -57,7 +58,6 @@ public class XSSSecurityFilter implements ContainerRequestFilter
         // Clean the headers
         cleanParams( request.getHeaders() );
 
-        //TODO... a part of waiting response from Alberto.... test this filter to see what reallly happens with XSS...
         // Clean the cookies
         //cleanParams( request.getCookieNameValueMap() );
 
@@ -69,7 +69,7 @@ public class XSSSecurityFilter implements ContainerRequestFilter
      */
     private void cleanParams( MultivaluedMap<String, String> parameters )
     {
-        logger.debug( "Checking for XSS Vulnerabilities: {}", parameters );
+        logger.debug("Checking for XSS Vulnerabilities: {}", parameters);
 
         for( Map.Entry<String, List<String>> params : parameters.entrySet() )
         {

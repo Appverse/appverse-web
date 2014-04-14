@@ -33,6 +33,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.module.SimpleModule;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
@@ -47,19 +48,18 @@ import java.lang.reflect.Field;
 @Provider
 public class JacksonContextResolver implements ContextResolver<ObjectMapper> {
 
-    //TODO Investigate why logger is not being injected, so it is always null.
-    @AutowiredLogger
-    private static Logger logger;
+    private static Logger logger = LoggerFactory.getLogger(JacksonContextResolver.class);
 
     @Override
     public ObjectMapper getContext(Class<?> aClass) {
-        /*if( logger.isDebugEnabled()) {
+        if( logger.isDebugEnabled()) {
             logger.debug("Using Appverse JacksonContextResolver.");
-        }*/
-        System.out.println("Using Appverse JacksonContextResolver.");
+        }
         //
-        //TODO -> aClass is the Class for which Jackson is requesting a mapper.
-        //        using introspection/annotations, here we can decide if removing all html tags using JSONStringXSSDeserializer, or use a more relaxed deserializer....
+        //NICETOHAVE-> aClass is the Class for which Jackson is requesting a mapper.
+        //using introspection/annotations, here we can decide if removing all html tags using JSONStringXSSDeserializer,
+        // or use a more relaxed deserializer....
+        //This way, by default all html code will be simply ignored, and only allowed when specific annotation is found.
                   /*
         Field[] fields = aClass.getDeclaredFields();
         for(Field field: fields) {

@@ -32,6 +32,8 @@ import org.jsoup.safety.Whitelist;
 import org.owasp.esapi.ESAPI;
 import org.owasp.esapi.Encoder;
 import org.owasp.esapi.reference.DefaultEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Date;
@@ -40,8 +42,9 @@ import java.util.Date;
  * This class is used by Appverse JacksonContextResolver to deserialize JSON String values.
  */
 public class JSONStringXSSDeserializer extends JsonDeserializer<String> {
+    private static Logger logger = LoggerFactory.getLogger(JSONStringXSSDeserializer.class);
 
-	@Override
+    @Override
 	public String deserialize(JsonParser jp, DeserializationContext ctxt)
 			throws IOException, JsonProcessingException {
 
