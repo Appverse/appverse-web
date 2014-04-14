@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -99,6 +99,18 @@
             <name>Sergi Lanau Rodríguez</name>
             <email>sergi@lanau.net</email>
             <url>http://www.lanau.net</url>
+            <organization>Appverse</organization>
+            <organizationUrl>http://appverse.org</organizationUrl>
+            <roles>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+            <timezone>Europe/Andorra</timezone>
+        </developer>
+        <developer>
+            <id>mrestivill</id>
+            <name>Marc Rodríguez Estivill</name>
+            <email>mrodriguezestivill@gmail.com</email>
             <organization>Appverse</organization>
             <organizationUrl>http://appverse.org</organizationUrl>
             <roles>
@@ -232,9 +244,9 @@
         <!-- end -->
         <!-- Java Apple Push Notification Service Library -->
         <dependency>
-            <groupId>com.googlecode.javapns</groupId>
-            <artifactId>JavaPNS</artifactId>
-            <version>2.2</version>
+            <groupId>com.github.fernandospr</groupId>
+            <artifactId>javapns-jdk16</artifactId>
+            <version>2.2.1</version>
         </dependency>
         <dependency>
             <groupId>com.notnoop.apns</groupId>
