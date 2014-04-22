@@ -23,12 +23,15 @@
  */
 package org.appverse.web.framework.backend.bpm.services.integration.impl.test;
 
+import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.bpm.services.integration.IBpmService;
+import org.bonitasoft.engine.bpm.data.DataDefinition;
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance;
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance;
 import org.bonitasoft.engine.bpm.process.ProcessInstance;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.support.GenericApplicationContext;
@@ -56,6 +59,9 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 public class BpmServiceTest {
+    
+    @AutowiredLogger
+    private static Logger logger;
 
     @Autowired
     IBpmService bpmService;
@@ -85,6 +91,7 @@ public class BpmServiceTest {
         bpmService.login(userName, password);
 
         long processInstanceId = bpmService.createCase("Onboarding","1.0", new HashMap<String, Object>());
+
         //bpmService.test("Onboarding","1.0","", 0, 100);
 
         //this piece of code assigns all possible tasks to the current user.
@@ -94,6 +101,9 @@ public class BpmServiceTest {
             activityInstances = bpmService.getActivityInstancesByProcesInstance(processInstanceId);
             if( activityInstances != null && activityInstances.size()> 0) {
                 for( ActivityInstance activityInstance : activityInstances) {
+                    List<DataDefinition> data = bpmService.getDataDefinitionsByActivity("Onboarding", "1.0", activityInstance.getName(), 1, 10);
+                    logger.info("data {}",data);
+
                     bpmService.assignTaskToCurrentUser(activityInstance.getId());
                     bpmService.executeTaskFlowNode(activityInstance.getId());
                 }
@@ -102,7 +112,7 @@ public class BpmServiceTest {
         //Thread.sleep(2000);
         /*
         List<HumanTaskInstance> humanTaskInstances= bpmService.getHumanTaskInstances();
-        System.out.println("There are "+(humanTaskInstances != null?humanTaskInstances.size():0)+" human tasks for William.");
+        logger.info("There are "+(humanTaskInstances != null?humanTaskInstances.size():0)+" human tasks for William.");
         for( HumanTaskInstance humanTaskInstance: humanTaskInstances) {
             bpmService.executeTaskFlowNode(humanTaskInstance.getId());
         }
@@ -116,11 +126,11 @@ public class BpmServiceTest {
         //bpmService.getActivityInstancesByProcesInstance(4);
 
 
-        //System.out.println("Going to execute Activity 18");
+        //logger.info("Going to execute Activity 18");
         //bpmService.test("Onboarding", "1.0", "Register new employee", 0, 100);
-        //System.out.println("done.");
+        //logger.info("done.");
         //bpmService.getActivityInstancesByProcesInstance(9);
-        //System.out.println("done.");
+        //logger.info("done.");
         //Process deployed id[4] name [Onboarding] description [] version [1.0]
         //Activity [18]Name [Register new employee]
 
