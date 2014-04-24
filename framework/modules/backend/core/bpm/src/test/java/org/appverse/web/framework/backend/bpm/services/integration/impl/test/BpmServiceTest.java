@@ -27,6 +27,7 @@ import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.bpm.services.integration.IBpmService;
 import org.bonitasoft.engine.bpm.data.DataDefinition;
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance;
+import org.bonitasoft.engine.bpm.flownode.FlowNodeInstance;
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance;
 import org.bonitasoft.engine.bpm.process.ProcessInstance;
 import org.junit.Test;
@@ -46,10 +47,12 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 @ContextConfiguration(locations = { "classpath:/spring/application-config.xml" })
 //@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
@@ -83,65 +86,89 @@ public class BpmServiceTest {
             }
         }
     }
+    @Test(expected = IllegalStateException.class)
+    public void testLoginException() throws Exception{
+        bpmService.executeTaskFlowNode(1L);
 
+    }
 
     @Test
     public void testGetProcessAPI() throws Exception {
         assertNotNull(bpmService);
         bpmService.login(userName, password);
+        try {
+            long processInstanceId = bpmService.createCase("Onboarding", "1.0", null);
 
-        long processInstanceId = bpmService.createCase("Onboarding","1.0", new HashMap<String, Object>());
+            List<ActivityInstance> activityInstances = null;
+            do {
+                Thread.sleep(1000);
+                activityInstances = bpmService.getActivityInstancesByProcesInstance(processInstanceId);
+                if (activityInstances != null && activityInstances.size() > 0) {
+                    for (ActivityInstance activityInstance : activityInstances) {
+                        List<DataDefinition> data = bpmService.getDataDefinitionsByActivity("Onboarding", "1.0", activityInstance.getName(), 0, 10);
+                        if (data.size() != 0) {
+                            for (DataDefinition field : data) {
+                                logger.info("data: '{}' type:'{}'", field.getName(), field.getClassName());
+                            }
 
-        //bpmService.test("Onboarding","1.0","", 0, 100);
+                        } else {
+                            logger.info("data: no data.");
+                        }
 
-        //this piece of code assigns all possible tasks to the current user.
-        List<ActivityInstance> activityInstances = null;
-        do {
-            Thread.sleep(1000);
-            activityInstances = bpmService.getActivityInstancesByProcesInstance(processInstanceId);
-            if( activityInstances != null && activityInstances.size()> 0) {
-                for( ActivityInstance activityInstance : activityInstances) {
-                    List<DataDefinition> data = bpmService.getDataDefinitionsByActivity("Onboarding", "1.0", activityInstance.getName(), 1, 10);
-                    logger.info("data {}",data);
-
-                    bpmService.assignTaskToCurrentUser(activityInstance.getId());
-                    bpmService.executeTaskFlowNode(activityInstance.getId());
+                        bpmService.assignTaskToCurrentUser(activityInstance.getId());
+                        bpmService.executeTaskFlowNode(activityInstance.getId());
+                    }
                 }
-            }
-        } while( activityInstances != null && activityInstances.size()>0 );
-        //Thread.sleep(2000);
-        /*
-        List<HumanTaskInstance> humanTaskInstances= bpmService.getHumanTaskInstances();
-        logger.info("There are "+(humanTaskInstances != null?humanTaskInstances.size():0)+" human tasks for William.");
-        for( HumanTaskInstance humanTaskInstance: humanTaskInstances) {
-            bpmService.executeTaskFlowNode(humanTaskInstance.getId());
+            } while (activityInstances != null && activityInstances.size() > 0);
+        }finally {
+            bpmService.logout();
         }
-        */
-        //bpmService.getActivityInstancesByProcesInstance(4);
+    }
+    @Test
+    public void testGetProcessAPIOnMultipleSessions() throws Exception {
+        assertNotNull(bpmService);
+        bpmService.login(userName, password);
+        try {
+            //long processInstanceId = bpmService.createCase("Onboarding","1.0", null);
+            long processDefinitionId = bpmService.getProcessDefinitionIdByNameVersion("Onboarding", "1.0");
+            List<HumanTaskInstance> list = bpmService.obtainCurrentFlows(processDefinitionId, 0, Integer.MAX_VALUE);
+            if (list.size() == 0) {
+                logger.info("no pending process found");
+            }
+            for (HumanTaskInstance element : list) {
+                logger.info("obtain old process:{}", element.getName());
+                long processInstanceId = element.getFlownodeDefinitionId();
 
-        //bpmService.addCommentToProcessInstance(3, "executing task 6 from junit using Java API");
-        //bpmService.assignTaskToCurrentUser(67);
-        //bpmService.executeTaskFlowNode(67);
-        //Thread.sleep(2000); //needed to get a refreshed status of Activity instances
-        //bpmService.getActivityInstancesByProcesInstance(4);
+                //bpmService.test("Onboarding","1.0","", 0, 100);
 
+                //this piece of code assigns all possible tasks to the current user.
+                List<ActivityInstance> activityInstances = null;
+                do {
+                    Thread.sleep(1000);
+                    activityInstances = bpmService.getActivityInstancesByProcesInstance(processInstanceId);
+                    if (activityInstances != null && activityInstances.size() > 0) {
+                        for (ActivityInstance activityInstance : activityInstances) {
+                            List<DataDefinition> data = bpmService.getDataDefinitionsByActivity("Onboarding", "1.0", activityInstance.getName(), 0, 10);
+                            if (data.size() != 0) {
+                                for (DataDefinition field : data) {
+                                    logger.info("data: '{}' type:'{}'", field.getName(), field.getClassName());
 
-        //logger.info("Going to execute Activity 18");
-        //bpmService.test("Onboarding", "1.0", "Register new employee", 0, 100);
-        //logger.info("done.");
-        //bpmService.getActivityInstancesByProcesInstance(9);
-        //logger.info("done.");
-        //Process deployed id[4] name [Onboarding] description [] version [1.0]
-        //Activity [18]Name [Register new employee]
+                                }
 
-        //long processInstanceId = bpmService.createCase("Onboarding","1.0", new HashMap<String, Object>());
-        //bpmService.getProcessInstancesByProcessDefinition("Onboarding", "1.0", 0, 100);
-        //bpmService.test(9);
-        //bpmService.test(processInstanceId);
-        //assertNotNull(lDeployments);
-        bpmService.logout();
-        //ProcessAPI processAPI = bpmService.getProcessAPI(userName, password);
-        //assertNotNull(processAPI);
+                            } else {
+                                logger.info("data: no data.");
+                            }
+
+                            bpmService.assignTaskToCurrentUser(activityInstance.getId());
+                            bpmService.executeTaskFlowNode(activityInstance.getId());
+                        }
+                    }
+                } while (activityInstances != null && activityInstances.size() > 0);
+
+            }
+        }finally {
+            bpmService.logout();
+        }
     }
 
 }
