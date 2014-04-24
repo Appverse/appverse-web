@@ -23,22 +23,22 @@
  */
 package org.appverse.web.framework.backend.bpm.services.integration;
 
-import org.bonitasoft.engine.api.ProcessAPI;
+
 import org.bonitasoft.engine.bpm.data.DataDefinition;
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance;
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance;
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo;
 import org.bonitasoft.engine.bpm.process.ProcessInstance;
-import org.bonitasoft.engine.session.APISession;
 
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 public interface IBpmService {
 
-    public void login(String userName, String password) throws Exception;
-
-    public void logout() throws Exception;
+    void login(String userName, String password) throws Exception;
+    void logout() throws Exception;
 
     /**
      * Lists the process instances of a specified process definition for current user
@@ -49,26 +49,28 @@ public interface IBpmService {
      * @return
      * @throws Exception
      */
-    public List<ProcessInstance> getProcessInstancesByProcessDefinition(String processDefinitionName, String processVersion, int start, int maxRecords) throws Exception;
 
-    public List<ProcessInstance> getProcessInstancesByProcessDefinition(long processDefinitionId, int start, int maxRecords) throws Exception;
+    List<HumanTaskInstance> obtainCurrentFlows(long processDefinitionId, int start, int maxRecords) throws Exception;
+    List<ProcessInstance> getProcessInstancesByProcessDefinition(String processDefinitionName, String processVersion, int start, int maxRecords) throws Exception;
 
-    public List<ProcessDeploymentInfo> getDeployedProcesses() throws Exception;
+    List<ProcessInstance> getProcessInstancesByProcessDefinition(long processDefinitionId, int start, int maxRecords) throws Exception;
 
-    public long getProcessDefinitionIdByNameVersion(String processDefinitionName, String processVersion) throws Exception;
+    List<ProcessDeploymentInfo> getDeployedProcesses() throws Exception;
 
-    public List<DataDefinition> getDataDefinitionsByActivity(String processDefinitionName,
+    long getProcessDefinitionIdByNameVersion(String processDefinitionName, String processVersion) throws Exception;
+
+    List<DataDefinition> getDataDefinitionsByActivity(String processDefinitionName,
                                                              String processVersion,
                                                              String activityName,
                                                              int startIndex, int maxResults) throws Exception;
 
-    public List<DataDefinition> getDataDefinitionsByProcessDefinition(String processDefinitionName,
+    List<DataDefinition> getDataDefinitionsByProcessDefinition(String processDefinitionName,
                                                                       String processVersion,
                                                                       int startIndex, int maxResults) throws Exception;
 
-    public long createCase(long processDefinitionId, Map<String, Object> variables) throws Exception;
+    long createCase(long processDefinitionId, Map<String, Serializable> variables) throws Exception;
 
-    public long createCase(String processDefinitionName, String processVersion, Map<String, Object> variables) throws Exception;
+    long createCase(String processDefinitionName, String processVersion, Map<String, Serializable> variables) throws Exception;
 
     /**
      * Retrieve a list of Activity Instances by process instance id.
@@ -77,7 +79,7 @@ public interface IBpmService {
      * @return
      * @throws Exception
      */
-    public List<ActivityInstance> getActivityInstancesByProcesInstance(long processInstanceId) throws Exception;
+    List<ActivityInstance> getActivityInstancesByProcesInstance(long processInstanceId) throws Exception;
 
     /**
      * Retrieves a list of available Human tasks.
@@ -85,21 +87,24 @@ public interface IBpmService {
      * @return
      * @throws Exception
      */
-    public List<HumanTaskInstance> getHumanTaskInstances() throws Exception;
+    List<HumanTaskInstance> getHumanTaskInstances() throws Exception;
 
 
-    public void assignTaskToUser(long taskId, long userId) throws Exception;
+    void assignTaskToUser(long taskId, long userId) throws Exception;
 
-    public void assignTaskToCurrentUser(long taskId) throws Exception;
+    void assignTaskToCurrentUser(long taskId) throws Exception;
 
-    public void executeTaskFlowNode(long taskId) throws Exception;
+    void executeTaskFlowNode(long taskId) throws Exception;
+    void executeTaskFlowNode(long flowNodeId, Map<String,Serializable> variables) throws Exception;
+    void executeTaskFlowNode(long flowNodeId, Map<String,Serializable> variables, Map<String,Object> documents) throws Exception;
 
-    public void addCommentToProcessInstance(long processInstanceId, String comment) throws Exception;
+
+    void addCommentToProcessInstance(long processInstanceId, String comment) throws Exception;
 
     //public ProcessAPI getProcessAPI(APISession session, String userName, String password) throws Exception;
 
     //public List<ProcessDeploymentInfo> get
 
-    public void test(String processDefinitionName, String processVersion, String activityName, int startIndex, int maxResults) throws Exception;
-    public void test(long processInstanceId) throws Exception;
+    void test(String processDefinitionName, String processVersion, String activityName, int startIndex, int maxResults) throws Exception;
+    void test(long processInstanceId) throws Exception;
 }
