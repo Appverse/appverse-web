@@ -185,7 +185,7 @@
 			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
 			<artifactId>appverse-web-modules-backend-core-api</artifactId>
 		</dependency>
-		<!-- In this case is not included cause we are using a JEE container --> 
+		 
 		<dependency> 
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-jms_1.1_spec</artifactId>
