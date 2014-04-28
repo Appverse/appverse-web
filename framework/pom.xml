@@ -417,6 +417,12 @@
 				<version>${framework.version}</version>
 			</dependency>
 
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.core.bpm</groupId>
+                <artifactId>appverse-web-modules-backend-core-bpm</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.frontend.gwt.theme</groupId>
 				<artifactId>appverse-web-modules-frontend-gwt-theme</artifactId>
