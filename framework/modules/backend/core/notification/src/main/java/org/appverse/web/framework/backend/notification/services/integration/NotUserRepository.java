@@ -28,5 +28,6 @@ import org.appverse.web.framework.backend.persistence.services.integration.IJPAP
 
 public interface NotUserRepository extends IJPAPersistenceService<NUserDTO> {
     //add here convenience methods for working with NUserDTO
-    public long createUser(NUserDTO nUserDTO) throws Exception;
+    long createUser(NUserDTO nUserDTO) throws Exception;
+    NUserDTO loadUserByUserId(final String username) throws Exception;
 }

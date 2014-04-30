@@ -26,12 +26,16 @@ package org.appverse.web.framework.backend.notification.services.integration.imp
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.notification.model.integration.NUserDTO;
 import org.appverse.web.framework.backend.notification.services.integration.NotUserRepository;
+import org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback;
 import org.appverse.web.framework.backend.persistence.services.integration.impl.live.JPAPersistenceService;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
+
 import javax.persistence.EntityManager;
 
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository("notUserRepository")
 public class NotUserRepositoryImpl extends JPAPersistenceService<NUserDTO>
@@ -47,5 +51,21 @@ public class NotUserRepositoryImpl extends JPAPersistenceService<NUserDTO>
     @Override
     public long createUser(NUserDTO nUserDTO) throws Exception{
         return persist(nUserDTO);
+    }
+
+    public NUserDTO loadUserByUserId(final String username) throws Exception {
+        final StringBuilder queryString = new StringBuilder();
+        if (!StringUtils.isEmpty(username)){
+            queryString.append("select user from NUserDTO user where user.userId='")
+                    .append(username).append("'");
+            final QueryJpaCallback<NUserDTO> query = new QueryJpaCallback<NUserDTO>(
+                    queryString.toString(), false);
+            List<NUserDTO> list = retrieveList(query);
+
+            if (list != null && list.size() > 0) {
+                return list.get(0);
+            }
+        }
+        return null;
     }
 }
