@@ -24,6 +24,7 @@
 
 package org.appverse.web.framework.backend.rest.services.integration.impl.live;
 
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -123,6 +124,37 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			object = builder.get(genericType);
 
 		return object;
+	}
+
+	// Binary method
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveInputStream(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+	 */
+	@Override
+	public InputStream retrieveInputStream(WebTarget webClient, final String idName, final Long id,
+			final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+			throws Exception {
+		if (queryParams != null)
+			webClient = applyQuery(webClient, queryParams);
+
+		if (id != null && idName != null)
+			webClient = webClient.resolveTemplate(idName, id);
+
+		if (pathParams != null)
+			webClient = webClient.resolveTemplates(pathParams);
+
+		Builder builder = webClient.request().accept(MediaType.APPLICATION_OCTET_STREAM_TYPE);
+
+		Method methodGet = Builder.class.getMethod("get");
+
+		Response object = null;
+		if (restCachingManager != null)
+			object = restCachingManager.manageRestCaching(builder, methodGet, null, this,
+					getKey(webClient));
+		else
+			object = builder.get();
+
+		return (InputStream) object.getEntity();
 	}
 
 	/* (non-Javadoc)
@@ -393,7 +425,24 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
-		return builder.post(Entity.entity(object, getMediaType()), genericType);
+		return builder.post(Entity.entity(object, acceptMediaType()), genericType);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insert(javax.ws.rs.client.WebTarget, java.io.InputStream, java.util.Map, java.util.Map)
+	 */
+	@Override
+	public Response insert(WebTarget webClient, final InputStream object,
+			final Map<String, Object> pathParams,
+			final Map<String, Object> queryParams) throws Exception {
+		if (queryParams != null)
+			webClient = applyQuery(webClient, queryParams);
+
+		if (pathParams != null)
+			webClient = webClient.resolveTemplates(pathParams);
+
+		Builder builder = acceptMediaType(webClient.request());
+		return builder.post(Entity.entity(object, MediaType.APPLICATION_OCTET_STREAM_TYPE));
 	}
 
 	/* (non-Javadoc)
@@ -420,7 +469,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
-		Response resp = builder.post(Entity.entity(object, getMediaType()));
+		Response resp = builder.post(Entity.entity(object, acceptMediaType()));
 		return getStatusResult(resp);
 	}
 
@@ -457,7 +506,26 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		};
 
 		Builder builder = acceptMediaType(webClient.request());
-		return builder.put(Entity.entity(object, getMediaType()), genericType);
+		return builder.put(Entity.entity(object, acceptMediaType()), genericType);
+	}
+
+	@Override
+	public Response update(WebTarget webClient, final InputStream object, final String idName,
+			final Long id,
+			final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+			throws Exception {
+
+		if (queryParams != null)
+			webClient = applyQuery(webClient, queryParams);
+
+		if (id != null && idName != null)
+			webClient = webClient.resolveTemplate(idName, id);
+
+		if (pathParams != null)
+			webClient = webClient.resolveTemplates(pathParams);
+
+		Builder builder = acceptMediaType(webClient.request());
+		return builder.put(Entity.entity(object, MediaType.APPLICATION_OCTET_STREAM_TYPE));
 	}
 
 	/* (non-Javadoc)
@@ -490,7 +558,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 
 		Builder builder = acceptMediaType(webClient.request());
 
-		Response resp = builder.put(Entity.entity(object, getMediaType()));
+		Response resp = builder.put(Entity.entity(object, acceptMediaType()));
 		return getStatusResult(resp);
 
 	}
@@ -576,14 +644,14 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 	 */
 	protected Invocation.Builder acceptMediaType(final Invocation.Builder builder)
 	{
-		return builder.accept(getMediaType());
+		return builder.accept(acceptMediaType());
 	}
 
 	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#getMediaType()
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#acceptMediaType()
 	 */
 	@Override
-	public String getMediaType()
+	public String acceptMediaType()
 	{
 		return MediaType.APPLICATION_JSON;
 	}

@@ -23,6 +23,7 @@
  */
 package org.appverse.web.framework.backend.rest.services.integration;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -91,6 +92,33 @@ public interface IRestPersistenceService<T extends AbstractIntegrationBean> {
 	 * @throws Exception
 	 */
 	T retrieve(WebTarget webClient, String idName, Long id, Map<String, Object> pathParams,
+			Map<String, Object> queryParams)
+			throws Exception;
+
+	// GET INPUTSTREAM METHODS
+	//Useful to retrieve binary objects (InputStream)
+
+	/**
+	 * This method executes GET method call against REST service.
+	 * Usually used to retrieve/read resource.
+	 * 
+	 * This method do not use acceptMediaType method. Accept MediaType is ALWAYS OCTECT_STREAM
+	 * 
+	 * "idName" and "id" are provided as convenience parameters when using GET methods. 
+	 *  
+	 * "pathParams" Map allows user to perform every template path resolution is needed.
+	 * "queryParams" elements are included as parameters in request.    
+	 *
+	 * @param webClient
+	 * @param idName
+	 * @param id
+	 * @param pathParams
+	 * @param queryParams
+	 * @return Response JAX-RS response.
+	 * @throws Exception
+	 */
+	InputStream retrieveInputStream(WebTarget webClient, String idName, Long id,
+			Map<String, Object> pathParams,
 			Map<String, Object> queryParams)
 			throws Exception;
 
@@ -327,6 +355,29 @@ public interface IRestPersistenceService<T extends AbstractIntegrationBean> {
 	T insert(WebTarget webClient, T object, Map<String, Object> pathParams,
 			Map<String, Object> queryParams) throws Exception;
 
+	// POST INPUTSTREAM METHOD
+	//Useful to send binary objects (InputStream)
+
+	/**
+	 * This method executes POST  method call against REST service.
+	 * Usually used to insert an InputStream (binary object)
+	 * 
+	 * "idName" and "id" are provided as convenience parameters when using GET methods. 
+	 *  
+	 * "pathParams" Map allows user to perform every template path resolution is needed.
+	 * "queryParams" elements are included as parameters in request.    
+	 *
+	 * @param webClient
+	 * @param object
+	 * @param pathParams
+	 * @param queryParams
+	 * @return Response JAX-RS response.
+	 * @throws Exception
+	 */
+	Response insert(WebTarget webClient, InputStream object,
+			Map<String, Object> pathParams,
+			Map<String, Object> queryParams) throws Exception;
+
 	/**
 	 * This method executes POST method call against REST service.
 	 * Usually used to insert.
@@ -393,6 +444,31 @@ public interface IRestPersistenceService<T extends AbstractIntegrationBean> {
 	 * @throws Exception
 	 */
 	T update(WebTarget webClient, T object, String idName, Long id, Map<String, Object> pathParams,
+			Map<String, Object> queryParams) throws Exception;
+
+	// PUT INPUTSTREAM METHODS
+	//Useful to send binary objects (InputStream)
+
+	/**
+	 * This method executes PUT  method call against REST service.
+	 * Usually used to update a binary resource 
+	 * 
+	 * "idName" and "id" are provided as convenience parameters when using GET methods. 
+	 *  
+	 * "pathParams" Map allows user to perform every template path resolution is needed.
+	 * "queryParams" elements are included as parameters in request.    
+	 *
+	 * @param webClient
+	 * @param object
+	 * @param idName
+	 * @param id
+	 * @param pathParams
+	 * @param queryParams
+	 * @return Response JAX-RS response.
+	 * @throws Exception
+	 */
+	Response update(WebTarget webClient, InputStream object, String idName, Long id,
+			Map<String, Object> pathParams,
 			Map<String, Object> queryParams) throws Exception;
 
 	/**
@@ -485,11 +561,11 @@ public interface IRestPersistenceService<T extends AbstractIntegrationBean> {
 	List<T> getTypeSafeList();
 
 	/**
-	 * Overwrite to define default media type of the Service Implementacion ( JSON, XML, text... )
+	 * Overwrite to define consume media type of the Service Implementacion ( JSON, XML, text... )
 	 * JSON is the default value
 	 * 
 	 * @return
 	 */
-	String getMediaType();
+	String acceptMediaType();
 
 }
