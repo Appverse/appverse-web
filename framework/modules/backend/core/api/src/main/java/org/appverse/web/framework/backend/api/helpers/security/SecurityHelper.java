@@ -84,10 +84,15 @@ public class SecurityHelper {
      * @param request
      * @throws Exception
      */
-    @SuppressWarnings("unused")
     public static void checkXSRFToken(final HttpServletRequest request)
             throws Exception {
         String requestValue = request.getHeader(XSRF_TOKEN_NAME);
+
+        // If request value is null, we check if the token is passed as a parameter (necessary for file uploads, for instance)
+        if (requestValue == null){
+            requestValue = request.getParameter(XSRF_TOKEN_NAME);
+        }
+
         String sessionValue = (String) request.getSession().getAttribute(
                 XSRF_TOKEN_NAME);
         if (requestValue == null || sessionValue == null || !sessionValue.equals(requestValue)) {
