@@ -89,6 +89,7 @@ Content-Disposition: form-data; name="maxFileSize"
 			@PathParam("servicemethodname") String servicemethodname,
 			@FormDataParam("file") InputStream stream,
 			@FormDataParam("hiddenFileName") String hiddenFileName,
+            @FormDataParam(SecurityHelper.XSRF_TOKEN_NAME) String xsrfToken,
 			@FormDataParam("hiddenMediaCategory") String hiddenMediaCategory,
 			@FormDataParam("maxFileSize") String maxSize,
 			@Context HttpServletRequest request,
@@ -99,7 +100,7 @@ Content-Disposition: form-data; name="maxFileSize"
 		parameters.put("hiddenMediaCategory", hiddenMediaCategory);
 		parameters.put("maxFileSize", maxSize);
 
-		SecurityHelper.checkXSRFToken(request);
+		SecurityHelper.checkXSRFToken(xsrfToken, request);
 
 		serviceName.set(servicemethodname.substring(0, servicemethodname.lastIndexOf(".")));
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
