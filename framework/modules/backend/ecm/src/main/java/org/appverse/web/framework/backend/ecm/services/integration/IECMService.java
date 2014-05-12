@@ -21,43 +21,10 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package test.app.web.framework.backend.ecm;
+package org.appverse.web.framework.backend.ecm.services.integration;
 
-import org.apache.chemistry.opencmis.client.api.*;
-import org.appverse.web.framework.backend.api.helpers.test.AbstractTest;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.appverse.web.framework.backend.ecm.model.integration.EcmIntegrationBean;
 
-public class Test2 extends AbstractTest {
+public interface IECMService<T extends EcmIntegrationBean> {
 
-    @Autowired
-    Session cmisSession;
-
-    @Autowired
-    Session cmisSessionRepo2;
-
-
-    @Test
-    public void test() {
-        
-        System.out.println(Test2.class.getName() + " started");
-
-        // Get everything in the root folder and print the names of the objects
-        Folder root = cmisSession.getRootFolder();
-        ItemIterable<CmisObject> children = root.getChildren();
-        System.out.println("Found the following objects in the root folder for repository 1 :-");
-        for (CmisObject o : children) {
-            System.out.println(o.getName());
-        }
-
-        // Get everything in the root folder and print the names of the objects
-        root = cmisSessionRepo2.getRootFolder();
-        children = root.getChildren();
-        System.out.println("Found the following objects in the root folder for repository 2 :-");
-        for (CmisObject o : children) {
-            System.out.println(o.getName());
-        }
-
-        System.out.println(Test2.class.getName() + " ended");
-    }
 }
