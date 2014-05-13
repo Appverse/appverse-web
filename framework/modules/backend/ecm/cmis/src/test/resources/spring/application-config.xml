@@ -49,7 +49,7 @@
 		base-package="org.appverse.web.framework.backend.ecm" />
 
 
-    <bean id="cmisSession" class="org.appverse.web.framework.backend.ecm.CmisSessionFactoryBean">
+    <bean id="cmisSession" class="org.appverse.web.framework.backend.cmis.CmisSessionFactoryBean">
         <property name="cmisSessionInitProperties">
             <!-- See reference at:
                 org.apache.chemistry.opencmis.commons.SessionParameter
@@ -62,7 +62,7 @@
         </property>
     </bean>
 
-    <bean id="cmisSessionRepo2" class="org.appverse.web.framework.backend.ecm.CmisSessionFactoryBean">
+    <bean id="cmisSessionRepo2" class="org.appverse.web.framework.backend.cmis.CmisSessionFactoryBean">
         <property name="cmisSessionInitProperties">
             <!-- See reference at:
                 org.apache.chemistry.opencmis.commons.SessionParameter
