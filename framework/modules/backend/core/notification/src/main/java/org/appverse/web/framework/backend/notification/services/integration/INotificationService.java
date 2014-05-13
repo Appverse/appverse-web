@@ -1,12 +1,12 @@
 /*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
- This Source Code Form is subject to the terms of the Appverse Public License
+ This Source Code Form is subject to the terms of the Appverse  License
  Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this
  file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
 
  Redistribution and use in source and binary forms, with or without modification,
- are permitted provided that the conditions of the AppVerse Public License v2.0
+ are permitted provided that the conditions of the AppVerse  License v2.0
  are met.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
@@ -28,24 +28,31 @@ import org.appverse.web.framework.backend.notification.model.integration.NPlatfo
 import org.appverse.web.framework.backend.notification.model.integration.NUserDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface INotificationService {
 
-    public void registerUser(NUserDTO nUserDTO) throws Exception;
+     void registerUser(NUserDTO nUserDTO) throws Exception;
 
-    public void updateUser(NUserDTO nUserDTO) throws Exception;
+     void updateUser(NUserDTO nUserDTO) throws Exception;
 
-    public NUserDTO retrieveUser(String userId) throws Exception;
+     NUserDTO retrieveUser(String userId) throws Exception;
 
-    public void addPlatformToUser(String userId, NPlatformDTO nPlatformDTO) throws Exception;
+     void addPlatformToUser(String userId, NPlatformDTO nPlatformDTO) throws Exception;
 
-    public boolean sendNotification(String userId, List<String> platformId, String body) throws Exception;
+     boolean sendNotification(String userId, List<String> platformId, String body) throws Exception;
 
-    public void updatePlatform(String userId, String platformId, String token) throws Exception;
+     boolean sendNotification(String platform, String token, String body, Map<String,String> params)throws Exception;
 
-    public boolean sendNotification(String platform, String token, String body) throws Exception;
+     boolean sendNotificationByPlatform(String userId, List<NPlatformDTO> nPlatformDTOs, String body) throws Exception;
 
-    public void outputData() throws Exception;
+     boolean sendNotification(String userId, List<String> platformIds, String body, Map<String,String> params) throws Exception;
+
+     void updatePlatform(String userId, String platformId, String token) throws Exception;
+
+     boolean sendNotification(String platform, String token, String body) throws Exception;
+
+     void outputData() throws Exception;
 
 
 }

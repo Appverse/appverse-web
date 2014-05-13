@@ -31,6 +31,7 @@ import com.notnoop.apns.ApnsService;
 import javapns.Push;
 import javapns.communication.exceptions.CommunicationException;
 import javapns.communication.exceptions.KeystoreException;
+import javapns.notification.PushNotificationPayload;
 import javapns.notification.PushedNotification;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter;
@@ -49,6 +50,7 @@ import org.springframework.stereotype.Repository;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Repository("notificationService")
 public class NotificationServiceImpl extends AbstractBusinessService implements INotificationService {
@@ -111,6 +113,11 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
     @Override
     public boolean sendNotification(String userId, List<String> platformIds, String body) throws Exception {
+        return sendNotification(userId,platformIds,body,null);
+    }
+    @Override
+    public boolean sendNotification(String userId, List<String> platformIds, String body, Map<String,String> params) throws Exception {
+        boolean result = false;
         List<NPlatformDTO> nPlatformDTOs = new ArrayList<NPlatformDTO>();
         for( String platId: platformIds) {
             IntegrationDataFilter idf = new IntegrationDataFilter();
@@ -119,10 +126,19 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             nPlatformDTOs.add(nPlatformDTO);
         }
         for( NPlatformDTO platformDTO: nPlatformDTOs) {
-            sendNotification(platformDTO.getNotPlatformType().getName(),platformDTO.getToken(), body);
+            result = sendNotification(platformDTO.getNotPlatformType().getName(),platformDTO.getToken(), body, params);
         }
 
-        return false;
+        return result;
+    }
+
+    @Override
+    public boolean sendNotificationByPlatform(String userId, List<NPlatformDTO> nPlatformDTOs, String body) throws Exception {
+        boolean result = false;
+        for( NPlatformDTO platformDTO: nPlatformDTOs) {
+            result = sendNotification(platformDTO.getNotPlatformType().getName(),platformDTO.getToken(), body);
+        }
+        return result;
     }
 
     @Override
@@ -142,9 +158,13 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
         nPlatformDTO.setToken(token);
         long result = notPlatformRepository.persist(nPlatformDTO);
     }
-
     @Override
     public boolean sendNotification(String platform, String token, String body) throws Exception {
+        return sendNotification(platform,token,body,null);
+    }
+
+    @Override
+    public boolean sendNotification(String platform, String token, String body, Map<String,String> params) throws Exception {
         logger.info("Sending notification to ("+platform+","+token+")");
         checkSenders(platform);
         if ("android".equals(platform)) {
@@ -152,6 +172,12 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
             if (body != null) {
                 build.addData("body", body);
+            }
+            //add special parameters
+            if (params!=null && !params.isEmpty()) {
+                //removes an element body
+                params.remove("body");
+                build.setData(params);
             }
 
             Message msg = build.build();
@@ -166,7 +192,6 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
                 return false;
             }
         } else if ("ios".equals(platform)) {
-            //new code from JAVI -- TODO to be updated... this is just copy/paste.
             String strRelPath = null;
             URL resourceURL = NotificationServiceImpl.class.getResource(appleP12Path);//"/showcase_prod_pns.p12");//(cert.getPem());
             if (resourceURL != null) {
@@ -174,8 +199,20 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             }
 
             try {
-
-                List<PushedNotification> notifications = Push.alert(body, appleP12Path, appleP12Password, true, token);
+                List<PushedNotification> notifications = new ArrayList<PushedNotification>();
+                if (params != null && !params.isEmpty()) {
+                    //create a payload
+                    PushNotificationPayload payload = PushNotificationPayload.complex();
+                    payload.addAlert(body);
+                    //add special parameters
+                    for (Map.Entry<String, String> entry : params.entrySet()) {
+                        payload.addCustomDictionary(entry.getKey(), entry.getValue());
+                    }
+                    //send
+                    notifications = Push.payload(payload, appleP12Path, appleP12Password, true, token);
+                } else{
+                    notifications = Push.alert(body, appleP12Path, appleP12Password, true, token);
+                }
                 //Push.test(strRelPath, "apple2014", true, token);
                 for (PushedNotification notification : notifications) {
                     if (notification.isSuccessful()) {
