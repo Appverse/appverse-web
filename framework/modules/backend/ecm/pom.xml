@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms</groupId>
-		<artifactId>appverse-web-masterpom</artifactId>
-		<version>1.4-SNAPSHOT</version>
-		<relativePath>../../..</relativePath>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
 	</parent>
 
-	<groupId>org.appverse.web.framework.modules.backend.ecm</groupId>
-	<artifactId>appverse-web-modules-backend-ecm</artifactId>
-	<packaging>jar</packaging>
+	<groupId>org.appverse.web.framework.poms.modules.backend.ecm</groupId>
+	<artifactId>appverse-web-modules-backend-ecm-pom</artifactId>
+	<version>1.4-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
-	<name>Appverse Web Framework Modules Backend ECM Module</name>
-	<description>Appverse Web Framework Modules Backend ECM Module</description>
+	<name>Appverse Web Framework Modules Backend ECM POM</name>
+	<description>Appverse Web Framework Modules Backend ECM POM</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2011</inceptionYear>
 
@@ -178,60 +178,10 @@
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
-			<artifactId>appverse-web-modules-backend-core-api</artifactId>
-		</dependency>
+	<modules>
+                <module>core</module>
+		<module>cmis</module>
+                <module>filesystem</module>
+	</modules>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- TODO: Add this to managed depencendies.
-         According to the following link, the open cmis client automatically detects CMIS 1.0 or 1.1
-            http://stackoverflow.com/questions/21148224/cmis-versions-1-0-or-1-1-documentum-and-alfresco-jar-files-and-stuff
-         -->
-        <dependency>
-            <groupId>org.apache.chemistry.opencmis</groupId>
-            <artifactId>chemistry-opencmis-client-impl</artifactId>
-            <version>LATEST</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.chemistry.opencmis</groupId>
-            <artifactId>chemistry-opencmis-server-support</artifactId>
-            <version>LATEST</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-	</dependencies>
 </project>

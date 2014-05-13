@@ -396,6 +396,24 @@
 				<version>${framework.version}</version>
 			</dependency>
 
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.ecm.core</groupId>
+                <artifactId>appverse-web-modules-backend-ecm-core</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.ecm.cmis</groupId>
+                <artifactId>appverse-web-modules-backend-ecm-cmis</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.ecm.filesystem</groupId>
+                <artifactId>appverse-web-modules-backend-ecm-cmis-filesystem</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 				<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
