@@ -21,18 +21,20 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.ecm.cmis.services.integration.integration.impl.live;
+package org.appverse.web.framework.backend.ecm.core.services.integration;
 
-import org.apache.chemistry.opencmis.client.api.Session;
-import org.appverse.web.framework.backend.api.services.integration.AbstractIntegrationService;
-import org.appverse.web.framework.backend.ecm.cmis.services.integration.integration.ICMISService;
-import org.appverse.web.framework.backend.ecm.core.model.integration.EcmIntegrationBean;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 
-public class CMISService<T extends EcmIntegrationBean> extends
-        AbstractIntegrationService<T> implements ICMISService<T> {
+public interface IDocumentService <T extends AbstractIntegrationBean> {
 
-    @Autowired
-    Session cmisSession;
+    void addDocument(String path, T document) throws Exception;
+
+    T retrieveDocument(final String path, final String documentName) throws Exception;
+
+    void moveDocument(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception;
+
+    void removeDocument(final String path, final String documentName) throws Exception;
+
+    void removeFolder(String path) throws Exception;
 
 }
