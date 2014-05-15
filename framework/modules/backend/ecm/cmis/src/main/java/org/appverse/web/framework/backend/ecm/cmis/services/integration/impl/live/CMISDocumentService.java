@@ -16,32 +16,44 @@ import org.slf4j.Logger;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CMISDocumentService extends CMISService<DocumentDTO>
-        implements IDocumentService<DocumentDTO>{
+public class CMISDocumentService<T extends DocumentDTO> extends CMISService<T>
+        implements IDocumentService<T>{
 
     @AutowiredLogger
     private static Logger logger;
 
 
     @Override
-    public void addDocument(String path, DocumentDTO document) throws Exception{
+    public void addDocument(String path, T document) throws Exception{
         Document test = createDocument(path, document);
         FileUtils.printProperties(test);
     }
 
     @Override
-    public DocumentDTO retrieveDocument(final String path,
+    public T retrieveDocument(final String path,
                                       final String fileName) throws Exception {
         Document object = (Document)FileUtils.getObject(path  + fileName, cmisSession);
         ContentStream contentStream = object.getContentStream();
+
+        Class<T> classP = getClassP();
+        T document = classP.newInstance();
+
+        document.setBytes(IOUtils.toByteArray(contentStream.getStream()));
+        document.setFilename(fileName);
+        return document;
+
+/*
         DocumentDTO document = new DocumentDTO();
         document.setBytes(IOUtils.toByteArray(contentStream.getStream()));
         document.setFilename(fileName);
         return document;
+*/
     }
 
     @Override
@@ -122,7 +134,7 @@ public class CMISDocumentService extends CMISService<DocumentDTO>
         return folder;
     }
 
-    private Document createDocument(String path, DocumentDTO document){
+    private Document createDocument(String path, T document){
 
         // Disable cache
         cmisSession.getDefaultContext().setCacheEnabled(false);
@@ -159,4 +171,18 @@ public class CMISDocumentService extends CMISService<DocumentDTO>
 
         return doc;
     }
+
+
+    private Class<T> getClassP() {
+        Class<T> classP = null;
+        final Type type = this.getClass().getGenericSuperclass();
+        if (type instanceof ParameterizedType) {
+            final ParameterizedType pType = (ParameterizedType) type;
+            if (pType.getActualTypeArguments()[0] instanceof Class) {
+                classP = (Class<T>) pType.getActualTypeArguments()[0];
+            }
+        }
+        return classP;
+    }
+
 }
