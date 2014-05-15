@@ -10,7 +10,7 @@ import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundExcept
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.apache.commons.io.IOUtils;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
-import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
+import org.appverse.web.framework.backend.ecm.core.model.integration.AbstractDocumentIntegrationBean;
 import org.appverse.web.framework.backend.ecm.core.services.integration.IDocumentService;
 import org.slf4j.Logger;
 
@@ -22,7 +22,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CMISDocumentService<T extends DocumentDTO> extends CMISService<T>
+public class CMISDocumentService<T extends AbstractDocumentIntegrationBean> extends CMISService<T>
         implements IDocumentService<T>{
 
     @AutowiredLogger
@@ -37,23 +37,18 @@ public class CMISDocumentService<T extends DocumentDTO> extends CMISService<T>
 
     @Override
     public T retrieveDocument(final String path,
-                                      final String fileName) throws Exception {
-        Document object = (Document)FileUtils.getObject(path  + fileName, cmisSession);
+                                      final String contentStreamFileName) throws Exception {
+        Document object = (Document)FileUtils.getObject(path  + contentStreamFileName, cmisSession);
         ContentStream contentStream = object.getContentStream();
 
         Class<T> classP = getClassP();
         T document = classP.newInstance();
 
-        document.setBytes(IOUtils.toByteArray(contentStream.getStream()));
-        document.setFilename(fileName);
+        document.setContentStream(IOUtils.toByteArray(contentStream.getStream()));
+        document.setContentStreamFilename(contentStreamFileName);
+        document.setContentStreamLenght(contentStream.getLength());
+        document.setContentStreamMimeType(contentStream.getMimeType());
         return document;
-
-/*
-        DocumentDTO document = new DocumentDTO();
-        document.setBytes(IOUtils.toByteArray(contentStream.getStream()));
-        document.setFilename(fileName);
-        return document;
-*/
     }
 
     @Override
@@ -147,16 +142,21 @@ public class CMISDocumentService<T extends DocumentDTO> extends CMISService<T>
         // (minimal set: name and object type id)
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
-        properties.put(PropertyIds.NAME, document.getFilename());
+        properties.put(PropertyIds.NAME, document.getContentStreamFilename());
 
         // content
-        InputStream stream = new ByteArrayInputStream(document.getBytes());
-        ContentStream contentStream = new ContentStreamImpl(document.getFilename(), BigInteger.valueOf(document.getBytes().length), document.getMimeType(), stream);
+        String mimeType = document.getContentStreamMimeType();
+        if (mimeType == null){
+            mimeType = document.getMimeTypeFromContentStreamFileName();
+        }
+
+        InputStream stream = new ByteArrayInputStream(document.getContentStream());
+        ContentStream contentStream = new ContentStreamImpl(document.getContentStreamFilename(), BigInteger.valueOf(document.getContentStream().length), mimeType, stream);
 
         // If the document existed already we override it. In order to do so, we have to remove it and we create it again
         Document documentToRemove = null;
         try{
-            documentToRemove = (Document)FileUtils.getObject(path + document.getFilename(), cmisSession);
+            documentToRemove = (Document)FileUtils.getObject(path + document.getContentStreamFilename(), cmisSession);
             documentToRemove.delete();
         }
         catch (CmisObjectNotFoundException e){

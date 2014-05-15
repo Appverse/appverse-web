@@ -24,6 +24,7 @@
 package org.appverse.web.framework.backend.ecm.filesystem.services.integration.impl.live;
 
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
+import org.appverse.web.framework.backend.ecm.core.model.integration.AbstractDocumentIntegrationBean;
 import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
 import org.appverse.web.framework.backend.ecm.core.services.integration.IDocumentService;
 import org.slf4j.Logger;
@@ -31,29 +32,44 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.util.FileSystemUtils;
 
 import java.io.File;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.nio.file.StandardCopyOption;
 
-public class FileSystemDocumentService implements IDocumentService<DocumentDTO> {
+public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean> implements IDocumentService<T> {
 
     @AutowiredLogger
     private static Logger logger;
 
     @Override
-    public void addDocument(String path, DocumentDTO document) throws Exception{
+    public void addDocument(String path, T document) throws Exception{
         File dir = new File(path);
         dir.mkdirs();
-        File out = new File(dir, document.getFilename());
-        FileCopyUtils.copy(document.getBytes(), out);
+        File out = new File(dir, document.getContentStreamFilename());
+        FileCopyUtils.copy(document.getContentStream(), out);
     }
 
     @Override
-    public DocumentDTO retrieveDocument(final String path,
-                                      final String fileName) throws Exception {
-        File file = new File(path + "/" + fileName);
+    public T retrieveDocument(final String path,
+                                      final String contentStreamFileName) throws Exception {
+        File file = new File(path + "/" + contentStreamFileName);
+
+        Class<T> classP = getClassP();
+        T document = classP.newInstance();
+
+        document.setContentStream(FileCopyUtils.copyToByteArray(file));
+        document.setContentStreamFilename(contentStreamFileName);
+        document.setContentStreamLenght(document.getContentStream().length);
+        document.setContentStreamMimeType(document.getMimeTypeFromContentStreamFileName());
+        return document;
+/*
+
+
         DocumentDTO result = new DocumentDTO();
-        result.setBytes(FileCopyUtils.copyToByteArray(file));
-        result.setFilename(file.getName());
+        result.setContentStream(FileCopyUtils.copyToByteArray(file));
+        result.setName(file.getName());
         return result;
+*/
     }
 
     @Override
@@ -100,6 +116,18 @@ public class FileSystemDocumentService implements IDocumentService<DocumentDTO> 
     public void removeFolder(String path) throws Exception {
         File fileToTempDir = new File(path);
         FileSystemUtils.deleteRecursively(fileToTempDir);
+    }
+
+    private Class<T> getClassP() {
+        Class<T> classP = null;
+        final Type type = this.getClass().getGenericSuperclass();
+        if (type instanceof ParameterizedType) {
+            final ParameterizedType pType = (ParameterizedType) type;
+            if (pType.getActualTypeArguments()[0] instanceof Class) {
+                classP = (Class<T>) pType.getActualTypeArguments()[0];
+            }
+        }
+        return classP;
     }
 
 }
