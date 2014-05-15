@@ -41,7 +41,7 @@ public class NPlatformTypeDTO extends AbstractIntegrationAuditedJPABean {
     }
 
 
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false, length = 40, unique = true)
     public String getName() {
         return name;
     }

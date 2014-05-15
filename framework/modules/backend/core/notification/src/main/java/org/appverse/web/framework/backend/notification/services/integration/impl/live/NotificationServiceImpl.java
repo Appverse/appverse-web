@@ -44,16 +44,21 @@ import org.appverse.web.framework.backend.notification.services.integration.NotU
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Repository;
 
 import java.net.URL;
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Repository("notificationService")
-public class NotificationServiceImpl extends AbstractBusinessService implements INotificationService {
+public class NotificationServiceImpl extends AbstractBusinessService implements INotificationService, ResourceLoaderAware {
 
     @AutowiredLogger
     private static Logger logger;
@@ -66,6 +71,8 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
     private Sender googleSender = null;
     private ApnsService appleSender = null;
+
+    private ResourceLoader resourceLoader;
 
     @Value("${google.api.key}")
     private String googleApiKey = "";
@@ -140,6 +147,14 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
         }
         return result;
     }
+    @Override
+    public boolean sendNotificationByPlatform(String userId, List<NPlatformDTO> nPlatformDTOs, String body, Map<String,String> params) throws Exception {
+        boolean result = false;
+        for( NPlatformDTO platformDTO: nPlatformDTOs) {
+            result = sendNotification(platformDTO.getNotPlatformType().getName(),platformDTO.getToken(), body, params);
+        }
+        return result;
+    }
 
     @Override
     public void updatePlatform(String userId, String platformId, String token) throws Exception {
@@ -170,14 +185,14 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
         if ("android".equals(platform)) {
             Message.Builder build = new Message.Builder();
 
-            if (body != null) {
-                build.addData("body", body);
-            }
             //add special parameters
             if (params!=null && !params.isEmpty()) {
                 //removes an element body
                 params.remove("body");
                 build.setData(params);
+            }
+            if (body != null) {
+                build.addData("body", body);
             }
 
             Message msg = build.build();
@@ -193,10 +208,8 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             }
         } else if ("ios".equals(platform)) {
             String strRelPath = null;
-            URL resourceURL = NotificationServiceImpl.class.getResource(appleP12Path);//"/showcase_prod_pns.p12");//(cert.getPem());
-            if (resourceURL != null) {
-                strRelPath = resourceURL.getPath();
-            }
+
+            Resource resource = resourceLoader.getResource(appleP12Path);
 
             try {
                 List<PushedNotification> notifications = new ArrayList<PushedNotification>();
@@ -209,9 +222,9 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
                         payload.addCustomDictionary(entry.getKey(), entry.getValue());
                     }
                     //send
-                    notifications = Push.payload(payload, appleP12Path, appleP12Password, true, token);
+                    notifications = Push.payload(payload, resource.getURL().getPath(), appleP12Password, true, token);
                 } else{
-                    notifications = Push.alert(body, appleP12Path, appleP12Password, true, token);
+                    notifications = Push.alert(body, resource.getURL().getPath(), appleP12Password, true, token);
                 }
                 //Push.test(strRelPath, "apple2014", true, token);
                 for (PushedNotification notification : notifications) {
@@ -257,11 +270,16 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
                 throw new Exception("Apple certificate path not found.");
             }
             logger.info("Creating ios sender with path ["+appleP12Path+"]");
+            Resource resource = resourceLoader.getResource(appleP12Path);
             appleSender = APNS.newService()
-                    .withCert(appleP12Path, appleP12Password)
+                    .withCert(resource.getURL().getPath(), appleP12Password)
                     .withProductionDestination()
                     .build();
         }
     }
 
+    @Override
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
 }

@@ -53,7 +53,7 @@ public class NNotificationTypeDTO extends AbstractIntegrationAuditedJPABean {
         return typeId;
     }
 
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false, length = 40 , unique = true)
     public String getName() {
         return name;
     }

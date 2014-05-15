@@ -57,7 +57,7 @@ public class NPlatformDTO extends AbstractIntegrationAuditedJPABean {
         return enabled;
     }
 
-    @ManyToOne(cascade = { CascadeType.REFRESH })
+    @ManyToOne( optional = false, cascade = { CascadeType.REFRESH })
     @JoinColumn(name = "NPLATFORMTYPE_ID")
     public NPlatformTypeDTO getNotPlatformType() {
         return nPlatformType;

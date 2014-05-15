@@ -23,12 +23,41 @@
  */
 package org.appverse.web.framework.backend.notification.services.integration.impl.live;
 
+import org.appverse.web.framework.backend.notification.model.integration.NPlatformDTO;
 import org.appverse.web.framework.backend.notification.model.integration.NPlatformTypeDTO;
+import org.appverse.web.framework.backend.notification.model.integration.NUserDTO;
 import org.appverse.web.framework.backend.notification.services.integration.NotPlatformTypeRepository;
+import org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback;
 import org.appverse.web.framework.backend.persistence.services.integration.impl.live.JPAPersistenceService;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 @Repository("notPlatformTypeRepository")
 public class NotPlatformTypeRepositoryImpl extends JPAPersistenceService<NPlatformTypeDTO>
         implements NotPlatformTypeRepository {
+
+    public NPlatformTypeDTO loadPlatformTypeByName(final String name) throws Exception {
+        final StringBuilder queryString = new StringBuilder();
+        if (!StringUtils.isEmpty(name)){
+            queryString.append("select platformType from NPlatformTypeDTO platformType where platformType.name='")
+                    .append(name).append("'");
+            final QueryJpaCallback<NPlatformTypeDTO> query = new QueryJpaCallback<NPlatformTypeDTO>(
+                    queryString.toString(), false);
+            List<NPlatformTypeDTO> list = retrieveList(query);
+
+            if (list != null && list.size() > 0) {
+                return list.get(0);
+            }
+        }
+        return null;
+    }
+
+    public void checkPlatformType(NPlatformDTO platformDto)throws Exception{
+        if (platformDto != null && platformDto.getNotPlatformType()!= null && platformDto.getNotPlatformType().getName()!= null) {
+            NPlatformTypeDTO platformType = loadPlatformTypeByName(platformDto.getNotPlatformType().getName());
+            platformDto.setNotPlatformType(platformType);
+        }
+    }
 }

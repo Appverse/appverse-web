@@ -23,6 +23,7 @@
  */
 package org.appverse.web.framework.backend.notification.services.integration;
 
+import org.appverse.web.framework.backend.notification.model.integration.NPlatformDTO;
 import org.appverse.web.framework.backend.notification.model.integration.NPlatformTypeDTO;
 import org.appverse.web.framework.backend.notification.model.integration.NUserDTO;
 import org.appverse.web.framework.backend.persistence.services.integration.IJPAPersistenceService;
@@ -30,4 +31,7 @@ import org.appverse.web.framework.backend.persistence.services.integration.IJPAP
 public interface NotPlatformTypeRepository extends IJPAPersistenceService<NPlatformTypeDTO> {
     //add here convenience methods for working with NUserDTO
     //public long createUser(NUserDTO nUserDTO) throws Exception;
+
+    NPlatformTypeDTO loadPlatformTypeByName(final String name) throws Exception;
+    void checkPlatformType(NPlatformDTO platformDto)throws Exception;
 }

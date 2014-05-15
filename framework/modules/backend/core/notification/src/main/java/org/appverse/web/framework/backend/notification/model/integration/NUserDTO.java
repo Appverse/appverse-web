@@ -73,7 +73,7 @@ public class NUserDTO extends AbstractIntegrationAuditedJPABean {
         return userId;
     }
 
-    @OneToMany(cascade = CascadeType.REFRESH)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "NUSER_NPLATFORM", joinColumns = @JoinColumn(name = "NUSER_ID"), inverseJoinColumns = @JoinColumn(name = "NPLATFORM_ID"))
     public List<NPlatformDTO> getNotPlatforms() {
         return notPlatforms;

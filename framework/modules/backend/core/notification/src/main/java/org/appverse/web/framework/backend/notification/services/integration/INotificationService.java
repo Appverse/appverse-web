@@ -46,7 +46,9 @@ public interface INotificationService {
 
      boolean sendNotificationByPlatform(String userId, List<NPlatformDTO> nPlatformDTOs, String body) throws Exception;
 
-     boolean sendNotification(String userId, List<String> platformIds, String body, Map<String,String> params) throws Exception;
+    boolean sendNotificationByPlatform(String userId, List<NPlatformDTO> nPlatformDTOs, String body, Map<String,String> params) throws Exception;
+
+    boolean sendNotification(String userId, List<String> platformIds, String body, Map<String,String> params) throws Exception;
 
      void updatePlatform(String userId, String platformId, String token) throws Exception;
 
