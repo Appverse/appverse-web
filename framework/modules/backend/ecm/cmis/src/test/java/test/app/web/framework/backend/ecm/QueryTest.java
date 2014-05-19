@@ -88,7 +88,7 @@ public class QueryTest {
 
         // create a major version
         Document newContent1 =  newFolder.createDocument(contentProperties, contentStream, null);
-        System.out.println("Document created: " + newContent1.getId());
+        System.out.println("DocumentDTO created: " + newContent1.getId());
     }
 
     private void doQuery() {
