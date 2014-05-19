@@ -40,24 +40,24 @@ public class SecurityHelper {
 
     public static final String XSRF_TOKEN_NAME = "XSRF-TOKEN";
 
-	@SuppressWarnings("unchecked")
-	public static List<String> getAuthorities() {
-		final Authentication authentication = SecurityContextHolder
-				.getContext().getAuthentication();
-		List<String> credentials = new ArrayList<String>();
-		Collection<GrantedAuthority> grantedAuthorities = (Collection<GrantedAuthority>) authentication
-				.getAuthorities();
-		for (GrantedAuthority grantedAuthority : grantedAuthorities) {
-			credentials.add(grantedAuthority.getAuthority());
-		}
-		return credentials;
-	}
+    @SuppressWarnings("unchecked")
+    public static List<String> getAuthorities() {
+        final Authentication authentication = SecurityContextHolder
+                .getContext().getAuthentication();
+        List<String> credentials = new ArrayList<String>();
+        Collection<GrantedAuthority> grantedAuthorities = (Collection<GrantedAuthority>) authentication
+                .getAuthorities();
+        for (GrantedAuthority grantedAuthority : grantedAuthorities) {
+            credentials.add(grantedAuthority.getAuthority());
+        }
+        return credentials;
+    }
 
-	public static String getPrincipal() {
-		final Authentication authentication = SecurityContextHolder
-				.getContext().getAuthentication();
-		return authentication.getName();
-	}
+    public static String getPrincipal() {
+        final Authentication authentication = SecurityContextHolder
+                .getContext().getAuthentication();
+        return authentication.getName();
+    }
 
 
     public static String createXSRFToken(final HttpServletRequest request)

@@ -23,6 +23,10 @@
  */
 package server.org.appverse.service.rest.sample.resources;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +63,79 @@ public class MockResource implements SampleResource {
 
 	@Context
 	private UriInfo uriInfo;
+
+	@Override
+	public Response postFile(final InputStream is, final Request request) {
+
+		byte[] data = null;
+		try
+		{
+			data = inputStreamToByteArray(is);
+
+		} catch (IOException ioe)
+		{
+			logger.error("Error retrieving file", ioe);
+			throw new WebApplicationException("Error",
+					Status.INTERNAL_SERVER_ERROR.getStatusCode());
+
+		}
+
+		logger.info("file posted:::::::::::::");
+		logger.info(new String(data));
+
+		UriBuilder uriBuilder = UriBuilder.fromUri(uriInfo.getAbsolutePath());
+		String uri = uriBuilder.build().toString();
+		logger.info("file added");
+		logger.info("Header location:: " + uri);
+
+		return Response.status(Status.CREATED.getStatusCode()).header("Location", uri)
+				.entity("file:: has been created").build();
+
+	}
+
+	@Override
+	public Response getFile(final Long fileId, final Request request) {
+		InputStream in = this
+				.getClass().getResourceAsStream(
+						"MockResource.class");
+		StringBuffer hash = new StringBuffer();
+		byte[] data = null;
+		try
+		{
+			data = inputStreamToByteArray(in);
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(data);
+
+			byte[] digest = md.digest();
+
+			for (byte b : digest) {
+				hash.append(String.format("%02x", b & 0xff));
+			}
+
+			System.out.println("original:" + data);
+			System.out.println("digested(hex):" + hash.toString());
+
+		} catch (Exception nsae)
+		{
+			logger.error("Error creating digest", nsae);
+			throw new WebApplicationException("Error",
+					Status.INTERNAL_SERVER_ERROR.getStatusCode());
+
+		}
+
+		EntityTag etag = new EntityTag(hash.toString());
+
+		ResponseBuilder builder = request.evaluatePreconditions(etag);
+		if (builder != null) {
+			//means the preconditions have been met and the cache is valid
+			return builder.build();
+		}
+
+		builder = Response.ok(data, MediaType.APPLICATION_OCTET_STREAM_TYPE);
+		builder.tag(etag);
+
+		return builder.build();
+	}
 
 	@Override
 	@POST
@@ -421,6 +498,21 @@ public class MockResource implements SampleResource {
 		else
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 
+	}
+
+	private byte[] inputStreamToByteArray(final InputStream is) throws IOException
+	{
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		int reads = is.read();
+
+		while (reads != -1) {
+			baos.write(reads);
+			reads = is.read();
+		}
+
+		byte[] data = baos.toByteArray();
+		return data;
 	}
 
 }
