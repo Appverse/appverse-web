@@ -8,7 +8,7 @@
 	<inherits name="${package}.Shared"/>
 
 	<!-- Entry point class. -->
-	<entry-point class='com.mvp4g.client.Mvp4gEntryPoint' />
+	<entry-point class='com.mvp4g.certificates.Mvp4gEntryPoint' />
 	
 	<!-- Translatable code paths -->
 	<source path="common" />

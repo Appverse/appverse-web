@@ -192,6 +192,7 @@
         <ehcache.version>2.4.5</ehcache.version>
         <owasp.esapi.version>2.1.0</owasp.esapi.version>
         <org.jsoup.version>1.7.3</org.jsoup.version>
+        <nimbus.version>2.25</nimbus.version>
     </properties>
 
 	<modules>
@@ -695,13 +696,19 @@
     			<groupId>org.glassfish.jersey.media</groupId>
     			<artifactId>jersey-media-json-jackson</artifactId>
 			    <version>${jersey.version}</version>
-			</dependency>		
+			</dependency>
             
             
             <dependency>
                 <groupId>org.glassfish.jersey.media</groupId>
                 <artifactId>jersey-media-multipart</artifactId>
                 <version>${jersey.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${nimbus.version}</version>
             </dependency>
 
 			<!-- JAX-RS 2 client api -->            
