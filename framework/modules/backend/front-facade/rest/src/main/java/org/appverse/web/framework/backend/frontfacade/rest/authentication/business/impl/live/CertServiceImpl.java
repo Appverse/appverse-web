@@ -1,4 +1,4 @@
-package org.appverse.web.framework.backend.frontfacade.rest.authentication.business.live.impl;
+package org.appverse.web.framework.backend.frontfacade.rest.authentication.business.impl.live;
 
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.frontfacade.rest.authentication.business.CertService;
