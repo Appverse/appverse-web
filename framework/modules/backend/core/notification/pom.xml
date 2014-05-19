@@ -191,48 +191,22 @@
         <url>https://github.com/Appverse/appverse-web</url>
     </scm>
 
-    <build>
-        <plugins>
-            <!--TODO This should be executed only in TEST or not( think a bit about this)-->
-            <plugin>
-                <groupId>org.appverse.web.tools.jpaddlgenerator</groupId>
-                <artifactId>appverse-web-tools-jpa-ddl-generator</artifactId>
-                <version>1.0.5.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate-schema</goal>
-                        </goals>
-                        <phase>compile</phase>
-                        <configuration>
-                            <ddlOutputDir>${project.build.outputDirectory}/sql</ddlOutputDir>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.appverse.web.framework.modules.backend.core.persistence.eclipselink</groupId>
-                        <artifactId>appverse-web-modules-backend-core-persistence-eclipselink</artifactId>
-                        <version>1.4-SNAPSHOT</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
             <groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
             <artifactId>appverse-web-modules-backend-core-api</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.appverse.web.framework.modules.backend.core.persistence.eclipselink</groupId>
-            <artifactId>appverse-web-modules-backend-core-persistence-eclipselink</artifactId>
-            <scope>provided</scope>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
         </dependency>
 
         <!-- Google API -->
@@ -255,11 +229,6 @@
         </dependency>
         <!-- end -->
         <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <scope>test</scope>
@@ -277,9 +246,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
             <scope>test</scope>
         </dependency>
+
+
     </dependencies>
 </project>

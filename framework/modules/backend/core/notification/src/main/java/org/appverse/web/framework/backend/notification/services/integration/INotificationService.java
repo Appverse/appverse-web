@@ -24,37 +24,12 @@
 package org.appverse.web.framework.backend.notification.services.integration;
 
 
-import org.appverse.web.framework.backend.notification.model.integration.NPlatformDTO;
-import org.appverse.web.framework.backend.notification.model.integration.NUserDTO;
-
-import java.util.List;
 import java.util.Map;
 
 public interface INotificationService {
 
-     void registerUser(NUserDTO nUserDTO) throws Exception;
-
-     void updateUser(NUserDTO nUserDTO) throws Exception;
-
-     NUserDTO retrieveUser(String userId) throws Exception;
-
-     void addPlatformToUser(String userId, NPlatformDTO nPlatformDTO) throws Exception;
-
-     boolean sendNotification(String userId, List<String> platformId, String body) throws Exception;
-
-     boolean sendNotification(String platform, String token, String body, Map<String,String> params)throws Exception;
-
-     boolean sendNotificationByPlatform(String userId, List<NPlatformDTO> nPlatformDTOs, String body) throws Exception;
-
-    boolean sendNotificationByPlatform(String userId, List<NPlatformDTO> nPlatformDTOs, String body, Map<String,String> params) throws Exception;
-
-    boolean sendNotification(String userId, List<String> platformIds, String body, Map<String,String> params) throws Exception;
-
-     void updatePlatform(String userId, String platformId, String token) throws Exception;
-
-     boolean sendNotification(String platform, String token, String body) throws Exception;
-
-     void outputData() throws Exception;
-
+    boolean sendNotification(String platform, String token, String body) throws Exception;
+    boolean sendNotification(String platform, String token, String body, Map<String,String> params) throws Exception;
+    void outputData() throws Exception;
 
 }
