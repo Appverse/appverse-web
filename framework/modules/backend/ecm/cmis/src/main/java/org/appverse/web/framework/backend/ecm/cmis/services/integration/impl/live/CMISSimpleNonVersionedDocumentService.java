@@ -22,7 +22,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CMISDocumentService<T extends AbstractDocumentIntegrationBean> extends CMISService<T>
+public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentIntegrationBean> extends CMISService<T>
         implements IDocumentService<T>{
 
     @AutowiredLogger
@@ -130,8 +130,6 @@ public class CMISDocumentService<T extends AbstractDocumentIntegrationBean> exte
         cmisSession.getDefaultContext().setCacheEnabled(false);
 
         Folder parent = createFolder(path);
-
-        // Review this: proablemente devuelve valor en el parent (que es el que no deberia de existir)
 
         // CMIS properties
         // (minimal set: name and object type id)
