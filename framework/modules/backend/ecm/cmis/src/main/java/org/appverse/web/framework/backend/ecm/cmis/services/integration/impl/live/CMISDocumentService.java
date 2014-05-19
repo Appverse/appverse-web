@@ -53,7 +53,6 @@ public class CMISDocumentService<T extends AbstractDocumentIntegrationBean> exte
 
     @Override
     public void moveDocument(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception {
-
         // Disable cache
         cmisSession.getDefaultContext().setCacheEnabled(false);
 
@@ -75,13 +74,12 @@ public class CMISDocumentService<T extends AbstractDocumentIntegrationBean> exte
         // Move the object
         fileableCmisObject.move(sourceObject, targetObject);
 
-        // Disable cache
+        // Enable cache
         cmisSession.getDefaultContext().setCacheEnabled(true);
     }
 
     @Override
     public void removeDocument(String path, String documentName) throws Exception {
-
         // Disable cache
         cmisSession.getDefaultContext().setCacheEnabled(false);
 
@@ -94,7 +92,6 @@ public class CMISDocumentService<T extends AbstractDocumentIntegrationBean> exte
 
     @Override
     public void removeFolder(String path) throws Exception {
-
         // Disable cache
         cmisSession.getDefaultContext().setCacheEnabled(false);
 
@@ -125,12 +122,10 @@ public class CMISDocumentService<T extends AbstractDocumentIntegrationBean> exte
                 logger.debug("New folder created, new folder value is: " + folder.getPath());
             }
         }
-        logger.debug("Returning folder: " + folder.getPath());
         return folder;
     }
 
     private Document createDocument(String path, T document){
-
         // Disable cache
         cmisSession.getDefaultContext().setCacheEnabled(false);
 
@@ -138,7 +133,7 @@ public class CMISDocumentService<T extends AbstractDocumentIntegrationBean> exte
 
         // Review this: proablemente devuelve valor en el parent (que es el que no deberia de existir)
 
-        // properties
+        // CMIS properties
         // (minimal set: name and object type id)
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
@@ -149,7 +144,6 @@ public class CMISDocumentService<T extends AbstractDocumentIntegrationBean> exte
         if (mimeType == null){
             mimeType = document.getMimeTypeFromContentStreamFileName();
         }
-
         InputStream stream = new ByteArrayInputStream(document.getContentStream());
         ContentStream contentStream = new ContentStreamImpl(document.getContentStreamFilename(), BigInteger.valueOf(document.getContentStream().length), mimeType, stream);
 
@@ -163,15 +157,24 @@ public class CMISDocumentService<T extends AbstractDocumentIntegrationBean> exte
             // The document does not exist
         }
 
-        // Create the document without versioning
-        Document doc = parent.createDocument(properties, contentStream, VersioningState.NONE);
+        // Determine the VersioningState
+        VersioningState versioningState = VersioningState.NONE;
+        String typeId = (String)properties.get(PropertyIds.OBJECT_TYPE_ID);
+        DocumentType docType =
+                (DocumentType) cmisSession.getTypeDefinition(typeId);
+        if (Boolean.TRUE.equals(docType.isVersionable())) {
+            versioningState = VersioningState.MAJOR;
+        }
+
+        // Depending on the underlaying repository a "cmis:document" can be versionable or not. If it is versionable, it is mandatory to create a version.
+        // For instance, in OpenCMIS in-memory repository a "cmis:document" is not versionable (accepts documents without versioning).
+        // Alfresco repository "cmis:document" is versionable (requires a version)
+        Document doc = parent.createDocument(properties, contentStream, versioningState);
 
         // Enable cache again
         cmisSession.getDefaultContext().setCacheEnabled(true);
-
         return doc;
     }
-
 
     private Class<T> getClassP() {
         Class<T> classP = null;

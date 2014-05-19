@@ -41,52 +41,12 @@ public abstract class AbstractDocumentIntegrationBean extends AbstractIntegratio
     protected Date updated;
     protected String updatedBy;
 
-    public byte[] getContentStream() {
-        return contentStream;
-    }
-
-    public String getContentStreamFileNameExtension() {
-        return contentStreamFilename.substring(contentStreamFilename.lastIndexOf(".") + 1);
-    }
-
-    public String getContentStreamFilename() {
-        return contentStreamFilename;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setContentStream(final byte[] contentStream) {
-        this.contentStream = contentStream;
-    }
-
-    public void setContentStreamFilename(final String contentStreamFilename) {
-        this.contentStreamFilename = contentStreamFilename;
-    }
-
-    public void setId(final long id) {
-        this.id = id;
-    }
-
-    public long getContentStreamLenght() {
-        return contentStreamLenght;
-    }
-
-    public void setContentStreamLenght(long contentStreamLenght) {
-        this.contentStreamLenght = contentStreamLenght;
-    }
-
-    public String getContentStreamMimeType() {
-        return contentStreamMimeType;
-    }
-
     public void setContentStreamMimeType(String contentStreamMimeType) {
         this.contentStreamMimeType = contentStreamMimeType;
     }
 
-    public Date getCreated() {
-        return created;
+    public void setContentStreamLenght(long contentStreamLenght) {
+        this.contentStreamLenght = contentStreamLenght;
     }
 
     public void setCreated(Date created) {
@@ -115,6 +75,46 @@ public abstract class AbstractDocumentIntegrationBean extends AbstractIntegratio
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public void setContentStream(final byte[] contentStream) {
+        this.contentStream = contentStream;
+    }
+
+    public void setContentStreamFilename(final String contentStreamFilename) {
+        this.contentStreamFilename = contentStreamFilename;
+    }
+
+    public void setId(final long id) {
+        this.id = id;
+    }
+
+    public long getContentStreamLenght() {
+        return contentStreamLenght;
+    }
+
+    public String getContentStreamMimeType() {
+        return contentStreamMimeType;
+    }
+
+    public byte[] getContentStream() {
+        return contentStream;
+    }
+
+    public String getContentStreamFileNameExtension() {
+        return contentStreamFilename.substring(contentStreamFilename.lastIndexOf(".") + 1);
+    }
+
+    public String getContentStreamFilename() {
+        return contentStreamFilename;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Date getCreated() {
+        return created;
     }
 
     public String getMimeTypeFromContentStreamFileName() {

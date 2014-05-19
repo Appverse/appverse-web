@@ -62,14 +62,6 @@ public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean
         document.setContentStreamLenght(document.getContentStream().length);
         document.setContentStreamMimeType(document.getMimeTypeFromContentStreamFileName());
         return document;
-/*
-
-
-        DocumentDTO result = new DocumentDTO();
-        result.setContentStream(FileCopyUtils.copyToByteArray(file));
-        result.setName(file.getName());
-        return result;
-*/
     }
 
     @Override
@@ -84,7 +76,6 @@ public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean
 
     @Override
     public void moveDocument(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception{
-
         File originFile = new File(pathOrigin + "/" + documentNameOrigin);
 
         // Create destination structure if necessary
@@ -97,7 +88,6 @@ public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean
             }
         }
 
-
         // Move the file
         File targetFile = new File(destinationFolder, documentNameDestination);
         try {
@@ -109,7 +99,6 @@ public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean
                     + originFile.toString() + "to: "
                     + targetFile.toString());
         }
-
     }
 
     @Override
