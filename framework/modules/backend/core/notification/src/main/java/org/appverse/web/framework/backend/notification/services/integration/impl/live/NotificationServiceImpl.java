@@ -112,6 +112,7 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
                 if (params != null && !params.isEmpty()) {
                     //create a payload
                     PushNotificationPayload payload = PushNotificationPayload.complex();
+                    payload.addBadge(1);
                     payload.addAlert(body);
                     //add special parameters
                     for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -120,16 +121,18 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
                     //send
                     notifications = Push.payload(payload, resource.getURL().getPath(), appleP12Password, true, token);
                 } else{
-                    notifications = Push.alert(body, resource.getURL().getPath(), appleP12Password, true, token);
+                    notifications = Push.combined(body,1,null, resource.getURL().getPath(), appleP12Password, true, token);
+
                 }
-                //Push.test(strRelPath, "apple2014", true, token);
+                //Check notification's statuses
                 for (PushedNotification notification : notifications) {
+                    String tokenSend = notification.getDevice().getToken();
                     if (notification.isSuccessful()) {
                         // Apple accepted the notification and should deliver it
+                        logger.info("Message delivered:{}",tokenSend);
                     } else {
-                        String invalidToken = notification.getDevice().getToken();
                         //Add code here to remove invalidToken from your database
-                        logger.warn("Invalid token:{}",invalidToken);
+                        logger.warn("Invalid token:{}",tokenSend);
                     }
                 }
             } catch (CommunicationException ex) {
