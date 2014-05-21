@@ -186,7 +186,7 @@
 		<gwt.version>2.5.0</gwt.version>
 		<restygwt.version>1.3</restygwt.version>
 		<jsr311.version>2.0</jsr311.version>
-		<jersey.version>2.4</jersey.version>
+		<jersey.version>2.5</jersey.version>
         <jdk.source>1.6</jdk.source>
         <jdk.target>1.6</jdk.target>
         <ehcache.version>2.4.5</ehcache.version>
@@ -397,6 +397,12 @@
 			</dependency>
 
             <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.core.rest</groupId>
+                <artifactId>appverse-web-modules-backend-core-rest</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.appverse.web.framework.modules.backend.ecm.core</groupId>
                 <artifactId>appverse-web-modules-backend-ecm-core</artifactId>
                 <version>${framework.version}</version>
@@ -450,11 +456,13 @@
                 <version>${framework.version}</version>
             </dependency>
 
+<!--
             <dependency>
                 <groupId>org.appverse.web.framework.modules.backend.ecm</groupId>
                 <artifactId>appverse-web-modules-backend-ecm</artifactId>
                 <version>${framework.version}</version>
             </dependency>
+-->
 
             <dependency>
 				<groupId>org.appverse.web.framework.modules.frontend.gwt.theme</groupId>
