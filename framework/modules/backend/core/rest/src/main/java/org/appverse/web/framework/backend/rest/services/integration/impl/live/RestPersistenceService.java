@@ -28,10 +28,7 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
@@ -113,6 +110,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
+        addBuilderProperties(builder);
 
 		Method methodGet = Builder.class.getMethod("get", GenericType.class);
 
@@ -144,6 +142,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = webClient.request().accept(MediaType.APPLICATION_OCTET_STREAM_TYPE);
+        addBuilderProperties(builder);
 
 		Method methodGet = Builder.class.getMethod("get");
 
@@ -187,6 +186,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplate(idName, id);
 
 		Builder builder = acceptMediaType(webClient.request());
+        addBuilderProperties(builder);
 
 		Method methodGet = Builder.class.getMethod("get", GenericType.class);
 
@@ -282,6 +282,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		webClient = webClient.resolveTemplate(getMaxRecordsParamName(), filter.getLimit());
 
 		builder = acceptMediaType(webClient.request());
+        addBuilderProperties(builder);
 
 		Method methodGet = this.getClass().getMethod("retrieveAndUnmarshall", WebTarget.class,
 				Builder.class);
@@ -357,9 +358,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		if (pathParams != null)
 			webClient = webClient.resolveTemplates(pathParams);
 
-		Builder builder = webClient.request();
-
-		Response resp = acceptMediaType(builder).delete();
+        Builder builder = acceptMediaType(webClient.request());
+        addBuilderProperties(builder);
+		Response resp = builder.delete();
 		return getStatusResult(resp);
 
 	}
@@ -393,7 +394,8 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		if (pathParams != null)
 			webClient = webClient.resolveTemplates(pathParams);
 
-		Builder builder = acceptMediaType(webClient.request());
+        Builder builder = acceptMediaType(webClient.request());
+        addBuilderProperties(builder);
 		return builder.delete(genericType);
 	}
 
@@ -425,6 +427,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
+        addBuilderProperties(builder);
 		return builder.post(Entity.entity(object, acceptMediaType()), genericType);
 	}
 
@@ -442,6 +445,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
+        addBuilderProperties(builder);
 		return builder.post(Entity.entity(object, MediaType.APPLICATION_OCTET_STREAM_TYPE));
 	}
 
@@ -469,6 +473,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
+        addBuilderProperties(builder);
 		Response resp = builder.post(Entity.entity(object, acceptMediaType()));
 		return getStatusResult(resp);
 	}
@@ -506,6 +511,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		};
 
 		Builder builder = acceptMediaType(webClient.request());
+        addBuilderProperties(builder);
 		return builder.put(Entity.entity(object, acceptMediaType()), genericType);
 	}
 
@@ -525,6 +531,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
+        addBuilderProperties(builder);
 		return builder.put(Entity.entity(object, MediaType.APPLICATION_OCTET_STREAM_TYPE));
 	}
 
@@ -557,7 +564,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
-
+        addBuilderProperties(builder);
 		Response resp = builder.put(Entity.entity(object, acceptMediaType()));
 		return getStatusResult(resp);
 
@@ -655,6 +662,29 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 	{
 		return MediaType.APPLICATION_JSON;
 	}
+
+    /**
+     * @param builder
+     * @param properties
+     * @return void
+     */
+    protected void addBuilderProperties(Invocation.Builder builder){
+        HashMap<String,Object> properties = addBuilderProperties();
+        if (properties != null){
+            for (Map.Entry<String, Object> entry : properties.entrySet()) {
+                String key = entry.getKey();
+                Object value = entry.getValue();
+                builder.property(key, value);
+            }
+        }
+    }
+
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#addBuilderProperties()
+	 */
+    public HashMap<String,Object> addBuilderProperties(){
+        return null;
+    }
 
 	/**
 	 * Analyse response to get result code and message

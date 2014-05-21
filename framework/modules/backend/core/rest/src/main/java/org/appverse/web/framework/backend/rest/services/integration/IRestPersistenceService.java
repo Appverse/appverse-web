@@ -24,6 +24,7 @@
 package org.appverse.web.framework.backend.rest.services.integration;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -567,5 +568,13 @@ public interface IRestPersistenceService<T extends AbstractIntegrationBean> {
 	 * @return
 	 */
 	String acceptMediaType();
+
+    /**
+     * Overwrite to specify the properties you want to add to the request builder according to
+     * registered features
+     *
+     * @return
+     */
+    HashMap<String,Object> addBuilderProperties();
 
 }
