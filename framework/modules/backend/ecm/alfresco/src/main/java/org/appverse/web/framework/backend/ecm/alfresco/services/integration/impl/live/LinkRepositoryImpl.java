@@ -31,7 +31,6 @@ import org.appverse.web.framework.backend.ecm.alfresco.services.integration.Link
 import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 import org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService;
 import org.appverse.web.framework.backend.rest.services.integration.impl.live.RestPersistenceService;
-import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -88,7 +87,7 @@ public class LinkRepositoryImpl extends RestPersistenceService<LinkDTO>
 
 /* It does not work here as a request is build again inside the retrievePagedQuery method, thus ignoring this
         alfrescoRestClient.request().property(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_USERNAME, "user").
-                property(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_PASSWORD, "bitnami");
+                property(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_PASSWORD, "sdafsadfsadfsa");
 */
 
         return this.retrievePagedQuery(alfrescoRestClient.path("links/site/webtestsite/links"),

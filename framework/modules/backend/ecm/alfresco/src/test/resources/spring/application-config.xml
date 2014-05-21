@@ -109,7 +109,9 @@
             -->
             <map>
                 <entry key="org.apache.chemistry.opencmis.binding.spi.type" value="atompub"/>
-                <entry key="org.apache.chemistry.opencmis.binding.atompub.url" value="http://localhost:8080/chemistry-opencmis-server-inmemory-0.10.0/atom"/>
+                <entry key="org.apache.chemistry.opencmis.binding.atompub.url" value="http://172.24.10.55/alfresco/cmisatom"/>
+                <entry key="org.apache.chemistry.opencmis.user" value="user"/>
+                <entry key="org.apache.chemistry.opencmis.password" value="bitnami"/>
             </map>
         </property>
     </bean>
@@ -122,7 +124,9 @@
             -->
             <map>
                 <entry key="org.apache.chemistry.opencmis.binding.spi.type" value="browser"/>
-                <entry key="org.apache.chemistry.opencmis.binding.browser.url" value="http://localhost:8080/chemistry-opencmis-server-inmemory-0.10.0/browser"/>
+                <entry key="org.apache.chemistry.opencmis.binding.browser.url" value="http://172.24.10.55/alfresco/cmisbrowser"/>
+                <entry key="org.apache.chemistry.opencmis.user" value="user"/>
+                <entry key="org.apache.chemistry.opencmis.password" value="bitnami"/>
             </map>
         </property>
     </bean>

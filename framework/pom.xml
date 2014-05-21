@@ -1186,6 +1186,18 @@
             </dependency>
 
 
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.chemistry.opencmis</groupId>
+                <artifactId>chemistry-opencmis-client-impl</artifactId>
+                <version>0.11.0</version>
+            </dependency>
+
         </dependencies>
 	</dependencyManagement>
 

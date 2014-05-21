@@ -21,7 +21,7 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package test.app.web.framework.backend.ecm.alfresco;
+package test.app.web.framework.backend.ecm;
 
 import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.commons.PropertyIds;
@@ -29,11 +29,6 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.helpers.test.AbstractTest;
-import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
-import org.appverse.web.framework.backend.ecm.alfresco.model.integration.LinkDTO;
-import org.appverse.web.framework.backend.ecm.alfresco.services.integration.LinkRepository;
-import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
-import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +39,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AlfrescoTest extends AbstractTest {
-
-    @Autowired
-    LinkRepository linkRepository;
+public class CmisTest extends AbstractTest {
 
     @Autowired
     Session cmisSession;
@@ -58,15 +50,9 @@ public class AlfrescoTest extends AbstractTest {
     @AutowiredLogger
     private static Logger logger;
 
-    @Before
-    public void init()
-    {
-    }
-
-
     @Test
     public void testTwoRepositoriesPrintRootFolder() {
-        logger.info(AlfrescoTest.class.getName() + " started");
+        logger.info(CmisTest.class.getName() + " started");
 
         // Get everything in the root folder and print the names of the objects
         Folder root = cmisSession.getRootFolder();
@@ -83,7 +69,7 @@ public class AlfrescoTest extends AbstractTest {
         for (CmisObject o : children) {
             System.out.println(o.getName());
         }
-        logger.info(AlfrescoTest.class.getName() + " ended");
+        logger.info(CmisTest.class.getName() + " ended");
     }
 
     @Test
@@ -119,30 +105,4 @@ public class AlfrescoTest extends AbstractTest {
             logger.info("query() found id: " + id);
         }
     }
-
-
-    @Test
-    public void alfrescoRESTApiRetrieveLinksTest() throws Exception{
-        IntegrationPaginatedDataFilter filter = new IntegrationPaginatedDataFilter();
-        filter.setLimit(100);
-        filter.setOffset(1);
-
-        IntegrationPaginatedResult<LinkDTO> result = new IntegrationPaginatedResult<LinkDTO>();
-        result = linkRepository.retrievePagedLinks("webtestsite", "links", filter);
-    }
-
-    @Test
-    public void alfrescoRestApiAndCMISCombinedTest() throws Exception{
-        // Retrieving root repository folder using CMIS API
-        testTwoRepositoriesPrintRootFolder();
-
-        // Retrieve links using Alfresco REST API by means LinkRepository
-        IntegrationPaginatedDataFilter filter = new IntegrationPaginatedDataFilter();
-        filter.setLimit(100);
-        filter.setOffset(1);
-
-        IntegrationPaginatedResult<LinkDTO> result = new IntegrationPaginatedResult<LinkDTO>();
-        result = linkRepository.retrievePagedLinks("webtestsite", "links", filter);
-    }
-
 }
