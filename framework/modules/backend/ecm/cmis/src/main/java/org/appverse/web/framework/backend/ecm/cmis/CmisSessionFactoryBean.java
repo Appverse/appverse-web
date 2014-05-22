@@ -35,7 +35,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.apache.chemistry.opencmis.client.api.Session;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,26 +56,6 @@ public class CmisSessionFactoryBean implements FactoryBean<Session>, BeanNameAwa
     public void afterPropertiesSet() throws Exception {
         // Create a SessionFactory and set up the SessionParameter map
         sessionFactory = SessionFactoryImpl.newInstance();
-
-        // Binding examples
-
-        // BROWSER BINDING  CMIS 1.1
-/*
-        parameter.put(SessionParameter.BINDING_TYPE, BindingType.BROWSER.value());
-        parameter.put(SessionParameter.BROWSER_URL, "http://localhost:8080/chemistry-opencmis-server-inmemory-0.10.0/browser");
-*/
-
-        // ATOM CMIS 1.1
-/*
-        parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
-        parameter.put(SessionParameter.ATOMPUB_URL, "http://localhost:8080/chemistry-opencmis-server-inmemory-0.10.0/atom11");
-*/
-
-        // ATOM CMIS 1.0
-/*
-        parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
-        parameter.put(SessionParameter.ATOMPUB_URL, "http://localhost:8080/chemistry-opencmis-server-inmemory-0.10.0/atom");
-*/
 
         // create session with the first (and only) repository
         List<Repository> repositories = new ArrayList<Repository>();
