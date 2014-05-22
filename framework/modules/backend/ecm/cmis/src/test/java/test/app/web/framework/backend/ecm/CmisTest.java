@@ -24,11 +24,15 @@
 package test.app.web.framework.backend.ecm;
 
 import org.apache.chemistry.opencmis.client.api.*;
+import org.apache.chemistry.opencmis.client.util.FileUtils;
 import org.apache.chemistry.opencmis.commons.PropertyIds;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
+import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
+import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.helpers.test.AbstractTest;
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,15 +79,25 @@ public class CmisTest extends AbstractTest {
     @Test
     public void testQuery() throws Exception
     {
-        //creating a new folder
         Folder root = cmisSession.getRootFolder();
+
+        // Removing the test folder that might have been created in previous tests
+        try{
+            Folder folder = (Folder) FileUtils.getObject("/testfolder", cmisSession);
+            folder.deleteTree(true, UnfileObject.DELETE, true);
+        }
+        catch (CmisObjectNotFoundException e){
+            // The folder did not exist previously
+        }
+
+        //creating the test folder
         Map<String, Object> folderProperties = new HashMap<String, Object>();
         folderProperties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
-        folderProperties.put(PropertyIds.NAME, "testdata");
-
+        folderProperties.put(PropertyIds.NAME, "testfolder");
         Folder newFolder = root.createFolder(folderProperties);
-        //create a new content in the folder
-        String name = "testdata1.txt";
+
+        // Create a new content in the folder
+        String name = "testfile.txt";
         // properties
         // (minimal set: name and object type id)
         Map<String, Object> contentProperties = new HashMap<String, Object>();
@@ -91,7 +105,7 @@ public class CmisTest extends AbstractTest {
         contentProperties.put(PropertyIds.NAME, name);
 
         // content
-        byte[] content = "CMIS Testdata One".getBytes();
+        byte[] content = "CMIS test data".getBytes();
         InputStream stream = new ByteArrayInputStream(content);
         ContentStream contentStream = new ContentStreamImpl(name, new BigInteger(content), "text/plain", stream);
 
@@ -99,10 +113,10 @@ public class CmisTest extends AbstractTest {
         Document newContent1 =  newFolder.createDocument(contentProperties, contentStream, null);
         logger.info("DocumentDTO created: " + newContent1.getId());
 
-        ItemIterable<QueryResult> results = cmisSession.query("SELECT * FROM cmis:folder WHERE cmis:name='testdata'", false);
+        ItemIterable<QueryResult> results = cmisSession.query("SELECT * FROM cmis:folder WHERE cmis:name='testfolder'", false);
         for (QueryResult result : results) {
             String id = result.getPropertyValueById(PropertyIds.OBJECT_ID);
-            logger.info("query() found id: " + id);
+            Assert.assertNotNull(id);
         }
     }
 }

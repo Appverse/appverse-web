@@ -57,7 +57,9 @@
             -->
             <map>
                 <entry key="org.apache.chemistry.opencmis.binding.spi.type" value="atompub"/>
-                <entry key="org.apache.chemistry.opencmis.binding.atompub.url" value="http://localhost:8080/chemistry-opencmis-server-inmemory-0.10.0/atom"/>
+                <entry key="org.apache.chemistry.opencmis.binding.atompub.url" value="http://cmis.alfresco.com/cmisatom"/>
+                <entry key="org.apache.chemistry.opencmis.user" value="admin"/>
+                <entry key="org.apache.chemistry.opencmis.password" value="admin"/>
             </map>
         </property>
     </bean>
@@ -70,7 +72,9 @@
             -->
             <map>
                 <entry key="org.apache.chemistry.opencmis.binding.spi.type" value="browser"/>
-                <entry key="org.apache.chemistry.opencmis.binding.browser.url" value="http://localhost:8080/chemistry-opencmis-server-inmemory-0.10.0/browser"/>
+                <entry key="org.apache.chemistry.opencmis.binding.browser.url" value="http://cmis.alfresco.com/cmisbrowser"/>
+                <entry key="org.apache.chemistry.opencmis.user" value="admin"/>
+                <entry key="org.apache.chemistry.opencmis.password" value="admin"/>
             </map>
         </property>
     </bean>
