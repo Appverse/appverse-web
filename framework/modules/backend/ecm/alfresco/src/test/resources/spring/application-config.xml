@@ -40,67 +40,9 @@
 	<bean
 		class="org.appverse.web.framework.backend.api.helpers.log.AutowiredLoggerBeanPostProcessor" />
 
-
     <!-- ============================================================================================= -->
-    <!-- REST setup -->
+    <!-- CMIS sessions setup -->
     <!-- ============================================================================================= -->
-    <bean id="alfrescoRestClient"
-          class="org.appverse.web.framework.backend.rest.factories.WebTargetFactory"
-          factory-method="create">
-
-        <!-- Private alfresco repository -->
-        <constructor-arg name="baseAddress" value="http://172.24.10.55/alfresco/service/api" />
-        <!-- cache argument is optional -->
-        <constructor-arg name="cache" ref="alfrescoRestClientCache" />
-        <!-- Use basic authentication - is optional argument -->
-        <constructor-arg name="enableBasicAuthenticationFeature" value="true" />
-        <!-- User for basic authentication - this is ignored if basic authentication is not enabled - optional argument -->
-        <constructor-arg name="user" value="user" />
-        <!-- Password for basic authentication - this is ignored if basic authentication is not enabled - optional argument -->
-        <constructor-arg name="password" value="bitnami" />
-    </bean>
-
-    <bean id="exceptionAdvice"
-          class="org.appverse.web.framework.backend.rest.aop.advices.RestExceptionAdvice" />
-    <bean id="exceptionManager"
-          class="org.appverse.web.framework.backend.rest.aop.managers.impl.live.RestExceptionManagerImpl" />
-
-
-    <bean id="restCachingManager"
-          class="org.appverse.web.framework.backend.rest.managers.impl.live.RestCachingManagerImpl" />
-
-
-    <bean id="cacheManager"
-          class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
-          p:shared="true" />
-
-    <bean id="alfrescoRestClientCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
-        <property name="cacheManager" ref="cacheManager" />
-        <property name="cacheName" value="alfrescoRestClientCache" />
-        <property name="maxElementsInMemory" value="20000" />
-        <property name="eternal" value="false" />
-        <property name="timeToIdle" value="86400" />
-        <property name="timeToLive" value="86400" />
-        <property name="memoryStoreEvictionPolicy" value="LFU" />
-    </bean>
-
-
-    <aop:config>
-        <aop:pointcut id="allRestMethodsCalls"
-                      expression="execution(* org.appverse.web.framework.backend.ecm.alfresco.services.integration..*.*(..))" />
-        <aop:advisor advice-ref="exceptionAdvice" pointcut-ref="allRestMethodsCalls" />
-    </aop:config>
-
-
-
-	<!-- ============================================================================================= -->
-	<!-- Imports and Component Scans -->
-	<!-- ============================================================================================= -->
-
-	<context:component-scan
-		base-package="org.appverse.web.framework.backend.ecm.alfresco" />
-
-
     <bean id="cmisSession" class="org.appverse.web.framework.backend.ecm.cmis.CmisSessionFactoryBean">
         <property name="cmisSessionInitProperties">
             <!-- See reference at:
@@ -130,6 +72,65 @@
             </map>
         </property>
     </bean>
+
+    <!-- ============================================================================================= -->
+    <!-- Alfresco REST clients setup -->
+    <!-- ============================================================================================= -->
+    <bean id="alfrescoRestClient"
+          class="org.appverse.web.framework.backend.rest.factories.WebTargetFactory"
+          factory-method="create">
+
+        <!-- Private alfresco repository -->
+        <constructor-arg name="baseAddress" value="http://172.24.10.55/alfresco/service/api" />
+        <!-- cache argument is optional -->
+        <constructor-arg name="cache" ref="alfrescoRestClientCache" />
+        <!-- Use basic authentication - is optional argument -->
+        <constructor-arg name="enableBasicAuthenticationFeature" value="true" />
+        <!-- User for basic authentication - this is ignored if basic authentication is not enabled - optional argument -->
+        <constructor-arg name="defaultUser" value="user" />
+        <!-- Password for basic authentication - this is ignored if basic authentication is not enabled - optional argument -->
+        <constructor-arg name="defaultUserPassword" value="bitnami" />
+    </bean>
+
+
+    <bean id="restCachingManager"
+          class="org.appverse.web.framework.backend.rest.managers.impl.live.RestCachingManagerImpl" />
+
+
+    <bean id="cacheManager"
+          class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+          p:shared="true" />
+
+    <bean id="alfrescoRestClientCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheManager" ref="cacheManager" />
+        <property name="cacheName" value="alfrescoRestClientCache" />
+        <property name="maxElementsInMemory" value="20000" />
+        <property name="eternal" value="false" />
+        <property name="timeToIdle" value="86400" />
+        <property name="timeToLive" value="86400" />
+        <property name="memoryStoreEvictionPolicy" value="LFU" />
+    </bean>
+
+    <bean id="exceptionAdvice"
+          class="org.appverse.web.framework.backend.rest.aop.advices.RestExceptionAdvice" />
+    <bean id="exceptionManager"
+          class="org.appverse.web.framework.backend.rest.aop.managers.impl.live.RestExceptionManagerImpl" />
+
+
+    <aop:config>
+        <aop:pointcut id="allRestMethodsCalls"
+                      expression="execution(* org.appverse.web.framework.backend.ecm.alfresco.services.integration..*.*(..))" />
+        <aop:advisor advice-ref="exceptionAdvice" pointcut-ref="allRestMethodsCalls" />
+    </aop:config>
+
+
+
+	<!-- ============================================================================================= -->
+	<!-- Imports and Component Scans -->
+	<!-- ============================================================================================= -->
+
+	<context:component-scan base-package="org.appverse.web.framework.backend.ecm.alfresco" />
+    <context:component-scan base-package="test.app.web.framework.backend.ecm.alfresco.services.integration.impl.live" />
 
 
 </beans>

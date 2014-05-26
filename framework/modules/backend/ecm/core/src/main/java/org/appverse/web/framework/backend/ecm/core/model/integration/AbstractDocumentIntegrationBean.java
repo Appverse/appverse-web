@@ -153,6 +153,8 @@ public abstract class AbstractDocumentIntegrationBean extends AbstractIntegratio
             return "application/x-xpinstall";
         } else if (contentStreamFilename.endsWith(".safariextz")) {
             return "application/x-safari-safariextz";
+        } else if (contentStreamFilename.endsWith(".txt")) {
+            return "text/plain";
         } else {
             return "";
         }

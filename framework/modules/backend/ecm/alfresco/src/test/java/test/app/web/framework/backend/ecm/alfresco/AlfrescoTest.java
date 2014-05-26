@@ -35,12 +35,14 @@ import org.appverse.web.framework.backend.api.helpers.test.AbstractTest;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
 import org.appverse.web.framework.backend.ecm.alfresco.model.integration.LinkDTO;
 import org.appverse.web.framework.backend.ecm.alfresco.services.integration.LinkRepository;
+import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
 import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import test.app.web.framework.backend.ecm.alfresco.services.integration.DocumentRepository;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -54,10 +56,12 @@ public class AlfrescoTest extends AbstractTest {
     LinkRepository linkRepository;
 
     @Autowired
-    Session cmisSession;
+    DocumentRepository documentRepository;
 
+/*
     @Autowired
     Session cmisSessionRepo2;
+*/
 
     @AutowiredLogger
     private static Logger logger;
@@ -68,6 +72,57 @@ public class AlfrescoTest extends AbstractTest {
     }
 
 
+    @Test
+    public void cmisManageDocumentTest() throws Exception{
+        // Create document. This will create folder structure to the specified path if necessary
+        DocumentDTO document = new DocumentDTO();
+        document.setContentStreamFilename("textDocument.txt");
+        document.setContentStream("This is the content for this test file".getBytes());
+        document.setContentStreamMimeType("text/plain");
+        documentRepository.addDocument("/test/folder1/", document);
+
+        // Retrieve the recently created document
+        DocumentDTO retrievedDocument = documentRepository.retrieveDocument("/test/folder1/", document.getContentStreamFilename());
+        Assert.assertNotNull(retrievedDocument);
+        Assert.assertEquals("Document name does not match", retrievedDocument.getContentStreamFilename(), "textDocument.txt");
+        Assert.assertNotNull(retrievedDocument.getContentStream());
+        Assert.assertNotNull(retrievedDocument.getContentStreamLenght());
+        Assert.assertNotNull(retrievedDocument.getContentStreamMimeType());
+
+        // Move the recently created document to another location
+
+        // Remove the container folder tree
+        documentRepository.removeFolder("/test");
+    }
+
+
+    @Test
+    public void alfrescoRESTApiRetrieveLinksTestWithDefaultUser() throws Exception{
+        IntegrationPaginatedDataFilter filter = new IntegrationPaginatedDataFilter();
+        filter.setLimit(100);
+        filter.setOffset(1);
+        IntegrationPaginatedResult<LinkDTO> result = new IntegrationPaginatedResult<LinkDTO>();
+        result = linkRepository.retrievePagedLinks("webtestsite", "links", filter);
+    }
+
+    @Test
+    public void alfrescoRESTApiRetrieveLinksTestParticularUser() throws Exception{
+        IntegrationPaginatedDataFilter filter = new IntegrationPaginatedDataFilter();
+        filter.setLimit(100);
+        filter.setOffset(1);
+        IntegrationPaginatedResult<LinkDTO> result = new IntegrationPaginatedResult<LinkDTO>();
+        result = linkRepository.retrievePagedLinks("webtestsite", "links", filter, "user", "wrongpassword");
+    }
+
+    @Test
+    public void alfrescoRestApiAndCMISCombinedTest() throws Exception{
+        // Using repository based in CMIS API
+        cmisManageDocumentTest();
+        // Using repository based in Alfresco REST API
+        alfrescoRESTApiRetrieveLinksTestWithDefaultUser();
+    }
+
+/*
     @Test
     public void testTwoRepositoriesPrintRootFolder() {
         logger.info(AlfrescoTest.class.getName() + " started");
@@ -133,30 +188,6 @@ public class AlfrescoTest extends AbstractTest {
             Assert.assertNotNull(id);
         }
     }
-
-
-    @Test
-    public void alfrescoRESTApiRetrieveLinksTest() throws Exception{
-        IntegrationPaginatedDataFilter filter = new IntegrationPaginatedDataFilter();
-        filter.setLimit(100);
-        filter.setOffset(1);
-
-        IntegrationPaginatedResult<LinkDTO> result = new IntegrationPaginatedResult<LinkDTO>();
-        result = linkRepository.retrievePagedLinks("webtestsite", "links", filter);
-    }
-
-    @Test
-    public void alfrescoRestApiAndCMISCombinedTest() throws Exception{
-        // Retrieving root repository folder using CMIS API
-        testTwoRepositoriesPrintRootFolder();
-
-        // Retrieve links using Alfresco REST API by means LinkRepository
-        IntegrationPaginatedDataFilter filter = new IntegrationPaginatedDataFilter();
-        filter.setLimit(10);
-        filter.setOffset(1);
-
-        IntegrationPaginatedResult<LinkDTO> result = new IntegrationPaginatedResult<LinkDTO>();
-        result = linkRepository.retrievePagedLinks("webtestsite", "links", filter);
-    }
+*/
 
 }

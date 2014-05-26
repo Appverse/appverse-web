@@ -31,6 +31,7 @@ import org.appverse.web.framework.backend.ecm.alfresco.services.integration.Link
 import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 import org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService;
 import org.appverse.web.framework.backend.rest.services.integration.impl.live.RestPersistenceService;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -79,31 +80,28 @@ public class LinkRepositoryImpl extends RestPersistenceService<LinkDTO>
 
     @Override
     public IntegrationPaginatedResult<LinkDTO> retrievePagedLinks(final String site, final String container,
-            final IntegrationPaginatedDataFilter filter) throws Exception
-    {
+            final IntegrationPaginatedDataFilter filter) throws Exception {
+        return retrievePagedLinks(site, container, filter, null, null);
+    }
+
+    @Override
+    public IntegrationPaginatedResult<LinkDTO> retrievePagedLinks(final String site, final String container,
+        final IntegrationPaginatedDataFilter filter,
+        final String user,
+        final String password) throws Exception {
+
         Map<String, Object> queryParams = new HashMap<String, Object>();
         queryParams.put("page", (filter.getOffset() / filter.getLimit()) + 1 );
         queryParams.put("pageSize", filter.getLimit());
 
-/* It does not work here as a request is build again inside the retrievePagedQuery method, thus ignoring this
-        alfrescoRestClient.request().property(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_USERNAME, "user").
-                property(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_PASSWORD, "sdafsadfsadfsa");
-*/
-
+        HashMap<String,Object> properties = null;
+        if (user != null && password != null){
+            properties = new HashMap<String,Object>();
+            properties.put(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_USERNAME, user);
+            properties.put(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_PASSWORD, password);
+        }
         return this.retrievePagedQuery(alfrescoRestClient.path("links/site/webtestsite/links"),
-                filter, null, queryParams);
-    }
-
-
-    @Override
-    public HashMap<String,Object> addBuilderProperties(){
-        // We can override default basic authentication credentials (if they were set up) here. Example:
-        HashMap<String,Object> properties = new HashMap<String,Object>();
-/*
-        properties.put(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_USERNAME, "user");
-        properties.put(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_PASSWORD, "password");
-*/
-        return properties;
+                filter, null, queryParams, properties);
     }
 
 }

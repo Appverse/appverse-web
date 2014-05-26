@@ -21,22 +21,7 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.ecm.alfresco.services.integration;
+package test.app.web.framework.backend.ecm.alfresco.services.integration;
 
-import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
-import org.appverse.web.framework.backend.ecm.alfresco.model.integration.LinkDTO;
-import org.appverse.web.framework.backend.rest.annotations.RestCaching;
-import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
-
-@RestCaching(cacheName = "alfrescoRestClientCache")
-public interface LinkRepository {
-
-    IntegrationPaginatedResult<LinkDTO> retrievePagedLinks(String site, String container,
-                                                           IntegrationPaginatedDataFilter filter) throws Exception;
-
-    IntegrationPaginatedResult<LinkDTO> retrievePagedLinks(String site, String container,
-                                                           IntegrationPaginatedDataFilter filter,
-                                                           String user,
-                                                           String password) throws Exception;
-
+public interface AlfrescoTestRepository {
 }

@@ -37,20 +37,26 @@ public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentInt
 
     @Override
     public T retrieveDocument(final String path,
-                                      final String contentStreamFileName) throws Exception {
-        Document object = (Document)FileUtils.getObject(path  + contentStreamFileName, cmisSession);
+                                      final String documentName) throws Exception {
+        Document object = (Document)FileUtils.getObject(path  + documentName, cmisSession);
         ContentStream contentStream = object.getContentStream();
 
         Class<T> classP = getClassP();
         T document = classP.newInstance();
 
         document.setContentStream(IOUtils.toByteArray(contentStream.getStream()));
-        document.setContentStreamFilename(contentStreamFileName);
+        document.setContentStreamFilename(documentName);
         document.setContentStreamLenght(contentStream.getLength());
         document.setContentStreamMimeType(contentStream.getMimeType());
         return document;
     }
 
+    @Override
+    public void moveDocument(String pathOrigin, String documentName, String pathDestination) throws Exception {
+        moveDocument(pathOrigin, documentName, pathDestination, documentName);
+    }
+
+    // TODO: destination name is not being used
     @Override
     public void moveDocument(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception {
         // Disable cache

@@ -31,6 +31,8 @@ public interface IDocumentService <T extends AbstractIntegrationBean> {
 
     T retrieveDocument(final String path, final String documentName) throws Exception;
 
+    void moveDocument(String pathOrigin, String documentName, String pathDestination) throws Exception;
+
     void moveDocument(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception;
 
     void removeDocument(final String path, final String documentName) throws Exception;
