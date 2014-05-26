@@ -56,7 +56,7 @@ public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentInt
         moveDocument(pathOrigin, documentName, pathDestination, documentName);
     }
 
-    // TODO: destination name is not being used
+    // TODO: destination name is not being used currently, the document is copied with the same origin document name
     @Override
     public void moveDocument(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception {
         // Disable cache

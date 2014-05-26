@@ -75,6 +75,11 @@ public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean
     }
 
     @Override
+    public void moveDocument(String pathOrigin, String documentName, String pathDestination) throws Exception {
+        moveDocument(pathOrigin, documentName, pathDestination, documentName);
+    }
+
+    @Override
     public void moveDocument(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception{
         File originFile = new File(pathOrigin + "/" + documentNameOrigin);
 
