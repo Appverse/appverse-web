@@ -50,11 +50,11 @@ public class WebTargetFactory {
     }
 
 
-    public static WebTarget create(final String baseAddress, final Cache cache, Boolean enableBasicAuthenticationFeature, String user, String password) {
+    public static WebTarget create(final String baseAddress, final Cache cache, Boolean enableBasicAuthenticationFeature, String defaultUser, String defaultUserPassword) {
 
         // Parameters check
         if (enableBasicAuthenticationFeature != null && enableBasicAuthenticationFeature == true){
-            if (user == null || password == null) throw
+            if (defaultUser == null || defaultUserPassword == null) throw
                     new IllegalArgumentException("Basic authentication feature requires arguments 'user' and 'password' to be set up");
         }
 
@@ -70,11 +70,11 @@ public class WebTargetFactory {
             // Register feature that allows basic authentication (in preemptive and not-preemtive mode)
             // Its use is optional
             final HttpAuthenticationFeature authFeature;
-            if (user != null && password != null){
+            if (defaultUser != null && defaultUserPassword != null){
                 // Default user and password are set (they can be overriden later by request)
                 authFeature = HttpAuthenticationFeature
                 .basicBuilder()
-                .credentials(user, password)
+                .credentials(defaultUser, defaultUserPassword)
                 .build();
             }
             else{

@@ -88,13 +88,24 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return this.retrieve(webClient, null, null, pathParams, queryParams);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieve(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
-	 */
-	@Override
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieve(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+     */
+    @Override
+    public T retrieve(WebTarget webClient, final String idName, final Long id,
+                      final Map<String, Object> pathParams,
+                      final Map<String, Object> queryParams)
+            throws Exception {
+        return retrieve(webClient, idName, id, pathParams, queryParams, null);
+    }
+
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieve(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map, java.util.Map)
+     */
+    @Override
 	public T retrieve(WebTarget webClient, final String idName, final Long id,
 			final Map<String, Object> pathParams,
-			final Map<String, Object> queryParams)
+			final Map<String, Object> queryParams, final Map<String, Object> builderProperties)
 			throws Exception {
 
 		if (queryParams != null)
@@ -110,7 +121,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 
 		Method methodGet = Builder.class.getMethod("get", GenericType.class);
 
@@ -124,13 +137,24 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return object;
 	}
 
-	// Binary method
+    // Binary method
 	/* (non-Javadoc)
 	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveInputStream(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
 	 */
+    @Override
+    public InputStream retrieveInputStream(WebTarget webClient, final String idName, final Long id,
+                                           final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+            throws Exception {
+        return retrieveInputStream(webClient, idName, id, pathParams, queryParams, null);
+    }
+
+	// Binary method
+	/* (non-Javadoc)
+	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveInputStream(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map, java.util.Map, java.util.Map)
+	 */
 	@Override
 	public InputStream retrieveInputStream(WebTarget webClient, final String idName, final Long id,
-			final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+			final Map<String, Object> pathParams, final Map<String, Object> queryParams, final Map<String, Object> builderProperties)
 			throws Exception {
 		if (queryParams != null)
 			webClient = applyQuery(webClient, queryParams);
@@ -142,7 +166,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = webClient.request().accept(MediaType.APPLICATION_OCTET_STREAM_TYPE);
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 
 		Method methodGet = Builder.class.getMethod("get");
 
@@ -165,12 +191,22 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return retrieveList(webClient, idName, id, null, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveList(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
-	 */
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveList(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+     */
+    @Override
+    public List<T> retrieveList(WebTarget webClient, final String idName, final Long id,
+                                final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+            throws Exception {
+        return retrieveList(webClient, idName, id, pathParams, queryParams, null);
+    }
+
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrieveList(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map, java.util.Map)
+     */
 	@Override
 	public List<T> retrieveList(WebTarget webClient, final String idName, final Long id,
-			final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+			final Map<String, Object> pathParams, final Map<String, Object> queryParams, final Map<String, Object> builderProperties)
 			throws Exception {
 
 		if (queryParams != null)
@@ -186,7 +222,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplate(idName, id);
 
 		Builder builder = acceptMediaType(webClient.request());
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 
 		Method methodGet = Builder.class.getMethod("get", GenericType.class);
 
@@ -262,13 +300,24 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return retrievePagedQuery(webClient, filter, null, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrievePagedQuery(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter, java.util.Map, java.util.Map)
-	 */
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrievePagedQuery(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter, java.util.Map, java.util.Map)
+     */
+    @Override
+    public IntegrationPaginatedResult<T> retrievePagedQuery(WebTarget webClient,
+                                                            final IntegrationPaginatedDataFilter filter, final Map<String, Object> pathParams,
+                                                            final Map<String, Object> queryParams)
+            throws Exception {
+        return retrievePagedQuery(webClient, filter, pathParams, queryParams, null);
+    }
+
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#retrievePagedQuery(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter, java.util.Map, java.util.Map, java.util.Map)
+     */
 	@Override
 	public IntegrationPaginatedResult<T> retrievePagedQuery(WebTarget webClient,
 			final IntegrationPaginatedDataFilter filter, final Map<String, Object> pathParams,
-			final Map<String, Object> queryParams)
+			final Map<String, Object> queryParams, final Map<String, Object> builderProperties)
 			throws Exception {
 
 		if (queryParams != null)
@@ -282,9 +331,11 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		webClient = webClient.resolveTemplate(getMaxRecordsParamName(), filter.getLimit());
 
 		builder = acceptMediaType(webClient.request());
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 
-		Method methodGet = this.getClass().getMethod("retrieveAndUnmarshall", WebTarget.class,
+        Method methodGet = this.getClass().getMethod("retrieveAndUnmarshall", WebTarget.class,
 				Builder.class);
 
 		IntegrationPaginatedResult<T> result = null;
@@ -341,13 +392,25 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return deleteStatusReturn(webClient, idName, id, null, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#deleteStatusReturn(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
-	 */
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#deleteStatusReturn(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+     */
+    @Override
+    public StatusResult deleteStatusReturn(WebTarget webClient, final String idName, final Long id,
+                                           final Map<String, Object> pathParams,
+                                           final Map<String, Object> queryParams) throws Exception
+    {
+        return deleteStatusReturn(webClient, idName, id, pathParams, queryParams, null);
+    }
+
+
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#deleteStatusReturn(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map, java.util.Map)
+     */
 	@Override
 	public StatusResult deleteStatusReturn(WebTarget webClient, final String idName, final Long id,
 			final Map<String, Object> pathParams,
-			final Map<String, Object> queryParams) throws Exception
+			final Map<String, Object> queryParams, final Map<String, Object> builderProperties) throws Exception
 	{
 		if (queryParams != null)
 			webClient = applyQuery(webClient, queryParams);
@@ -359,7 +422,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
         Builder builder = acceptMediaType(webClient.request());
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 		Response resp = builder.delete();
 		return getStatusResult(resp);
 
@@ -374,13 +439,24 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return delete(webClient, idName, id, null, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#delete(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
-	 */
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#delete(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+     */
+    @Override
+    public T delete(WebTarget webClient, final String idName, final Long id,
+                    final Map<String, Object> pathParams,
+                    final Map<String, Object> queryParams) throws Exception
+    {
+        return delete(webClient, idName, id, pathParams, queryParams, null);
+    }
+
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#delete(javax.ws.rs.client.WebTarget, java.lang.String, java.lang.Long, java.util.Map, java.util.Map, java.util.Map, java.util.Map)
+     */
 	@Override
 	public T delete(WebTarget webClient, final String idName, final Long id,
 			final Map<String, Object> pathParams,
-			final Map<String, Object> queryParams) throws Exception
+			final Map<String, Object> queryParams, final Map<String, Object> builderProperties) throws Exception
 	{
 		if (queryParams != null)
 			webClient = applyQuery(webClient, queryParams);
@@ -395,7 +471,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
         Builder builder = acceptMediaType(webClient.request());
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 		return builder.delete(genericType);
 	}
 
@@ -409,13 +487,23 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return insert(webClient, object, null, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insert(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.util.Map, java.util.Map)
-	 */
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insert(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.util.Map, java.util.Map)
+     */
+    @Override
+    public T insert(WebTarget webClient, final T object,
+                    final Map<String, Object> pathParams,
+                    final Map<String, Object> queryParams) throws Exception {
+        return insert(webClient, object, pathParams, queryParams, null);
+    }
+
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insert(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.util.Map, java.util.Map, java.util.Map, java.util.Map)
+     */
 	@Override
 	public T insert(WebTarget webClient, final T object,
 			final Map<String, Object> pathParams,
-			final Map<String, Object> queryParams) throws Exception {
+			final Map<String, Object> queryParams, final Map<String, Object> builderProperties) throws Exception {
 
 		if (queryParams != null)
 			webClient = applyQuery(webClient, queryParams);
@@ -427,17 +515,29 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 		return builder.post(Entity.entity(object, acceptMediaType()), genericType);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insert(javax.ws.rs.client.WebTarget, java.io.InputStream, java.util.Map, java.util.Map)
-	 */
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insert(javax.ws.rs.client.WebTarget, java.io.InputStream, java.util.Map, java.util.Map)
+     */
+    @Override
+    public Response insert(WebTarget webClient, final InputStream object,
+                           final Map<String, Object> pathParams,
+                           final Map<String, Object> queryParams) throws Exception {
+        return insert(webClient, object, pathParams, queryParams, null);
+    }
+
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insert(javax.ws.rs.client.WebTarget, java.io.InputStream, java.util.Map, java.util.Map, java.util.Map)
+     */
 	@Override
 	public Response insert(WebTarget webClient, final InputStream object,
 			final Map<String, Object> pathParams,
-			final Map<String, Object> queryParams) throws Exception {
+			final Map<String, Object> queryParams, final Map<String, Object> builderProperties) throws Exception {
 		if (queryParams != null)
 			webClient = applyQuery(webClient, queryParams);
 
@@ -445,7 +545,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 		return builder.post(Entity.entity(object, MediaType.APPLICATION_OCTET_STREAM_TYPE));
 	}
 
@@ -458,13 +560,23 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return insertStatusReturn(webClient, object, null, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insertStatusReturn(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.util.Map, java.util.Map)
-	 */
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insertStatusReturn(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.util.Map, java.util.Map)
+     */
+    @Override
+    public StatusResult insertStatusReturn(WebTarget webClient, final T object,
+                                           final Map<String, Object> pathParams,
+                                           final Map<String, Object> queryParams) throws Exception {
+        return insertStatusReturn(webClient, object, pathParams, queryParams, null);
+    }
+
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#insertStatusReturn(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.util.Map, java.util.Map, java.util.Map)
+     */
 	@Override
 	public StatusResult insertStatusReturn(WebTarget webClient, final T object,
 			final Map<String, Object> pathParams,
-			final Map<String, Object> queryParams) throws Exception {
+			final Map<String, Object> queryParams, final Map<String, Object> builderProperties) throws Exception {
 
 		if (queryParams != null)
 			webClient = applyQuery(webClient, queryParams);
@@ -473,7 +585,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 		Response resp = builder.post(Entity.entity(object, acceptMediaType()));
 		return getStatusResult(resp);
 	}
@@ -490,12 +604,23 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return update(webClient, object, idName, id, null, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#update(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
-	 */
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#update(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+     */
+    @Override
+    public T update(WebTarget webClient, final T object, final String idName, final Long id,
+                    final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+            throws Exception {
+        return update(webClient, object, idName, id, pathParams, queryParams, null);
+    }
+
+
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#update(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.lang.String, java.lang.Long, java.util.Map, java.util.Map, java.util.Map)
+     */
 	@Override
 	public T update(WebTarget webClient, final T object, final String idName, final Long id,
-			final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+			final Map<String, Object> pathParams, final Map<String, Object> queryParams, final Map<String, Object> builderProperties)
 			throws Exception {
 
 		if (queryParams != null)
@@ -511,16 +636,25 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		};
 
 		Builder builder = acceptMediaType(webClient.request());
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 		return builder.put(Entity.entity(object, acceptMediaType()), genericType);
 	}
+
+    @Override
+    public Response update(WebTarget webClient, final InputStream object, final String idName,
+                           final Long id,
+                           final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+            throws Exception {
+        return update(webClient, object, idName, id, pathParams, queryParams, null);
+    }
 
 	@Override
 	public Response update(WebTarget webClient, final InputStream object, final String idName,
 			final Long id,
-			final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+			final Map<String, Object> pathParams, final Map<String, Object> queryParams, final Map<String, Object> builderProperties)
 			throws Exception {
-
 		if (queryParams != null)
 			webClient = applyQuery(webClient, queryParams);
 
@@ -531,7 +665,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 		return builder.put(Entity.entity(object, MediaType.APPLICATION_OCTET_STREAM_TYPE));
 	}
 
@@ -545,13 +681,24 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		return updateStatusReturn(webClient, object, idName, id, null, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#updateStatusReturn(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
-	 */
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#updateStatusReturn(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.lang.String, java.lang.Long, java.util.Map, java.util.Map)
+     */
+    @Override
+    public StatusResult updateStatusReturn(WebTarget webClient, final T object,
+                                           final String idName, final Long id,
+                                           final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+            throws Exception {
+        return updateStatusReturn(webClient, object, idName, id, pathParams, queryParams, null);
+    }
+
+    /* (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#updateStatusReturn(javax.ws.rs.client.WebTarget, org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean, java.lang.String, java.lang.Long, java.util.Map, java.util.Map, java.util.Map)
+     */
 	@Override
 	public StatusResult updateStatusReturn(WebTarget webClient, final T object,
 			final String idName, final Long id,
-			final Map<String, Object> pathParams, final Map<String, Object> queryParams)
+			final Map<String, Object> pathParams, final Map<String, Object> queryParams, final Map<String, Object> builderProperties)
 			throws Exception {
 
 		if (queryParams != null)
@@ -564,7 +711,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 			webClient = webClient.resolveTemplates(pathParams);
 
 		Builder builder = acceptMediaType(webClient.request());
-        addBuilderProperties(builder);
+        if (builderProperties != null){
+            addBuilderProperties(builder, builderProperties);
+        }
 		Response resp = builder.put(Entity.entity(object, acceptMediaType()));
 		return getStatusResult(resp);
 
@@ -668,22 +817,14 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
      * @param properties
      * @return void
      */
-    protected void addBuilderProperties(Invocation.Builder builder){
-        HashMap<String,Object> properties = addBuilderProperties();
-        if (properties != null){
-            for (Map.Entry<String, Object> entry : properties.entrySet()) {
+    protected void addBuilderProperties(Invocation.Builder builder, Map<String, Object> builderProperties){
+        if (builderProperties != null){
+            for (Map.Entry<String, Object> entry : builderProperties.entrySet()) {
                 String key = entry.getKey();
                 Object value = entry.getValue();
                 builder.property(key, value);
             }
         }
-    }
-
-	/* (non-Javadoc)
-	 * @see org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService#addBuilderProperties()
-	 */
-    public HashMap<String,Object> addBuilderProperties(){
-        return null;
     }
 
 	/**
