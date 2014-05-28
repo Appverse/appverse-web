@@ -21,15 +21,54 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package test.app.web.framework.backend.ecm.alfresco.services.integration.impl.live;
+package org.appverse.web.framework.backend.ecm.alfresco.model.integration.repository.links;
 
-import org.appverse.web.framework.backend.ecm.cmis.services.integration.impl.live.CMISSimpleNonVersionedDocumentService;
-import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
-import org.springframework.stereotype.Repository;
-import test.app.web.framework.backend.ecm.alfresco.services.integration.DocumentRepository;
+import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
+import org.codehaus.jackson.annotate.JsonAnyGetter;
+import org.codehaus.jackson.annotate.JsonAnySetter;
 
-@Repository("documentRepository")
-public class DocumentRepositoryImpl extends CMISSimpleNonVersionedDocumentService<DocumentDTO>
-    implements DocumentRepository {
+import java.util.HashMap;
+import java.util.Map;
+
+public class AuthorDTO extends AbstractIntegrationBean {
+
+    private String username;
+    private String firstName;
+    private String lastName;
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
 
 }

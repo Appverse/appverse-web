@@ -21,7 +21,7 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.ecm.alfresco.model.integration;
+package org.appverse.web.framework.backend.ecm.alfresco.model.integration.repository.links;
 
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.codehaus.jackson.annotate.JsonAnyGetter;

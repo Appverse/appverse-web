@@ -21,15 +21,11 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package test.app.web.framework.backend.ecm.alfresco.services.integration.impl.live;
+package test.app.web.framework.backend.ecm.services.integration;
 
-import org.appverse.web.framework.backend.ecm.cmis.services.integration.impl.live.CMISSimpleNonVersionedDocumentService;
 import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
-import org.springframework.stereotype.Repository;
-import test.app.web.framework.backend.ecm.alfresco.services.integration.DocumentRepository;
+import org.appverse.web.framework.backend.ecm.core.services.integration.IDocumentService;
 
-@Repository("documentRepository")
-public class DocumentRepositoryImpl extends CMISSimpleNonVersionedDocumentService<DocumentDTO>
-    implements DocumentRepository {
+public interface DocumentRepository extends IDocumentService<DocumentDTO> {
 
 }

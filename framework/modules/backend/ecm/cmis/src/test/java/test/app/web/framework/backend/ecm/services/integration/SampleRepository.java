@@ -21,36 +21,16 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.ecm.alfresco.model.integration;
+package test.app.web.framework.backend.ecm.services.integration;
 
-import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
-import org.codehaus.jackson.annotate.JsonAnyGetter;
-import org.codehaus.jackson.annotate.JsonAnySetter;
+import org.appverse.web.framework.backend.ecm.cmis.services.integration.ICMISService;
+import test.app.web.framework.backend.ecm.model.integration.NodeDTO;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-public class MetadataDTO extends AbstractIntegrationBean {
+public interface SampleRepository extends ICMISService<NodeDTO> {
 
-    private LinkPermissionsDTO linkPermissions;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    public LinkPermissionsDTO getLinkPermissions() {
-        return linkPermissions;
-    }
-
-    public void setLinkPermissions(LinkPermissionsDTO linkPermissions) {
-        this.linkPermissions = linkPermissions;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
+    List<NodeDTO> getRootFolderNodes();
+    List<NodeDTO> getNodesfromFolderUsingQuery(String folderName);
 
 }

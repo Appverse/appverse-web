@@ -42,7 +42,7 @@ public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean
     private static Logger logger;
 
     @Override
-    public void addDocument(String path, T document) throws Exception{
+    public void insert(String path, T document) throws Exception{
         File dir = new File(path);
         dir.mkdirs();
         File out = new File(dir, document.getContentStreamFilename());
@@ -50,7 +50,7 @@ public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean
     }
 
     @Override
-    public T retrieveDocument(final String path,
+    public T retrieve(final String path,
                                       final String contentStreamFileName) throws Exception {
         File file = new File(path + "/" + contentStreamFileName);
 
@@ -65,7 +65,7 @@ public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean
     }
 
     @Override
-    public void removeDocument(String path, String documentName) throws Exception {
+    public void delete(String path, String documentName) throws Exception {
         String absolutePath = path + "/" + documentName;
         File file = new File(absolutePath);
         boolean success = file.delete();
@@ -75,12 +75,12 @@ public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean
     }
 
     @Override
-    public void moveDocument(String pathOrigin, String documentName, String pathDestination) throws Exception {
-        moveDocument(pathOrigin, documentName, pathDestination, documentName);
+    public void move(String pathOrigin, String documentName, String pathDestination) throws Exception {
+        move(pathOrigin, documentName, pathDestination, documentName);
     }
 
     @Override
-    public void moveDocument(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception{
+    public void move(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception{
         File originFile = new File(pathOrigin + "/" + documentNameOrigin);
 
         // Create destination structure if necessary
@@ -107,7 +107,7 @@ public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean
     }
 
     @Override
-    public void removeFolder(String path) throws Exception {
+    public void deleteFolder(String path) throws Exception {
         File fileToTempDir = new File(path);
         FileSystemUtils.deleteRecursively(fileToTempDir);
     }

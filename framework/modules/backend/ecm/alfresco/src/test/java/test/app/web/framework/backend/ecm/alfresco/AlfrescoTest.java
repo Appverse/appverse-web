@@ -23,18 +23,11 @@
  */
 package test.app.web.framework.backend.ecm.alfresco;
 
-import org.apache.chemistry.opencmis.client.api.*;
-import org.apache.chemistry.opencmis.client.util.FileUtils;
-import org.apache.chemistry.opencmis.commons.PropertyIds;
-import org.apache.chemistry.opencmis.commons.data.ContentStream;
-import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
-import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
-import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.helpers.test.AbstractTest;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
-import org.appverse.web.framework.backend.ecm.alfresco.model.integration.LinkDTO;
-import org.appverse.web.framework.backend.ecm.alfresco.services.integration.LinkRepository;
+import org.appverse.web.framework.backend.ecm.alfresco.model.integration.repository.links.LinkDTO;
+import org.appverse.web.framework.backend.ecm.alfresco.services.integration.repository.links.LinkRepository;
 import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
 import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 import org.junit.Assert;
@@ -44,12 +37,6 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.app.web.framework.backend.ecm.alfresco.services.integration.DocumentRepository;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
-
 public class AlfrescoTest extends AbstractTest {
 
     @Autowired
@@ -57,11 +44,6 @@ public class AlfrescoTest extends AbstractTest {
 
     @Autowired
     DocumentRepository documentRepository;
-
-/*
-    @Autowired
-    Session cmisSessionRepo2;
-*/
 
     @AutowiredLogger
     private static Logger logger;
@@ -79,10 +61,10 @@ public class AlfrescoTest extends AbstractTest {
         document.setContentStreamFilename("textDocument.txt");
         document.setContentStream("This is the content for this test file".getBytes());
         document.setContentStreamMimeType("text/plain");
-        documentRepository.addDocument("/test/folder1/", document);
+        documentRepository.insert("/appversetest/folder1/", document);
 
         // Retrieve the recently created document
-        DocumentDTO retrievedDocument = documentRepository.retrieveDocument("/test/folder1/", document.getContentStreamFilename());
+        DocumentDTO retrievedDocument = documentRepository.retrieve("/appversetest/folder1/", document.getContentStreamFilename());
         Assert.assertNotNull(retrievedDocument);
         Assert.assertEquals("Document name does not match", retrievedDocument.getContentStreamFilename(), "textDocument.txt");
         Assert.assertNotNull(retrievedDocument.getContentStream());
@@ -92,7 +74,7 @@ public class AlfrescoTest extends AbstractTest {
         // Move the recently created document to another location
 
         // Remove the container folder tree
-        documentRepository.removeFolder("/test");
+        documentRepository.deleteFolder("/appversetest");
     }
 
 
@@ -121,73 +103,5 @@ public class AlfrescoTest extends AbstractTest {
         // Using repository based in Alfresco REST API
         alfrescoRESTApiRetrieveLinksTestWithDefaultUser();
     }
-
-/*
-    @Test
-    public void testTwoRepositoriesPrintRootFolder() {
-        logger.info(AlfrescoTest.class.getName() + " started");
-
-        // Get everything in the root folder and print the names of the objects
-        Folder root = cmisSession.getRootFolder();
-        ItemIterable<CmisObject> children = root.getChildren();
-        logger.info("Found the following objects in the root folder for repository 1 :-");
-        for (CmisObject o : children) {
-            logger.info(o.getName());
-        }
-
-        // Get everything in the root folder and print the names of the objects
-        root = cmisSessionRepo2.getRootFolder();
-        children = root.getChildren();
-        System.out.println("Found the following objects in the root folder for repository 2 :-");
-        for (CmisObject o : children) {
-            System.out.println(o.getName());
-        }
-        logger.info(AlfrescoTest.class.getName() + " ended");
-    }
-
-    @Test
-    public void testQuery() throws Exception
-    {
-        Folder root = cmisSession.getRootFolder();
-
-        // Removing the test folder that might have been created in previous tests
-        try{
-            Folder folder = (Folder) FileUtils.getObject("/testfolder", cmisSession);
-            folder.deleteTree(true, UnfileObject.DELETE, true);
-        }
-        catch (CmisObjectNotFoundException e){
-            // The folder did not exist previously
-        }
-
-        //creating the test folder
-        Map<String, Object> folderProperties = new HashMap<String, Object>();
-        folderProperties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
-        folderProperties.put(PropertyIds.NAME, "testfolder");
-        Folder newFolder = root.createFolder(folderProperties);
-
-        // Create a new content in the folder
-        String name = "testfile.txt";
-        // properties
-        // (minimal set: name and object type id)
-        Map<String, Object> contentProperties = new HashMap<String, Object>();
-        contentProperties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
-        contentProperties.put(PropertyIds.NAME, name);
-
-        // content
-        byte[] content = "CMIS test data".getBytes();
-        InputStream stream = new ByteArrayInputStream(content);
-        ContentStream contentStream = new ContentStreamImpl(name, new BigInteger(content), "text/plain", stream);
-
-        // create a major version
-        Document newContent1 =  newFolder.createDocument(contentProperties, contentStream, null);
-        logger.info("DocumentDTO created: " + newContent1.getId());
-
-        ItemIterable<QueryResult> results = cmisSession.query("SELECT * FROM cmis:folder WHERE cmis:name='testfolder'", false);
-        for (QueryResult result : results) {
-            String id = result.getPropertyValueById(PropertyIds.OBJECT_ID);
-            Assert.assertNotNull(id);
-        }
-    }
-*/
 
 }

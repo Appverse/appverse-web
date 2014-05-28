@@ -21,7 +21,7 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.ecm.alfresco.model.integration;
+package org.appverse.web.framework.backend.ecm.alfresco.model.integration.repository.links;
 
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.codehaus.jackson.annotate.JsonAnyGetter;
@@ -30,35 +30,17 @@ import org.codehaus.jackson.annotate.JsonAnySetter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AuthorDTO extends AbstractIntegrationBean {
+public class MetadataDTO extends AbstractIntegrationBean {
 
-    private String username;
-    private String firstName;
-    private String lastName;
+    private LinkPermissionsDTO linkPermissions;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public String getUsername() {
-        return username;
+    public LinkPermissionsDTO getLinkPermissions() {
+        return linkPermissions;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLinkPermissions(LinkPermissionsDTO linkPermissions) {
+        this.linkPermissions = linkPermissions;
     }
 
     @JsonAnyGetter

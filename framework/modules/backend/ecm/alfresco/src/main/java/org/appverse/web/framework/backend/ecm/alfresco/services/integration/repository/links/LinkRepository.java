@@ -21,45 +21,22 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.ecm.alfresco.model.integration;
+package org.appverse.web.framework.backend.ecm.alfresco.services.integration.repository.links;
 
-import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
-import org.codehaus.jackson.annotate.JsonAnyGetter;
-import org.codehaus.jackson.annotate.JsonAnySetter;
+import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
+import org.appverse.web.framework.backend.ecm.alfresco.model.integration.repository.links.LinkDTO;
+import org.appverse.web.framework.backend.rest.annotations.RestCaching;
+import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 
-import java.util.HashMap;
-import java.util.Map;
+@RestCaching(cacheName = "alfrescoRestClientCache")
+public interface LinkRepository {
 
-public class CreatedOnDateDTO extends AbstractIntegrationBean {
+    IntegrationPaginatedResult<LinkDTO> retrievePagedLinks(String site, String container,
+                                                           IntegrationPaginatedDataFilter filter) throws Exception;
 
-    private String iso8601;
-    private String legacyDate;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    public String getIso8601() {
-        return iso8601;
-    }
-
-    public void setIso8601(String iso8601) {
-        this.iso8601 = iso8601;
-    }
-
-    public String getLegacyDate() {
-        return legacyDate;
-    }
-
-    public void setLegacyDate(String legacyDate) {
-        this.legacyDate = legacyDate;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
+    IntegrationPaginatedResult<LinkDTO> retrievePagedLinks(String site, String container,
+                                                           IntegrationPaginatedDataFilter filter,
+                                                           String user,
+                                                           String password) throws Exception;
 
 }

@@ -33,6 +33,6 @@ public class CMISService<T extends AbstractIntegrationBean> extends
         AbstractIntegrationService<T> implements ICMISService<T> {
 
     @Autowired
-    Session cmisSession;
+    protected Session cmisSession;
 
 }

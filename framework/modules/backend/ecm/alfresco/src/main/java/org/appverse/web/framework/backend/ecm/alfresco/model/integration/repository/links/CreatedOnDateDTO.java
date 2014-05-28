@@ -21,15 +21,45 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package test.app.web.framework.backend.ecm.alfresco.services.integration.impl.live;
+package org.appverse.web.framework.backend.ecm.alfresco.model.integration.repository.links;
 
-import org.appverse.web.framework.backend.ecm.cmis.services.integration.impl.live.CMISSimpleNonVersionedDocumentService;
-import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
-import org.springframework.stereotype.Repository;
-import test.app.web.framework.backend.ecm.alfresco.services.integration.DocumentRepository;
+import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
+import org.codehaus.jackson.annotate.JsonAnyGetter;
+import org.codehaus.jackson.annotate.JsonAnySetter;
 
-@Repository("documentRepository")
-public class DocumentRepositoryImpl extends CMISSimpleNonVersionedDocumentService<DocumentDTO>
-    implements DocumentRepository {
+import java.util.HashMap;
+import java.util.Map;
+
+public class CreatedOnDateDTO extends AbstractIntegrationBean {
+
+    private String iso8601;
+    private String legacyDate;
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    public String getIso8601() {
+        return iso8601;
+    }
+
+    public void setIso8601(String iso8601) {
+        this.iso8601 = iso8601;
+    }
+
+    public String getLegacyDate() {
+        return legacyDate;
+    }
+
+    public void setLegacyDate(String legacyDate) {
+        this.legacyDate = legacyDate;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
 
 }

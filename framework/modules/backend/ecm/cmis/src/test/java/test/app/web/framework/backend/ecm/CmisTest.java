@@ -23,100 +23,84 @@
  */
 package test.app.web.framework.backend.ecm;
 
-import org.apache.chemistry.opencmis.client.api.*;
-import org.apache.chemistry.opencmis.client.util.FileUtils;
-import org.apache.chemistry.opencmis.commons.PropertyIds;
-import org.apache.chemistry.opencmis.commons.data.ContentStream;
-import org.apache.chemistry.opencmis.commons.enums.UnfileObject;
-import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
-import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.helpers.test.AbstractTest;
+import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import test.app.web.framework.backend.ecm.model.integration.NodeDTO;
+import test.app.web.framework.backend.ecm.services.integration.DocumentRepository;
+import test.app.web.framework.backend.ecm.services.integration.SampleRepository;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class CmisTest extends AbstractTest {
 
     @Autowired
-    Session cmisSession;
+    DocumentRepository documentRepository;
 
     @Autowired
-    Session cmisSessionRepo2;
+    SampleRepository sampleRepository;
 
     @AutowiredLogger
     private static Logger logger;
 
     @Test
-    public void testTwoRepositoriesPrintRootFolder() {
-        logger.info(CmisTest.class.getName() + " started");
+    public void cmisManageDocumentTest() throws Exception{
+        // Create document. This will create folder structure to the specified path if necessary
+        DocumentDTO document = new DocumentDTO();
+        document.setContentStreamFilename("textDocument.txt");
+        document.setContentStream("This is the content for this test file".getBytes());
+        document.setContentStreamMimeType("text/plain");
+        documentRepository.insert("/test/folder1/", document);
 
-        // Get everything in the root folder and print the names of the objects
-        Folder root = cmisSession.getRootFolder();
-        ItemIterable<CmisObject> children = root.getChildren();
-        logger.info("Found the following objects in the root folder for repository 1 :-");
-        for (CmisObject o : children) {
-            logger.info(o.getName());
-        }
+        // Retrieve the recently created document
+        DocumentDTO retrievedDocument = documentRepository.retrieve("/test/folder1/", document.getContentStreamFilename());
+        Assert.assertNotNull(retrievedDocument);
+        Assert.assertEquals("Document name does not match", retrievedDocument.getContentStreamFilename(), "textDocument.txt");
+        Assert.assertNotNull(retrievedDocument.getContentStream());
+        Assert.assertNotNull(retrievedDocument.getContentStreamLenght());
+        Assert.assertNotNull(retrievedDocument.getContentStreamMimeType());
 
-        // Get everything in the root folder and print the names of the objects
-        root = cmisSessionRepo2.getRootFolder();
-        children = root.getChildren();
-        System.out.println("Found the following objects in the root folder for repository 2 :-");
-        for (CmisObject o : children) {
-            System.out.println(o.getName());
-        }
-        logger.info(CmisTest.class.getName() + " ended");
+        // Move the recently created document to another location
+
+        // Remove the container folder tree
+        documentRepository.deleteFolder("/test");
     }
 
     @Test
-    public void testQuery() throws Exception
-    {
-        Folder root = cmisSession.getRootFolder();
-
-        // Removing the test folder that might have been created in previous tests
-        try{
-            Folder folder = (Folder) FileUtils.getObject("/testfolder", cmisSession);
-            folder.deleteTree(true, UnfileObject.DELETE, true);
+    public void testPrintRepositoryRootFolder() {
+        List<NodeDTO> nodes = sampleRepository.getRootFolderNodes();
+        logger.info("Found the following objects (nodes) in the root folder :");
+        for (NodeDTO node : nodes) {
+            logger.info(node.getName());
         }
-        catch (CmisObjectNotFoundException e){
-            // The folder did not exist previously
-        }
+    }
 
-        //creating the test folder
-        Map<String, Object> folderProperties = new HashMap<String, Object>();
-        folderProperties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
-        folderProperties.put(PropertyIds.NAME, "testfolder");
-        Folder newFolder = root.createFolder(folderProperties);
+    @Test
+    public void testQuery() throws Exception {
+        // Create document. This will create folder structure to the specified path if necessary
+        DocumentDTO document = new DocumentDTO();
+        document.setContentStreamFilename("textDocument.txt");
+        document.setContentStream("This is the content for this test file".getBytes());
+        document.setContentStreamMimeType("text/plain");
+        documentRepository.insert("/test/folder1/", document);
 
-        // Create a new content in the folder
-        String name = "testfile.txt";
-        // properties
-        // (minimal set: name and object type id)
-        Map<String, Object> contentProperties = new HashMap<String, Object>();
-        contentProperties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
-        contentProperties.put(PropertyIds.NAME, name);
+        // Retrieve the recently created document
+        DocumentDTO retrievedDocument = documentRepository.retrieve("/test/folder1/", document.getContentStreamFilename());
+        Assert.assertNotNull(retrievedDocument);
+        Assert.assertEquals("Document name does not match", retrievedDocument.getContentStreamFilename(), "textDocument.txt");
+        Assert.assertNotNull(retrievedDocument.getContentStream());
+        Assert.assertNotNull(retrievedDocument.getContentStreamLenght());
+        Assert.assertNotNull(retrievedDocument.getContentStreamMimeType());
 
-        // content
-        byte[] content = "CMIS test data".getBytes();
-        InputStream stream = new ByteArrayInputStream(content);
-        ContentStream contentStream = new ContentStreamImpl(name, new BigInteger(content), "text/plain", stream);
+        // Test a query
+        List<NodeDTO> nodesDTOList = sampleRepository.getNodesfromFolderUsingQuery("testfolder");
+        Assert.assertNotNull(nodesDTOList);
 
-        // create a major version
-        Document newContent1 =  newFolder.createDocument(contentProperties, contentStream, null);
-        logger.info("DocumentDTO created: " + newContent1.getId());
-
-        ItemIterable<QueryResult> results = cmisSession.query("SELECT * FROM cmis:folder WHERE cmis:name='testfolder'", false);
-        for (QueryResult result : results) {
-            String id = result.getPropertyValueById(PropertyIds.OBJECT_ID);
-            Assert.assertNotNull(id);
-        }
+        // Remove the container folder tree
+        documentRepository.deleteFolder("/test");
     }
 }

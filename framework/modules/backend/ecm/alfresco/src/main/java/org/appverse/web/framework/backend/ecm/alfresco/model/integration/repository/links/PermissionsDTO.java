@@ -21,22 +21,45 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.ecm.alfresco.services.integration;
+package org.appverse.web.framework.backend.ecm.alfresco.model.integration.repository.links;
 
-import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
-import org.appverse.web.framework.backend.ecm.alfresco.model.integration.LinkDTO;
-import org.appverse.web.framework.backend.rest.annotations.RestCaching;
-import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
+import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
+import org.codehaus.jackson.annotate.JsonAnyGetter;
+import org.codehaus.jackson.annotate.JsonAnySetter;
 
-@RestCaching(cacheName = "alfrescoRestClientCache")
-public interface LinkRepository {
+import java.util.HashMap;
+import java.util.Map;
 
-    IntegrationPaginatedResult<LinkDTO> retrievePagedLinks(String site, String container,
-                                                           IntegrationPaginatedDataFilter filter) throws Exception;
+public class PermissionsDTO extends AbstractIntegrationBean {
 
-    IntegrationPaginatedResult<LinkDTO> retrievePagedLinks(String site, String container,
-                                                           IntegrationPaginatedDataFilter filter,
-                                                           String user,
-                                                           String password) throws Exception;
+    private Boolean edit;
+    private Boolean delete;
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    public Boolean getEdit() {
+        return edit;
+    }
+
+    public void setEdit(Boolean edit) {
+        this.edit = edit;
+    }
+
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
 
 }

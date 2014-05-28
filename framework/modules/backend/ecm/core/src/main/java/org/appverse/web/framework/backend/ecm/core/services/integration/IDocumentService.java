@@ -27,16 +27,16 @@ import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrat
 
 public interface IDocumentService <T extends AbstractIntegrationBean> {
 
-    void addDocument(String path, T document) throws Exception;
+    void insert(String path, T document) throws Exception;
 
-    T retrieveDocument(final String path, final String documentName) throws Exception;
+    T retrieve(final String path, final String documentName) throws Exception;
 
-    void moveDocument(String pathOrigin, String documentName, String pathDestination) throws Exception;
+    void move(String pathOrigin, String documentName, String pathDestination) throws Exception;
 
-    void moveDocument(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception;
+    void move(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception;
 
-    void removeDocument(final String path, final String documentName) throws Exception;
+    void delete(final String path, final String documentName) throws Exception;
 
-    void removeFolder(String path) throws Exception;
+    void deleteFolder(String path) throws Exception;
 
 }
