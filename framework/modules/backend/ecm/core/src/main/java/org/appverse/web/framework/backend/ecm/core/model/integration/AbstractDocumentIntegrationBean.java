@@ -27,6 +27,10 @@ import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrat
 
 import java.util.Date;
 
+/**
+ * Base abstract class for document management
+ *
+ */
 public abstract class AbstractDocumentIntegrationBean extends AbstractIntegrationBean {
 
     protected long id;

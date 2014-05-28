@@ -44,6 +44,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * LinkRepository implementation corresponding to Alfresco REST API "links" package:
+ * http://docs.alfresco.com/4.1/references/RESTful-Links.html
+ */
 @Repository("linkRepository")
 public class LinkRepositoryImpl extends RestPersistenceService<LinkDTO>
         implements LinkRepository, IRestPersistenceService<LinkDTO> {

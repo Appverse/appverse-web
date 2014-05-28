@@ -28,6 +28,13 @@ import test.app.web.framework.backend.ecm.model.integration.NodeDTO;
 
 import java.util.List;
 
+/**
+ * This example interface defines two methods for its implementors.
+ * One retrieves all the "nodes" (documents, folders) from the root folder.
+ * The other one retrieves all the nodes in folders with a particular name.
+ * Is just an example showing how you could implement your own repository methods
+ * using Open CMIS API
+ */
 public interface SampleRepository extends ICMISService<NodeDTO> {
 
     List<NodeDTO> getRootFolderNodes();

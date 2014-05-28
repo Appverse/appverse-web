@@ -28,6 +28,10 @@ import org.appverse.web.framework.backend.ecm.alfresco.model.integration.reposit
 import org.appverse.web.framework.backend.rest.annotations.RestCaching;
 import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 
+/**
+ * LinkRepository interface corresponding to Alfresco REST API "links" package:
+ * http://docs.alfresco.com/4.1/references/RESTful-Links.html
+ */
 @RestCaching(cacheName = "alfrescoRestClientCache")
 public interface LinkRepository {
 
@@ -38,5 +42,4 @@ public interface LinkRepository {
                                                            IntegrationPaginatedDataFilter filter,
                                                            String user,
                                                            String password) throws Exception;
-
 }

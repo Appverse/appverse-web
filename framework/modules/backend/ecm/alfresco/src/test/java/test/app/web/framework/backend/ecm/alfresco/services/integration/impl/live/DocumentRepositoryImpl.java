@@ -28,6 +28,11 @@ import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO
 import org.springframework.stereotype.Repository;
 import test.app.web.framework.backend.ecm.alfresco.services.integration.DocumentRepository;
 
+/**
+ * This example class shows how to extend Appverse Web CMISSimpleNonVersionedDocumentService,
+ * in this case with DocumentDTO type to define your own document repository.
+ * You could add methods signatures here if necessary.
+ */
 @Repository("documentRepository")
 public class DocumentRepositoryImpl extends CMISSimpleNonVersionedDocumentService<DocumentDTO>
     implements DocumentRepository {

@@ -25,7 +25,6 @@ package org.appverse.web.framework.backend.ecm.filesystem.services.integration.i
 
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.ecm.core.model.integration.AbstractDocumentIntegrationBean;
-import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
 import org.appverse.web.framework.backend.ecm.core.services.integration.IDocumentService;
 import org.slf4j.Logger;
 import org.springframework.util.FileCopyUtils;
@@ -36,6 +35,10 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * This class provides a file system based implementation for IDocumentService
+ *
+ */
 public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean> implements IDocumentService<T> {
 
     @AutowiredLogger
@@ -50,8 +53,7 @@ public class FileSystemDocumentService<T extends AbstractDocumentIntegrationBean
     }
 
     @Override
-    public T retrieve(final String path,
-                                      final String contentStreamFileName) throws Exception {
+    public T retrieve(final String path, final String contentStreamFileName) throws Exception {
         File file = new File(path + "/" + contentStreamFileName);
 
         Class<T> classP = getClassP();

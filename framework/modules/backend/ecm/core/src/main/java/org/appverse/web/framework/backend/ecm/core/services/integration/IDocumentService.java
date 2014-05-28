@@ -25,6 +25,11 @@ package org.appverse.web.framework.backend.ecm.core.services.integration;
 
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 
+/**
+ * This interface provides the basics methods for the simplest document management based on
+ * documents and documents path with no extra features: no versioning, check in, check out, etc.
+ *
+ */
 public interface IDocumentService <T extends AbstractIntegrationBean> {
 
     void insert(String path, T document) throws Exception;

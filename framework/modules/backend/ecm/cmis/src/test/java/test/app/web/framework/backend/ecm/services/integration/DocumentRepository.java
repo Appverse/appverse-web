@@ -26,6 +26,11 @@ package test.app.web.framework.backend.ecm.services.integration;
 import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
 import org.appverse.web.framework.backend.ecm.core.services.integration.IDocumentService;
 
+/**
+ * This example interface shows how to extend Appverse Web IDocumentService interface,
+ * in this case with DocumentDTO type to define your own document repository interface.
+ * You could add methods signatures here if necessary
+ */
 public interface DocumentRepository extends IDocumentService<DocumentDTO> {
 
 }

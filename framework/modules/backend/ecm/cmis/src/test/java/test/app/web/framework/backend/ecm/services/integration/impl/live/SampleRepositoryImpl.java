@@ -36,6 +36,13 @@ import test.app.web.framework.backend.ecm.services.integration.SampleRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is a sample repository (integration layer service) that have two methods:
+ * One retrieves all the "nodes" (documents, folders) from the root folder.
+ * The other one retrieves all the nodes in folders with a particular name.
+ * Is just an example showing how you could implement your own repository methods
+ * using Open CMIS API
+ */
 @Repository("sampleRepository")
 public class SampleRepositoryImpl extends CMISService<NodeDTO>
         implements SampleRepository {

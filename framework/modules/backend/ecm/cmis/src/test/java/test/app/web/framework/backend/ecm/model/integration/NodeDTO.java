@@ -25,6 +25,13 @@ package test.app.web.framework.backend.ecm.model.integration;
 
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 
+/**
+ * Example class that shows how to model your integration objects layer holding
+ * data corresponding to the CMIS repository.
+ * In this simple example NodeDTO models a "node" in a container (folder) in the repository
+ * with the minimum information we need to be able to print the name of the node
+ * (document or container / folder)
+ */
 public class NodeDTO extends AbstractIntegrationBean {
 
     private String name;

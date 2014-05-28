@@ -185,24 +185,11 @@
             <artifactId>appverse-web-modules-backend-ecm-cmis</artifactId>
         </dependency>
 
-        <!-- TODO: Add this to managed depencendies.
-         According to the following link, the open cmis client automatically detects CMIS 1.0 or 1.1
-            http://stackoverflow.com/questions/21148224/cmis-versions-1-0-or-1-1-documentum-and-alfresco-jar-files-and-stuff
-         -->
-
         <dependency>
             <groupId>org.appverse.web.framework.modules.backend.core.rest</groupId>
             <artifactId>appverse-web-modules-backend-core-rest</artifactId>
         </dependency>
          
-<!--
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
--->
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

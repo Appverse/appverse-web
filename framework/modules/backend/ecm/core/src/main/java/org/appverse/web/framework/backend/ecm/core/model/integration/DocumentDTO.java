@@ -23,6 +23,10 @@
  */
 package org.appverse.web.framework.backend.ecm.core.model.integration;
 
+/**
+ * Base implementation class for document management
+ *
+ */
 public class DocumentDTO extends AbstractDocumentIntegrationBean {
 
 

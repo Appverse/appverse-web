@@ -38,6 +38,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Factory bean that allows to setup an Open CMIS session as a Spring bean.
+ * Take into account that this factory will only be useful for static sessions creation
+ * meaning you know the user and password to connect to the repository, for instance.
+ * Take into account that Open CMIS sessions are per repository and per user as they use caches.
+ * The recommendation is to create a session per different user and then to reuse them always as possible.
+ * Otherwise you will not have the benefeits of the cache (per user) with an impact in performance.
+ * Use this bean when you know the Open CMIS session setup (including user) in advance.
+ * If you do not know this you will need to create the sessions dynamically (different repository users
+ * for instance)
+ */
 public class CmisSessionFactoryBean implements FactoryBean<Session>, BeanNameAware, InitializingBean {
 
     String beanName;
