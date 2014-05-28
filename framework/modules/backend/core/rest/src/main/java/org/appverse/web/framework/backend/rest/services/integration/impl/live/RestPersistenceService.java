@@ -45,6 +45,7 @@ import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrat
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
 import org.appverse.web.framework.backend.api.services.integration.AbstractIntegrationService;
 import org.appverse.web.framework.backend.api.services.integration.ServiceUnavailableException;
+import org.appverse.web.framework.backend.rest.exceptions.RestWebAppException;
 import org.appverse.web.framework.backend.rest.managers.RestCachingManager;
 import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 import org.appverse.web.framework.backend.rest.model.integration.StatusResult;
@@ -375,6 +376,8 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		} else {
 			logger.error("Problem with call {" + webClient.getUri()
 					+ "} . Response status: " + resp.getStatus());
+            throw new RestWebAppException("Exception calling URI: " +
+                    webClient.getUri().toString() + ". Status code is: " + resp.getStatus(), resp.getStatus());
 		}
 		return result;
 	}
