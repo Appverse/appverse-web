@@ -373,8 +373,9 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 					+ "} . Response status: " + resp.getStatus());
 			//Appverse integration exception
 			throw new ServiceUnavailableException();
-		} else {
-			logger.error("Problem with call {" + webClient.getUri()
+		} else if (Status.Family.SERVER_ERROR == resp.getStatusInfo().getFamily() ||
+                   Status.Family.CLIENT_ERROR == resp.getStatusInfo().getFamily()) {
+			logger.error("Error with call {" + webClient.getUri()
 					+ "} . Response status: " + resp.getStatus());
             throw new RestWebAppException("Exception calling URI: " +
                     webClient.getUri().toString() + ". Status code is: " + resp.getStatus(), resp.getStatus());
