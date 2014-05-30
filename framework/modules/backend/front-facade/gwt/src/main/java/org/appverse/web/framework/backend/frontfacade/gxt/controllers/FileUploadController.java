@@ -24,6 +24,7 @@
 package org.appverse.web.framework.backend.frontfacade.gxt.controllers;
 
 import com.google.gwt.user.server.rpc.RPC;
+import org.appverse.web.framework.backend.api.helpers.security.SecurityHelper;
 import org.appverse.web.framework.backend.api.services.presentation.IFileUploadPresentationService;
 import org.appverse.web.framework.backend.api.services.presentation.PresentationException;
 import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
@@ -31,7 +32,6 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
@@ -61,16 +61,6 @@ public class FileUploadController implements ApplicationContextAware {
 	private final String MAX_FILE_SIZE_PARAM_NAME = "maxFileSize";
 
 
-	private void checkXSRFToken(final HttpServletRequest request)
-			throws IOException {
-		String requestValue = request.getParameter("X-XSRF-Cookie");
-		String sessionValue = (String) request.getSession().getAttribute(
-				"X-XSRF-Cookie");
-		if (sessionValue != null && !sessionValue.equals(requestValue)) {
-			throw new PreAuthenticatedCredentialsNotFoundException(
-					"XSRF attribute not found in session.");
-		}
-	}
 	/**
 	 * 
 ------WebKitFormBoundaryx2lXibtD2G3Y2Qkz
@@ -109,7 +99,7 @@ Content-Disposition: form-data; name="maxFileSize"
 		parameters.put("hiddenMediaCategory", hiddenMediaCategory);
 		parameters.put("maxFileSize", maxSize);
 
-		checkXSRFToken(request);
+		SecurityHelper.checkXSRFToken(request);
 
 		serviceName.set(servicemethodname.substring(0, servicemethodname.lastIndexOf(".")));
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

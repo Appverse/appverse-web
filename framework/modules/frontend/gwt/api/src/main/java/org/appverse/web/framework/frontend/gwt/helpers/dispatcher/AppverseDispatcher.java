@@ -26,6 +26,7 @@ package org.appverse.web.framework.frontend.gwt.helpers.dispatcher;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestException;
+import org.appverse.web.framework.frontend.gwt.helpers.security.SecurityHelper;
 import org.fusesource.restygwt.client.Dispatcher;
 import org.fusesource.restygwt.client.Method;
 
@@ -48,7 +49,7 @@ public class AppverseDispatcher implements Dispatcher{
     @Override
     public Request send(Method method, RequestBuilder requestBuilder) throws RequestException {
         if (xsrfToken != null && xsrfToken.length() > 0) {
-            requestBuilder.setHeader("X-XSRF-Cookie", xsrfToken);
+            requestBuilder.setHeader(SecurityHelper.XSRF_TOKEN_NAME, xsrfToken);
         }
         return requestBuilder.send();
 

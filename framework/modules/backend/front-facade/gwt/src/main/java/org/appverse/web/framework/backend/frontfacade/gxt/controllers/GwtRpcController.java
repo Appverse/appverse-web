@@ -28,26 +28,23 @@ import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.server.rpc.RPC;
 import com.google.gwt.user.server.rpc.RPCRequest;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import org.appverse.web.framework.backend.api.helpers.security.SecurityHelper;
 import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
 import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
-import java.io.IOException;
-import java.util.Random;
 
 @Singleton
 @Component
@@ -65,36 +62,6 @@ public class GwtRpcController extends RemoteServiceServlet implements Applicatio
 	@Autowired
 	private ServletContext servletContext;
 	private final ThreadLocal<String> serviceName = new ThreadLocal<String>();
-
-	private void checkXSRFToken(final HttpServletRequest request)
-			throws IOException {
-		String requestValue = request.getHeader("X-XSRF-Cookie");
-		String sessionValue = (String) request.getSession().getAttribute(
-				"X-XSRF-Cookie");
-		if (sessionValue != null && !sessionValue.equals(requestValue)) {
-			throw new PreAuthenticatedCredentialsNotFoundException(
-					"XSRF attribute not found in session.");
-
-		}
-	}
-
-	private String createXSRFToken(final HttpServletRequest request)
-			throws IOException {
-		HttpSession session = request.getSession();
-		String xsrfSessionToken = (String) session
-				.getAttribute("X-XSRF-Cookie");
-		if (xsrfSessionToken == null) {
-			Random r = new Random(System.currentTimeMillis());
-			long value = System.currentTimeMillis() + r.nextLong();
-			char ids[] = session.getId().toCharArray();
-			for (int i = 0; i < ids.length; i++) {
-				value += ids[i] * (i + 1);
-			}
-			xsrfSessionToken = Long.toString(value);
-			session.setAttribute("X-XSRF-Cookie", xsrfSessionToken);
-		}
-		return xsrfSessionToken;
-	}
 
 	@Override
 	public ServletContext getServletContext() {
@@ -114,7 +81,7 @@ public class GwtRpcController extends RemoteServiceServlet implements Applicatio
 		Object presentationService = applicationContext.getBean(serviceName
 				.get());
 		if (!(presentationService instanceof AuthenticationServiceFacade)) {
-			checkXSRFToken(request);
+			SecurityHelper.checkXSRFToken(request);
 		}
 		super.doPost(request, response);
 		return "";
@@ -139,7 +106,7 @@ public class GwtRpcController extends RemoteServiceServlet implements Applicatio
 							AuthenticationServiceFacade.class
 									.getMethod("getXSRFSessionToken"))) {
 				return RPC.encodeResponseForSuccess(rpcRequest.getMethod(),
-						createXSRFToken(getThreadLocalRequest()));
+						SecurityHelper.createXSRFToken(getThreadLocalRequest()));
 			}
 			return RPC.invokeAndEncodeResponse(presentationService,
 					rpcRequest.getMethod(), rpcRequest.getParameters(),
