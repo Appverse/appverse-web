@@ -190,8 +190,11 @@
         <jdk.source>1.6</jdk.source>
         <jdk.target>1.6</jdk.target>
         <ehcache.version>2.4.5</ehcache.version>
-        <bonita.engine.version>6.2.2</bonita.engine.version>
-	</properties>
+        <bonita.engine.version>6.2.2</bonita.engine.version>	
+        <owasp.esapi.version>2.1.0</owasp.esapi.version>
+        <org.jsoup.version>1.7.3</org.jsoup.version>
+        <nimbus.version>2.25</nimbus.version>
+    </properties>
 
 	<modules>
 		<module>modules</module>
@@ -210,6 +213,7 @@
 					<mavenExecutorId>forked-path</mavenExecutorId>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 
 		<pluginManagement>
@@ -337,6 +341,7 @@
 						</execution>
 					</executions>
 				</plugin>
+				
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -405,6 +410,12 @@
 				<version>${framework.version}</version>
 			</dependency>
 
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.frontfacade.rest</groupId>
+                <artifactId>appverse-web-modules-backend-frontfacade-rest</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.messaging</groupId>
 				<artifactId>appverse-web-modules-backend-messaging</artifactId>
@@ -420,6 +431,12 @@
             <dependency>
                 <groupId>org.appverse.web.framework.modules.backend.core.bpm</groupId>
                 <artifactId>appverse-web-modules-backend-core-bpm</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+			
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.security.oauth2</groupId>
+                <artifactId>appverse-web-modules-backend-security-oauth2</artifactId>
                 <version>${framework.version}</version>
             </dependency>
 
@@ -491,6 +508,12 @@
 				<artifactId>spring-jms</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-oxm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>		
 
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -558,20 +581,15 @@
 				<artifactId>spring-security-web</artifactId>
 				<version>${spring.security.version}</version>
 			</dependency>
+
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>2.0.0.M2</version>
+            </dependency>
 			<!-- END OF SPRING FRAMEWORK MANAGED DEPENDENCIES -->
 
 			<!-- JEE MANAGED DEPENDENCIES -->
-			<dependency>
-				<groupId>javax.jms</groupId>
-				<artifactId>jms</artifactId>
-				<version>1.1</version>
-			</dependency>
-
-			<dependency>
-				<groupId>javax.jms</groupId>
-				<artifactId>jms-api</artifactId>
-				<version>1.1-rev-1</version>
-			</dependency>
 
 			<dependency>
 				<groupId>javax.mail</groupId>
@@ -685,13 +703,19 @@
     			<groupId>org.glassfish.jersey.media</groupId>
     			<artifactId>jersey-media-json-jackson</artifactId>
 			    <version>${jersey.version}</version>
-			</dependency>		
+			</dependency>
             
             
             <dependency>
                 <groupId>org.glassfish.jersey.media</groupId>
                 <artifactId>jersey-media-multipart</artifactId>
                 <version>${jersey.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${nimbus.version}</version>
             </dependency>
 
 			<!-- JAX-RS 2 client api -->            
@@ -931,6 +955,64 @@
 			<!-- END OF PERSISTENCE MANAGED DEPENDENCIES -->
 
 			<!-- MESSAGING MANAGED DEPENDENCIES -->
+		
+			<dependency>
+				<groupId>org.jboss.shrinkwrap.resolver</groupId>
+				<artifactId>shrinkwrap-resolver-bom</artifactId>
+				<version>2.0.2</version>
+				<scope>test</scope>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>1.1.3.Final</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			
+	        <dependency>
+	            <groupId>org.jboss.arquillian.extension</groupId>
+	            <artifactId>arquillian-service-deployer-spring-3</artifactId>
+	            <version>1.0.0.Beta2</version>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>org.jboss.arquillian.extension</groupId>
+	            <artifactId>arquillian-service-integration-spring-inject</artifactId>
+	            <version>1.0.0.Beta2</version>
+	        </dependency>
+	        <!--
+		    <dependency>
+				<groupId>org.jboss.as</groupId>
+				<artifactId>jboss-as-arquillian-container-managed</artifactId>
+				<scope>test</scope>
+				<version>7.1.1.Final</version>
+			</dependency>
+			 
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>3.0.2.Final</version>
+				<type>pom</type>
+			</dependency>
+			 -->
+			 
+			<dependency>
+				<groupId>org.wildfly</groupId>
+				<artifactId>wildfly-arquillian-container-managed</artifactId>
+				<version>8.0.0.Final</version>
+				<scope>test</scope>
+			</dependency>
+			
+			<dependency>
+    			<groupId>org.apache.geronimo.specs</groupId>
+    			<artifactId>geronimo-jms_1.1_spec</artifactId>
+    			<version>1.1.1</version>
+  			</dependency>
+			
+			
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>activemq-core</artifactId>
@@ -956,6 +1038,7 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
+			
 			<!-- END OF MESSAGING MANAGED DEPENDENCIES -->
 
 			<!-- CACHING MANAGED DEPENDENCIES -->
@@ -1077,7 +1160,25 @@
                 <artifactId>bonita-server</artifactId>
                 <version>${bonita.engine.version}</version>
             </dependency>
-		</dependencies>
+			
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.3.1</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.owasp.esapi</groupId>
+                <artifactId>esapi</artifactId>
+                <version>${owasp.esapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${org.jsoup.version}</version>
+            </dependency>
+        </dependencies>
 	</dependencyManagement>
 
 	<!--<reporting>
@@ -1141,11 +1242,26 @@
 			<id>EclipseLink</id>
 			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
 		</repository>
+		
+		<repository>
+			<id>Maven Central</id>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+				
 		<repository>
 			<id>Dynamic Jasper</id>
 			<url>http://archiva.fdvs.com.ar/repository/public1/</url>
 		</repository>
-	</repositories>
+        <!-- This repository should not be here as it is not recommended by Maven.
+        OAUT2 module makes use of version 2 of spring-security-oauth2 artiface, and this is not yet released.
+        So the only way of having this artifact available, is to temporarily using spring milestones repo.-->
+        <repository>
+            <id>spring-release</id>
+            <name>Spring Release Repository</name>
+            <url>http://maven.springframework.org/milestone/</url>
+        </repository>
+
+    </repositories>
 
 	<!-- <distributionManagement> -->
 	<!-- <site> -->

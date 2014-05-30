@@ -23,7 +23,6 @@
  */
 package org.appverse.web.framework.backend.api.controllers;
 
-import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,11 +31,11 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.appverse.web.framework.backend.api.helpers.security.SecurityHelper;
 import org.appverse.web.framework.backend.api.model.presentation.FileVO;
 import org.appverse.web.framework.backend.api.services.presentation.IFileRetrievalPresentationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,16 +51,6 @@ public class FileRetrievalController {
 
 	// private static final int MAX_FILE_SIZE = 1024 * 1024 * 2;
 
-	private void checkXSRFToken(HttpServletRequest request) throws IOException {
-		String requestValue = request.getParameter("X-XSRF-Cookie");
-		String sessionValue = (String) request.getSession().getAttribute(
-				"X-XSRF-Cookie");
-		if (sessionValue != null && !sessionValue.equals(requestValue)) {
-			throw new PreAuthenticatedCredentialsNotFoundException(
-					"XSRF attribute not found in session.");
-		}
-	}
-
 	@RequestMapping(value = "/*.rpc", method = RequestMethod.POST)
 	public void handleFormUpload(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -73,7 +62,7 @@ public class FileRetrievalController {
 			String parameter = request.getParameter(parameterName);
 			parameters.put(parameterName, parameter);
 		}
-		checkXSRFToken(request);
+		SecurityHelper.checkXSRFToken(request);
 
 		String path = request.getServletPath();
 		serviceName.set(path.substring(path.lastIndexOf('/') + 1,

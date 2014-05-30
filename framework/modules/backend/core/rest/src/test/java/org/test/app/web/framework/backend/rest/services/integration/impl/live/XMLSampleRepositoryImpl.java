@@ -46,7 +46,7 @@ public class XMLSampleRepositoryImpl extends JSONSampleRepositoryImpl
 	private WebTarget sampleClient;
 
 	@Override
-	public String getMediaType()
+	public String acceptMediaType()
 	{
 		return MediaType.APPLICATION_XML;
 	}

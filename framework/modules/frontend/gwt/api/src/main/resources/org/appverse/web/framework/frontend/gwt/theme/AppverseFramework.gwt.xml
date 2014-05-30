@@ -24,7 +24,7 @@
 <module>
 
 	<replace-with
-		class="org.appverse.web.framework.frontend.gwt.theme.client.search.AppverseSuggestAppearance">
+		class="org.appverse.web.framework.frontend.gwt.theme.certificates.search.AppverseSuggestAppearance">
 		<when-type-is
 			class="org.appverse.web.framework.frontend.gwt.widgets.search.suggest.impl.gxt.SuggestWidgetImpl.SuggestAppearance" />
 	</replace-with>
