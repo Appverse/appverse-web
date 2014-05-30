@@ -38,26 +38,26 @@ import javax.servlet.http.HttpSession;
 
 public class SecurityHelper {
 
-    public static String XSRF_TOKEN_NAME = "XSRF-TOKEN";
+    public static final String XSRF_TOKEN_NAME = "XSRF-TOKEN";
 
-	@SuppressWarnings("unchecked")
-	public static List<String> getAuthorities() {
-		final Authentication authentication = SecurityContextHolder
-				.getContext().getAuthentication();
-		List<String> credentials = new ArrayList<String>();
-		Collection<GrantedAuthority> grantedAuthorities = (Collection<GrantedAuthority>) authentication
-				.getAuthorities();
-		for (GrantedAuthority grantedAuthority : grantedAuthorities) {
-			credentials.add(grantedAuthority.getAuthority());
-		}
-		return credentials;
-	}
+    @SuppressWarnings("unchecked")
+    public static List<String> getAuthorities() {
+        final Authentication authentication = SecurityContextHolder
+                .getContext().getAuthentication();
+        List<String> credentials = new ArrayList<String>();
+        Collection<GrantedAuthority> grantedAuthorities = (Collection<GrantedAuthority>) authentication
+                .getAuthorities();
+        for (GrantedAuthority grantedAuthority : grantedAuthorities) {
+            credentials.add(grantedAuthority.getAuthority());
+        }
+        return credentials;
+    }
 
-	public static String getPrincipal() {
-		final Authentication authentication = SecurityContextHolder
-				.getContext().getAuthentication();
-		return authentication.getName();
-	}
+    public static String getPrincipal() {
+        final Authentication authentication = SecurityContextHolder
+                .getContext().getAuthentication();
+        return authentication.getName();
+    }
 
 
     public static String createXSRFToken(final HttpServletRequest request)
@@ -87,12 +87,15 @@ public class SecurityHelper {
     @SuppressWarnings("unused")
     public static void checkXSRFToken(final HttpServletRequest request)
             throws Exception {
-        String requestValue = request.getHeader(XSRF_TOKEN_NAME);
-        String sessionValue = (String) request.getSession().getAttribute(
-                XSRF_TOKEN_NAME);
-        if (requestValue == null || sessionValue == null || !sessionValue.equals(requestValue)) {
+        String tokenFromRequest = request.getHeader(XSRF_TOKEN_NAME);
+        checkXSRFToken(tokenFromRequest, request);
+    }
+
+    public static void checkXSRFToken(final String xsrfToken, final HttpServletRequest request)
+            throws Exception {
+        String sessionValue = (String) request.getSession().getAttribute(SecurityHelper.XSRF_TOKEN_NAME);
+        if (xsrfToken == null || sessionValue == null || !sessionValue.equals(xsrfToken)) {
             throw new Exception("XSRF attribute not found in request or session or invalid.");
         }
     }
-
 }

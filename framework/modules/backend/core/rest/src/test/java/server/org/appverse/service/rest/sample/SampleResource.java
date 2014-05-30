@@ -1,5 +1,6 @@
 package server.org.appverse.service.rest.sample;
 
+import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,19 @@ import javax.ws.rs.core.Response;
 @Path("samples")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 public interface SampleResource {
+
+	@GET
+	@Path("file/{fileId}")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_OCTET_STREAM })
+	public Response getFile(@PathParam("fileId") final Long fileId, @Context Request request);
+
+	@POST
+	@Path("file")
+	@Consumes({ MediaType.APPLICATION_OCTET_STREAM })
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response postFile(InputStream is,
+			@Context Request request);
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

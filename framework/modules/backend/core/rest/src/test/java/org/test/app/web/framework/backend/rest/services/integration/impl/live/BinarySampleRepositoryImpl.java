@@ -23,64 +23,61 @@
  */
 package org.test.app.web.framework.backend.rest.services.integration.impl.live;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.InputStream;
+import java.util.List;
 
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
-import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
+import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
+import org.appverse.web.framework.backend.rest.model.integration.StatusResult;
+import org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService;
+import org.appverse.web.framework.backend.rest.services.integration.impl.live.RestPersistenceService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.test.app.web.framework.backend.rest.model.integration.SampleDTO;
-import org.test.app.web.framework.backend.rest.model.integration.xml.PageDTO;
+import org.test.app.web.framework.backend.rest.services.integration.BinarySampleRepository;
 
-@Repository("sampleRepositoryXml")
-public class XMLSampleRepositoryImpl extends JSONSampleRepositoryImpl
-{
+@Repository("sampleRepositoryBinary")
+public class BinarySampleRepositoryImpl extends RestPersistenceService<SampleDTO>
+		implements BinarySampleRepository, IRestPersistenceService<SampleDTO> {
 
 	@Autowired
 	private WebTarget sampleClient;
 
+	@AutowiredLogger
+	private static Logger logger;
+
+	@Override
+	public InputStream getFile(final Long fileId) throws Exception {
+		return this.retrieveInputStream(sampleClient.path("samples/file/{fileId}"), "fileId",
+				fileId, null, null);
+	}
+
+	@Override
+	public StatusResult createFile(final Long fileId, final InputStream data) throws Exception {
+		/*
+				Response response = sampleClient.path("samples/file")
+						.request()
+						.accept(MediaType.APPLICATION_JSON_TYPE)
+						.post(Entity.entity(data, acceptMediaType()));
+				*/
+		Response response = this.insert(sampleClient.path("samples/file"), data, null, null);
+		return getStatusResult(response);
+	}
+
 	@Override
 	public String acceptMediaType()
 	{
-		return MediaType.APPLICATION_XML;
+		return MediaType.APPLICATION_JSON;
 	}
 
 	@Override
-	public IntegrationPaginatedResult<SampleDTO> retrievePagedSamples(
-			final IntegrationPaginatedDataFilter filter) throws Exception
-	{
-		Map<String, Object> queryParams = new HashMap<String, Object>();
-
-		queryParams.put("columnName", filter.getColumns().get(0));
-		queryParams.put("value", filter.getValues().get(0));
-
-		return this.retrievePagedQuery(sampleClient.path("samples/paged/xml/{page}/{pageSize}"),
-				filter, null,
-				queryParams);
-
-	}
-
-	@Override
-	public IntegrationPaginatedResult<SampleDTO> mapPagedResult(final Response response)
-			throws Exception {
-
-		GenericType<PageDTO<SampleDTO>> genericType = new GenericType<PageDTO<SampleDTO>>() {
-		};
-
-		PageDTO<SampleDTO> page = response.readEntity(genericType);
-		IntegrationPaginatedResult<SampleDTO> result = new IntegrationPaginatedResult<SampleDTO>();
-
-		result.setData(page.getDataList());
-		result.setTotalLength(page.getTotalSize());
-		result.setOffset(page.getInitialPos());
-
-		return result;
+	public List<SampleDTO> getTypeSafeList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

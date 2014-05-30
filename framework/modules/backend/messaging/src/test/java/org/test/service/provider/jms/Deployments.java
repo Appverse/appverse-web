@@ -54,7 +54,7 @@ public final class Deployments {
 				//.addClasses(SampleRepository.class, SampleRepositoryImpl.class)
 				.addPackages(true, "org/appverse/web/framework/backend/messaging")
 				.addPackages(true, "org/test/app/web/framework/backend/messaging")
-				.addAsWebInfResource("jboss-jms.xml")
+				.addAsWebInfResource("test-jms.xml")
 				.addAsResource("spring/application-config-async.xml")
 				.addAsResource("spring/application-config-sync.xml")
 				.addAsResource("spring/application-config-transacted.xml")

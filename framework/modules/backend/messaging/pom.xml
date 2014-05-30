@@ -185,16 +185,14 @@
 			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
 			<artifactId>appverse-web-modules-backend-core-api</artifactId>
 		</dependency>
-		<!-- 
-		In this case is not included cause we are using a JEE container
+		 
 		<dependency> 
-			<groupId>org.apache.geronimo.specs</groupId> 
-			<artifactId>geronimo-jms_1.1_spec</artifactId> 
-			<scope>provided</scope> 
-		</dependency>
-		
-		If running outside JEE container you should include your JMS implementation dependency.
-		-->
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jms_1.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency> 
+		<!-- If running outside JEE container you should include your JMS implementation
+			dependency. -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jms</artifactId>
@@ -210,33 +208,26 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-6.0</artifactId>
-			<type>pom</type>
-			<scope>provided</scope>
-		</dependency>
-
+			
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
- 
- 		<dependency>
+
+		<dependency>
 			<groupId>org.jboss.arquillian.junit</groupId>
 			<artifactId>arquillian-junit-container</artifactId>
 			<scope>test</scope>
 		</dependency>
-  
+
 		<dependency>
 			<groupId>org.jboss.shrinkwrap.resolver</groupId>
 			<artifactId>shrinkwrap-resolver-depchain</artifactId>
 			<scope>test</scope>
 			<type>pom</type>
 		</dependency>
- 
+
 		<dependency>
 			<groupId>org.jboss.arquillian.extension</groupId>
 			<artifactId>arquillian-service-deployer-spring-3</artifactId>
@@ -250,10 +241,17 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.jboss.as</groupId>
-			<artifactId>jboss-as-arquillian-container-managed</artifactId>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-arquillian-container-managed</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-messaging</artifactId>
+			<scope>test</scope>
+		</dependency>
+		 -->		
 
 		<dependency>
 			<groupId>org.jboss.arquillian.protocol</groupId>
@@ -268,6 +266,25 @@
 		<plugins>
 
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+
+				<configuration>
+                    <systemProperties>
+                        <property>
+                          <name>arquillian.launch</name>
+                          <value>jbossas-managed-wildfly-8</value>
+                        </property>                    
+                        <property>
+                          <name>java.util.logging.manager</name>
+                          <value>org.jboss.logmanager.LogManager</value>
+                        </property>
+                    </systemProperties>
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                </configuration>				
+			</plugin>
+
+			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
@@ -279,9 +296,9 @@
 						<configuration>
 							<artifactItems>
 								<artifactItem>
-									<groupId>org.jboss.as</groupId>
-									<artifactId>jboss-as-dist</artifactId>
-									<version>7.1.1.Final</version>
+									<groupId>org.wildfly</groupId>
+									<artifactId>wildfly-dist</artifactId>
+									<version>8.0.0.Final</version>
 									<type>zip</type>
 									<overWrite>false</overWrite>
 									<outputDirectory>target</outputDirectory>
@@ -290,8 +307,35 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			
+			</plugin>						
+		      <plugin>
+		        <artifactId>maven-resources-plugin</artifactId>
+		        <executions>
+		          <execution>
+		            <id>copy-test-resources</id>
+		            <!-- here the phase you need -->
+		            <phase>process-test-classes</phase>
+		            <goals>
+		              <goal>copy-resources</goal>
+		            </goals>
+		            <configuration>
+		              <outputDirectory>${basedir}/target/wildfly-8.0.0.Final/standalone/configuration</outputDirectory>
+		              <resources>          
+		                <resource>
+		                  <directory>src/test/resources</directory>
+		                  <includes>
+		                  	<include>standalone.xml</include>
+		                  </includes>
+		                  <filtering>true</filtering>
+		                </resource>
+		              </resources>              
+		            </configuration>            
+		          </execution>
+		        </executions>
+		      </plugin>			
+
+
+
 		</plugins>
 		<pluginManagement>
 			<plugins>
