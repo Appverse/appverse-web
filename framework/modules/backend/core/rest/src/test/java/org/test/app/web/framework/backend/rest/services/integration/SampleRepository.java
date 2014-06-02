@@ -67,4 +67,7 @@ public interface SampleRepository {
 			IntegrationPaginatedDataFilter filter)
 			throws Exception;
 
+    IntegrationPaginatedResult<SampleDTO> retrievePagedSamplesWithHttpError(
+            final IntegrationPaginatedDataFilter filter) throws Exception;
+
 }

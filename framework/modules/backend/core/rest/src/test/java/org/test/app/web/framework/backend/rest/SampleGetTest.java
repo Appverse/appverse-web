@@ -171,6 +171,36 @@ public class SampleGetTest extends JerseyTest {
 
 	}
 
+    @Test
+    public void retrievePagedSamplesWithHttpErrorCode() throws Exception {
+
+		/*
+		WebTarget resource = target().queryParam("columnName", "name").queryParam("value", "John");
+		resource = resource.path("samples/paged/json/1/30");
+		Response response = resource.request().accept(MediaType.APPLICATION_JSON).get();
+		*/
+
+        try
+        {
+            IntegrationPaginatedDataFilter filter = new IntegrationPaginatedDataFilter();
+            filter.getColumns().add("name");
+            filter.getValues().add("John");
+            //Request for page 3, each page contains 45 rows
+            filter.setOffset(3);
+            filter.setLimit(45);
+            IntegrationPaginatedResult<SampleDTO> dto = jsonSampleRepository
+                    .retrievePagedSamplesWithHttpError(filter);
+        } catch (IntegrationException ie)
+        {
+            logger.info("WebAppException has been catched by advice and transformed in IntegrationException as expected");
+            logger.info("Currently, Integration exception contains error code and reason");
+            logger.info("Error code::" + ie.getCode());
+            logger.info("Error code::" + ie.getMessage());
+            assert(ie.getCode() == 404);
+        }
+    }
+
+
 	@Test
 	public void retrievePagedSamplesXml() throws Exception {
 
