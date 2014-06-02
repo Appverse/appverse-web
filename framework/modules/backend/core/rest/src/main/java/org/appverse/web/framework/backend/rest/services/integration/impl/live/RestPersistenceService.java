@@ -366,20 +366,22 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 		IntegrationPaginatedResult<T> result = new IntegrationPaginatedResult<T>(
 				Collections.<T> emptyList(), 0, 0);
 
-		if (Status.OK.getStatusCode() == resp.getStatus()) {
-			result = mapPagedResult(resp);
-		} else if (Status.SERVICE_UNAVAILABLE.getStatusCode() == resp.getStatus()) {
-			logger.error("Problem with call {" + webClient.getUri()
-					+ "} . Response status: " + resp.getStatus());
-			//Appverse integration exception
-			throw new ServiceUnavailableException();
-		} else if (Status.Family.SERVER_ERROR == resp.getStatusInfo().getFamily() ||
-                   Status.Family.CLIENT_ERROR == resp.getStatusInfo().getFamily()) {
-			logger.error("Error with call {" + webClient.getUri()
-					+ "} . Response status: " + resp.getStatus());
+        if (Status.SERVICE_UNAVAILABLE.getStatusCode() == resp.getStatus()) {
+            logger.error("Problem with call {" + webClient.getUri()
+                    + "} . Response status: " + resp.getStatus());
+            //Appverse integration exception
+            throw new ServiceUnavailableException();
+        }
+        else if (Status.Family.SUCCESSFUL == resp.getStatusInfo().getFamily()) {
+            result = mapPagedResult(resp);
+        }
+        else if (Status.NOT_MODIFIED.getStatusCode() != resp.getStatus()) {
+            // Any other status will be considered an error (except NOT_MODIFIED)
+            logger.error("Error with call {" + webClient.getUri()
+                    + "} . Response status: " + resp.getStatus());
             throw new RestWebAppException("Exception calling URI: " +
                     webClient.getUri().toString() + ". Status code is: " + resp.getStatus(), resp.getStatus());
-		}
+        }
 		return result;
 	}
 

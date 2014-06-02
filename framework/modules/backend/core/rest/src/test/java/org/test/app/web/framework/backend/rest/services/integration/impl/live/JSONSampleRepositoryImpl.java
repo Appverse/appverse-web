@@ -136,6 +136,27 @@ public class JSONSampleRepositoryImpl extends RestPersistenceService<SampleDTO>
 
 	}
 
+    /*
+     * We are using distinct PageDTO objects, since Jackson read Jaxb annotations and It's complex to get a generic list page for XML and JSON
+     *
+     * (non-Javadoc)
+     * @see org.appverse.web.framework.backend.rest.services.integration.SampleRepository#retrievePagedSamples(org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter)
+     */
+    @Override
+    public IntegrationPaginatedResult<SampleDTO> retrievePagedSamplesWithHttpError(
+            final IntegrationPaginatedDataFilter filter) throws Exception
+    {
+        Map<String, Object> queryParams = new HashMap<String, Object>();
+
+        queryParams.put("columnName", filter.getColumns().get(0));
+        queryParams.put("value", filter.getValues().get(0));
+
+        return this.retrievePagedQuery(sampleClient.path("samples/nonexistentpath/paged/json/{page}/{pageSize}"),
+                filter, null,
+                queryParams);
+
+    }
+
 	/* (non-Javadoc)
 	 * @see org.appverse.web.framework.backend.rest.services.integration.impl.live.RestPersistenceService#mapPagedResult(javax.ws.rs.core.Response)
 	 */
