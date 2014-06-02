@@ -25,9 +25,6 @@ package org.appverse.web.framework.backend.frontfacade.rest.authentication.filte
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
-import org.springframework.util.StringUtils;
-import org.springframework.web.filter.GenericFilterBean;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -35,12 +32,17 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * Add headers to prevent Cross-site ajax calls issues
  */
 public class XSSHeaderFilter extends GenericFilterBean {
+
+    public static final String REQUEST_ORIGIN = "Origin";
+    public static final String ACCESS_CONTROL_ALLOW_ORIGIN_DEFAULT = "*";
+    public static final String ACCESS_CONTROL_ALLOW_CREDENTIALS = "true";
+    public static final String ACCESS_CONTROL_ALLOW_HEADERS = "Content-Type,X-Requested-With";
+    public static final String ACCESS_CONTROL_ALLOW_METHODS = "GET, PUT, POST, DELETE, HEAD, OPTIONS";
 
     private boolean accessControlAllow = true;
     @Override
@@ -49,15 +51,15 @@ public class XSSHeaderFilter extends GenericFilterBean {
             logger.trace("XSS Headers ...");
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             if (accessControlAllow) {
-                String urlString = "*";
-                String testUrl = ((HttpServletRequest) servletRequest).getHeader("Origin");
+                String urlString = ACCESS_CONTROL_ALLOW_ORIGIN_DEFAULT;
+                String testUrl = ((HttpServletRequest) servletRequest).getHeader(REQUEST_ORIGIN);
                 if (testUrl != null && !StringUtils.isEmpty(testUrl)) {
                     urlString = testUrl;
                 }
                 response.addHeader("Access-Control-Allow-Origin", urlString);
-                response.addHeader("Access-Control-Allow-Credentials", "true");
-                response.addHeader("Access-Control-Allow-Headers", "Content-Type,X-Requested-With");
-                response.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD, OPTIONS");
+                response.addHeader("Access-Control-Allow-Credentials", ACCESS_CONTROL_ALLOW_CREDENTIALS);
+                response.addHeader("Access-Control-Allow-Headers", ACCESS_CONTROL_ALLOW_HEADERS);
+                response.addHeader("Access-Control-Allow-Methods", ACCESS_CONTROL_ALLOW_METHODS);
             }
             response.addHeader("Cache-Control", "private");
             logger.trace("XSS Headers done.");
