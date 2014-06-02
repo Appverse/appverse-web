@@ -91,13 +91,14 @@
 
     <bean id="exceptionAdvice"
           class="org.appverse.web.framework.backend.rest.aop.advices.RestExceptionAdvice" />
-    <bean id="exceptionManager"
+
+    <bean id="restExceptionManager"
           class="org.appverse.web.framework.backend.rest.aop.managers.impl.live.RestExceptionManagerImpl" />
 
 
     <aop:config>
         <aop:pointcut id="allRestMethodsCalls"
-                      expression="execution(* org.appverse.web.framework.backend.ecm.alfresco.services.integration..*.*(..))" />
+                      expression="execution(* org.appverse.web.framework.backend.ecm.alfresco.services.integration.impl.live..*.*(..))" />
         <aop:advisor advice-ref="exceptionAdvice" pointcut-ref="allRestMethodsCalls" />
     </aop:config>
 
@@ -107,7 +108,8 @@
 	<!-- Imports and Component Scans -->
 	<!-- ============================================================================================= -->
 
-	<context:component-scan base-package="org.appverse.web.framework.backend.ecm.alfresco" />
+	<context:component-scan base-package="org.appverse.web.framework.backend.ecm.alfresco.services.integration.impl.live" />
     <context:component-scan base-package="test.app.web.framework.backend.ecm.alfresco.services.integration.impl.live" />
+
 
 </beans>
