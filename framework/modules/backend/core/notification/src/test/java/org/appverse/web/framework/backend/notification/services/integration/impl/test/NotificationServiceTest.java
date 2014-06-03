@@ -29,12 +29,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import org.appverse.web.framework.backend.api.helpers.test.AbstractTransactionalTest;
+import twitter4j.TwitterException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,9 +48,10 @@ import static junit.framework.Assert.assertNotNull;
         DependencyInjectionTestExecutionListener.class
         })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class NotificationServiceTest extends AbstractTransactionalTest {
+@ContextConfiguration("/spring/application-config.xml")
+public class NotificationServiceTest extends AbstractJUnit4SpringContextTests {
 
-    public static final String SAMPLE_MESSAGE = "Nómina ingresada: 81.333€";
+    public static final String SAMPLE_MESSAGE = "Please complete the transaction";
 
     @AutowiredLogger
     private static Logger logger;
@@ -59,15 +63,28 @@ public class NotificationServiceTest extends AbstractTransactionalTest {
 
 
     @Test
-    public void testSendMessageOK() throws Exception {
+    public void testSendMessageAndroidOK() throws Exception {
         notificationService.sendNotification("android","APA91bFZbatlcLrqG-mryOjt0tkxDhGMu66vw0qzpsa7nUfvMuguQXGDqj6f0YJWN800cuR-dCGmveyZpo-hkEgRRfO3Yw1z2hjNbf6x986pLSJO9wUsEjvs-oahKc4wdQQoElpqIM3nqYoM6kE3mxJyjjVoqu_G_A",SAMPLE_MESSAGE);
-
     }
     @Test
-    public void testSendMessageWithParamsOK()throws Exception{
+    public void testSendMessageAndroidWithParamsOK()throws Exception{
         Map<String,String> params = new HashMap<String,String>();
         params.put("params","{}");
         notificationService.sendNotification("android","APA91bFZbatlcLrqG-mryOjt0tkxDhGMu66vw0qzpsa7nUfvMuguQXGDqj6f0YJWN800cuR-dCGmveyZpo-hkEgRRfO3Yw1z2hjNbf6x986pLSJO9wUsEjvs-oahKc4wdQQoElpqIM3nqYoM6kE3mxJyjjVoqu_G_A",SAMPLE_MESSAGE,params);
+    }
+    @Test
+    public void testSendMessageFacebookOK()throws Exception{
+        notificationService.sendNotification("facebook","",SAMPLE_MESSAGE);
+    }
+    @Test
+    public void testSendMessageTwitterOK()throws Exception{
+        //direct message to itself
+        notificationService.sendNotification("twitter","@AppverseBank",SAMPLE_MESSAGE);
+    }
+    @Test(expected = TwitterException.class)
+    public void testSendMessageTwitterKO()throws Exception{
+        //direct message to someone that does not follow you -->TwitterException
+        notificationService.sendNotification("twitter","@someone",SAMPLE_MESSAGE);
     }
 
 

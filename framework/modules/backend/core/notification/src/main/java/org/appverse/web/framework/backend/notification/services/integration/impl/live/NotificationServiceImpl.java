@@ -28,6 +28,12 @@ import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsService;
+import facebook4j.Facebook;
+import facebook4j.FacebookFactory;
+import facebook4j.auth.AccessToken;
+import facebook4j.auth.OAuthAuthorization;
+import facebook4j.auth.OAuthSupport;
+import facebook4j.conf.ConfigurationBuilder;
 import javapns.Push;
 import javapns.communication.exceptions.CommunicationException;
 import javapns.communication.exceptions.KeystoreException;
@@ -44,6 +50,12 @@ import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
+import twitter4j.DirectMessage;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.RequestToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +69,8 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
     private Sender googleSender = null;
     private ApnsService appleSender = null;
+    private Facebook facebookSender = null;
+    private Twitter twitterSender = null;
 
     private ResourceLoader resourceLoader;
 
@@ -68,6 +82,25 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
     @Value("${apple.p12.pwd}")
     private String appleP12Password = "";
+
+    @Value("${facebook.oauth.appId}")
+    private String appId = "";
+    @Value("${facebook.oauth.appSecret}")
+    private String appSecret="";
+
+    @Value("${facebook.oauth.permissions}")
+    private String facebookPermissions = "";
+
+    @Value("${twitter.oauth.appId}")
+    private String twitterAppId = "";
+    @Value("${twitter.oauth.appSecret}")
+    private String twitterAppSecret="";
+    @Value("${twitter.oauth.accessToken}")
+    private String twitterAccessToken="";
+    @Value("${twitter.oauth.accessSecret}")
+    private String twitterAccessSecret="";
+
+
 
     @Override
     public boolean sendNotification(String platform, String token, String body) throws Exception {
@@ -146,6 +179,25 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             }
 
 
+        }else if("facebook".equals(platform)){
+            //token=userId
+            String statusId=null;
+            if (StringUtils.isEmpty(token)) {
+                statusId = facebookSender.postStatusMessage(body);
+            }else{
+                statusId = facebookSender.postStatusMessage(token, body);
+            }
+            logger.debug("Sent: {} to statusId:{}", body, statusId);
+        }else if("twitter".equals(platform)){
+            //token=recipientId
+            if (StringUtils.isEmpty(token)){
+                Status status = twitterSender.updateStatus(body);
+                logger.debug("Sent: {} ",status.getText());
+            }else {
+                DirectMessage message = twitterSender.sendDirectMessage(token, body);
+                logger.debug("Sent: {} to @{}",message.getText(),message.getRecipientScreenName());
+            }
+
         }
 
         return false;
@@ -165,6 +217,7 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             }
             logger.info("Creating android sender with key ["+googleApiKey+"]");
             googleSender = new Sender(googleApiKey);
+            logger.info("Android ok.");
         } else if( "ios".equals(platform) && appleSender == null) {
             if( appleP12Path == null || appleP12Password == null || appleP12Path.length()==0 || appleP12Password.length()==0 ) {
                 throw new Exception("Apple certificate path not found.");
@@ -175,6 +228,36 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
                     .withCert(resource.getURL().getPath(), appleP12Password)
                     .withProductionDestination()
                     .build();
+            logger.info("IOS ok.");
+        }else if ("facebook".equals(platform) && facebookSender == null){
+            ConfigurationBuilder cb = new ConfigurationBuilder();
+            cb.setDebugEnabled(true)
+                    .setOAuthAppId(appId)
+                    .setOAuthAppSecret(appSecret)
+                    .setOAuthPermissions(facebookPermissions);
+            logger.info("Creating facebook sender...");
+            FacebookFactory ff = new FacebookFactory(cb.build());
+            facebookSender = ff.getInstance();
+            logger.info("Generating accessToken...");
+            AccessToken accessToken = facebookSender.getOAuthAppAccessToken();
+            facebookSender.setOAuthAccessToken(accessToken);
+            logger.info("Facebook ok.");
+
+        }else if ("twitter".equals(platform) && twitterSender == null) {
+            logger.info("Creating twitter sender...");
+            twitterSender = TwitterFactory.getSingleton();
+            twitterSender.setOAuthConsumer(twitterAppId, twitterAppSecret);
+            if (StringUtils.isEmpty(twitterAccessToken)) {
+                RequestToken requestToken = twitterSender.getOAuthRequestToken();
+                logger.info("Twitter access token not found: authorize the following url: {}", requestToken.getAuthorizationURL());
+            }else{
+
+                twitter4j.auth.AccessToken accessToken = new twitter4j.auth.AccessToken(twitterAccessToken, twitterAccessSecret);
+                twitterSender.setOAuthAccessToken(accessToken);
+            }
+
+            logger.info("Twitter ok.");
+
         }
     }
 
