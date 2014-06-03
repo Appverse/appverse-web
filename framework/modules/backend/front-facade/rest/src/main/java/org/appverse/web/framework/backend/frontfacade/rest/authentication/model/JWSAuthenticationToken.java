@@ -24,6 +24,8 @@ public class JWSAuthenticationToken extends AbstractAuthenticationToken {
 
 	private final Object principal;
 
+	private final Object payload;
+
 	private final String jwsToken;
 
 	//~ Constructors ===================================================================================================
@@ -34,10 +36,11 @@ public class JWSAuthenticationToken extends AbstractAuthenticationToken {
 	 * #isAuthenticated()} will return <code>false</code>.
 	 *
 	 */
-	public JWSAuthenticationToken(final String token) {
+	public JWSAuthenticationToken(final String token, final Object payload) {
 		super(null);
 		this.principal = null;
 		this.jwsToken = token;
+		this.payload = payload;
 	}
 
 	/**
@@ -53,6 +56,7 @@ public class JWSAuthenticationToken extends AbstractAuthenticationToken {
 		super(authorities);
 		this.principal = principal;
 		this.jwsToken = null;
+		this.payload = null;
 		super.setAuthenticated(true); // must use super, as we override
 	}
 
@@ -81,6 +85,10 @@ public class JWSAuthenticationToken extends AbstractAuthenticationToken {
 
 	public String getJwsToken() {
 		return jwsToken;
+	}
+
+	public Object getPayload() {
+		return payload;
 	}
 
 }

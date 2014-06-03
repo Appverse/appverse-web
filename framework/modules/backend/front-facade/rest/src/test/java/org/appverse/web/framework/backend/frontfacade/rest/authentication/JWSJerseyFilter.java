@@ -4,6 +4,7 @@ import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import org.appverse.web.framework.backend.frontfacade.rest.authentication.business.CertService;
 import org.appverse.web.framework.backend.frontfacade.rest.authentication.business.impl.live.CertServiceImpl;
+import org.appverse.web.framework.backend.frontfacade.rest.authentication.filter.JWSAuthenticationProcessingFilter;
 import org.glassfish.jersey.message.MessageBodyWorkers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,10 +78,9 @@ public class JWSJerseyFilter implements ClientRequestFilter, ClientResponseFilte
 
 			Object object = requestContext.getEntity();
 
-			String payload = null;
+			Payload objectPay = null;
 			if (object != null)
 			{
-
 				Class<Object> type = (Class<Object>) requestContext.getEntityClass();
 				GenericType<Object> genericType = new GenericType<Object>(type) {
 				};
@@ -102,20 +102,26 @@ public class JWSJerseyFilter implements ClientRequestFilter, ClientResponseFilte
 							"Error while serializing MyBean.", e);
 				}
 
-				final String stringJsonOutput = baos.toString();
+				String stringJsonOutput = baos.toString();
 				if (logger.isDebugEnabled())
 					logger.debug("Entity.toString():: " + stringJsonOutput);
 
-				payload = stringJsonOutput;
+				//There is a short limitation for http headers. It depends on server.
+				//As message payload grows, payload in header is growing too, so we must set a limit.
+				//It means that we are only signing, validating and checking message integrity of first 1024 characters
+				//Same logic is applied in server side
+				if (stringJsonOutput != null
+						&& stringJsonOutput.length() > JWSAuthenticationProcessingFilter.PAYLOAD_HEADER_MAX_SIZE)
+					stringJsonOutput = stringJsonOutput.substring(0,
+							JWSAuthenticationProcessingFilter.PAYLOAD_HEADER_MAX_SIZE);
+
+				objectPay = new Payload(stringJsonOutput);
 			}
 			//If request entity is null (usually GET methods) use URI as payload
 			else
-			{
-				payload = reqUri;
-			}
+				objectPay = new Payload(reqUri);
 
-			JWSObject jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.RS256),
-					new Payload(payload));
+			JWSObject jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.RS256), objectPay);
 
 			// Compute the RSA signature
 			jwsObject.sign(signer);

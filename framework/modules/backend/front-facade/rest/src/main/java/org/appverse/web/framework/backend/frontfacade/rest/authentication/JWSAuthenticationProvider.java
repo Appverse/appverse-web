@@ -57,6 +57,7 @@ public class JWSAuthenticationProvider implements AuthenticationProvider, Messag
 
 		JWSAuthenticationToken authRequest = (JWSAuthenticationToken) authentication;
 		String token = authRequest.getJwsToken();
+		Object messagePayload = authRequest.getPayload();
 		if (StringUtils.isEmpty(token))
 			throw new BadCredentialsException("Auth Token invalid");
 
@@ -79,7 +80,7 @@ public class JWSAuthenticationProvider implements AuthenticationProvider, Messag
 				}
 
 				JWSAuthenticationToken authResult =
-						new JWSAuthenticationToken(cn, authoritiesDefault);
+						new JWSAuthenticationToken((Object) cn, authoritiesDefault);
 
 				if (logger.isDebugEnabled()) {
 					logger.debug("CN: " + cn);
