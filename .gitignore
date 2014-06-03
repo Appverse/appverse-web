@@ -1,4 +1,3 @@
-.idea/
+.idea
 *.iml
-framework\modules\backend\core\bpm\target/
-framework/modules/backend/core/notification/target/
+target

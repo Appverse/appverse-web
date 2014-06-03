@@ -18,7 +18,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class JWSAuthenticationProcessingFilter extends GenericFilterBean {
 
@@ -30,6 +33,8 @@ public class JWSAuthenticationProcessingFilter extends GenericFilterBean {
 
 	@AutowiredLogger
 	private Logger logger;
+
+	public static final int PAYLOAD_HEADER_MAX_SIZE = 1024;
 
 	public JWSAuthenticationProcessingFilter(final AuthenticationManager authenticationManager) {
 
@@ -55,9 +60,27 @@ public class JWSAuthenticationProcessingFilter extends GenericFilterBean {
                 }
 				try
 				{
+					InputStream stream = req.getInputStream();
+					StringBuilder messagePayload = readInputStream(stream);
+
+					if (logger.isDebugEnabled())
+						logger.debug("BODY:::" + messagePayload.toString());
+
+					if (StringUtils.isEmpty(messagePayload.toString()))
+						messagePayload = new StringBuilder(req.getRequestURL().toString());
+					else
+					{
+						//There is a short limitation for http headers. It depends on server.
+						//As message payload grows, payload in header is growing too, so we must set a limit.
+						//It means that we are only signing, validating and checking message integrity of first 1024 characters
+						//Same logic is applied in client side						
+						if (messagePayload.length() > PAYLOAD_HEADER_MAX_SIZE)
+							messagePayload = new StringBuilder(messagePayload.substring(0,
+									PAYLOAD_HEADER_MAX_SIZE));
+					}
 
 					JWSAuthenticationToken authRequest =
-							new JWSAuthenticationToken(token);
+							new JWSAuthenticationToken(token, messagePayload);
 
 					authRequest.setDetails(authenticationDetailsSource.buildDetails(req));
 
@@ -82,4 +105,35 @@ public class JWSAuthenticationProcessingFilter extends GenericFilterBean {
 
 	}
 
+	private StringBuilder readInputStream(final InputStream stream)
+	{
+		StringBuilder stringBuilder = new StringBuilder();
+		BufferedReader bufferedReader = null;
+		try {
+			if (stream != null) {
+				bufferedReader = new BufferedReader(new InputStreamReader(stream));
+
+				char[] charBuffer = new char[128];
+				int bytesRead = -1;
+
+				while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
+					stringBuilder.append(charBuffer, 0, bytesRead);
+				}
+			} else {
+				stringBuilder.append("");
+			}
+		} catch (IOException ex) {
+			logger.error("Error reading the request body...");
+		} finally {
+			if (bufferedReader != null) {
+				try {
+					bufferedReader.close();
+				} catch (IOException ex) {
+					logger.error("Error closing bufferedReader...");
+				}
+			}
+		}
+		return stringBuilder;
+
+	}
 }
