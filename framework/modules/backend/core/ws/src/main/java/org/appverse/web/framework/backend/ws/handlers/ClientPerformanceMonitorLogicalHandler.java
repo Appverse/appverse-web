@@ -1,27 +1,46 @@
 package org.appverse.web.framework.backend.ws.handlers;
 
-import java.io.PrintStream;
 import java.util.Date;
 
 import javax.xml.ws.handler.LogicalHandler;
 import javax.xml.ws.handler.LogicalMessageContext;
 import javax.xml.ws.handler.MessageContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+/**
+ * Client Performance Monitor Handler
+ * @author MOCR
+ *
+ */
 public class ClientPerformanceMonitorLogicalHandler extends
 		BaseHandler<LogicalMessageContext> implements
 		LogicalHandler<LogicalMessageContext> {
+    /**
+     * Logger
+     */
+	private static Logger logger = LoggerFactory.getLogger(ClientPerformanceMonitorLogicalHandler.class);
+	/**
+	 * Handler name
+	 */
+	private static final String HANDLER_NAME = "ClientPerformanceMonitorLogicalHandler"; 
 
-	private static final String HANDLER_NAME = "ClientPerformanceMonitorLogicalHandler";
-
-	private static PrintStream out = System.out;
-
+	/**
+	 * Handle times
+	 */
 	Date startTime, endTime;
-
+	/**
+	 * Constructor
+	 */
 	public ClientPerformanceMonitorLogicalHandler() {
 		super();
 		super.setHandlerName(HANDLER_NAME);
 	}
-
+	/**
+    * Handle message 
+    * @param SOAPMessageContext
+    * @return boolean 
+    */
 	public boolean handleMessage(LogicalMessageContext smc) {
 		Boolean outboundProperty = (Boolean) smc
 				.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY); 
@@ -35,12 +54,9 @@ public class ClientPerformanceMonitorLogicalHandler extends
 				long elapsedTime = endTime.getTime() - startTime.getTime();
 				
 				smc.put("ELAPSED_TIME", elapsedTime);
-				smc.setScope("ELAPSED_TIME", MessageContext.Scope.APPLICATION);
-				
-				out.println("");
-				out.println("Elapsed time in handler " + HandlerName + " is "
-						+ elapsedTime);
-				out.println("");
+				smc.setScope("ELAPSED_TIME", MessageContext.Scope.APPLICATION); 
+				logger.info("Elapsed time in handler " + HandlerName + " is "
+						+ elapsedTime); 
 			} catch (Exception x) {
 				x.printStackTrace();
 			}
