@@ -8,6 +8,7 @@
 	<http pattern="/rest/**" create-session="stateless"
 		entry-point-ref="http403ForbiddenEntryPoint">
 		<intercept-url pattern='/**' access='IS_AUTHENTICATED_FULLY' />
+		<custom-filter after="SECURITY_CONTEXT_FILTER" ref="myJWSRequestWrapper" />
 		<custom-filter after="EXCEPTION_TRANSLATION_FILTER" ref="myJWSFilter" />
 	</http>
 
@@ -20,6 +21,11 @@
 		<logout logout-success-url="/login.jsp" />
 	</http>
 
+
+	<beans:bean id="myJWSRequestWrapper"
+		class="org.appverse.web.framework.backend.frontfacade.rest.authentication.filter.JWSSecurityContextHolderAwareRequestFilter">
+
+	</beans:bean>
 
 	<beans:bean id="myJWSFilter"
 		class="org.appverse.web.framework.backend.frontfacade.rest.authentication.filter.JWSAuthenticationProcessingFilter">
@@ -45,7 +51,7 @@
 	<!-- Authentication -->
 	<beans:bean id="jwsAuthenticationProvider"
 		class="org.appverse.web.framework.backend.frontfacade.rest.authentication.JWSAuthenticationProvider">
-        <beans:property name="certificatePath" value="classpath:certificates/server/client.crt"/>
+        	<beans:property name="certificatePath" value="classpath:certificates/server/client.crt"/>
 		<!-- Include userDetailsService if you need 
 		<beans:property name="userDetailsService"	ref="userDetailsCustom" /> -->
 	</beans:bean>
