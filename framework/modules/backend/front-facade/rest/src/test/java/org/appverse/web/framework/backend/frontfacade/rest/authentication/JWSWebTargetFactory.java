@@ -1,4 +1,4 @@
-<!-- 
+/*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source Code Form is subject to the terms of the Appverse Public License 
@@ -20,13 +20,40 @@
  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) 
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE.
- --> 
-<module>
+ */
+package org.appverse.web.framework.backend.frontfacade.rest.authentication;
 
-	<replace-with
-		class="org.appverse.web.framework.frontend.gwt.theme.certificates.search.AppverseSuggestAppearance">
-		<when-type-is
-			class="org.appverse.web.framework.frontend.gwt.widgets.search.suggest.impl.gxt.SuggestWidgetImpl.SuggestAppearance" />
-	</replace-with>
-	
-</module>
+import org.glassfish.jersey.filter.LoggingFilter;
+import org.glassfish.jersey.jackson.JacksonFeature;
+import org.springframework.cache.Cache;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+
+public class JWSWebTargetFactory {
+
+	public static WebTarget create(final String baseAddress) {
+
+		return JWSWebTargetFactory.create(baseAddress, null);
+	}
+
+	public static WebTarget create(final String baseAddress, final Cache cache) {
+
+		Client client = ClientBuilder.newBuilder().register(JacksonFeature.class)
+				.register(LoggingFilter.class)
+				.register(JWSJerseyFilter.class)
+				.build();
+
+		/*
+		IMPORTANT:: This should be active in REAL client module
+		
+		if (cache != null)
+			client = client.register(new RestRequestCachingFilter(cache));
+
+		 */
+
+		WebTarget target = client.target(baseAddress);
+		return target;
+	}
+}
