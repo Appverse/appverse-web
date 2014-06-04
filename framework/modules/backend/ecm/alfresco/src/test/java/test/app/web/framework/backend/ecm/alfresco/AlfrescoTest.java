@@ -79,7 +79,7 @@ public class AlfrescoTest extends AbstractTest {
     }
 
 
-    @Test
+    // @Test
     public void alfrescoRESTApiRetrieveLinksTestWithDefaultUser() throws Exception{
         IntegrationPaginatedDataFilter filter = new IntegrationPaginatedDataFilter();
         filter.setLimit(100);
@@ -88,7 +88,7 @@ public class AlfrescoTest extends AbstractTest {
         result = linkRepository.retrievePagedLinks("webtestsite", "links", filter);
     }
 
-    @Test
+    // @Test
     public void alfrescoRESTApiRetrieveLinksTestParticularUser() throws Exception{
         IntegrationPaginatedDataFilter filter = new IntegrationPaginatedDataFilter();
         filter.setLimit(100);
@@ -107,7 +107,7 @@ public class AlfrescoTest extends AbstractTest {
         Assert.assertNotNull(e);
     }
 
-    @Test
+    // @Test
     public void alfrescoRestApiAndCMISCombinedTest() throws Exception{
         // Using repository based in CMIS API
         cmisManageDocumentTest();

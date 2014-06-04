@@ -57,6 +57,7 @@
             -->
             <map>
                 <entry key="org.apache.chemistry.opencmis.binding.spi.type" value="atompub"/>
+                <!-- Using Alfresco public CMIS Test repository -->
                 <entry key="org.apache.chemistry.opencmis.binding.atompub.url" value="http://cmis.alfresco.com/cmisatom"/>
                 <entry key="org.apache.chemistry.opencmis.user" value="admin"/>
                 <entry key="org.apache.chemistry.opencmis.password" value="admin"/>

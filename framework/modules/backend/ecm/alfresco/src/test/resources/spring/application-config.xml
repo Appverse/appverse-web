@@ -44,6 +44,7 @@
             -->
             <map>
                 <entry key="org.apache.chemistry.opencmis.binding.spi.type" value="atompub"/>
+                <!-- Using Alfresco public CMIS Test repository -->
                 <entry key="org.apache.chemistry.opencmis.binding.atompub.url" value="http://cmis.alfresco.com/cmisatom"/>
                 <entry key="org.apache.chemistry.opencmis.user" value="admin"/>
                 <entry key="org.apache.chemistry.opencmis.password" value="admin"/>
@@ -59,7 +60,7 @@
           factory-method="create">
 
         <!-- Private alfresco repository -->
-        <constructor-arg name="baseAddress" value="http://172.24.10.55/alfresco/service/api" />
+        <constructor-arg name="baseAddress" value="http://youraddress/alfresco/service/api" />
         <!-- cache argument is optional -->
         <constructor-arg name="cache" ref="alfrescoRestClientCache" />
         <!-- Use basic authentication - is optional argument -->
