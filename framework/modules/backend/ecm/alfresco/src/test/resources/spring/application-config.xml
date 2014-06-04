@@ -68,7 +68,7 @@
         <!-- User for basic authentication - this is ignored if basic authentication is not enabled - optional argument -->
         <constructor-arg name="defaultUser" value="user" />
         <!-- Password for basic authentication - this is ignored if basic authentication is not enabled - optional argument -->
-        <constructor-arg name="defaultUserPassword" value="bitnami" />
+        <constructor-arg name="defaultUserPassword" value="password" />
     </bean>
 
 
