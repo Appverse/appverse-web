@@ -71,7 +71,7 @@ public class CmisTest extends AbstractTest {
     }
 
     @Test
-    public void testPrintRepositoryRootFolder() {
+    public void testPrintRepositoryRootFolder() throws Exception {
         List<NodeDTO> nodes = sampleRepository.getRootFolderNodes();
         logger.info("Found the following objects (nodes) in the root folder :");
         for (NodeDTO node : nodes) {

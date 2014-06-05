@@ -26,13 +26,27 @@ package org.appverse.web.framework.backend.ecm.cmis.services.integration.impl.li
 import org.apache.chemistry.opencmis.client.api.Session;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.api.services.integration.AbstractIntegrationService;
+import org.appverse.web.framework.backend.ecm.cmis.CmisSessionManager;
 import org.appverse.web.framework.backend.ecm.cmis.services.integration.ICMISService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class CMISService<T extends AbstractIntegrationBean> extends
         AbstractIntegrationService<T> implements ICMISService<T> {
 
-    @Autowired
-    protected Session cmisSession;
+    private CmisSessionManager cmisSessionManager;
 
+    public Session getCmisSession(String repositoryId, String username, String password) throws Exception {
+        return cmisSessionManager.getCmisSession(repositoryId, username, password);
+    }
+
+    public Session getCmisSession(String username, String password) throws Exception {
+        return cmisSessionManager.getCmisSession(username, password);
+    }
+
+    public Session getCmisSession() throws Exception {
+        return cmisSessionManager.getCmisSession();
+    }
+
+    public void setCmisSessionManager(CmisSessionManager cmisSessionManager) {
+        this.cmisSessionManager = cmisSessionManager;
+    }
 }

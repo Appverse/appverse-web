@@ -37,7 +37,7 @@ import java.util.List;
  */
 public interface SampleRepository extends ICMISService<NodeDTO> {
 
-    List<NodeDTO> getRootFolderNodes();
-    List<NodeDTO> getNodesfromFolderUsingQuery(String folderName);
+    List<NodeDTO> getRootFolderNodes() throws Exception;
+    List<NodeDTO> getNodesfromFolderUsingQuery(String folderName) throws Exception;
 
 }

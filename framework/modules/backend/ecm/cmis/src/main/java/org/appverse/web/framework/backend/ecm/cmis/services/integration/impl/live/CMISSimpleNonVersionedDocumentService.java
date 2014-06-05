@@ -48,6 +48,8 @@ import java.util.Map;
 public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentIntegrationBean> extends CMISService<T>
         implements IDocumentService<T>{
 
+    // TODO: Try Leaving cache enabled but when an object is removed or moved make a session.removeObject...
+
     @AutowiredLogger
     private static Logger logger;
 
@@ -61,9 +63,9 @@ public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentInt
     @Override
     public T retrieve(final String path, final String documentName) throws Exception {
         // Disable cache
-        cmisSession.getDefaultContext().setCacheEnabled(false);
+        getCmisSession().getDefaultContext().setCacheEnabled(false);
 
-        Document object = (Document)FileUtils.getObject(path  + documentName, cmisSession);
+        Document object = (Document)FileUtils.getObject(path  + documentName, getCmisSession());
         ContentStream contentStream = object.getContentStream();
 
         Class<T> classP = getClassP();
@@ -74,7 +76,7 @@ public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentInt
         document.setContentStreamLenght(contentStream.getLength());
         document.setContentStreamMimeType(contentStream.getMimeType());
         // Enable cache
-        cmisSession.getDefaultContext().setCacheEnabled(true);
+        getCmisSession().getDefaultContext().setCacheEnabled(true);
         return document;
     }
 
@@ -87,66 +89,66 @@ public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentInt
     @Override
     public void move(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception {
         // Disable cache
-        cmisSession.getDefaultContext().setCacheEnabled(false);
+        getCmisSession().getDefaultContext().setCacheEnabled(false);
 
         // Fetch the object
-        FileableCmisObject fileableCmisObject = (FileableCmisObject) FileUtils.getObject(pathOrigin + documentNameOrigin, cmisSession);
+        FileableCmisObject fileableCmisObject = (FileableCmisObject) FileUtils.getObject(pathOrigin + documentNameOrigin, getCmisSession());
 
         // ECM folder paths does not end with "/"
         if (pathOrigin.endsWith("/")) pathOrigin = pathOrigin.substring(0, pathOrigin.length()-1);
         if (pathDestination.endsWith("/")) pathDestination = pathDestination.substring(0, pathDestination.length()-1);
 
         // Fetch source folder
-        CmisObject sourceObject = FileUtils.getObject(pathOrigin, cmisSession);
+        CmisObject sourceObject = FileUtils.getObject(pathOrigin, getCmisSession());
 
         // Fetch the destination folder
         // We need to make sure the target folder exists
         createFolder(pathDestination);
-        CmisObject targetObject = FileUtils.getObject(pathDestination, cmisSession);
+        CmisObject targetObject = FileUtils.getObject(pathDestination, getCmisSession());
 
         // Move the object
         fileableCmisObject.move(sourceObject, targetObject);
 
         // Enable cache
-        cmisSession.getDefaultContext().setCacheEnabled(true);
+        getCmisSession().getDefaultContext().setCacheEnabled(true);
     }
 
     @Override
     public void delete(String path, String documentName) throws Exception {
         // Disable cache
-        cmisSession.getDefaultContext().setCacheEnabled(false);
+        getCmisSession().getDefaultContext().setCacheEnabled(false);
 
-        Document document = (Document)FileUtils.getObject(path + "/" + documentName, cmisSession);
+        Document document = (Document)FileUtils.getObject(path + "/" + documentName, getCmisSession());
         document.delete();
 
         // Enable cache
-        cmisSession.getDefaultContext().setCacheEnabled(true);
+        getCmisSession().getDefaultContext().setCacheEnabled(true);
     }
 
     @Override
     public void deleteFolder(String path) throws Exception {
         // Disable cache
-        cmisSession.getDefaultContext().setCacheEnabled(false);
+        getCmisSession().getDefaultContext().setCacheEnabled(false);
 
         if (path.endsWith("/")) path = path.substring(0, path.length()-1);
-        Folder folder = (Folder)FileUtils.getObject(path, cmisSession);
+        Folder folder = (Folder)FileUtils.getObject(path, getCmisSession());
         folder.deleteTree(true, UnfileObject.DELETE, true);
 
         // Enable cache
-        cmisSession.getDefaultContext().setCacheEnabled(true);
+        getCmisSession().getDefaultContext().setCacheEnabled(true);
 
     }
 
-    private Folder createFolder(String path){
+    private Folder createFolder(String path) throws Exception {
         String[] subFolderNames = path.split("/");
-        Folder folder = cmisSession.getRootFolder();
+        Folder folder = getCmisSession().getRootFolder();
         for (String subfolder : subFolderNames){
             String folderPath = folder.getPath();
             if (folder.getPath().equals("/")){
                 folderPath = "";
             }
             try{
-                folder = FileUtils.getFolder(folderPath + "/" + subfolder, cmisSession);
+                folder = FileUtils.getFolder(folderPath + "/" + subfolder, getCmisSession());
                 logger.debug("Parent folder already exists, new folder value is: " + folder.getPath());
             }
             catch (CmisObjectNotFoundException e){
@@ -158,9 +160,9 @@ public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentInt
         return folder;
     }
 
-    private Document createDocument(String path, T document){
+    private Document createDocument(String path, T document) throws Exception {
         // Disable cache
-        cmisSession.getDefaultContext().setCacheEnabled(false);
+        getCmisSession().getDefaultContext().setCacheEnabled(false);
 
         Folder parent = createFolder(path);
 
@@ -181,7 +183,7 @@ public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentInt
         // If the document existed already we override it. In order to do so, we have to remove it and we create it again
         Document documentToRemove = null;
         try{
-            documentToRemove = (Document)FileUtils.getObject(path + document.getContentStreamFilename(), cmisSession);
+            documentToRemove = (Document)FileUtils.getObject(path + document.getContentStreamFilename(), getCmisSession());
             documentToRemove.delete();
         }
         catch (CmisObjectNotFoundException e){
@@ -192,7 +194,7 @@ public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentInt
         VersioningState versioningState = VersioningState.NONE;
         String typeId = (String)properties.get(PropertyIds.OBJECT_TYPE_ID);
         DocumentType docType =
-                (DocumentType) cmisSession.getTypeDefinition(typeId);
+                (DocumentType) getCmisSession().getTypeDefinition(typeId);
         if (Boolean.TRUE.equals(docType.isVersionable())) {
             versioningState = VersioningState.MAJOR;
         }
@@ -203,7 +205,7 @@ public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentInt
         Document doc = parent.createDocument(properties, contentStream, versioningState);
 
         // Enable cache again
-        cmisSession.getDefaultContext().setCacheEnabled(true);
+        getCmisSession().getDefaultContext().setCacheEnabled(true);
         return doc;
     }
 

@@ -48,9 +48,9 @@ public class SampleRepositoryImpl extends CMISService<NodeDTO>
         implements SampleRepository {
 
     @Override
-    public List<NodeDTO> getRootFolderNodes(){
+    public List<NodeDTO> getRootFolderNodes() throws Exception {
         List<NodeDTO> nodeDTOList = new ArrayList<NodeDTO>();
-        Folder root = cmisSession.getRootFolder();
+        Folder root = getCmisSession().getRootFolder();
         ItemIterable<CmisObject> children = root.getChildren();
         NodeDTO node;
         for (CmisObject o : children) {
@@ -62,9 +62,9 @@ public class SampleRepositoryImpl extends CMISService<NodeDTO>
     }
 
     @Override
-    public List<NodeDTO> getNodesfromFolderUsingQuery(String folderName){
+    public List<NodeDTO> getNodesfromFolderUsingQuery(String folderName) throws Exception {
         List<NodeDTO> nodeDTOList = new ArrayList<NodeDTO>();
-        ItemIterable<QueryResult> results = cmisSession.query("SELECT * FROM cmis:folder WHERE cmis:name='" + folderName + "'", false);
+        ItemIterable<QueryResult> results = getCmisSession().query("SELECT * FROM cmis:folder WHERE cmis:name='" + folderName + "'", false);
         NodeDTO node;
         for (QueryResult result : results) {
             node = new NodeDTO();
