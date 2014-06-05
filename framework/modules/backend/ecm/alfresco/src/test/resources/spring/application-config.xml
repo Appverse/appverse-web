@@ -55,7 +55,7 @@
         </property>
     </bean>
 
-    <bean id="cmisSessionManager" class="org.appverse.web.framework.backend.ecm.cmis.CmisSessionManager"/>
+    <bean id="cmisSessionManager" class="org.appverse.web.framework.backend.ecm.cmis.managers.impl.live.CmisSessionManagerImpl"/>
 
     <!-- ============================================================================================= -->
     <!-- Alfresco REST clients setup -->

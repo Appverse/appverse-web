@@ -21,32 +21,16 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.ecm.cmis.services.integration.impl.live;
+package org.appverse.web.framework.backend.ecm.cmis.managers;
 
 import org.apache.chemistry.opencmis.client.api.Session;
-import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
-import org.appverse.web.framework.backend.api.services.integration.AbstractIntegrationService;
-import org.appverse.web.framework.backend.ecm.cmis.managers.impl.live.CmisSessionManagerImpl;
-import org.appverse.web.framework.backend.ecm.cmis.services.integration.ICMISService;
 
-public class CMISService<T extends AbstractIntegrationBean> extends
-        AbstractIntegrationService<T> implements ICMISService<T> {
+public interface CmisSessionManager {
 
-    private CmisSessionManagerImpl cmisSessionManager;
+    Session getCmisSession(String repositoryId, String username, String password) throws Exception;
 
-    public Session getCmisSession(String repositoryId, String username, String password) throws Exception {
-        return cmisSessionManager.getCmisSession(repositoryId, username, password);
-    }
+    Session getCmisSession(String username, String password) throws Exception;
 
-    public Session getCmisSession(String username, String password) throws Exception {
-        return cmisSessionManager.getCmisSession(username, password);
-    }
+    Session getCmisSession() throws Exception;
 
-    public Session getCmisSession() throws Exception {
-        return cmisSessionManager.getCmisSession();
-    }
-
-    public void setCmisSessionManager(CmisSessionManagerImpl cmisSessionManager) {
-        this.cmisSessionManager = cmisSessionManager;
-    }
 }

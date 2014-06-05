@@ -21,32 +21,38 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.ecm.cmis.services.integration.impl.live;
+package org.appverse.web.framework.backend.ecm.cmis.managers.impl.live;
 
 import org.apache.chemistry.opencmis.client.api.Session;
-import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
-import org.appverse.web.framework.backend.api.services.integration.AbstractIntegrationService;
-import org.appverse.web.framework.backend.ecm.cmis.managers.impl.live.CmisSessionManagerImpl;
-import org.appverse.web.framework.backend.ecm.cmis.services.integration.ICMISService;
+import org.appverse.web.framework.backend.ecm.cmis.CmisSessionFactory;
+import org.appverse.web.framework.backend.ecm.cmis.managers.CmisSessionManager;
 
-public class CMISService<T extends AbstractIntegrationBean> extends
-        AbstractIntegrationService<T> implements ICMISService<T> {
+public class CmisSessionManagerImpl implements CmisSessionManager {
 
-    private CmisSessionManagerImpl cmisSessionManager;
+    // List of sessions
 
+    CmisSessionFactory cmisSessionFactory;
+
+    @Override
     public Session getCmisSession(String repositoryId, String username, String password) throws Exception {
-        return cmisSessionManager.getCmisSession(repositoryId, username, password);
+        return cmisSessionFactory.createCmisSession();
     }
 
+    @Override
     public Session getCmisSession(String username, String password) throws Exception {
-        return cmisSessionManager.getCmisSession(username, password);
+        return cmisSessionFactory.createCmisSession();
     }
 
+    @Override
     public Session getCmisSession() throws Exception {
-        return cmisSessionManager.getCmisSession();
+        return cmisSessionFactory.createCmisSession();
     }
 
-    public void setCmisSessionManager(CmisSessionManagerImpl cmisSessionManager) {
-        this.cmisSessionManager = cmisSessionManager;
+    public CmisSessionFactory getCmisSessionFactory() throws Exception {
+        return cmisSessionFactory;
+    }
+
+    public void setCmisSessionFactory(CmisSessionFactory cmisSessionFactory) throws Exception {
+        this.cmisSessionFactory = cmisSessionFactory;
     }
 }
