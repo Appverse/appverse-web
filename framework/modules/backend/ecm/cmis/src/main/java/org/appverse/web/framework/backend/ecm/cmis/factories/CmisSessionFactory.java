@@ -21,13 +21,14 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package org.appverse.web.framework.backend.ecm.cmis;
+package org.appverse.web.framework.backend.ecm.cmis.factories;
 
 import org.apache.chemistry.opencmis.client.api.Repository;
 import org.apache.chemistry.opencmis.client.api.Session;
 import org.apache.chemistry.opencmis.client.api.SessionFactory;
 import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
 import org.apache.chemistry.opencmis.commons.SessionParameter;
+import org.springframework.beans.factory.InitializingBean;
 
 import java.util.List;
 import java.util.Map;
@@ -35,13 +36,45 @@ import java.util.Map;
 /**
  *
  */
-public class CmisSessionFactory {
+public class CmisSessionFactory implements InitializingBean {
 
     private SessionFactory sessionFactory;
     private Map cmisSessionInitProperties;
 
     public CmisSessionFactory(){
         sessionFactory = SessionFactoryImpl.newInstance();
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        String defaultRepositoryId = (String)cmisSessionInitProperties.get(SessionParameter.REPOSITORY_ID);
+        if (defaultRepositoryId == null){
+            // If not repository is specified, the first repository is taken as default
+            List<Repository> repositories = sessionFactory.getRepositories(cmisSessionInitProperties);
+            Repository repository = repositories.get(0);
+            cmisSessionInitProperties.put(SessionParameter.REPOSITORY_ID, repository.getId());
+        }
+    }
+
+
+    public Session createCmisSession(String repositoryId, String username, String password){
+        cmisSessionInitProperties.put(SessionParameter.REPOSITORY_ID, repositoryId);
+        cmisSessionInitProperties.put(SessionParameter.USER, username);
+        cmisSessionInitProperties.put(SessionParameter.PASSWORD, password);
+        return sessionFactory.createSession(cmisSessionInitProperties);
+    }
+
+    public Session createCmisSession(String username, String password){
+        cmisSessionInitProperties.put(SessionParameter.USER, username);
+        cmisSessionInitProperties.put(SessionParameter.PASSWORD, password);
+        return sessionFactory.createSession(cmisSessionInitProperties);
+    }
+
+    public Session createCmisSession() throws Exception {
+        if (cmisSessionInitProperties.get(SessionParameter.USER) == null || cmisSessionInitProperties.get(SessionParameter.USER) == null) {
+            throw new Exception("CmisSessionFactoryBean: not default user or password specified and no credentials have been explicitly specified");
+        }
+        return sessionFactory.createSession(cmisSessionInitProperties);
     }
 
     public void setCmisSessionInitProperties(Map cmisSessionInitProperties) {
@@ -52,38 +85,16 @@ public class CmisSessionFactory {
         return cmisSessionInitProperties;
     }
 
-    public Session createCmisSession(String repositoryId, String username, String password){
-        cmisSessionInitProperties.put(SessionParameter.REPOSITORY_ID, repositoryId);
-        cmisSessionInitProperties.put(SessionParameter.USER, username);
-        cmisSessionInitProperties.put(SessionParameter.PASSWORD, password);
-        return sessionFactory.createSession(cmisSessionInitProperties);
+    public String getRepositoryId(){
+        return (String)cmisSessionInitProperties.get(SessionParameter.REPOSITORY_ID);
     }
 
-    public Session createCmisSession(String username, String password){
-        String defaultRepositoryId = (String)cmisSessionInitProperties.get(SessionParameter.REPOSITORY_ID);
-        if (defaultRepositoryId == null){
-            // First repository is taken as default
-            List<Repository> repositories = sessionFactory.getRepositories(cmisSessionInitProperties);
-            Repository repository = repositories.get(0);
-            cmisSessionInitProperties.put(SessionParameter.REPOSITORY_ID, repository.getId());
-        }
-        cmisSessionInitProperties.put(SessionParameter.USER, username);
-        cmisSessionInitProperties.put(SessionParameter.PASSWORD, password);
-        return sessionFactory.createSession(cmisSessionInitProperties);
+    public String getUser(){
+        return (String)cmisSessionInitProperties.get(SessionParameter.USER);
     }
 
-    public Session createCmisSession() throws Exception {
-        if (cmisSessionInitProperties.get(SessionParameter.USER) == null || cmisSessionInitProperties.get(SessionParameter.USER) == null) {
-            throw new Exception("CmisSessionFactoryBean: not defaulot user or password specified");
-        }
-
-        String defaultRepositoryId = (String)cmisSessionInitProperties.get(SessionParameter.REPOSITORY_ID);
-        if (defaultRepositoryId == null){
-            // First repository is taken as default
-            List<Repository> repositories = sessionFactory.getRepositories(cmisSessionInitProperties);
-            Repository repository = repositories.get(0);
-            cmisSessionInitProperties.put(SessionParameter.REPOSITORY_ID, repository.getId());
-        }
-        return sessionFactory.createSession(cmisSessionInitProperties);
+    public String getPassword(){
+        return (String)cmisSessionInitProperties.get(SessionParameter.PASSWORD);
     }
+
 }

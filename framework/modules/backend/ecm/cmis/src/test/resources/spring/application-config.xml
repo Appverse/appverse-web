@@ -43,7 +43,7 @@
     <!-- ============================================================================================= -->
     <!-- CMIS sessions setup -->
     <!-- ============================================================================================= -->
-    <bean id="cmisSessionFactory" class="org.appverse.web.framework.backend.ecm.cmis.CmisSessionFactory">
+    <bean id="cmisSessionFactory" class="org.appverse.web.framework.backend.ecm.cmis.factories.CmisSessionFactory">
         <property name="cmisSessionInitProperties">
             <!-- See reference at:
                 org.apache.chemistry.opencmis.commons.SessionParameter

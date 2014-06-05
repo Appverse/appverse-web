@@ -24,28 +24,84 @@
 package org.appverse.web.framework.backend.ecm.cmis.managers.impl.live;
 
 import org.apache.chemistry.opencmis.client.api.Session;
-import org.appverse.web.framework.backend.ecm.cmis.CmisSessionFactory;
+import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
+import org.appverse.web.framework.backend.ecm.cmis.factories.CmisSessionFactory;
 import org.appverse.web.framework.backend.ecm.cmis.managers.CmisSessionManager;
+import org.slf4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 public class CmisSessionManagerImpl implements CmisSessionManager {
 
-    // List of sessions
+    @AutowiredLogger
+    private static Logger logger;
 
     CmisSessionFactory cmisSessionFactory;
 
+    // List of sessions
+    HashMap<String, CmisSessionWrapper> cmisSessionsMap;
+    private List<CmisSessionWrapper> orderedCmisSessionsList;
+
+    public CmisSessionManagerImpl(){
+        cmisSessionsMap = new HashMap<String, CmisSessionWrapper>();
+        orderedCmisSessionsList = new ArrayList<CmisSessionWrapper>();
+    }
+
+    private Session lookUpSession(String repositoryId, String username){
+        CmisSessionWrapper cmisSessionWrapper = cmisSessionsMap.get(username + "-" + repositoryId);
+        if (cmisSessionWrapper != null){
+            return cmisSessionWrapper.getSession();
+        }
+        else return null;
+    }
+
+    private void registerSession(Session session, String repositoryId, String username){
+        CmisSessionWrapper cmisSessionWrapper = new CmisSessionWrapper();
+        cmisSessionWrapper.setSession(session);
+        cmisSessionWrapper.setRepositoryId(repositoryId);
+        cmisSessionWrapper.setUser(username);
+        cmisSessionWrapper.setCreated(new Date());
+        cmisSessionWrapper.setLastRequested(new Date());
+        cmisSessionsMap.put(cmisSessionWrapper.getKey(), cmisSessionWrapper);
+        orderedCmisSessionsList.add(cmisSessionWrapper);
+        logger.debug("Created and registered new open CMIS session with key: " + cmisSessionWrapper.getKey() +
+                "Overall number of sessions is: " + orderedCmisSessionsList.size());
+    }
+
     @Override
     public Session getCmisSession(String repositoryId, String username, String password) throws Exception {
-        return cmisSessionFactory.createCmisSession();
+        Session session = lookUpSession(repositoryId, username);
+        if (session == null){
+            // Create an register a new session
+            session = cmisSessionFactory.createCmisSession(repositoryId, username, password);
+            registerSession(session, repositoryId, username);
+        }
+        return session;
     }
 
     @Override
     public Session getCmisSession(String username, String password) throws Exception {
-        return cmisSessionFactory.createCmisSession();
+        Session session = lookUpSession(cmisSessionFactory.getRepositoryId(), username);
+        if (session == null){
+            // Create an register a new session
+            session = cmisSessionFactory.createCmisSession(username, password);
+            registerSession(session, cmisSessionFactory.getRepositoryId(), username);
+        }
+        return session;
     }
 
     @Override
     public Session getCmisSession() throws Exception {
-        return cmisSessionFactory.createCmisSession();
+        Session session = lookUpSession(cmisSessionFactory.getRepositoryId(), cmisSessionFactory.getUser());
+        if (session == null){
+            // Create an register a new session
+            session = cmisSessionFactory.createCmisSession();
+            registerSession(session, cmisSessionFactory.getRepositoryId(), cmisSessionFactory.getUser());
+        }
+        return session;
     }
 
     public CmisSessionFactory getCmisSessionFactory() throws Exception {
