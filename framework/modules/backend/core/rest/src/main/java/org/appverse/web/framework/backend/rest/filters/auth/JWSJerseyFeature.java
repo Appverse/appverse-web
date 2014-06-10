@@ -70,5 +70,37 @@ public class JWSJerseyFeature implements Feature{
         }
         return false;
     }
+    public static Builder basicBuilder() {
+        return new BuilderImpl();
+    }
+    public static interface Builder {
+
+        /**
+         * Set credentials.
+         *
+         * @param key client certificate.
+         * @return This builder.
+         */
+        public Builder credentials(Key key);
+
+
+        /**
+         * Build the feature.
+         *
+         * @return Http authentication feature configured from this builder.
+         */
+        public JWSJerseyFeature build();
+    }
+    static class BuilderImpl implements Builder {
+        private Key key;
+
+        public Builder credentials(Key key){
+            this.key = key;
+            return this;
+        }
+        public JWSJerseyFeature build(){
+            return new JWSJerseyFeature(key);
+        }
+    }
 
 }

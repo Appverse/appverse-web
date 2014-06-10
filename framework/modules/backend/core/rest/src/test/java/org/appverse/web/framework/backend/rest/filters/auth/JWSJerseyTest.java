@@ -81,12 +81,13 @@ public class JWSJerseyTest {
     }
 
     @Test
-    public void testJerseyFilterClientNoParams() throws IOException{
+    public void testJerseyFilterClientNoParams() throws Exception{
         //environment
         ArgumentCaptor<Response> argument = ArgumentCaptor.forClass(Response.class);
         when(context.getConfiguration()).thenReturn(config);
         when(config.getRuntimeType()).thenReturn(RuntimeType.CLIENT);
         when(context.getProperty(JWSJerseyFilter.JWS_FILTER_KEY)).thenReturn(null);
+        when(context.getUri()).thenReturn(new URI("http://localhost:8080"));
         //test
         jwsJerseyFilter.filter(context);
         //validation
@@ -98,7 +99,7 @@ public class JWSJerseyTest {
     @Test
     public void testJerseyFilterClientWithParams() throws Exception{
         //load certificate
-        KeyStore keyStore = getKeyStore();
+        KeyStore keyStore = getKeyStoreClient();
         Key key = keyStore.getKey(clientCertAlias, clientCertPassword.toCharArray());
         //environment
         ArgumentCaptor<String> argumentHeader = ArgumentCaptor.forClass(String.class);
@@ -123,7 +124,7 @@ public class JWSJerseyTest {
 
     }
 
-    private KeyStore getKeyStore() throws Exception{
+    private KeyStore getKeyStoreClient() throws Exception{
         InputStream in = Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream(clientCertPath);
         KeyStore keyStore = KeyStore.getInstance("PKCS12");
@@ -134,7 +135,7 @@ public class JWSJerseyTest {
     @Test
     public void testJerseyFeatureClientWithParamsConstructor1() throws Exception{
         //load certificate
-        KeyStore keyStore = getKeyStore();
+        KeyStore keyStore = getKeyStoreClient();
         Key key = keyStore.getKey(clientCertAlias, clientCertPassword.toCharArray());
 
         //test constructor1
@@ -163,7 +164,7 @@ public class JWSJerseyTest {
     @Test
     public void testJerseyFeatureClientWithParamsConstructor2() throws Exception{
         //load certificate
-        KeyStore keyStore = getKeyStore();
+        KeyStore keyStore = getKeyStoreClient();
         Key key = keyStore.getKey(clientCertAlias, clientCertPassword.toCharArray());
         //test constructor1
         JWSJerseyFeature jwsJerseyFeature = new JWSJerseyFeature(key);
