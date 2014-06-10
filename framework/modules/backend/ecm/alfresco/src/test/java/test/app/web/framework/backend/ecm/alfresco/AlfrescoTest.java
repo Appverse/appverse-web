@@ -62,10 +62,10 @@ public class AlfrescoTest extends AbstractTest {
         document.setContentStreamFilename("textDocument.txt");
         document.setContentStream("This is the content for this test file".getBytes());
         document.setContentStreamMimeType("text/plain");
-        documentRepository.insert("/appversetest/folder1/", document);
+        documentRepository.insert("/test/folder1/", document);
 
         // Retrieve the recently created document
-        DocumentDTO retrievedDocument = documentRepository.retrieve("/appversetest/folder1/", document.getContentStreamFilename());
+        DocumentDTO retrievedDocument = documentRepository.retrieve("/test/folder1/", document.getContentStreamFilename());
         Assert.assertNotNull(retrievedDocument);
         Assert.assertEquals("Document name does not match", retrievedDocument.getContentStreamFilename(), "textDocument.txt");
         Assert.assertNotNull(retrievedDocument.getContentStream());
@@ -73,9 +73,18 @@ public class AlfrescoTest extends AbstractTest {
         Assert.assertNotNull(retrievedDocument.getContentStreamMimeType());
 
         // Move the recently created document to another location
+        documentRepository.move("/test/folder1/", "textDocument.txt", "/test/folder2", "textDocument2.txt");
+
+        // Retrieve the recently moved document
+        DocumentDTO movedDocument = documentRepository.retrieve("/test/folder2/", "textDocument2.txt");
+        Assert.assertNotNull(movedDocument);
+        Assert.assertEquals("Document name does not match", movedDocument.getContentStreamFilename(), "textDocument2.txt");
+        Assert.assertNotNull(movedDocument.getContentStream());
+        Assert.assertNotNull(movedDocument.getContentStreamLenght());
+        Assert.assertNotNull(movedDocument.getContentStreamMimeType());
 
         // Remove the container folder tree
-        documentRepository.deleteFolder("/appversetest");
+        documentRepository.deleteFolder("/test");
     }
 
 

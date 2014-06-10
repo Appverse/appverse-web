@@ -83,9 +83,14 @@ public class CmisTest extends AbstractTest {
     @Test
     public void testPrintRepositoryRootFolderWithDefaultUser() throws Exception {
         List<NodeDTO> nodes = sampleRepository.getRootFolderNodes();
-        logger.info("Found the following objects (nodes) in the root folder :");
-        for (NodeDTO node : nodes) {
-            logger.info(node.getName());
+        logger.debug("Found " + nodes.size() + " objects (nodes) in the root folder. Printing just the first 5 (maximum) :");
+
+        int numberOfNodesToPrint = 5;
+        if (nodes.size() < 5) numberOfNodesToPrint = nodes.size();
+
+        for (int i = 0; i < numberOfNodesToPrint; i++) {
+            NodeDTO node = nodes.get(i);
+            logger.debug(node.getName());
         }
     }
 
