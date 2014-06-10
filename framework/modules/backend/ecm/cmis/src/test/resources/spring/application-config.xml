@@ -63,7 +63,9 @@
     </bean>
 
 
-    <bean id="cmisSessionManager" class="org.appverse.web.framework.backend.ecm.cmis.managers.impl.live.CmisSessionManagerImpl"/>
+    <bean id="cmisSessionManager" class="org.appverse.web.framework.backend.ecm.cmis.managers.impl.live.CmisSessionManagerImpl">
+            <property name="maxNumberOfSessions" value="20"/>
+    </bean>
 
 
 	<!-- ============================================================================================= -->

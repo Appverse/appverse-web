@@ -23,6 +23,7 @@
  */
 package test.app.web.framework.backend.ecm;
 
+import org.apache.chemistry.opencmis.client.api.Session;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.helpers.test.AbstractTest;
 import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
@@ -48,7 +49,7 @@ public class CmisTest extends AbstractTest {
     private static Logger logger;
 
     @Test
-    public void cmisManageDocumentTest() throws Exception{
+    public void cmisManageDocumentTestWithDefaultUser() throws Exception{
         // Create document. This will create folder structure to the specified path if necessary
         DocumentDTO document = new DocumentDTO();
         document.setContentStreamFilename("textDocument.txt");
@@ -71,7 +72,7 @@ public class CmisTest extends AbstractTest {
     }
 
     @Test
-    public void testPrintRepositoryRootFolder() throws Exception {
+    public void testPrintRepositoryRootFolderWithDefaultUser() throws Exception {
         List<NodeDTO> nodes = sampleRepository.getRootFolderNodes();
         logger.info("Found the following objects (nodes) in the root folder :");
         for (NodeDTO node : nodes) {
@@ -80,7 +81,7 @@ public class CmisTest extends AbstractTest {
     }
 
     @Test
-    public void testQuery() throws Exception {
+    public void testWithDefaultUser() throws Exception {
         // Create document. This will create folder structure to the specified path if necessary
         DocumentDTO document = new DocumentDTO();
         document.setContentStreamFilename("textDocument.txt");
@@ -103,4 +104,31 @@ public class CmisTest extends AbstractTest {
         // Remove the container folder tree
         documentRepository.deleteFolder("/test");
     }
+
+    @Test
+    public void testAccessingWithSpecificUserAndPassword() throws Exception{
+        // Create document. This will create folder structure to the specified path if necessary
+        DocumentDTO document = new DocumentDTO();
+        document.setContentStreamFilename("textDocument.txt");
+        document.setContentStream("This is the content for this test file".getBytes());
+        document.setContentStreamMimeType("text/plain");
+        Session session = documentRepository.getCmisSession("admin", "admin");
+        documentRepository.insert("/test/folder1/", document, session);
+
+        // Retrieve the recently created document
+        DocumentDTO retrievedDocument = documentRepository.retrieve("/test/folder1/", document.getContentStreamFilename(), session);
+        Assert.assertNotNull(retrievedDocument);
+        Assert.assertEquals("Document name does not match", retrievedDocument.getContentStreamFilename(), "textDocument.txt");
+        Assert.assertNotNull(retrievedDocument.getContentStream());
+        Assert.assertNotNull(retrievedDocument.getContentStreamLenght());
+        Assert.assertNotNull(retrievedDocument.getContentStreamMimeType());
+
+        // Test a query
+        List<NodeDTO> nodesDTOList = sampleRepository.getNodesfromFolderUsingQuery("testfolder", session);
+        Assert.assertNotNull(nodesDTOList);
+
+        // Remove the container folder tree
+        documentRepository.deleteFolder("/test");
+    }
+
 }

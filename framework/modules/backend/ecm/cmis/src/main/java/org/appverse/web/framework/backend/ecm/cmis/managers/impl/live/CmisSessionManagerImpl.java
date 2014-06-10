@@ -29,30 +29,31 @@ import org.appverse.web.framework.backend.ecm.cmis.factories.CmisSessionFactory;
 import org.appverse.web.framework.backend.ecm.cmis.managers.CmisSessionManager;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class CmisSessionManagerImpl implements CmisSessionManager {
 
     @AutowiredLogger
     private static Logger logger;
 
-    CmisSessionFactory cmisSessionFactory;
+    private CmisSessionFactory cmisSessionFactory;
 
-    // List of sessions
-    HashMap<String, CmisSessionWrapper> cmisSessionsMap;
-    private List<CmisSessionWrapper> orderedCmisSessionsList;
+    // Collection of sessions
+    private HashMap<String, CmisSessionWrapper> cmisSessionsMap;
+    private SortedSet<CmisSessionWrapper> orderedCmisSessionsList;
+
+    // Default number of sessions hold is 10
+    private int maxNumberOfSessions = 10;
 
     public CmisSessionManagerImpl(){
         cmisSessionsMap = new HashMap<String, CmisSessionWrapper>();
-        orderedCmisSessionsList = new ArrayList<CmisSessionWrapper>();
+        orderedCmisSessionsList = new TreeSet<CmisSessionWrapper>(new sortByLastRequestedDateComparator());
     }
 
     private Session lookUpSession(String repositoryId, String username){
         CmisSessionWrapper cmisSessionWrapper = cmisSessionsMap.get(username + "-" + repositoryId);
         if (cmisSessionWrapper != null){
+            cmisSessionWrapper.setLastRequested(new Date());
             return cmisSessionWrapper.getSession();
         }
         else return null;
@@ -65,8 +66,15 @@ public class CmisSessionManagerImpl implements CmisSessionManager {
         cmisSessionWrapper.setUser(username);
         cmisSessionWrapper.setCreated(new Date());
         cmisSessionWrapper.setLastRequested(new Date());
+
+        if (orderedCmisSessionsList.size() >= maxNumberOfSessions){
+            // Remove the session that shows more inactivity
+            CmisSessionWrapper cmisSessionWrapperToRemove = orderedCmisSessionsList.first();
+            orderedCmisSessionsList.remove(cmisSessionWrapperToRemove);
+        }
         cmisSessionsMap.put(cmisSessionWrapper.getKey(), cmisSessionWrapper);
         orderedCmisSessionsList.add(cmisSessionWrapper);
+
         logger.debug("Created and registered new open CMIS session with key: " + cmisSessionWrapper.getKey() +
                 "Overall number of sessions is: " + orderedCmisSessionsList.size());
     }
@@ -104,11 +112,30 @@ public class CmisSessionManagerImpl implements CmisSessionManager {
         return session;
     }
 
+    public int getMaxNumberOfSessions() {
+        return maxNumberOfSessions;
+    }
+
+    public void setMaxNumberOfSessions(int maxNumberOfSessions) {
+        this.maxNumberOfSessions = maxNumberOfSessions;
+    }
+
     public CmisSessionFactory getCmisSessionFactory() throws Exception {
         return cmisSessionFactory;
     }
 
     public void setCmisSessionFactory(CmisSessionFactory cmisSessionFactory) throws Exception {
         this.cmisSessionFactory = cmisSessionFactory;
+    }
+
+    // Comparator to sort the TreeSet by CmisSessionManager lastRequestedDate.
+    // Even though this seems to be the best criteria to order sessions in the Collection, in the future
+    // might be provided, if necessary, to change the ordering criteria
+    private class sortByLastRequestedDateComparator implements Comparator<CmisSessionWrapper>
+    {
+        @Override
+        public int compare(CmisSessionWrapper o1, CmisSessionWrapper o2) {
+            return o1.getLastRequested().compareTo(o2.getLastRequested());
+        }
     }
 }
