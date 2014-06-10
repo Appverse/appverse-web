@@ -81,7 +81,6 @@ public class JWSHttpServletRequestWrapperTest {
     public void testWrapperObtainContent() throws Exception{
 
         //environment
-        StringBuilder stringBuilder = new StringBuilder();
         ServletInputStream sis = new DelegatingServletInputStream(new ByteArrayInputStream( TEST_CONTENT.getBytes()));
         when(request.getInputStream()).thenReturn(sis);
 
@@ -90,6 +89,14 @@ public class JWSHttpServletRequestWrapperTest {
         InputStream is = jwsHttpServletRequestWrapper.getInputStream();
 
         //validation
+        String obtainedContent = obtainContent(is);
+        Assert.assertNotNull("content should be not be null",obtainedContent);
+        Assert.assertEquals("content should be the same",TEST_CONTENT,obtainedContent);
+
+
+    }
+    private String obtainContent(InputStream is) throws IOException{
+        StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
         char[] charBuffer = new char[128];
         int bytesRead = -1;
@@ -97,9 +104,7 @@ public class JWSHttpServletRequestWrapperTest {
         while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
             stringBuilder.append(charBuffer, 0, bytesRead);
         }
-        Assert.assertEquals("content should be the same",TEST_CONTENT,stringBuilder.toString());
-
-
+        return stringBuilder.toString();
     }
 
 }
