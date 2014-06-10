@@ -23,8 +23,18 @@
  */
 package org.appverse.web.framework.backend.ecm.cmis.services.integration;
 
+import org.apache.chemistry.opencmis.client.api.Session;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 
+/**
+ * This interface defines a base CMIS Service providing access to a CMIS Session
+ */
 public interface ICMISService<T extends AbstractIntegrationBean> {
+
+    Session getCmisSession(String repositoryId, String username, String password) throws Exception;
+
+    Session getCmisSession(String username, String password) throws Exception;
+
+    Session getCmisSession() throws Exception;
 
 }

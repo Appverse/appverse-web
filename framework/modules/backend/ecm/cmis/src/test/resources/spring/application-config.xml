@@ -18,11 +18,8 @@
 	EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
 	default-autowire="byName">
 
@@ -40,16 +37,10 @@
 	<bean
 		class="org.appverse.web.framework.backend.api.helpers.log.AutowiredLoggerBeanPostProcessor" />
 
-
-	<!-- ============================================================================================= -->
-	<!-- Imports and Component Scans -->
-	<!-- ============================================================================================= -->
-
-	<context:component-scan
-		base-package="org.appverse.web.framework.backend.ecm" />
-
-
-    <bean id="cmisSession" class="org.appverse.web.framework.backend.ecm.cmis.CmisSessionFactoryBean">
+    <!-- ============================================================================================= -->
+    <!-- CMIS sessions setup -->
+    <!-- ============================================================================================= -->
+    <bean id="cmisSessionFactory" class="org.appverse.web.framework.backend.ecm.cmis.factories.CmisSessionFactory">
         <property name="cmisSessionInitProperties">
             <!-- See reference at:
                 org.apache.chemistry.opencmis.commons.SessionParameter
@@ -59,15 +50,25 @@
                 <entry key="org.apache.chemistry.opencmis.binding.spi.type" value="atompub"/>
                 <!-- Using Alfresco public CMIS Test repository -->
                 <entry key="org.apache.chemistry.opencmis.binding.atompub.url" value="http://cmis.alfresco.com/cmisatom"/>
+                <!-- Default user and password (optional) -->
                 <entry key="org.apache.chemistry.opencmis.user" value="admin"/>
                 <entry key="org.apache.chemistry.opencmis.password" value="admin"/>
+                <!-- Default repository (optional), otherwise the default repository will be the first retrieved -->
+                <!--<entry key="org.apache.chemistry.opencmis.session.repository.id" value="your default repository id"/>-->
             </map>
         </property>
     </bean>
 
-    <!-- ============================================================================================= -->
-    <!-- Imports and Component Scans -->
-    <!-- ============================================================================================= -->
+
+    <bean id="cmisSessionManager" class="org.appverse.web.framework.backend.ecm.cmis.managers.impl.live.CmisSessionManagerImpl">
+            <property name="maxNumberOfSessions" value="20"/>
+    </bean>
+
+
+	<!-- ============================================================================================= -->
+	<!-- Imports and Component Scans -->
+	<!-- ============================================================================================= -->
+	<context:component-scan	base-package="org.appverse.web.framework.backend.ecm" />
     <context:component-scan base-package="test.app.web.framework.backend.ecm.services.integration.impl.live" />
 
 

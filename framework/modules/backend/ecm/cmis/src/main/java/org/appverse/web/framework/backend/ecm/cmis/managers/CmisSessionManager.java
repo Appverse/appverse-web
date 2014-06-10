@@ -21,20 +21,19 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package test.app.web.framework.backend.ecm.services.integration.impl.live;
+package org.appverse.web.framework.backend.ecm.cmis.managers;
 
-import org.appverse.web.framework.backend.ecm.cmis.services.integration.impl.live.CMISSimpleNonVersionedDocumentService;
-import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
-import org.springframework.stereotype.Repository;
-import test.app.web.framework.backend.ecm.services.integration.DocumentRepository;
+import org.apache.chemistry.opencmis.client.api.Session;
 
 /**
- * This example class shows how to extend Appverse Web ICMISSimpleNonVersionedDocumentService,
- * in this case with DocumentDTO type to define your own document repository.
- * You could add methods signatures here if necessary.
+ * Interface definint a CmisSessionManager
  */
-@Repository("documentRepository")
-public class DocumentRepositoryImpl extends CMISSimpleNonVersionedDocumentService<DocumentDTO>
-    implements DocumentRepository {
+public interface CmisSessionManager {
+
+    Session getCmisSession(String repositoryId, String username, String password) throws Exception;
+
+    Session getCmisSession(String username, String password) throws Exception;
+
+    Session getCmisSession() throws Exception;
 
 }

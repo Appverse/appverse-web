@@ -23,6 +23,7 @@
  */
 package test.app.web.framework.backend.ecm.services.integration;
 
+import org.apache.chemistry.opencmis.client.api.Session;
 import org.appverse.web.framework.backend.ecm.cmis.services.integration.ICMISService;
 import test.app.web.framework.backend.ecm.model.integration.NodeDTO;
 
@@ -37,7 +38,8 @@ import java.util.List;
  */
 public interface SampleRepository extends ICMISService<NodeDTO> {
 
-    List<NodeDTO> getRootFolderNodes();
-    List<NodeDTO> getNodesfromFolderUsingQuery(String folderName);
+    List<NodeDTO> getRootFolderNodes() throws Exception;
+    List<NodeDTO> getNodesfromFolderUsingQuery(String folderName) throws Exception;
+    List<NodeDTO> getNodesfromFolderUsingQuery(String folderName, Session session) throws Exception;
 
 }

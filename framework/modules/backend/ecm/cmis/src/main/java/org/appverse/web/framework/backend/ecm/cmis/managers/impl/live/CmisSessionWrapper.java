@@ -21,20 +21,64 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-package test.app.web.framework.backend.ecm.services.integration.impl.live;
+package org.appverse.web.framework.backend.ecm.cmis.managers.impl.live;
 
-import org.appverse.web.framework.backend.ecm.cmis.services.integration.impl.live.CMISSimpleNonVersionedDocumentService;
-import org.appverse.web.framework.backend.ecm.core.model.integration.DocumentDTO;
-import org.springframework.stereotype.Repository;
-import test.app.web.framework.backend.ecm.services.integration.DocumentRepository;
+import org.apache.chemistry.opencmis.client.api.Session;
+
+import java.util.Date;
 
 /**
- * This example class shows how to extend Appverse Web ICMISSimpleNonVersionedDocumentService,
- * in this case with DocumentDTO type to define your own document repository.
- * You could add methods signatures here if necessary.
+ * Wrapper of a CMIS Session with some other information the CmisSessionManagerImpl.java uses
  */
-@Repository("documentRepository")
-public class DocumentRepositoryImpl extends CMISSimpleNonVersionedDocumentService<DocumentDTO>
-    implements DocumentRepository {
+public class CmisSessionWrapper {
 
+    private Session session;
+    private String user;
+    private String repositoryId;
+    private Date created;
+    private Date lastRequested;
+
+    public String getRepositoryId() {
+        return repositoryId;
+    }
+
+    public void setRepositoryId(String repositoryId) {
+        this.repositoryId = repositoryId;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getLastRequested() {
+        return lastRequested;
+    }
+
+    public void setLastRequested(Date lastRequested) {
+        this.lastRequested = lastRequested;
+    }
+
+    public String getKey(){
+        return user + "-" + repositoryId;
+    }
 }

@@ -23,10 +23,7 @@
  */
 package test.app.web.framework.backend.ecm.services.integration.impl.live;
 
-import org.apache.chemistry.opencmis.client.api.CmisObject;
-import org.apache.chemistry.opencmis.client.api.Folder;
-import org.apache.chemistry.opencmis.client.api.ItemIterable;
-import org.apache.chemistry.opencmis.client.api.QueryResult;
+import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.commons.PropertyIds;
 import org.appverse.web.framework.backend.ecm.cmis.services.integration.impl.live.CMISService;
 import org.springframework.stereotype.Repository;
@@ -48,9 +45,9 @@ public class SampleRepositoryImpl extends CMISService<NodeDTO>
         implements SampleRepository {
 
     @Override
-    public List<NodeDTO> getRootFolderNodes(){
+    public List<NodeDTO> getRootFolderNodes() throws Exception {
         List<NodeDTO> nodeDTOList = new ArrayList<NodeDTO>();
-        Folder root = cmisSession.getRootFolder();
+        Folder root = getCmisSession().getRootFolder();
         ItemIterable<CmisObject> children = root.getChildren();
         NodeDTO node;
         for (CmisObject o : children) {
@@ -62,9 +59,14 @@ public class SampleRepositoryImpl extends CMISService<NodeDTO>
     }
 
     @Override
-    public List<NodeDTO> getNodesfromFolderUsingQuery(String folderName){
+    public List<NodeDTO> getNodesfromFolderUsingQuery(String folderName) throws Exception {
+        return getNodesfromFolderUsingQuery(folderName, getCmisSession());
+    }
+
+    @Override
+    public List<NodeDTO> getNodesfromFolderUsingQuery(String folderName, Session session) throws Exception {
         List<NodeDTO> nodeDTOList = new ArrayList<NodeDTO>();
-        ItemIterable<QueryResult> results = cmisSession.query("SELECT * FROM cmis:folder WHERE cmis:name='" + folderName + "'", false);
+        ItemIterable<QueryResult> results = session.query("SELECT * FROM cmis:folder WHERE cmis:name='" + folderName + "'", false);
         NodeDTO node;
         for (QueryResult result : results) {
             node = new NodeDTO();
