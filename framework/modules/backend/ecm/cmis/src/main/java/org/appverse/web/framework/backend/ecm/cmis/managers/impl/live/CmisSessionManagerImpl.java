@@ -71,11 +71,13 @@ public class CmisSessionManagerImpl implements CmisSessionManager {
             // Remove the session that shows more inactivity
             CmisSessionWrapper cmisSessionWrapperToRemove = orderedCmisSessionsList.first();
             orderedCmisSessionsList.remove(cmisSessionWrapperToRemove);
+            cmisSessionsMap.remove(cmisSessionWrapperToRemove.getKey());
+            logger.debug("Removing CMIS session from manager buffer: " + cmisSessionWrapperToRemove.getSession().toString() + " Buffer size: " + maxNumberOfSessions);
         }
         cmisSessionsMap.put(cmisSessionWrapper.getKey(), cmisSessionWrapper);
         orderedCmisSessionsList.add(cmisSessionWrapper);
 
-        logger.debug("Created and registered new open CMIS session with key: " + cmisSessionWrapper.getKey() +
+        logger.debug("Created and registered new open CMIS session in buffer: " + cmisSessionWrapper.getSession().toString() +
                 "Overall number of sessions is: " + orderedCmisSessionsList.size());
     }
 

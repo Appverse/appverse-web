@@ -105,6 +105,46 @@ public class CmisTest extends AbstractTest {
         documentRepository.deleteFolder("/test");
     }
 
+    // @Test
+    /*
+     * This test is not enabled as it requires several users to test the CmisSessionManager properly.
+     * There is just a public user for the public Alfresco repository we use to run the tests.
+     * If you wanted to try it out against your private repository just uncomment it and define
+     * the proper users.
+     */
+    public void testCmisSessionManager() throws Exception{
+        // Test designed to work with buffer size = 2 (very small just to try that removes the older sessions properly)
+        Session session1 = documentRepository.getCmisSession("user1", "user1");
+        Session session2 = documentRepository.getCmisSession("user1", "user1");
+        Session session3 = documentRepository.getCmisSession("user1", "user1");
+        Assert.assertEquals(session1, session2);
+        Assert.assertEquals(session1, session3);
+
+        Session session4 = documentRepository.getCmisSession("user2", "user2");
+        Assert.assertNotEquals(session4, session1);
+
+        Session session5 = documentRepository.getCmisSession("user2", "user2");
+        Session session55 = documentRepository.getCmisSession("user1", "user1");
+        Assert.assertEquals(session55, session1);
+
+        Session session6 = documentRepository.getCmisSession("user2", "user2");
+        Session session7 = documentRepository.getCmisSession("yourrepoid", "user2", "user2");
+        Session session75 = documentRepository.getCmisSession("user1", "user1");
+        Assert.assertEquals(session75, session1);
+        Assert.assertEquals(session5, session4);
+        Assert.assertEquals(session6, session4);
+        Assert.assertEquals(session7, session4);
+
+        Session session8 = documentRepository.getCmisSession("user3", "user3");
+        Assert.assertNotEquals(session8, session1);
+        Session session85 = documentRepository.getCmisSession("user1", "user1");
+        Assert.assertNotEquals(session85, session1);
+
+        Session session9 = documentRepository.getCmisSession("guest", "");
+        Session session95 = documentRepository.getCmisSession("user2", "user2");
+        Assert.assertNotEquals(session95, session4);
+    }
+
     @Test
     public void testAccessingWithSpecificUserAndPassword() throws Exception{
         // Create document. This will create folder structure to the specified path if necessary
@@ -112,6 +152,8 @@ public class CmisTest extends AbstractTest {
         document.setContentStreamFilename("textDocument.txt");
         document.setContentStream("This is the content for this test file".getBytes());
         document.setContentStreamMimeType("text/plain");
+
+        // Example, passing an specific user and password (and reusing the session)
         Session session = documentRepository.getCmisSession("admin", "admin");
         documentRepository.insert("/test/folder1/", document, session);
 
