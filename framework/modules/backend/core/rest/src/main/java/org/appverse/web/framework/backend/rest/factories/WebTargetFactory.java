@@ -30,6 +30,7 @@ import javax.ws.rs.client.WebTarget;
 import net.sf.ehcache.Cache;
 
 import org.appverse.web.framework.backend.rest.filters.cache.RestRequestCachingFilter;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
@@ -40,20 +41,56 @@ public class WebTargetFactory {
 		return WebTargetFactory.create(baseAddress, null);
 	}
 
-	public static WebTarget create(final String baseAddress, final Cache cache) {
+    public static WebTarget create(final String baseAddress, final Cache cache) {
+        return WebTargetFactory.create(baseAddress, cache, false);
+    }
 
-		Client client = ClientBuilder.newBuilder()
-				.register(JacksonFeature.class)
-				.build();
+    public static WebTarget create(final String baseAddress, final Cache cache, Boolean enableBasicAuthenticationFeature) {
+        return WebTargetFactory.create(baseAddress, cache, enableBasicAuthenticationFeature, null, null);
+    }
 
-		//client = client.property("jersey.config.test.logging.enable", Boolean.TRUE);
-		//client = client.property("jersey.config.test.logging.dumpEntity", Boolean.TRUE);
-		client = client.register(LoggingFilter.class);
 
-		if (cache != null)
-			client = client.register(new RestRequestCachingFilter(cache));
+    public static WebTarget create(final String baseAddress, final Cache cache, Boolean enableBasicAuthenticationFeature, String defaultUser, String defaultUserPassword) {
 
-		WebTarget target = client.target(baseAddress);
-		return target;
-	}
+        // Parameters check
+        if (enableBasicAuthenticationFeature != null && enableBasicAuthenticationFeature == true){
+            if (defaultUser == null || defaultUserPassword == null) throw
+                    new IllegalArgumentException("Basic authentication feature requires arguments 'user' and 'password' to be set up");
+        }
+
+        Client client = ClientBuilder.newBuilder()
+                .register(JacksonFeature.class)
+                .build();
+
+        //client = client.property("jersey.config.test.logging.enable", Boolean.TRUE);
+        //client = client.property("jersey.config.test.logging.dumpEntity", Boolean.TRUE);
+        client = client.register(LoggingFilter.class);
+
+        if (enableBasicAuthenticationFeature != null && enableBasicAuthenticationFeature.booleanValue() == true){
+            // Register feature that allows basic authentication (in preemptive and not-preemtive mode)
+            // Its use is optional
+            final HttpAuthenticationFeature authFeature;
+            if (defaultUser != null && defaultUserPassword != null){
+                // Default user and password are set (they can be overriden later by request)
+                authFeature = HttpAuthenticationFeature
+                .basicBuilder()
+                .credentials(defaultUser, defaultUserPassword)
+                .build();
+            }
+            else{
+                // No default user and password are set (they can be set later by request)
+                authFeature = HttpAuthenticationFeature
+                        .basicBuilder()
+                        .build();
+            }
+            client.register(authFeature);
+        }
+
+
+        if (cache != null)
+            client = client.register(new RestRequestCachingFilter(cache));
+
+        WebTarget target = client.target(baseAddress);
+        return target;
+    }
 }

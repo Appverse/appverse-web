@@ -185,6 +185,7 @@
 		<module>front-facade</module>
 		<module>messaging</module>
 		<module>reporting</module>
+                <module>ecm</module>
         <module>security</module>
 	</modules>
 
