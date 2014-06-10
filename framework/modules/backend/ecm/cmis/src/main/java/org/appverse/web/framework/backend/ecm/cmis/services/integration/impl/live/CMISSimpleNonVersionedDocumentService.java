@@ -101,8 +101,6 @@ public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentInt
         move(pathOrigin, documentName, pathDestination, documentName, session);
     }
 
-
-    // TODO: destination name is not being used currently, the document is copied with the same origin document name
     @Override
     public void move(String pathOrigin, String documentNameOrigin, String pathDestination, String documentNameDestination) throws Exception {
         move(pathOrigin, documentNameOrigin, pathDestination, documentNameDestination, getCmisSession());
@@ -127,6 +125,9 @@ public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentInt
         // We need to make sure the target folder exists
         createFolder(pathDestination);
         CmisObject targetObject = FileUtils.getObject(pathDestination, session);
+        if (documentNameDestination != documentNameOrigin){
+            fileableCmisObject.rename(documentNameDestination, true);
+        }
 
         // Move the object
         fileableCmisObject.move(sourceObject, targetObject);

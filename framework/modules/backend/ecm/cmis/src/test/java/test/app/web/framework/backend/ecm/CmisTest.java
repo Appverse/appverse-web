@@ -66,6 +66,15 @@ public class CmisTest extends AbstractTest {
         Assert.assertNotNull(retrievedDocument.getContentStreamMimeType());
 
         // Move the recently created document to another location
+        documentRepository.move("/test/folder1/", "textDocument.txt", "/test/folder2", "textDocument2.txt");
+
+        // Retrieve the recently moved document
+        DocumentDTO movedDocument = documentRepository.retrieve("/test/folder2/", "textDocument2.txt");
+        Assert.assertNotNull(movedDocument);
+        Assert.assertEquals("Document name does not match", movedDocument.getContentStreamFilename(), "textDocument2.txt");
+        Assert.assertNotNull(movedDocument.getContentStream());
+        Assert.assertNotNull(movedDocument.getContentStreamLenght());
+        Assert.assertNotNull(movedDocument.getContentStreamMimeType());
 
         // Remove the container folder tree
         documentRepository.deleteFolder("/test");

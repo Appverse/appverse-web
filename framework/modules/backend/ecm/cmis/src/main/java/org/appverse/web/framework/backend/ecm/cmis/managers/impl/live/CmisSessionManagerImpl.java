@@ -33,6 +33,9 @@ import java.util.*;
 
 public class CmisSessionManagerImpl implements CmisSessionManager {
 
+    // TODO: An improvement would be that the CmisSessionManager proactively expired sessions based on
+    // an expiration time parameter and session inactivity
+
     @AutowiredLogger
     private static Logger logger;
 
