@@ -130,13 +130,13 @@ public class JWSJerseyFilter implements ClientRequestFilter {
      * @return payload based on content
      */
     private Payload obtainObjectPay(ClientRequestContext requestContext){
-        // buffer into which myBean will be serialized
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Payload objectPay = null;
 
         Object object = requestContext.getEntity();
         if (object != null)
         {
+            // buffer into which myBean will be serialized
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
             Class<Object> type = (Class<Object>) requestContext.getEntityClass();
             GenericType<Object> genericType = new GenericType<Object>(type) {
             };
@@ -184,4 +184,11 @@ public class JWSJerseyFilter implements ClientRequestFilter {
         return uri!=null?uri.toString():null;
     }
 
+    public MessageBodyWorkers getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(MessageBodyWorkers workers) {
+        this.workers = workers;
+    }
 }
