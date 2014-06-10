@@ -90,7 +90,7 @@ public class JWSJerseyTest {
         //test
         jwsJerseyFilter.filter(context);
         //validation
-        verify(context,times(1)).abortWith(argument.capture());
+        verify(context,atLeastOnce()).abortWith(argument.capture());
         Assert.assertEquals("Response should be bad request",Response.Status.BAD_REQUEST.getStatusCode(),argument.getValue().getStatus());
         validateMockitoUsage();
 

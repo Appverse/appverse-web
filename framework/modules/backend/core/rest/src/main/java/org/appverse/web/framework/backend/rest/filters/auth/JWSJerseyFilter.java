@@ -16,6 +16,7 @@ import javax.ws.rs.ext.Provider;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.net.URI;
 import java.security.interfaces.RSAPrivateKey;
 
 @Component
@@ -71,8 +72,8 @@ public class JWSJerseyFilter implements ClientRequestFilter {
         }
 
         if (logger.isDebugEnabled()) {
-            String reqUri = requestContext.getUri().toString();
-            logger.debug("URI:: " + reqUri);
+
+            logger.debug("URI:: " + getUri(requestContext));
         }
 
         Payload objectPay = obtainObjectPay(requestContext);
@@ -172,10 +173,14 @@ public class JWSJerseyFilter implements ClientRequestFilter {
         }
         //If request entity is null (usually GET methods) use URI as payload
         else {
-            String reqUri = requestContext.getUri().toString();
+            String reqUri = getUri(requestContext);
             objectPay = new Payload(reqUri);
         }
         return objectPay;
+    }
+    private String getUri(ClientRequestContext requestContext){
+        URI uri = requestContext.getUri();
+        return uri!=null?uri.toString():null;
     }
 
 }
