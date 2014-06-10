@@ -4,6 +4,10 @@ import org.apache.chemistry.opencmis.client.api.Session;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.ecm.core.services.integration.IDocumentService;
 
+/**
+ * Base implementation service that provides simple operations for non versioned documents.
+ * Basically provides the basic operations that a file system would provide.
+ */
 public interface ICMISSimpleNonVersionedDocumentService<T extends AbstractIntegrationBean> extends IDocumentService<T>, ICMISService<T>{
 
     void insert(String path, T document, Session session) throws Exception;

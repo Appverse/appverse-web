@@ -31,6 +31,15 @@ import org.slf4j.Logger;
 
 import java.util.*;
 
+/**
+ * CmisSessionManagerImpl implements a CMIS Session Manager that allows session reuse.
+ * Take into account that Open CMIS Session object is thread-safe and it is recommended to reuse as much as possible
+ * for performance reasons. The Open CMIS Session object holds the user caches. So it is recommended to use the
+ * same Session per user and repository.
+ * This implementation allows to reuse sessions and configure a "buffer" limiting the number of existing sessions.
+ * When the maximum capacity is reached, the Session Manager will remove the session that shows less activity.
+ * In order to create new sessions, the session manager delegates to the CmisSessionFactory.
+ */
 public class CmisSessionManagerImpl implements CmisSessionManager {
 
     // TODO: An improvement would be that the CmisSessionManager proactively expired sessions based on

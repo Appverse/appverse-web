@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * CmisSessionFactory implements a factory in charge to create new Open CMIS sessions
  */
 public class CmisSessionFactory implements InitializingBean {
 

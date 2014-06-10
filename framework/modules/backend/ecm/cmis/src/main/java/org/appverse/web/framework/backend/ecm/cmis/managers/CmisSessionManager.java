@@ -25,6 +25,9 @@ package org.appverse.web.framework.backend.ecm.cmis.managers;
 
 import org.apache.chemistry.opencmis.client.api.Session;
 
+/**
+ * Interface definint a CmisSessionManager
+ */
 public interface CmisSessionManager {
 
     Session getCmisSession(String repositoryId, String username, String password) throws Exception;

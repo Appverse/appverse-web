@@ -29,6 +29,9 @@ import org.appverse.web.framework.backend.api.services.integration.AbstractInteg
 import org.appverse.web.framework.backend.ecm.cmis.managers.impl.live.CmisSessionManagerImpl;
 import org.appverse.web.framework.backend.ecm.cmis.services.integration.ICMISService;
 
+/**
+ * Base CMISService implementation providing access to a Session (delegating to the CmisSessionManager)
+ */
 public class CMISService<T extends AbstractIntegrationBean> extends
         AbstractIntegrationService<T> implements ICMISService<T> {
 

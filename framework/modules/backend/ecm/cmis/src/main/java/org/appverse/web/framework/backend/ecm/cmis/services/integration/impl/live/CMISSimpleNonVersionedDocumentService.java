@@ -45,6 +45,10 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Base implementation service that provides simple operations for non versioned documents.
+ * Basically uses the repository with the features that a file system would provide.
+ */
 public class CMISSimpleNonVersionedDocumentService<T extends AbstractDocumentIntegrationBean> extends CMISService<T>
         implements ICMISSimpleNonVersionedDocumentService<T> {
 
