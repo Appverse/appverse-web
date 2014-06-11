@@ -42,6 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.DelegatingServletInputStream;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -106,6 +107,7 @@ public class JWSAuthenticationProcessFilterTest {
     private String clientCertPassword="export";
 
 
+
     @Before
     public void init()throws IOException {
         MockitoAnnotations.initMocks(this);
@@ -130,7 +132,51 @@ public class JWSAuthenticationProcessFilterTest {
         when(request.getHeader(JWSAuthenticationProcessingFilter.JWS_AUTH_HEADER)).thenReturn(null);
         //test
         myJWSFilter.doFilter(request, response, chain);
+        //verification
         verify(response,times(1)).sendError(errorCode.capture());
+        int errorCodeValue = errorCode.getValue().intValue();
+        logger.info("Response error:{}",errorCodeValue);
+        Assert.assertEquals("sendError should be:", HttpServletResponse.SC_UNAUTHORIZED, errorCodeValue);
+        verify(chain,times(0)).doFilter(any(ServletRequest.class), any(ServletResponse.class));
+
+    }
+    @Test
+    public void testJWSAuthenticationFilterFailInvalidHeader() throws Exception{
+        //environement
+        String content="";
+        String requestURL="http://localhost:8080";
+        ServletInputStream emptyContent = new DelegatingServletInputStream(new ByteArrayInputStream( content.getBytes()));
+        ArgumentCaptor<Integer> errorCode = ArgumentCaptor.forClass(Integer.class);
+        when(request.getHeader(JWSAuthenticationProcessingFilter.JWS_AUTH_HEADER)).thenReturn(JWSAuthenticationProcessingFilter.JWS_AUTH_HEADER_TOKEN_MARK+"invalidHash");
+        when(request.getInputStream()).thenReturn(emptyContent);
+        when(request.getRequestURL()).thenReturn(new StringBuffer(requestURL));
+
+        //test
+        myJWSFilter.doFilter(request, response, chain);
+
+        //verify
+        verify(chain,times(0)).doFilter(any(ServletRequest.class), any(ServletResponse.class));
+        verify(response, times(1)).sendError(errorCode.capture());//check sendError is not set
+        int errorCodeValue = errorCode.getValue().intValue();
+        logger.info("Response error:{}",errorCodeValue);
+        Assert.assertEquals("sendError should be:", HttpServletResponse.SC_UNAUTHORIZED, errorCodeValue);
+
+    }
+    @Test
+    public void testJWSAuthenticationFilterFailInvalidSignature() throws Exception{
+
+        String a = "eyJhbGciOiJSUzI1NiJ9.aHR0cDovL2xvY2FsaG9zdDo4MDgw.g1naD_1vfSoXXC-KlOLbzQSmfCyO4JySqAyAC4RSGvEHO2v2V0coWjtzIEkCJ-d-JA_xyxc1me7L3q5PC8zx3IGayIgphqx2KO8CddY0RKTkbP6I3WaKZ3LhzTUZiO9MY5ATmTCYT05HWp9zgW-QAhdqTexzLPS5t1rszkmir0U";
+        String content="";
+        String requestURL="http://someserver:8080";
+        ServletInputStream emptyContent = new DelegatingServletInputStream(new ByteArrayInputStream( content.getBytes()));
+        ArgumentCaptor<Integer> errorCode = ArgumentCaptor.forClass(Integer.class);
+        when(request.getHeader(JWSAuthenticationProcessingFilter.JWS_AUTH_HEADER)).thenReturn(JWSAuthenticationProcessingFilter.JWS_AUTH_HEADER_TOKEN_MARK+a);
+        when(request.getInputStream()).thenReturn(emptyContent);
+        when(request.getRequestURL()).thenReturn(new StringBuffer(requestURL));
+        //test
+        myJWSFilter.doFilter(request, response, chain);
+        verify(chain,times(0)).doFilter(any(ServletRequest.class), any(ServletResponse.class));
+        verify(response, times(1)).sendError(errorCode.capture());//check sendError is not set
         int errorCodeValue = errorCode.getValue().intValue();
         logger.info("Response error:{}",errorCodeValue);
         Assert.assertEquals("sendError should be:", HttpServletResponse.SC_UNAUTHORIZED, errorCodeValue);
@@ -141,9 +187,9 @@ public class JWSAuthenticationProcessFilterTest {
         //empty content and specific url
         String content = "";
         String requestURL="http://localhost:8080";
+        ServletInputStream emptyContent = new DelegatingServletInputStream(new ByteArrayInputStream( content.getBytes()));
 
         //prepare client
-        ServletInputStream emptyContent = new DelegatingServletInputStream(new ByteArrayInputStream( content.getBytes()));
         KeyStore keyStore = getKeyStoreClient();
         Key key = keyStore.getKey(clientCertAlias, clientCertPassword.toCharArray());
         JWSJerseyFilter jwsJerseyFilter = new JWSJerseyFilter();
@@ -177,7 +223,7 @@ public class JWSAuthenticationProcessFilterTest {
 
         //validation
         verify(chain,times(1)).doFilter(any(ServletRequest.class), any(ServletResponse.class));
-        verify(response, times(0)).sendError(anyInt());
+        verify(response, times(0)).sendError(anyInt());//check sendError is not set
 
 
     }
@@ -253,7 +299,7 @@ public class JWSAuthenticationProcessFilterTest {
 
         //validation
         verify(chain,times(1)).doFilter(any(ServletRequest.class), any(ServletResponse.class));
-        verify(response, times(0)).sendError(anyInt());
+        verify(response, times(0)).sendError(anyInt());//check sendError is not set
 
 
     }

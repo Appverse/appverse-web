@@ -1,4 +1,5 @@
-package org.appverse.web.framework.backend.frontfacade.rest.authentication.filter;/*
+package org.appverse.web.framework.backend.frontfacade.rest.authentication.filter;
+/*
  Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source Code Form is subject to the terms of the Appverse Public License 

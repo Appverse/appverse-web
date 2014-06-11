@@ -56,7 +56,7 @@ public class JWSAuthenticationProcessingFilter extends GenericFilterBean {
 			{
 				String token = authHeader.substring(pos + JWS_AUTH_HEADER_TOKEN_MARK.length());
                 if(logger.isDebugEnabled()){
-                    logger.debug("JWS Token detected:: {}", token);
+                    logger.debug("JWS Token detected: {}", token);
                 }
 				try
 				{
@@ -64,7 +64,7 @@ public class JWSAuthenticationProcessingFilter extends GenericFilterBean {
 					StringBuilder messagePayload = readInputStream(stream);
 
 					if (logger.isDebugEnabled())
-						logger.debug("BODY:::" + messagePayload.toString());
+						logger.debug("payload: {}", messagePayload.toString());
 
 					if (StringUtils.isEmpty(messagePayload.toString()))
 						messagePayload = new StringBuilder(req.getRequestURL().toString());
