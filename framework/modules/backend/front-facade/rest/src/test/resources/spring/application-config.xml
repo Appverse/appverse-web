@@ -21,15 +21,15 @@
   	  <!-- ============================================================================================= --> 
  	  <!-- JPA ORM       							                     				                 -->
   	  <!-- ============================================================================================= --> 
-      
+      <!-- 
        <bean id="entityManagerFactory"
 		    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"/>
-		
+		 -->
 	
  	  <!-- ============================================================================================= --> 
 	  <!-- myBatis Data Mapper       		                              	       						 -->
  	  <!-- ============================================================================================= --> 
-     
+     <!-- 
       <bean id="sqlSessionFactory"											
  		    class="org.mybatis.spring.SqlSessionFactoryBean" 					
  		    p:mapperLocations="classpath:mybatis/*DataMapper.xml" p:dataSource-ref="dataSource" />		  														
@@ -39,14 +39,14 @@
 		    p:basePackage="com.db.sample.sample.backend.services.integration"  
 		    p:annotationClass="org.appverse.web.framework.backend.api.services.integration.helpers.Mapper" 				
 		    p:sqlSessionFactory-ref="sqlSessionFactory" />	 					
-			
+	   -->
   	  <!-- ============================================================================================= --> 
  	  <!-- Transaction Manager		                                       						         -->
   	  <!-- ============================================================================================= --> 
-       
+       <!-- 
        <bean id="transactionManager" 
     	     class="org.springframework.orm.jpa.JpaTransactionManager" />
-
+ 		-->
 
       <!-- ============================================================================================= --> 
       <!-- Dozer converter                                                        	                     --> 
@@ -75,7 +75,7 @@
    	  <!-- ============================================================================================= --> 
 	  <!-- AOP     		                              	             						             -->
    	  <!-- ============================================================================================= --> 
-      
+      <!-- 
       <tx:advice id="txAdvice">
           <tx:attributes>
               <tx:method name="retrieve*" read-only="true" propagation="SUPPORTS"/>
@@ -83,44 +83,30 @@
               <tx:method name="*" propagation="REQUIRED"/> 
           </tx:attributes>
       </tx:advice>
-
+ 		-->
+      <bean id="profileManager" class="org.appverse.web.framework.backend.api.aop.managers.impl.live.ProfileManagerImpl" />
+      <bean id="exceptionManager" class="org.appverse.web.framework.backend.rest.aop.managers.impl.live.RestExceptionManagerImpl" />
+      <bean id="validationManager" class="org.appverse.web.framework.backend.api.aop.managers.impl.live.ValidationManagerImpl" />
       <bean id="profilingAdvice" class="org.appverse.web.framework.backend.api.aop.advices.ProfilingAdvice" /> 
-      <bean id="exceptionAdvice" class="org.appverse.web.framework.backend.api.aop.advices.ExceptionAdvice" /> 
+      <!--bean id="exceptionAdvice" class="org.appverse.web.framework.backend.api.aop.advices.ExceptionAdvice" /-->
       <bean id="validationAdvice" class="org.appverse.web.framework.backend.api.aop.advices.ValidationAdvice"/>
-      <bean id="profileManager" class="org.appverse.web.framework.backend.api.aop.managers.impl.live.ProfileManagerImpl" /> 
-      <bean id="exceptionManager" class="org.appverse.web.framework.backend.frontfacade.gxt.aop.managers.impl.live.GWTExceptionManagerImpl" />         
-	  <bean id="validationManager" class="org.appverse.web.framework.backend.api.aop.managers.impl.live.ValidationManagerImpl" />
 
-      <aop:config> 
-          <aop:pointcut id="allPresentationServicesMethodsCalls" expression="execution(* com.db.sample.sample.backend.services.presentation..*.*(..))"/> 
-          <aop:pointcut id="allBusinessServicesMethodsCalls" expression="execution(* com.db.sample.sample.backend.services.business..*.*(..))"/>           
-          <aop:pointcut id="allIntegrationServicesMethodsCalls" expression="execution(* com.db.sample.sample.backend.services.integration..*.*(..))"/> 
-          <aop:pointcut id="allServicesMethodsCalls" expression="execution(* com.db.sample.sample.backend.services..*.*(..))"/> 
-  	   	  <aop:pointcut id="allPresentationSaveMethodsCalls" expression="execution(* com.db.sample.sample.backend.services.presentation..save*(..))"/>
-          
-          <aop:advisor advice-ref="txAdvice" pointcut-ref="allPresentationServicesMethodsCalls"/>
-          <aop:advisor advice-ref="profilingAdvice" pointcut-ref="allServicesMethodsCalls"/> 
-          <aop:advisor advice-ref="exceptionAdvice" pointcut-ref="allServicesMethodsCalls"/>
-          <aop:advisor advice-ref="validationAdvice" pointcut-ref="allPresentationSaveMethodsCalls"/>
-      </aop:config> 
-            
+
+
       <!-- ============================================================================================= --> 
       <!-- Imports and Component Scans                                                                   --> 
-      <!-- ============================================================================================= -->    
+      <!-- ============================================================================================= -->
+      <!--     
 	  <import resource="database-config.xml" />
+	   -->
 	  <import resource="security-config.xml" />
-      
-      <context:component-scan  base-package="com.db.sample.sample.backend.api.helpers.security.certificates"/>
-      	                                                                              
-      <context:component-scan  base-package="com.db.sample.sample.backend.services.presentation.impl.live"/> 
-      <context:component-scan  base-package="com.db.sample.sample.backend.services.business.impl.live"/> 
-      <context:component-scan  base-package="com.db.sample.sample.backend.services.integration.impl.live"/> 
-      <context:component-scan  base-package="com.db.sample.sample.backend.converters.*"/> 
-            
+
+
       
       <context:component-scan  base-package="org.appverse.web.framework.backend.api.converters.*"/> 
 	  <context:component-scan  base-package="org.appverse.web.framework.backend.api.services.presentation.impl.live"/>
 	  <context:component-scan  base-package="org.appverse.web.framework.backend.frontfacade.gxt.converters.*"/>
-	  <context:component-scan  base-package="org.appverse.web.framework.backend.frontfacade.gxt.services.*.impl.live"/>	
+	  <context:component-scan  base-package="org.appverse.web.framework.backend.frontfacade.gxt.services.*.impl.live"/>
+    <context:component-scan  base-package="org.appverse.web.framework.backend.frontfacade.rest.authentication.*"/>
                       
 </beans> 

@@ -29,18 +29,32 @@ import javax.ws.rs.client.WebTarget;
 
 import net.sf.ehcache.Cache;
 
+import org.appverse.web.framework.backend.rest.filters.auth.JWSJerseyFeature;
 import org.appverse.web.framework.backend.rest.filters.cache.RestRequestCachingFilter;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
+import java.security.Key;
+
 public class WebTargetFactory {
 
+    /**
+     * Create a basic non authenticated client
+     * @param baseAddress
+     * @return webtarget
+     */
 	public static WebTarget create(final String baseAddress) {
 
 		return WebTargetFactory.create(baseAddress, null);
 	}
 
+    /**
+     * Create a basic non authenticated client
+     * @param baseAddress
+     * @param cache
+     * @return webtarget
+     */
     public static WebTarget create(final String baseAddress, final Cache cache) {
         return WebTargetFactory.create(baseAddress, cache, false);
     }
@@ -49,7 +63,42 @@ public class WebTargetFactory {
         return WebTargetFactory.create(baseAddress, cache, enableBasicAuthenticationFeature, null, null);
     }
 
+    /**
+     * Create a JWS authentication client
+     * @param baseAddress
+     * @param cache
+     * @param clientKey
+     * @return webtarget
+     */
+    public static WebTarget create(final String baseAddress, final Cache cache, final Key clientKey) {
 
+        JWSJerseyFeature authFeature =  JWSJerseyFeature
+                        .basicBuilder()
+                        .credentials(clientKey)
+                        .build();
+        Client client = ClientBuilder.newBuilder()
+                .register(JacksonFeature.class)
+                .register(LoggingFilter.class)
+                .register(authFeature)
+                .build();
+
+        if (cache != null)
+            client = client.register(new RestRequestCachingFilter(cache));
+
+        WebTarget target = client.target(baseAddress);
+        return target;
+    }
+
+    /**
+     * Create a basic authentication client
+     *
+     * @param baseAddress
+     * @param cache
+     * @param enableBasicAuthenticationFeature
+     * @param defaultUser
+     * @param defaultUserPassword
+     * @return webtarget
+     */
     public static WebTarget create(final String baseAddress, final Cache cache, Boolean enableBasicAuthenticationFeature, String defaultUser, String defaultUserPassword) {
 
         // Parameters check

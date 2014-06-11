@@ -233,8 +233,16 @@
 			<groupId>org.glassfish.jersey.test-framework.providers</groupId> <artifactId>jersey-test-framework-provider-bundle</artifactId> 
 			<type>pom</type> <scope>test</scope> </dependency> -->
 
-		
-      <dependency>
+        <!--JWS dependencies-->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+
+
+        <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-log4j12</artifactId>
         <scope>test</scope>
@@ -294,5 +302,11 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
 	</dependencies>
 </project>
