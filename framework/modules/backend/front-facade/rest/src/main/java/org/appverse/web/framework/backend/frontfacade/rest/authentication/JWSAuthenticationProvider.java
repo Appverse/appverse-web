@@ -59,6 +59,9 @@ import java.util.Collection;
 /**
  * JWS AuthenticationProvider
  *
+ *
+ *   * certificatePath a path to server public certificate.
+ *   * defaultRoles a comma separated string containing the roles
  */
 public class JWSAuthenticationProvider implements AuthenticationProvider, MessageSourceAware,InitializingBean {
 
@@ -78,7 +81,7 @@ public class JWSAuthenticationProvider implements AuthenticationProvider, Messag
     private String cn = null;
 
 	@Autowired
-    CertService certService;
+    private CertService certService;
 
 	@Override
 	public Authentication authenticate(final Authentication authentication)
@@ -108,8 +111,10 @@ public class JWSAuthenticationProvider implements AuthenticationProvider, Messag
 				Collection<GrantedAuthority> authoritiesDefault = new ArrayList<GrantedAuthority>();
                 String[] roles = defaultRoles.split(",");
                 for (String role : roles) {
-                    GrantedAuthority auth = new SimpleGrantedAuthority(defaultRoles);
-                    authoritiesDefault.add(auth);
+                    if (!StringUtils.isEmpty(role)){
+                        GrantedAuthority auth = new SimpleGrantedAuthority(defaultRoles);
+                        authoritiesDefault.add(auth);
+                    }
                 }
 
 				if (userDetailsService != null)
