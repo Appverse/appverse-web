@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 
 public class JWSHttpServletRequestWrapper extends SecurityContextHolderAwareRequestWrapper {
 
-	@AutowiredLogger
-	private Logger logger;
+	private Logger logger = LoggerFactory.getLogger(JWSHttpServletRequestWrapper.class);
+
 	private final String body;
 
 	public JWSHttpServletRequestWrapper(final HttpServletRequest request, final String rolePrefix) {

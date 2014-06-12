@@ -14,7 +14,10 @@
 <!-- 		    p:databasePlatform="org.eclipse.persistence.platform.database.MySQLPlatform"		   -->
 <!-- 		    p:showSql="true" /> -->
  
-
+      <bean id="jpaVendorAdapter"
+	        class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter"
+		    p:databasePlatform="org.eclipse.persistence.platform.database.HSQLPlatform"		  
+		    p:showSql="true" />
 		   
 
       <!-- ============================================================================================= --> 
@@ -28,5 +31,8 @@
 <!-- 		   p:testOnBorrow="${db.testOnBorrow}"  p:testWhileIdle="${db.testWhileIdle}"  p:timeBetweenEvictionRunsMillis="${db.timeBetweenEvictionRunsMillis}"  -->
 <!-- 		   p:validationQuery="${db.validationQuery}" p:connectionProperties="${db.connectionProperties}"/> -->
    	
+   	   <jdbc:embedded-database id="dataSource">
+	       <jdbc:script location="classpath:/sql/HSQLPlatform-schema-create.sql"/>
+       </jdbc:embedded-database>   
 
 </beans>
