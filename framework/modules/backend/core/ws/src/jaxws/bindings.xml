@@ -1,0 +1,11 @@
+<jaxb:bindings version="1.0"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+>
+
+    <jaxb:globalBindings>
+        <!-- All beans should extend this base class: -->
+        <xjc:superClass name="org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean" />
+    </jaxb:globalBindings>
+
+</jaxb:bindings>
