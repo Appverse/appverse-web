@@ -28,7 +28,7 @@ public class ClientPerformanceMonitorLogicalHandler extends
 	/**
 	 * Handle times
 	 */
-	Date startTime, endTime;
+	private Date startTime, endTime;
 	/**
 	 * Constructor
 	 */
@@ -38,7 +38,7 @@ public class ClientPerformanceMonitorLogicalHandler extends
 	}
 	/**
     * Handle message 
-    * @param SOAPMessageContext
+    * @param smc SOAPMessageContext
     * @return boolean 
     */
 	public boolean handleMessage(LogicalMessageContext smc) {
