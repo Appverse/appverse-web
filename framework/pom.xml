@@ -106,6 +106,19 @@
 			</roles>
 			<timezone>Europe/Andorra</timezone>
 		</developer>
+        <developer>
+            <id>mrestivill</id>
+            <name>Marc Rodriguez Estivill</name>
+            <email>mrodriguezestivill@gmail.com</email>
+            <url/>
+            <organization>Appverse</organization>
+            <organizationUrl>http://appverse.org</organizationUrl>
+            <roles>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+            <timezone>Europe/Andorra</timezone>
+        </developer>
 	</developers>
 
 	<contributors>

@@ -223,7 +223,7 @@
 							</goals>
                             <phase>compile</phase>
 							<configuration>
-								<ddlOutputDir>target/${project.artifactId}-${project.version}/WEB-INF/classes/sql</ddlOutputDir>
+								<ddlOutputDir>src/main/resources/sql</ddlOutputDir>
 							</configuration>
 						</execution>
 					</executions>
