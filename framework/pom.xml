@@ -1073,6 +1073,14 @@
 			
 			<!-- END OF MESSAGING MANAGED DEPENDENCIES -->
 
+            <!-- CORS FILTER MANAGED DEPENDENCY -->
+            <dependency>
+                <groupId>com.thetransactioncompany</groupId>
+                <artifactId>cors-filter</artifactId>
+                <version>1.9.3</version>
+            </dependency>
+            <!-- END OF CORS FILTER MANAGED DEPENDENCY -->
+
 			<!-- CACHING MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>com.googlecode.ehcache-spring-annotations</groupId>
