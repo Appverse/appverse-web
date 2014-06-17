@@ -240,6 +240,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- CORS filter -->
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+        </dependency>
+
         <!--test dependencies-->
 
         <dependency>
