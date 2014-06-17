@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -106,6 +106,19 @@
 			</roles>
 			<timezone>Europe/Andorra</timezone>
 		</developer>
+        <developer>
+            <id>mrestivill</id>
+            <name>Marc Rodriguez Estivill</name>
+            <email>mrodriguezestivill@gmail.com</email>
+            <url/>
+            <organization>Appverse</organization>
+            <organizationUrl>http://appverse.org</organizationUrl>
+            <roles>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+            <timezone>Europe/Andorra</timezone>
+        </developer>
 	</developers>
 
 	<contributors>
@@ -186,7 +199,7 @@
 		<gwt.version>2.5.0</gwt.version>
 		<restygwt.version>1.3</restygwt.version>
 		<jsr311.version>2.0</jsr311.version>
-		<jersey.version>2.4</jersey.version>
+		<jersey.version>2.5</jersey.version>
         <jdk.source>1.6</jdk.source>
         <jdk.target>1.6</jdk.target>
         <ehcache.version>2.4.5</ehcache.version>
@@ -196,7 +209,8 @@
         <nimbus.version>2.25</nimbus.version>    
         <org.jsoup.version>1.7.3</org.jsoup.version>    
         <bonita.engine.version>6.2.2</bonita.engine.version>
-	</properties>
+        <mockito.version>1.9.5</mockito.version>
+    </properties>
 
 	<modules>
 		<module>modules</module>
@@ -400,6 +414,30 @@
 				<version>${framework.version}</version>
 			</dependency>
 
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.core.rest</groupId>
+                <artifactId>appverse-web-modules-backend-core-rest</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.ecm.core</groupId>
+                <artifactId>appverse-web-modules-backend-ecm-core</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.ecm.cmis</groupId>
+                <artifactId>appverse-web-modules-backend-ecm-cmis</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.ecm.filesystem</groupId>
+                <artifactId>appverse-web-modules-backend-ecm-cmis-filesystem</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 				<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
@@ -440,7 +478,7 @@
                 <groupId>org.appverse.web.framework.modules.backend.core.bpm</groupId>
                 <artifactId>appverse-web-modules-backend-core-bpm</artifactId>
 				<version>${framework.version}</version>
-			</dependency>
+	    </dependency>
 			
             <dependency>
                 <groupId>org.appverse.web.framework.modules.backend.security.oauth2</groupId>
@@ -448,11 +486,19 @@
                 <version>${framework.version}</version>
             </dependency>
 
-			<dependency>
-				<groupId>org.appverse.web.framework.modules.frontend.gwt.theme</groupId>
-				<artifactId>appverse-web-modules-frontend-gwt-theme</artifactId>
-				<version>${framework.version}</version>
-			</dependency>
+<!--
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.ecm</groupId>
+                <artifactId>appverse-web-modules-backend-ecm</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+-->
+
+            <dependency>
+		<groupId>org.appverse.web.framework.modules.frontend.gwt.theme</groupId>
+		<artifactId>appverse-web-modules-frontend-gwt-theme</artifactId>
+		<version>${framework.version}</version>
+	</dependency>
 
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
@@ -535,6 +581,12 @@
 				<version>${spring.version}</version>
 				<scope>test</scope>
 			</dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
 
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -1048,6 +1100,14 @@
 			
 			<!-- END OF MESSAGING MANAGED DEPENDENCIES -->
 
+            <!-- CORS FILTER MANAGED DEPENDENCY -->
+            <dependency>
+                <groupId>com.thetransactioncompany</groupId>
+                <artifactId>cors-filter</artifactId>
+                <version>1.9.3</version>
+            </dependency>
+            <!-- END OF CORS FILTER MANAGED DEPENDENCY -->
+
 			<!-- CACHING MANAGED DEPENDENCIES -->
 			<dependency>
 				<groupId>com.googlecode.ehcache-spring-annotations</groupId>
@@ -1184,6 +1244,18 @@
                 <version>${org.jsoup.version}</version>
             </dependency>
 
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.chemistry.opencmis</groupId>
+                <artifactId>chemistry-opencmis-client-impl</artifactId>
+                <version>0.11.0</version>
+            </dependency>
 
         </dependencies>
 	</dependencyManagement>
