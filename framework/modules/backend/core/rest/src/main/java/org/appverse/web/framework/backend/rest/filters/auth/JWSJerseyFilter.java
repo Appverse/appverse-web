@@ -182,7 +182,7 @@ public class JWSJerseyFilter implements ClientRequestFilter {
     }
     private String getUri(ClientRequestContext requestContext){
         URI uri = requestContext.getUri();
-        return uri!=null?uri.toString():null;
+        return uri!=null?uri.getPath():null;
     }
 
     public MessageBodyWorkers getWorkers() {
