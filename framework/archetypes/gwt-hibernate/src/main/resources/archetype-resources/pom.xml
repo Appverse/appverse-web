@@ -20,7 +20,7 @@
 	</modules>
 
  	<properties>
-        <appverse.framework.version>1.4-SNAPSHOT</appverse.framework.version>
+        <appverse.framework.version>1.4-RELEASE</appverse.framework.version>
 		<appverse.ddl-generator.version>1.0.5.1</appverse.ddl-generator.version>
 	</properties>
 	
