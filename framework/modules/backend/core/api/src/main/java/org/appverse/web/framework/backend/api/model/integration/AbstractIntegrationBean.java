@@ -23,26 +23,10 @@
  */
 package org.appverse.web.framework.backend.api.model.integration;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.appverse.web.framework.backend.api.common.AbstractBean;
 
 public abstract class AbstractIntegrationBean extends AbstractBean {
 
 	private static final long serialVersionUID = -7505446389911515473L;
 
-	/**
-	 * 
-	 * Default toString() method. Useful for debugging as it shows all the
-	 * attributes (including relationships) in cascade
-	 * 
-	 * IMPORTANT: Don't move this higher in class hierarchy as this uses
-	 * reflection and it will not work for presentation objects in GWT frontends
-	 * 
-	 */
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,
-				ToStringStyle.MULTI_LINE_STYLE);
-	}
 }
