@@ -28,6 +28,7 @@ import com.nimbusds.jose.crypto.RSASSAVerifier;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.frontfacade.rest.authentication.business.CertService;
 import org.appverse.web.framework.backend.frontfacade.rest.authentication.model.JWSAuthenticationToken;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.InitializingBean;
@@ -193,6 +194,8 @@ public class JWSAuthenticationProvider implements AuthenticationProvider, Messag
             PublicKey publicKey = cert.getPublicKey();
 
             verifier = new RSASSAVerifier((RSAPublicKey) publicKey);
+            verifier.setProvider(new BouncyCastleProvider());
+
 
         } catch (Exception exc) {
             logger.error("Couldn't instantiate X.509 certificate", exc);
