@@ -22,6 +22,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class JWSAuthenticationProcessingFilter extends GenericFilterBean {
 
@@ -66,9 +69,15 @@ public class JWSAuthenticationProcessingFilter extends GenericFilterBean {
 					if (logger.isDebugEnabled())
 						logger.debug("payload: {}", messagePayload.toString());
 
-					if (StringUtils.isEmpty(messagePayload.toString()))
-						messagePayload = new StringBuilder(req.getRequestURL().toString());
-					else
+					if (StringUtils.isEmpty(messagePayload.toString())) {
+                        try {
+                            URI url = new URI(req.getRequestURL().toString());
+                            messagePayload = new StringBuilder(url.getPath());
+                        }catch(URISyntaxException ure){
+                            messagePayload = new StringBuilder();
+                        }
+
+                    }else
 					{
 						//There is a short limitation for http headers. It depends on server.
 						//As message payload grows, payload in header is growing too, so we must set a limit.
