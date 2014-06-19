@@ -5,6 +5,7 @@ import com.nimbusds.jose.crypto.RSASSASigner;
 import org.appverse.web.framework.backend.frontfacade.rest.authentication.business.CertService;
 import org.appverse.web.framework.backend.frontfacade.rest.authentication.business.impl.live.CertServiceImpl;
 import org.appverse.web.framework.backend.frontfacade.rest.authentication.filter.JWSAuthenticationProcessingFilter;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.glassfish.jersey.message.MessageBodyWorkers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +63,7 @@ public class JWSJerseyFilter implements ClientRequestFilter, ClientResponseFilte
 
 			//Create RSA-signer with the private key
 			JWSSigner signer = new RSASSASigner((RSAPrivateKey) key);
+            signer.setProvider(new BouncyCastleProvider());
 			/*
 			// RSA signatures require a public and private RSA key pair,
 			// the public key must be made known to the JWS recipient in

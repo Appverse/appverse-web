@@ -2,6 +2,7 @@ package org.appverse.web.framework.backend.rest.filters.auth;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSASSASigner;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.glassfish.jersey.message.MessageBodyWorkers;
 import org.glassfish.jersey.message.internal.MessageBodyFactory;
 import org.slf4j.Logger;
@@ -63,6 +64,7 @@ public class JWSJerseyFilter implements ClientRequestFilter {
         JWSSigner signer = null;
         if (key != null) {
             signer = new RSASSASigner(key);
+            signer.setProvider(new BouncyCastleProvider());
 
         } else {
             requestContext.abortWith(
