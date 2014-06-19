@@ -22,29 +22,21 @@ package org.appverse.web.framework.backend.frontfacade.rest.authentication.servl
  POSSIBILITY OF SUCH DAMAGE.
  */
 
-import org.appverse.web.framework.backend.frontfacade.rest.authentication.filter.XSSHeaderFilter;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.DelegatingServletInputStream;
 
 import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JWSHttpServletRequestWrapperTest {
