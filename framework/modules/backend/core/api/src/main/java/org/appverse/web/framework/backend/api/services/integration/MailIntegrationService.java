@@ -23,10 +23,10 @@
  */
 package org.appverse.web.framework.backend.api.services.integration;
 
+import org.appverse.web.framework.backend.api.model.integration.AttachmentDTO;
+
 import java.util.ArrayList;
 import java.util.Map;
-
-import org.appverse.web.framework.backend.api.model.integration.AttachmentDTO;
 
 public interface MailIntegrationService {
 

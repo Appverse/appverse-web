@@ -29,7 +29,9 @@ import javax.ws.rs.RuntimeType;
 import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.Feature;
 import javax.ws.rs.core.FeatureContext;
-import java.security.*;
+import java.security.GeneralSecurityException;
+import java.security.Key;
+import java.security.KeyStore;
 
 /**
  * Feature of JWSJerseyFilter Obtains a key and configures it within the client filter

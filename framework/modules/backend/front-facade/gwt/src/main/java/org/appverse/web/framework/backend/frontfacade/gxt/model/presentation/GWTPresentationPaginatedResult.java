@@ -23,11 +23,10 @@
  */
 package org.appverse.web.framework.backend.frontfacade.gxt.model.presentation;
 
-import java.util.List;
-
+import com.google.gwt.user.client.rpc.IsSerializable;
 import org.appverse.web.framework.backend.api.model.presentation.PresentationPaginatedResult;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
+import java.util.List;
 
 public class GWTPresentationPaginatedResult<Data extends GWTAbstractPresentationBean>
 		extends PresentationPaginatedResult<Data> implements IsSerializable {

@@ -23,13 +23,13 @@
  */
 package org.appverse.web.framework.backend.persistence.helpers.session;
 
-import java.sql.SQLException;
-
 import org.eclipse.persistence.config.SessionCustomizer;
 import org.eclipse.persistence.descriptors.ClassDescriptor;
 import org.eclipse.persistence.mappings.DatabaseMapping;
 import org.eclipse.persistence.sessions.Session;
 import org.eclipse.persistence.tools.schemaframework.IndexDefinition;
+
+import java.sql.SQLException;
 
 /**
  * <p>This session customizer maps JPA entities camel case names to underscore case.

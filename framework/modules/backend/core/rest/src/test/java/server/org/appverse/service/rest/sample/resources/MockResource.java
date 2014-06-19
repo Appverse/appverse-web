@@ -23,37 +23,23 @@
  */
 package server.org.appverse.service.rest.sample.resources;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import server.org.appverse.service.rest.sample.SampleBean;
+import server.org.appverse.service.rest.sample.SampleResource;
+import server.org.appverse.service.rest.sample.Util;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.Response.Status;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.CacheControl;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.EntityTag;
-import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import server.org.appverse.service.rest.sample.SampleBean;
-import server.org.appverse.service.rest.sample.SampleResource;
-import server.org.appverse.service.rest.sample.Util;
 
 @Path("samples")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

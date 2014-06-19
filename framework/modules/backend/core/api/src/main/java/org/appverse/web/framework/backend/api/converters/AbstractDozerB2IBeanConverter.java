@@ -23,15 +23,15 @@
  */
 package org.appverse.web.framework.backend.api.converters;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.appverse.web.framework.backend.api.model.business.AbstractBusinessBean;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.api.services.integration.ListDiffersSizeException;
 import org.dozer.Mapper;
 import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractDozerB2IBeanConverter<BusinessBean extends AbstractBusinessBean, IntegrationBean extends AbstractIntegrationBean>
 		implements IB2IBeanConverter<BusinessBean, IntegrationBean> {

@@ -23,9 +23,8 @@
  */
 package org.appverse.web.framework.backend.frontfacade.gxt.model.presentation;
 
-import org.appverse.web.framework.backend.api.model.presentation.StaticDataPresentationBean;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
+import org.appverse.web.framework.backend.api.model.presentation.StaticDataPresentationBean;
 
 public class GWTStaticDataPresentationBean extends StaticDataPresentationBean
 		implements IsSerializable {

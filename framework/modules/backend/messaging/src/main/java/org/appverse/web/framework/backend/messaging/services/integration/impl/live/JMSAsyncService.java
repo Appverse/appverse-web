@@ -23,12 +23,12 @@
  */
 package org.appverse.web.framework.backend.messaging.services.integration.impl.live;
 
-import javax.jms.Message;
-
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.messaging.services.integration.IJMSServiceAsyncConsumer;
 import org.slf4j.Logger;
+
+import javax.jms.Message;
 
 /**
  * Implementation to provide integration with JMS broker through JMS MessageListener

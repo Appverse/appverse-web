@@ -23,11 +23,11 @@
  */
 package org.appverse.web.framework.backend.messaging.services.integration;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.springframework.jms.core.JmsTemplate;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
 
 /**
  * Interface to define Message publishing API

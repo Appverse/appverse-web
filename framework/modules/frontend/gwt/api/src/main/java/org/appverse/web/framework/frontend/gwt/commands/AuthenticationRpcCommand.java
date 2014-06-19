@@ -23,9 +23,8 @@
  */
 package org.appverse.web.framework.frontend.gwt.commands;
 
-import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
-
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 
 public interface AuthenticationRpcCommand {
 

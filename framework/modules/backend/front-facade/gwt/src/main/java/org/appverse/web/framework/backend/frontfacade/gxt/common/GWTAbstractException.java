@@ -23,9 +23,8 @@
  */
 package org.appverse.web.framework.backend.frontfacade.gxt.common;
 
-import org.appverse.web.framework.backend.api.common.AbstractException;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
+import org.appverse.web.framework.backend.api.common.AbstractException;
 
 public abstract class GWTAbstractException extends AbstractException implements
 		IsSerializable {

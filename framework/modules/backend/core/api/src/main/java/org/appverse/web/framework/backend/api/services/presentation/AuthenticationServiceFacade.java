@@ -23,9 +23,9 @@
  */
 package org.appverse.web.framework.backend.api.services.presentation;
 
-import java.util.List;
-
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
+
+import java.util.List;
 
 public interface AuthenticationServiceFacade extends IPresentationService {
 

@@ -1,13 +1,12 @@
 package org.appverse.web.framework.backend.ws.handlers;
 
-import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.ws.handler.LogicalHandler;
 import javax.xml.ws.handler.LogicalMessageContext;
 import javax.xml.ws.handler.MessageContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Date;
 /**
  * Client Performance Monitor Handler
  * @author MOCR

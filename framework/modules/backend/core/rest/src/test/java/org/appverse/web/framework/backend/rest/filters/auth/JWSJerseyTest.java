@@ -22,13 +22,10 @@ package org.appverse.web.framework.backend.rest.filters.auth;/*
  POSSIBILITY OF SUCH DAMAGE.
  */
 
-import static org.mockito.Mockito.*;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -45,6 +42,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.security.Key;
 import java.security.KeyStore;
+
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JWSJerseyTest {

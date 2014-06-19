@@ -7,8 +7,6 @@
  */
 package org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.window;
 
-import org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.panel.AppverseWebFramedPanelAppearance.FramedPanelStyle;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
@@ -21,6 +19,7 @@ import com.sencha.gxt.theme.base.client.widget.HeaderDefaultAppearance;
 import com.sencha.gxt.theme.base.client.widget.HeaderDefaultAppearance.HeaderResources;
 import com.sencha.gxt.theme.base.client.widget.HeaderDefaultAppearance.HeaderStyle;
 import com.sencha.gxt.widget.core.client.Window.WindowAppearance;
+import org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.panel.AppverseWebFramedPanelAppearance.FramedPanelStyle;
 
 public class AppverseWebWindowAppearance extends FramedPanelBaseAppearance implements WindowAppearance {
 

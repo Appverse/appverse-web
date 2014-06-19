@@ -7,14 +7,14 @@
  */
 package org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.tabs;
 
-import static com.google.gwt.resources.client.ImageResource.RepeatStyle.Both;
-import static com.google.gwt.resources.client.ImageResource.RepeatStyle.Horizontal;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.ImageResource.ImageOptions;
 import com.sencha.gxt.theme.base.client.tabs.TabPanelBaseAppearance;
+
+import static com.google.gwt.resources.client.ImageResource.RepeatStyle.Both;
+import static com.google.gwt.resources.client.ImageResource.RepeatStyle.Horizontal;
 
 public class AppverseWebTabPanelAppearance extends TabPanelBaseAppearance {
 

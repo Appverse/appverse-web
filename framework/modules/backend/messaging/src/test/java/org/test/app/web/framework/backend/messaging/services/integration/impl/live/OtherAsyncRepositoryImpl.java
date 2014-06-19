@@ -23,8 +23,6 @@
  */
 package org.test.app.web.framework.backend.messaging.services.integration.impl.live;
 
-import javax.jms.Message;
-
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.messaging.services.integration.impl.live.JMSAsyncService;
 import org.slf4j.Logger;
@@ -33,6 +31,8 @@ import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.stereotype.Repository;
 import org.test.app.web.framework.backend.messaging.model.integration.SampleDTO;
 import org.test.app.web.framework.backend.messaging.services.integration.MyAsyncRepository;
+
+import javax.jms.Message;
 
 /**
  * OtherAsyncRepository implementation 

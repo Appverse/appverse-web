@@ -23,13 +23,13 @@
  */
 package org.appverse.web.framework.backend.api.services.presentation.impl.mock;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.backend.api.services.presentation.AbstractPresentationService;
 import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("authenticationServiceFacade")
 public class AuthenticationServiceFacadeMockImpl extends AbstractPresentationService implements

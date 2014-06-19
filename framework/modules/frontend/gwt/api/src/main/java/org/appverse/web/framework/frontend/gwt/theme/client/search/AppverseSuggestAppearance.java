@@ -23,14 +23,13 @@
  */
 package org.appverse.web.framework.frontend.gwt.theme.client.search;
 
-import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.impl.gxt.SuggestWidgetImpl.SuggestAppearance;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.CssResource;
-import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.sencha.gxt.core.client.resources.StyleInjectorHelper;
+ import com.google.gwt.core.client.GWT;
+ import com.google.gwt.resources.client.ClientBundle;
+ import com.google.gwt.resources.client.CssResource;
+ import com.google.gwt.resources.client.ImageResource;
+ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+ import com.sencha.gxt.core.client.resources.StyleInjectorHelper;
+ import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.impl.gxt.SuggestWidgetImpl.SuggestAppearance;
 
 public class AppverseSuggestAppearance<M> implements SuggestAppearance<M> {
 

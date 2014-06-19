@@ -23,7 +23,12 @@
  */
 package org.appverse.web.framework.backend.rest.filters.cache;
 
-import java.io.IOException;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.Element;
+import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
+import org.appverse.web.framework.backend.rest.helpers.cache.CacheEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.client.ClientRequestContext;
@@ -34,14 +39,7 @@ import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
-
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.Element;
-
-import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
-import org.appverse.web.framework.backend.rest.helpers.cache.CacheEntry;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
 
 /**
  * This class is Jersey client provider, responsible of analyzing response headers 

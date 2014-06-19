@@ -23,16 +23,6 @@
  */
 package org.appverse.web.framework.backend.persistence.services.integration.impl.live;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
@@ -47,6 +37,15 @@ import org.appverse.web.framework.backend.persistence.services.integration.helpe
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides an API based on Spring <code>JpaTemplate</code> for basic

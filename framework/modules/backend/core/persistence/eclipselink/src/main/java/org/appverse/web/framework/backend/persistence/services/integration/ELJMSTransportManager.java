@@ -23,19 +23,15 @@
  */
 package org.appverse.web.framework.backend.persistence.services.integration;
 
-import javax.jms.Connection;
-import javax.jms.JMSException;
-import javax.jms.Topic;
-import javax.jms.TopicConnection;
-import javax.jms.TopicConnectionFactory;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import org.eclipse.persistence.exceptions.RemoteCommandManagerException;
 import org.eclipse.persistence.internal.sessions.coordination.jms.JMSTopicRemoteConnection;
 import org.eclipse.persistence.sessions.coordination.RemoteCommandManager;
 import org.eclipse.persistence.sessions.coordination.jms.JMSTopicTransportManager;
+
+import javax.jms.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /** Customised from EL Topic Manager. */
 public class ELJMSTransportManager extends JMSTopicTransportManager {

@@ -23,9 +23,9 @@
  */
 package org.appverse.web.framework.backend.api.services.integration;
 
-import java.util.HashMap;
-
 import org.appverse.web.framework.backend.api.common.AbstractException;
+
+import java.util.HashMap;
 
 public class IntegrationException extends AbstractException {
 

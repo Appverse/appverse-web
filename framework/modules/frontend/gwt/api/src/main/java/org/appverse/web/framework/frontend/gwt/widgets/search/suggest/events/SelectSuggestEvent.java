@@ -23,10 +23,9 @@
  */
 package org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events;
 
+import com.google.gwt.event.shared.GwtEvent;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTAbstractPresentationBean;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.SelectSuggestEventHandler;
-
-import com.google.gwt.event.shared.GwtEvent;
 
 @SuppressWarnings("rawtypes")
 public class SelectSuggestEvent<M extends GWTAbstractPresentationBean> extends

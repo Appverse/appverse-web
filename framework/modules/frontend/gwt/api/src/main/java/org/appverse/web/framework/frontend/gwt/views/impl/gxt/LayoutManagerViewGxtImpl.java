@@ -23,9 +23,6 @@
  */
 package org.appverse.web.framework.frontend.gwt.views.impl.gxt;
 
-import org.appverse.web.framework.frontend.gwt.rmvp.ReverseComposite;
-import org.appverse.web.framework.frontend.gwt.views.LayoutManagerView;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -33,6 +30,8 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Singleton;
 import com.sencha.gxt.widget.core.client.container.Viewport;
+import org.appverse.web.framework.frontend.gwt.rmvp.ReverseComposite;
+import org.appverse.web.framework.frontend.gwt.views.LayoutManagerView;
 
 @Singleton
 public class LayoutManagerViewGxtImpl extends

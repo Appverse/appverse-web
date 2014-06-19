@@ -23,10 +23,10 @@
  */
 package org.appverse.web.framework.backend.api.converters;
 
-import java.util.List;
-
 import org.appverse.web.framework.backend.api.model.business.AbstractBusinessBean;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
+
+import java.util.List;
 
 public interface IB2IBeanConverter<BusinessBean extends AbstractBusinessBean, IntegrationBean extends AbstractIntegrationBean>
 		extends IBeanConverter {

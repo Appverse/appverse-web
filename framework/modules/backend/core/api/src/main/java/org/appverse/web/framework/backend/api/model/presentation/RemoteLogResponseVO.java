@@ -1,7 +1,5 @@
 package org.appverse.web.framework.backend.api.model.presentation;
 
-import org.appverse.web.framework.backend.api.model.presentation.AbstractPresentationBean;
-
 public class RemoteLogResponseVO extends AbstractPresentationBean{
 
     // Valid statuses

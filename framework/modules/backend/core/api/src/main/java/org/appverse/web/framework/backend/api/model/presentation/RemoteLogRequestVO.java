@@ -1,7 +1,5 @@
 package org.appverse.web.framework.backend.api.model.presentation;
 
-import org.appverse.web.framework.backend.api.model.presentation.AbstractPresentationBean;
-
 public class RemoteLogRequestVO extends AbstractPresentationBean{
 
     String logLevel;

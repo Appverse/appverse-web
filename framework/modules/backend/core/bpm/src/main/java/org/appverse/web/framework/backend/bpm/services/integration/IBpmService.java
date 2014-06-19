@@ -30,7 +30,6 @@ import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance;
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo;
 import org.bonitasoft.engine.bpm.process.ProcessInstance;
 
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;

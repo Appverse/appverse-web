@@ -2,11 +2,7 @@ package org.appverse.web.framework.backend.persistence.model.integration;
 
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 
-
 import javax.persistence.MappedSuperclass;
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.Throwable;
 
 @MappedSuperclass
 public class AbstractIntegrationJPABean extends AbstractIntegrationBean{

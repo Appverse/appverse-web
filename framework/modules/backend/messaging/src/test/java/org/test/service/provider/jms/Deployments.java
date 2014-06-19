@@ -23,13 +23,13 @@
  */
 package org.test.service.provider.jms;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Helper class for creating the tests deployments.

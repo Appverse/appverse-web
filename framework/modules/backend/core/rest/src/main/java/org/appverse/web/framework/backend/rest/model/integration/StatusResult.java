@@ -23,10 +23,10 @@
  */
 package org.appverse.web.framework.backend.rest.model.integration;
 
+import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
+
 import java.io.Serializable;
 import java.net.URI;
-
-import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 
 /**
  * This bean should support return with Rest methods when only status return is desired

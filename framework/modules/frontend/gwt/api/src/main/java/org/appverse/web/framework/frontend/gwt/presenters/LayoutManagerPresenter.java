@@ -23,11 +23,10 @@
  */
 package org.appverse.web.framework.frontend.gwt.presenters;
 
-import org.appverse.web.framework.frontend.gwt.views.LayoutManagerView;
-
 import com.google.gwt.user.client.ui.IsWidget;
 import com.mvp4g.client.event.EventBus;
 import com.mvp4g.client.presenter.LazyPresenter;
+import org.appverse.web.framework.frontend.gwt.views.LayoutManagerView;
 
 public abstract class LayoutManagerPresenter<E extends EventBus> extends
 		LazyPresenter<LayoutManagerView, E> implements

@@ -23,13 +23,6 @@
  */
 package org.appverse.web.framework.backend.persistence.services.integration.impl.test;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.NoResultException;
-import javax.persistence.OptimisticLockException;
-import javax.persistence.PersistenceException;
-
 import org.appverse.web.framework.backend.api.helpers.test.AbstractTransactionalTest;
 import org.appverse.web.framework.backend.api.helpers.test.JPATest;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter;
@@ -41,6 +34,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.util.Assert;
+
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
+import java.util.Date;
+import java.util.List;
 
 @TransactionConfiguration(defaultRollback = false)
 public class UserRepositoryImplTest extends AbstractTransactionalTest implements

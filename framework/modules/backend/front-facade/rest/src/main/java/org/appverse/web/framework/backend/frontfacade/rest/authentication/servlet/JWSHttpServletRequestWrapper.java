@@ -1,18 +1,12 @@
 package org.appverse.web.framework.backend.frontfacade.rest.authentication.servlet;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
-
-import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
+
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 
 public class JWSHttpServletRequestWrapper extends SecurityContextHolderAwareRequestWrapper {
 

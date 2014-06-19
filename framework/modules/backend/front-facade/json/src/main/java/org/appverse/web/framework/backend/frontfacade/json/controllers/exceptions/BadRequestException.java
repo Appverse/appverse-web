@@ -1,10 +1,6 @@
 package org.appverse.web.framework.backend.frontfacade.json.controllers.exceptions;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 

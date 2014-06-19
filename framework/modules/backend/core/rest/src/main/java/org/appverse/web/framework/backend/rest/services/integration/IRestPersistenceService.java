@@ -23,18 +23,16 @@
  */
 package org.appverse.web.framework.backend.rest.services.integration;
 
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
-
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
 import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 import org.appverse.web.framework.backend.rest.model.integration.StatusResult;
+
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is the interface for REST Integration services implementations providing

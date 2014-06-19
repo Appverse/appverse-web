@@ -23,11 +23,10 @@
  */
 package org.test.app.web.framework.backend.messaging.model.integration;
 
-import java.util.Date;
+import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 
 import javax.xml.bind.annotation.XmlTransient;
-
-import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
+import java.util.Date;
 
 @XmlTransient
 //Header is not be marshalled/unmarshalled. It is manually set up in JMS Headers

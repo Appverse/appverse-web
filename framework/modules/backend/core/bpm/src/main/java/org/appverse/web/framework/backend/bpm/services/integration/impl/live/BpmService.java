@@ -46,7 +46,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository("bpmService")
 @Scope(WebApplicationContext.SCOPE_SESSION)

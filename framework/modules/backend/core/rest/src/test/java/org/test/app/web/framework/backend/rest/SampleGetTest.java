@@ -39,11 +39,6 @@
  */
 package org.test.app.web.framework.backend.rest;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.ws.rs.core.Application;
-
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
 import org.appverse.web.framework.backend.api.services.integration.IntegrationException;
@@ -65,13 +60,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.test.app.web.framework.backend.rest.model.integration.SampleDTO;
 import org.test.app.web.framework.backend.rest.services.integration.SampleRepository;
-
 import server.org.appverse.service.rest.sample.ExtendedGrizzlyTestContainerFactory;
 import server.org.appverse.service.rest.sample.SampleRestApplication;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import javax.ws.rs.core.Application;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * Test class

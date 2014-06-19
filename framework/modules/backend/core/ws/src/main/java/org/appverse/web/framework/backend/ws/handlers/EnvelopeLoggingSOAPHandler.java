@@ -23,17 +23,16 @@
  */
 package org.appverse.web.framework.backend.ws.handlers;
 
-import java.io.ByteArrayOutputStream;
-import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.ByteArrayOutputStream;
+import java.util.Set;
 
 /**
  * SOAP Handler: Log the whole SOAP inbound / outbound messages

@@ -23,14 +23,13 @@
  */
 package org.appverse.web.framework.frontend.gwt.common;
 
+import com.mvp4g.client.annotation.Event;
+import com.mvp4g.client.annotation.Start;
+import com.mvp4g.client.event.EventBusWithLookup;
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 import org.appverse.web.framework.frontend.gwt.commands.impl.live.AuthenticationHandlerImpl;
-
-import com.mvp4g.client.annotation.Event;
-import com.mvp4g.client.annotation.Start;
-import com.mvp4g.client.event.EventBusWithLookup;
 
 public interface FrameworkEventBus extends EventBusWithLookup {
 

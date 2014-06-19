@@ -23,21 +23,20 @@
  */
 package org.appverse.web.framework.frontend.gwt.commands.impl.live;
 
-import java.util.List;
-
+import com.google.gwt.core.client.GWT;
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 import org.appverse.web.framework.backend.api.services.presentation.AuthenticationRestServiceFacade;
-import org.appverse.web.framework.frontend.gwt.helpers.dispatcher.AppverseDispatcher;
 import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 import org.appverse.web.framework.frontend.gwt.commands.AbstractRestCommand;
 import org.appverse.web.framework.frontend.gwt.commands.AuthenticationCommand;
 import org.appverse.web.framework.frontend.gwt.common.FrameworkEventBus;
+import org.appverse.web.framework.frontend.gwt.helpers.dispatcher.AppverseDispatcher;
 import org.appverse.web.framework.frontend.gwt.helpers.security.PrincipalInformation;
 import org.appverse.web.framework.frontend.gwt.json.ApplicationJsonAsyncCallback;
 import org.fusesource.restygwt.client.Method;
 
-import com.google.gwt.core.client.GWT;
+import java.util.List;
 
 public class AuthenticationRestCommandImpl extends
 		AbstractRestCommand<FrameworkEventBus, AuthenticationRestServiceFacade> implements AuthenticationCommand {

@@ -23,9 +23,8 @@
  */
 package org.appverse.web.framework.backend.frontfacade.gxt.model.presentation;
 
-import org.appverse.web.framework.backend.api.model.presentation.ItemVO;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
+import org.appverse.web.framework.backend.api.model.presentation.ItemVO;
 
 public class GWTItemVO extends ItemVO implements IsSerializable {
 

@@ -23,21 +23,16 @@
  */
 package org.appverse.web.framework.backend.api.helpers.json;
 
-import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.ObjectCodec;
 import org.codehaus.jackson.Version;
-import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.module.SimpleModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
-import java.lang.reflect.Field;
 
 /**
  * JacksonContextResolver is a Custom Context Resolver that sets a default JSON String parser to filter out html tags.

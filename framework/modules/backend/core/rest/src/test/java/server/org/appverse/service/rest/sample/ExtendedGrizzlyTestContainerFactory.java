@@ -23,12 +23,6 @@
  */
 package server.org.appverse.service.rest.sample;
 
-import java.io.IOException;
-import java.net.URI;
-import java.util.Collections;
-
-import javax.ws.rs.ProcessingException;
-
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.grizzly2.servlet.GrizzlyWebContainerFactory;
@@ -36,6 +30,11 @@ import org.glassfish.jersey.server.ApplicationHandler;
 import org.glassfish.jersey.test.spi.TestContainer;
 import org.glassfish.jersey.test.spi.TestContainerException;
 import org.glassfish.jersey.test.spi.TestContainerFactory;
+
+import javax.ws.rs.ProcessingException;
+import java.io.IOException;
+import java.net.URI;
+import java.util.Collections;
 
 public class ExtendedGrizzlyTestContainerFactory implements TestContainerFactory {
 

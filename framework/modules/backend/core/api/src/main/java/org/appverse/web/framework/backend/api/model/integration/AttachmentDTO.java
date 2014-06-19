@@ -23,9 +23,9 @@
  */
 package org.appverse.web.framework.backend.api.model.integration;
 
-import java.io.Serializable;
-
 import org.springframework.core.io.InputStreamSource;
+
+import java.io.Serializable;
 
 public class AttachmentDTO extends AbstractIntegrationBean implements
 		Serializable {

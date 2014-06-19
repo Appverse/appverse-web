@@ -23,18 +23,17 @@
  */
 package org.appverse.web.framework.backend.api.aop.managers.impl.live;
 
-import java.util.List;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-
 import org.appverse.web.framework.backend.api.aop.managers.ValidationManager;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.presentation.AbstractPresentationBean;
 import org.appverse.web.framework.backend.api.services.presentation.PresentationException;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.List;
+import java.util.Set;
 
 public class ValidationManagerImpl implements ValidationManager {
 	@AutowiredLogger

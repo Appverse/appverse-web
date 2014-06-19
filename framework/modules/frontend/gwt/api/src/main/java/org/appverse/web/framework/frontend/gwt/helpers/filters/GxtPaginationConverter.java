@@ -23,18 +23,17 @@
  */
 package org.appverse.web.framework.frontend.gwt.helpers.filters;
 
-import java.util.List;
-
-import org.appverse.web.framework.backend.api.model.presentation.AbstractPresentationBean;
-import org.appverse.web.framework.backend.api.model.presentation.PresentationDataFilter;
-import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
-import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
-
 import com.sencha.gxt.data.shared.SortDir;
 import com.sencha.gxt.data.shared.SortInfo;
 import com.sencha.gxt.data.shared.loader.PagingLoadConfig;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResultBean;
+import org.appverse.web.framework.backend.api.model.presentation.AbstractPresentationBean;
+import org.appverse.web.framework.backend.api.model.presentation.PresentationDataFilter;
+import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
+import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
+
+import java.util.List;
 
 public class GxtPaginationConverter {
 

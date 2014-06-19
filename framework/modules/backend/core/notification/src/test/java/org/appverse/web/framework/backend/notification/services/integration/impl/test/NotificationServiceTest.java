@@ -33,10 +33,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-
-import org.appverse.web.framework.backend.api.helpers.test.AbstractTransactionalTest;
 import twitter4j.TwitterException;
 
 import java.util.HashMap;

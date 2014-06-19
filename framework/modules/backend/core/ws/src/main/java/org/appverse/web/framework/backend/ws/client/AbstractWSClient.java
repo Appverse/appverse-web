@@ -23,16 +23,15 @@
  */
 package org.appverse.web.framework.backend.ws.client;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.handler.Handler;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
  
 /**
 * The abstract class will provide the mechanism to connect to the remote service. 

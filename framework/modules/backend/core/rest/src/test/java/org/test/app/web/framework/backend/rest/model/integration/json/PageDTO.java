@@ -23,15 +23,14 @@
  */
 package org.test.app.web.framework.backend.rest.model.integration.json;
 
-import java.io.Serializable;
-import java.util.List;
+import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * This bean should map paged info and data returned by server.

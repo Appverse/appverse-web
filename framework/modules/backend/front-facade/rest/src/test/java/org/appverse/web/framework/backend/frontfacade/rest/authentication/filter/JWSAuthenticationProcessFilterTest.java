@@ -22,7 +22,6 @@ package org.appverse.web.framework.backend.frontfacade.rest.authentication.filte
  POSSIBILITY OF SUCH DAMAGE.
  */
 
-import org.appverse.web.framework.backend.rest.filters.auth.JWSJerseyFeature;
 import org.appverse.web.framework.backend.rest.filters.auth.JWSJerseyFilter;
 import org.glassfish.jersey.message.MessageBodyWorkers;
 import org.junit.After;
@@ -33,16 +32,12 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.configuration.GlobalConfiguration;
-import org.mockito.internal.stubbing.defaultanswers.GloballyConfiguredAnswer;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.omg.CORBA.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.DelegatingServletInputStream;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -59,19 +54,18 @@ import javax.ws.rs.core.FeatureContext;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyWriter;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.net.URI;
-import java.net.URL;
 import java.security.Key;
 import java.security.KeyStore;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-
-
-import static org.mockito.Mockito.validateMockitoUsage;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/spring/application-config.xml")

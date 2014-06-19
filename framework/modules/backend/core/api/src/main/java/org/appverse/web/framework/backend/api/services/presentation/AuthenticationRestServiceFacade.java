@@ -23,14 +23,13 @@
  */
 package org.appverse.web.framework.backend.api.services.presentation;
 
-import java.util.List;
-
-import javax.ws.rs.POST;
-
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.RestService;
+
+import javax.ws.rs.POST;
+import java.util.List;
 
 public interface AuthenticationRestServiceFacade extends RestService {
 

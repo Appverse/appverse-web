@@ -23,11 +23,11 @@
  */
 package org.appverse.web.framework.frontend.gwt.helpers.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gwt.editor.client.Editor;
 import com.sencha.gxt.widget.core.client.form.Validator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("rawtypes")
 public class VTypeValidator implements Validator {

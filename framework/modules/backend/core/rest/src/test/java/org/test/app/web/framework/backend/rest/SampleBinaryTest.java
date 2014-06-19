@@ -39,10 +39,6 @@
  */
 package org.test.app.web.framework.backend.rest;
 
-import java.io.InputStream;
-
-import javax.ws.rs.core.Application;
-
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.rest.model.integration.StatusResult;
 import org.glassfish.jersey.client.ClientConfig;
@@ -61,9 +57,11 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.test.app.web.framework.backend.rest.services.integration.BinarySampleRepository;
-
 import server.org.appverse.service.rest.sample.ExtendedGrizzlyTestContainerFactory;
 import server.org.appverse.service.rest.sample.SampleRestApplication;
+
+import javax.ws.rs.core.Application;
+import java.io.InputStream;
 
 import static org.junit.Assert.assertTrue;
 

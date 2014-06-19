@@ -7,11 +7,10 @@
  */
 package org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.menu;
 
-import org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.menu.AppverseWebMenuItemAppearance.AppverseWebMenuItemResources;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.sencha.gxt.theme.base.client.menu.CheckMenuItemBaseAppearance;
+import org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.menu.AppverseWebMenuItemAppearance.AppverseWebMenuItemResources;
 
 public class AppverseWebCheckMenuItemAppearance extends CheckMenuItemBaseAppearance {
 

@@ -23,17 +23,12 @@
  */
 package org.appverse.web.framework.frontend.gwt.commands.impl.live;
 
+import com.google.gwt.http.client.*;
+import com.google.gwt.user.client.Window;
+import com.mvp4g.client.annotation.EventHandler;
 import org.appverse.web.framework.frontend.gwt.commands.AbstractRpcCommand;
 import org.appverse.web.framework.frontend.gwt.commands.LogoutManagementRpcCommand;
 import org.appverse.web.framework.frontend.gwt.common.FrameworkEventBus;
-
-import com.google.gwt.http.client.Request;
-import com.google.gwt.http.client.RequestBuilder;
-import com.google.gwt.http.client.RequestCallback;
-import com.google.gwt.http.client.RequestException;
-import com.google.gwt.http.client.Response;
-import com.google.gwt.user.client.Window;
-import com.mvp4g.client.annotation.EventHandler;
 
 /*
  * LogoutManagementRpcCommandImpl integrates GWT logout with Spring Security.

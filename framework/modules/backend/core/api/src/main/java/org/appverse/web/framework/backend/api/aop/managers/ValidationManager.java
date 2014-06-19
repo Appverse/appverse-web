@@ -23,9 +23,9 @@
  */
 package org.appverse.web.framework.backend.api.aop.managers;
 
-import java.util.List;
-
 import org.appverse.web.framework.backend.api.model.presentation.AbstractPresentationBean;
+
+import java.util.List;
 
 public interface ValidationManager {
 

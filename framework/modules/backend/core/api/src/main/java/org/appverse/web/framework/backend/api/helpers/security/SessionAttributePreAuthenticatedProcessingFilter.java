@@ -23,11 +23,11 @@
  */
 package org.appverse.web.framework.backend.api.helpers.security;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class SessionAttributePreAuthenticatedProcessingFilter extends
 		AbstractPreAuthenticatedProcessingFilter {

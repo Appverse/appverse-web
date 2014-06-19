@@ -23,13 +23,6 @@
  */
 package org.test.app.web.framework.backend.rest.services.integration.impl.live;
 
-import java.io.InputStream;
-import java.util.List;
-
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.rest.model.integration.StatusResult;
 import org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService;
@@ -39,6 +32,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.test.app.web.framework.backend.rest.model.integration.SampleDTO;
 import org.test.app.web.framework.backend.rest.services.integration.BinarySampleRepository;
+
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.io.InputStream;
+import java.util.List;
 
 @Repository("sampleRepositoryBinary")
 public class BinarySampleRepositoryImpl extends RestPersistenceService<SampleDTO>

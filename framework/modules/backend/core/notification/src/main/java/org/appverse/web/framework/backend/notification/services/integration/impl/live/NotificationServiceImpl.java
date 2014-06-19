@@ -31,8 +31,6 @@ import com.notnoop.apns.ApnsService;
 import facebook4j.Facebook;
 import facebook4j.FacebookFactory;
 import facebook4j.auth.AccessToken;
-import facebook4j.auth.OAuthAuthorization;
-import facebook4j.auth.OAuthSupport;
 import facebook4j.conf.ConfigurationBuilder;
 import javapns.Push;
 import javapns.communication.exceptions.CommunicationException;
@@ -40,11 +38,9 @@ import javapns.communication.exceptions.KeystoreException;
 import javapns.notification.PushNotificationPayload;
 import javapns.notification.PushedNotification;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
-
 import org.appverse.web.framework.backend.api.services.business.AbstractBusinessService;
 import org.appverse.web.framework.backend.notification.services.integration.INotificationService;
 import org.slf4j.Logger;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;

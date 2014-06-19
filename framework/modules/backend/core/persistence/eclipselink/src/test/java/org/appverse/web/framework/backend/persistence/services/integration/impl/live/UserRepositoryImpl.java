@@ -23,14 +23,14 @@
  */
 package org.appverse.web.framework.backend.persistence.services.integration.impl.live;
 
-import java.util.List;
-
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.persistence.model.integration.UserDTO;
 import org.appverse.web.framework.backend.persistence.services.integration.UserRepository;
 import org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository("userRepository")
 public class UserRepositoryImpl extends JPAPersistenceService<UserDTO>

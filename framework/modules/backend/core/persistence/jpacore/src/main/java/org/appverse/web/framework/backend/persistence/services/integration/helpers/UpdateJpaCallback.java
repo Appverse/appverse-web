@@ -23,13 +23,12 @@
  */
 package org.appverse.web.framework.backend.persistence.services.integration.helpers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class UpdateJpaCallback<T> {
 

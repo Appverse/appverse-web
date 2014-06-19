@@ -1,15 +1,14 @@
 package server.org.appverse.service.rest.sample;
 
-import javax.ws.rs.ext.ContextResolver;
-
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.moxy.json.MoxyJsonConfig;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
-
 import server.org.appverse.service.rest.sample.resources.MockResource;
 import server.org.appverse.service.rest.sample.resources.WebApplicationExceptionMapper;
+
+import javax.ws.rs.ext.ContextResolver;
 
 public class SampleRestApplication {
 

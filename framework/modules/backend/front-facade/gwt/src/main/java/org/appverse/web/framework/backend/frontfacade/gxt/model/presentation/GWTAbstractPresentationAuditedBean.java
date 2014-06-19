@@ -23,9 +23,9 @@
  */
 package org.appverse.web.framework.backend.frontfacade.gxt.model.presentation;
 
-import java.util.Date;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
+
+import java.util.Date;
 
 public abstract class GWTAbstractPresentationAuditedBean extends
 		GWTAbstractPresentationBean implements IsSerializable {

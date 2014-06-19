@@ -23,13 +23,12 @@
  */
 package org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events;
 
+import com.google.gwt.event.shared.GwtEvent;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTAbstractPresentationBean;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedDataFilter;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTPresentationPaginatedResult;
 import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.LoadSuggestEventHandler;
-
-import com.google.gwt.event.shared.GwtEvent;
 
 
 @SuppressWarnings("rawtypes")

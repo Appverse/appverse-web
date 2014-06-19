@@ -23,14 +23,6 @@
  */
 package org.appverse.web.framework.backend.api.services.integration.impl.live;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.mail.Address;
-import javax.mail.SendFailedException;
-import javax.mail.internet.MimeMessage;
-
 import org.apache.velocity.app.VelocityEngine;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.AttachmentDTO;
@@ -43,6 +35,13 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
+
+import javax.mail.Address;
+import javax.mail.SendFailedException;
+import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("rawtypes")
 @Service("mailIntegrationService")

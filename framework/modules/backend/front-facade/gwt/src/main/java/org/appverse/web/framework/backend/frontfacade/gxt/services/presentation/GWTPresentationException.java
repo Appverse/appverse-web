@@ -23,11 +23,10 @@
  */
 package org.appverse.web.framework.backend.frontfacade.gxt.services.presentation;
 
-import java.util.HashMap;
-
+import com.google.gwt.user.client.rpc.IsSerializable;
 import org.appverse.web.framework.backend.api.services.presentation.PresentationException;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
+import java.util.HashMap;
 
 public class GWTPresentationException extends PresentationException implements
 		IsSerializable {

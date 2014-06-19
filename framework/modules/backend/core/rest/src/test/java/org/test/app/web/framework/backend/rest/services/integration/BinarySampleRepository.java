@@ -23,10 +23,10 @@
  */
 package org.test.app.web.framework.backend.rest.services.integration;
 
-import java.io.InputStream;
-
 import org.appverse.web.framework.backend.rest.annotations.RestCaching;
 import org.appverse.web.framework.backend.rest.model.integration.StatusResult;
+
+import java.io.InputStream;
 
 @RestCaching(cacheName = "sampleRestClientCache")
 public interface BinarySampleRepository {

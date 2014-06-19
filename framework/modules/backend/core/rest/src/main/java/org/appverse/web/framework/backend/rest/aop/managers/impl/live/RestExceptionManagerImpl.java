@@ -23,17 +23,16 @@
  */
 package org.appverse.web.framework.backend.rest.aop.managers.impl.live;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.rest.aop.managers.RestExceptionManager;
 import org.appverse.web.framework.backend.rest.exceptions.RestWebAppException;
 import org.glassfish.jersey.message.internal.OutboundJaxrsResponse;
 import org.slf4j.Logger;
+
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * This class manages the error handling of rest integration services

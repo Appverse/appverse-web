@@ -23,9 +23,8 @@
  */
 package org.appverse.web.framework.backend.rest.helpers.cache;
 
-import java.sql.Date;
-
 import javax.ws.rs.core.EntityTag;
+import java.sql.Date;
 
 public class CacheEntry {
 	private Object o;

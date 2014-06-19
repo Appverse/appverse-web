@@ -7,10 +7,9 @@
  */
 package org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.box;
 
-import org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.window.AppverseWebWindowAppearance;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
+import org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.window.AppverseWebWindowAppearance;
 
 public class AppverseWebMessageBoxAppearance extends AppverseWebWindowAppearance {
 

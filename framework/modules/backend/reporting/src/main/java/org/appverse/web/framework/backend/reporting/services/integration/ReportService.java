@@ -23,9 +23,9 @@
  */
 package org.appverse.web.framework.backend.reporting.services.integration;
 
-import java.util.List;
-
 import org.appverse.web.framework.backend.api.model.integration.ExcelSheetReportData;
+
+import java.util.List;
 
 public interface ReportService {
 

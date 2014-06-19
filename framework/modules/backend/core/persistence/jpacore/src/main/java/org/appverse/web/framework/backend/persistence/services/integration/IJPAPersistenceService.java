@@ -23,17 +23,16 @@
  */
 package org.appverse.web.framework.backend.persistence.services.integration;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationDataFilter;
 import org.appverse.web.framework.backend.api.model.integration.ResultIntegrationBean;
 import org.appverse.web.framework.backend.persistence.services.integration.helpers.QueryJpaCallback;
 import org.appverse.web.framework.backend.persistence.services.integration.helpers.UpdateJpaCallback;
+
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is the interface for JPA Persistence services implementations providing

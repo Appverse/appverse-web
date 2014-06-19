@@ -23,8 +23,8 @@
  */
 package org.appverse.web.framework.frontend.gwt.commands.impl.live;
 
-import java.util.List;
-
+import com.google.gwt.core.client.GWT;
+import com.mvp4g.client.annotation.EventHandler;
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTAuthenticationServiceFacade;
@@ -35,11 +35,9 @@ import org.appverse.web.framework.frontend.gwt.commands.AuthenticationCommand;
 import org.appverse.web.framework.frontend.gwt.common.FrameworkEventBus;
 import org.appverse.web.framework.frontend.gwt.helpers.security.PrincipalInformation;
 import org.appverse.web.framework.frontend.gwt.helpers.security.XsrfRpcRequestBuilder;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.mvp4g.client.annotation.EventHandler;
 import org.appverse.web.framework.frontend.gwt.rpc.ApplicationAsyncCallback;
+
+import java.util.List;
 
 @EventHandler
 public class AuthenticationRpcCommandImpl extends

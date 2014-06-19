@@ -23,10 +23,10 @@
  */
 package org.appverse.web.framework.backend.rest.model.business;
 
+import org.appverse.web.framework.backend.api.model.business.AbstractBusinessBean;
+
 import java.io.Serializable;
 import java.util.List;
-
-import org.appverse.web.framework.backend.api.model.business.AbstractBusinessBean;
 
 /**
  * Page of data which contains also pagination information 

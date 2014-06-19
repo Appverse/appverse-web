@@ -23,10 +23,10 @@
  */
 package org.appverse.web.framework.backend.api.converters.custom;
 
+import org.dozer.DozerConverter;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.dozer.DozerConverter;
 
 @SuppressWarnings("rawtypes")
 public class ObjectListToObjectListConverter extends DozerConverter<List, List> {

@@ -23,11 +23,11 @@
  */
 package org.appverse.web.framework.backend.batch.helpers;
 
-import java.util.Date;
-
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersIncrementer;
+
+import java.util.Date;
 
 public class DefaultJobParametersIncrementer implements
 		JobParametersIncrementer {

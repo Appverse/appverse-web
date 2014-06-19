@@ -23,13 +23,13 @@
  */
 package org.appverse.web.framework.backend.api.aop.advices;
 
-import java.lang.reflect.Method;
-import java.util.List;
-
 import org.appverse.web.framework.backend.api.aop.advices.technical.AbstractBeforeAOPAdvice;
 import org.appverse.web.framework.backend.api.aop.managers.ValidationManager;
 import org.appverse.web.framework.backend.api.model.presentation.AbstractPresentationBean;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.lang.reflect.Method;
+import java.util.List;
 
 public class ValidationAdvice extends AbstractBeforeAOPAdvice {
 

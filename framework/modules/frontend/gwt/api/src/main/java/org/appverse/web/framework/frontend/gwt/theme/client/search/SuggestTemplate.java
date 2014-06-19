@@ -23,14 +23,13 @@
  */
 package org.appverse.web.framework.frontend.gwt.theme.client.search;
 
-import org.appverse.web.framework.frontend.gwt.formatter.NullsafeFactory;
-import org.appverse.web.framework.frontend.gwt.theme.client.search.AppverseSuggestAppearance.RiaSuggestStyle;
-
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.sencha.gxt.core.client.XTemplates;
 import com.sencha.gxt.core.client.XTemplates.FormatterFactories;
 import com.sencha.gxt.core.client.XTemplates.FormatterFactory;
 import com.sencha.gxt.core.client.XTemplates.FormatterFactoryMethod;
+import org.appverse.web.framework.frontend.gwt.formatter.NullsafeFactory;
+import org.appverse.web.framework.frontend.gwt.theme.client.search.AppverseSuggestAppearance.RiaSuggestStyle;
 
 public interface SuggestTemplate<M> extends XTemplatesExtended {
 	SafeHtml render(M model, RiaSuggestStyle style);

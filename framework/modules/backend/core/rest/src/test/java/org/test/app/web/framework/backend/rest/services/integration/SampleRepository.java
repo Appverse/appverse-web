@@ -23,13 +23,13 @@
  */
 package org.test.app.web.framework.backend.rest.services.integration;
 
-import java.util.List;
-
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
 import org.appverse.web.framework.backend.rest.annotations.RestCaching;
 import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
 import org.appverse.web.framework.backend.rest.model.integration.StatusResult;
 import org.test.app.web.framework.backend.rest.model.integration.SampleDTO;
+
+import java.util.List;
 
 @RestCaching(cacheName = "sampleRestClientCache")
 public interface SampleRepository {

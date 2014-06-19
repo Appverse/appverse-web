@@ -23,10 +23,9 @@
  */
 package org.appverse.web.framework.backend.frontfacade.gxt.services.presentation;
 
-import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
-
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
 
 @RemoteServiceRelativePath("services/gwtAuthenticationServiceFacade.rpc")
 public interface GWTAuthenticationServiceFacade extends

@@ -24,19 +24,17 @@
 
 package org.appverse.web.framework.frontend.gwt.views;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import com.google.gwt.editor.client.Editor;
+import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import org.appverse.web.framework.frontend.gwt.rmvp.ReverseComposite;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
-import org.appverse.web.framework.frontend.gwt.rmvp.ReverseComposite;
-
-import com.google.gwt.editor.client.Editor;
-import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public abstract class AbstractEditorValidationView<T, M, E extends Editor<? super M>>
 		extends ReverseComposite<T> implements EditorValidationView {

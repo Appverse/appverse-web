@@ -7,7 +7,6 @@ import com.google.gwt.user.client.rpc.StatusCodeException;
 import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
 import org.appverse.web.framework.frontend.gwt.common.utils.GWTUtils;
 import org.appverse.web.framework.frontend.gwt.managers.NotificationManager;
-import org.appverse.web.framework.frontend.gwt.rpc.ApplicationAsyncCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 

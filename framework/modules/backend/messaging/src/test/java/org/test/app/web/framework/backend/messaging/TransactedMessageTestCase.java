@@ -23,8 +23,6 @@
  */
 package org.test.app.web.framework.backend.messaging;
 
-import java.util.Calendar;
-
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -38,6 +36,8 @@ import org.test.app.web.framework.backend.messaging.model.integration.HeaderDTO;
 import org.test.app.web.framework.backend.messaging.model.integration.SampleDTO;
 import org.test.app.web.framework.backend.messaging.services.integration.SampleRepository;
 import org.test.service.provider.jms.Deployments;
+
+import java.util.Calendar;
 
 /**
  * Tests the {@link *SampleRepositories and *AsyncRepositories} class.

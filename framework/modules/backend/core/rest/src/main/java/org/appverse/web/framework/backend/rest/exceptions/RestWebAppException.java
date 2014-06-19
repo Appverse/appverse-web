@@ -23,9 +23,9 @@
  */
 package org.appverse.web.framework.backend.rest.exceptions;
 
-import java.util.HashMap;
-
 import org.appverse.web.framework.backend.api.services.integration.IntegrationException;
+
+import java.util.HashMap;
 
 /**
  * Appverse Integration Exception in charge of encapsulating JAX-RS service exceptions.

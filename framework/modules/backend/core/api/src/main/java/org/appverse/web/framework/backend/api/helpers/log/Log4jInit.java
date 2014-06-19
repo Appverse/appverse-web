@@ -23,15 +23,14 @@
  */
 package org.appverse.web.framework.backend.api.helpers.log;
 
-import java.net.URL;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.xml.DOMConfigurator;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.PropertyConfigurator;
-import org.apache.log4j.xml.DOMConfigurator;
+import java.net.URL;
 
 public class Log4jInit extends HttpServlet {
 

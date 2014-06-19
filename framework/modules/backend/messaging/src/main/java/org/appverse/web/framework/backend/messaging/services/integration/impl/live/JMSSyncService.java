@@ -23,9 +23,6 @@
  */
 package org.appverse.web.framework.backend.messaging.services.integration.impl.live;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.messaging.services.integration.IJMSServiceConsumer;
@@ -34,6 +31,9 @@ import org.slf4j.Logger;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessagePostProcessor;
 import org.springframework.jms.support.converter.MessageConverter;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
 
 /**
  * Implementation to provide integration with JMS broker through JMSTemplate

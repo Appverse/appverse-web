@@ -23,13 +23,13 @@
  */
 package org.appverse.web.framework.backend.frontfacade.json.controllers;
 
-import java.io.IOException;
-
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 
 @Component 

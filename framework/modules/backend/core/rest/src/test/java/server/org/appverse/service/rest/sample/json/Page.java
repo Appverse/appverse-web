@@ -23,11 +23,10 @@
  */
 package server.org.appverse.service.rest.sample.json;
 
-import java.util.List;
+import server.org.appverse.service.rest.sample.SampleBean;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
-import server.org.appverse.service.rest.sample.SampleBean;
+import java.util.List;
 
 @XmlRootElement
 public class Page {

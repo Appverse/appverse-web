@@ -23,9 +23,8 @@
  */
 package org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events;
 
-import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.SearchSuggestEventHandler;
-
 import com.google.gwt.event.shared.GwtEvent;
+import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers.SearchSuggestEventHandler;
 
 public class SearchSuggestEvent extends
 		GwtEvent<SearchSuggestEventHandler> {

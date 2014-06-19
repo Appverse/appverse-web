@@ -23,13 +23,13 @@
  */
 package org.appverse.web.framework.backend.api.services.integration.impl.mock;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 import org.appverse.web.framework.backend.api.model.integration.AttachmentDTO;
 import org.appverse.web.framework.backend.api.services.integration.AbstractIntegrationService;
 import org.appverse.web.framework.backend.api.services.integration.MailIntegrationService;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 @SuppressWarnings("rawtypes")
 @Service("mailIntegrationService")

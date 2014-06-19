@@ -23,18 +23,16 @@
  */
 package org.appverse.web.framework.backend.rest.factories;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-
 import net.sf.ehcache.Cache;
-
 import org.appverse.web.framework.backend.rest.filters.auth.JWSJerseyFeature;
 import org.appverse.web.framework.backend.rest.filters.cache.RestRequestCachingFilter;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 import java.security.Key;
 
 public class WebTargetFactory {

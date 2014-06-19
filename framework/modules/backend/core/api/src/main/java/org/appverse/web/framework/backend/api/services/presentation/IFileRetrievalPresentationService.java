@@ -23,9 +23,9 @@
  */
 package org.appverse.web.framework.backend.api.services.presentation;
 
-import java.util.Map;
-
 import org.appverse.web.framework.backend.api.model.presentation.FileVO;
+
+import java.util.Map;
 
 public interface IFileRetrievalPresentationService extends IPresentationService {
 

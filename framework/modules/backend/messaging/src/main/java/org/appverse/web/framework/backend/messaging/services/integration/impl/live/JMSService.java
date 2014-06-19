@@ -23,19 +23,14 @@
  */
 package org.appverse.web.framework.backend.messaging.services.integration.impl.live;
 
-import java.util.Enumeration;
-
-import javax.jms.BytesMessage;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.ObjectMessage;
-import javax.jms.TextMessage;
-
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 import org.appverse.web.framework.backend.api.services.integration.AbstractIntegrationService;
 import org.appverse.web.framework.backend.messaging.services.integration.IJMSService;
 import org.slf4j.Logger;
+
+import javax.jms.*;
+import java.util.Enumeration;
 
 /**
  * JMS API to provide integration with JMS broker

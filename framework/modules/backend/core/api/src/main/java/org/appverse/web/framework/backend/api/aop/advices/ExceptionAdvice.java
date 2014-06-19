@@ -23,11 +23,11 @@
  */
 package org.appverse.web.framework.backend.api.aop.advices;
 
-import java.lang.reflect.Method;
-
 import org.appverse.web.framework.backend.api.aop.advices.technical.AbstractThrowsAOPAdvice;
 import org.appverse.web.framework.backend.api.aop.managers.ExceptionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.lang.reflect.Method;
 
 public class ExceptionAdvice extends AbstractThrowsAOPAdvice {
 

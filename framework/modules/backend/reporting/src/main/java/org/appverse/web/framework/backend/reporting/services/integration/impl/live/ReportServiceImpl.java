@@ -23,24 +23,19 @@
  */
 package org.appverse.web.framework.backend.reporting.services.integration.impl.live;
 
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRPrintPage;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
 import net.sf.jasperreports.engine.export.JExcelApiExporter;
 import net.sf.jasperreports.engine.export.JExcelApiExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
-
 import org.appverse.web.framework.backend.api.model.integration.ExcelSheetReportData;
 import org.appverse.web.framework.backend.api.services.business.AbstractBusinessService;
 import org.appverse.web.framework.backend.reporting.services.integration.ReportService;
 import org.springframework.stereotype.Service;
+
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("reportService")
 public class ReportServiceImpl extends AbstractBusinessService implements

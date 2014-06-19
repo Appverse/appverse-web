@@ -23,12 +23,6 @@
  */
 package org.appverse.web.framework.backend.api.aop.managers.impl.live;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.aopalliance.intercept.MethodInvocation;
 import org.appverse.web.framework.backend.api.aop.managers.ProfileManager;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
@@ -37,6 +31,8 @@ import org.appverse.web.framework.backend.api.services.integration.AbstractInteg
 import org.appverse.web.framework.backend.api.services.integration.helpers.Mapper;
 import org.appverse.web.framework.backend.api.services.presentation.AbstractPresentationService;
 import org.slf4j.Logger;
+
+import java.io.*;
 
 public class ProfileManagerImpl implements ProfileManager {
 	@AutowiredLogger

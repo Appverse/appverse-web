@@ -23,11 +23,11 @@
  */
 package org.appverse.web.framework.backend.api.model.integration;
 
+import org.appverse.web.framework.backend.api.model.business.AbstractBusinessBean;
+
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
-
-import org.appverse.web.framework.backend.api.model.business.AbstractBusinessBean;
 
 public class ExcelSheetReportData extends AbstractBusinessBean {
 

@@ -23,17 +23,13 @@
  */
 package org.appverse.web.framework.backend.api.converters.helpers;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.appverse.web.framework.backend.api.common.AbstractBean;
 import org.appverse.web.framework.backend.api.converters.IBeanConverter;
+
+import java.lang.reflect.*;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Copy properties between two objects of subclasses of abstract beans. The

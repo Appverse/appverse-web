@@ -23,10 +23,10 @@
  */
 package org.appverse.web.framework.backend.rest.model.integration;
 
+import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
+
 import java.io.Serializable;
 import java.util.List;
-
-import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationBean;
 
 /**
  * Page of data which contains also pagination information 

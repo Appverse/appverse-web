@@ -23,11 +23,11 @@
  */
 package org.appverse.web.framework.backend.api.converters.helpers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.appverse.web.framework.backend.api.common.AbstractBean;
 import org.appverse.web.framework.backend.api.converters.IBeanConverter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Wraps a ArrayList class addind properties to manage detach and undetach

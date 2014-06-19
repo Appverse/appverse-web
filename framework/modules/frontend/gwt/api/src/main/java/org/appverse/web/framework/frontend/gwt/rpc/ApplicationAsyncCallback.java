@@ -24,8 +24,6 @@
 package org.appverse.web.framework.frontend.gwt.rpc;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.rpc.StatusCodeException;
-import org.appverse.web.framework.backend.frontfacade.gxt.services.presentation.GWTPresentationException;
 import org.appverse.web.framework.frontend.gwt.callback.AppverseCallback;
 
 /**

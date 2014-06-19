@@ -23,9 +23,9 @@
  */
 package org.appverse.web.framework.backend.api.aop.advices.technical;
 
-import java.lang.reflect.Method;
-
 import org.springframework.aop.ThrowsAdvice;
+
+import java.lang.reflect.Method;
 
 public abstract class AbstractThrowsAOPAdvice extends AbstractAOPAdvice
 		implements ThrowsAdvice {

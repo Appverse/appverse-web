@@ -23,10 +23,9 @@
  */
 package org.appverse.web.framework.frontend.gwt.widgets.search.suggest.handlers;
 
+import com.google.gwt.event.shared.EventHandler;
 import org.appverse.web.framework.backend.frontfacade.gxt.model.presentation.GWTAbstractPresentationBean;
 import org.appverse.web.framework.frontend.gwt.widgets.search.suggest.events.LoadSuggestEvent;
-
-import com.google.gwt.event.shared.EventHandler;
 
 public interface LoadSuggestEventHandler<M extends GWTAbstractPresentationBean>
 		extends EventHandler {

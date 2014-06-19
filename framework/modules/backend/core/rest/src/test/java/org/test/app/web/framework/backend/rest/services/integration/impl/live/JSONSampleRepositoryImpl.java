@@ -23,14 +23,6 @@
  */
 package org.test.app.web.framework.backend.rest.services.integration.impl.live;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.model.integration.IntegrationPaginatedDataFilter;
 import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
@@ -43,6 +35,13 @@ import org.springframework.stereotype.Repository;
 import org.test.app.web.framework.backend.rest.model.integration.SampleDTO;
 import org.test.app.web.framework.backend.rest.model.integration.json.PageDTO;
 import org.test.app.web.framework.backend.rest.services.integration.SampleRepository;
+
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.Response;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository("sampleRepositoryJson")
 public class JSONSampleRepositoryImpl extends RestPersistenceService<SampleDTO>

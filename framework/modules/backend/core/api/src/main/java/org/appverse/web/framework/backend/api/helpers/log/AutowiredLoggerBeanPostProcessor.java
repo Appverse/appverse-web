@@ -23,12 +23,12 @@
  */
 package org.appverse.web.framework.backend.api.helpers.log;
 
-import java.lang.reflect.Field;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.util.ReflectionUtils;
+
+import java.lang.reflect.Field;
 
 public class AutowiredLoggerBeanPostProcessor implements BeanPostProcessor {
 

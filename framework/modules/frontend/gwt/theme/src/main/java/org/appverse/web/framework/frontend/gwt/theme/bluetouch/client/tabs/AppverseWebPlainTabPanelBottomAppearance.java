@@ -7,14 +7,13 @@
  */
 package org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.tabs;
 
-import org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.tabs.AppverseWebPlainTabPanelAppearance.AppverseWebPlainTabPanelResources;
-import org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.tabs.AppverseWebPlainTabPanelAppearance.AppverseWebPlainTabPanelStyle;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.sencha.gxt.widget.core.client.PlainTabPanel;
 import com.sencha.gxt.widget.core.client.PlainTabPanel.PlainTabPanelAppearance;
+import org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.tabs.AppverseWebPlainTabPanelAppearance.AppverseWebPlainTabPanelResources;
+import org.appverse.web.framework.frontend.gwt.theme.bluetouch.client.tabs.AppverseWebPlainTabPanelAppearance.AppverseWebPlainTabPanelStyle;
 
 /**
  * An appverseweb-coloured appearance for {@link PlainTabPanel} with tabs below the

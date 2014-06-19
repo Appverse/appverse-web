@@ -23,14 +23,13 @@
  */
 package org.appverse.web.framework.backend.persistence.model.integration;
 
-import java.util.Date;
+import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationAuditedBean;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.appverse.web.framework.backend.api.model.integration.AbstractIntegrationAuditedBean;
+import java.util.Date;
 
 @MappedSuperclass
 public abstract class AbstractIntegrationAuditedJPABean extends
