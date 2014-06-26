@@ -1,3 +1,4 @@
+#set($dollar = '$')
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -199,7 +200,7 @@
 							</goals>
                             <phase>compile</phase>
 							<configuration>
-							    <ddlOutputDir>${basedir}/src/main/resources/sql</ddlOutputDir>
+							    <ddlOutputDir>${dollar}{basedir}/src/main/resources/sql</ddlOutputDir>
 							</configuration>
 						</execution>
 					</executions>
@@ -228,7 +229,7 @@
 	</dependencyManagement>
   
   	<reporting>
-    	<outputDirectory>${basedir}/target/site</outputDirectory>
+    	<outputDirectory>${dollar}{basedir}/target/site</outputDirectory>
     	<plugins>
       		<plugin>
         		<artifactId>maven-project-info-reports-plugin</artifactId>

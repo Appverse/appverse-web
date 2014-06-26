@@ -1,3 +1,4 @@
+#set($dollar = '$')
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -223,7 +224,7 @@
 							</goals>
                             <phase>compile</phase>
 							<configuration>
-								<ddlOutputDir>${basedir}/src/main/resources/sql</ddlOutputDir>
+								<ddlOutputDir>${dollar}{basedir}/src/main/resources/sql</ddlOutputDir>
 							</configuration>
 						</execution>
 					</executions>
@@ -245,7 +246,7 @@
 								<goal>native2ascii</goal>
 							</goals>
 							<configuration>
-								<src>${basedir}/src/main/resources</src>
+								<src>${dollar}{basedir}/src/main/resources</src>
 								<dest>target/${project.artifactId}-${project.version}/WEB-INF/classes</dest>
 								<encoding>UTF8</encoding>
 								<includes>
@@ -263,8 +264,8 @@
 						<webAppConfig>
 							<contextPath>/${app.context.root}</contextPath>
 						</webAppConfig>
-						<webAppSourceDirectory>${basedir}/src/main/webapp</webAppSourceDirectory>
-						<webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
+						<webAppSourceDirectory>${dollar}{basedir}/src/main/webapp</webAppSourceDirectory>
+						<webXml>${dollar}{basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
 						<classesDirectory>target/${project.artifactId}-${project.version}/WEB-INF/classes</classesDirectory>
 						<reload>automatic</reload>
 						<scanIntervalSeconds>2</scanIntervalSeconds>
