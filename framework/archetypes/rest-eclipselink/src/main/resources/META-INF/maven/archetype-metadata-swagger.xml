@@ -8,11 +8,19 @@
     	<defaultValue>MySQLPlatform</defaultValue>
     </requiredProperty>
       <requiredProperty key="swagger">
-          <defaultValue>false</defaultValue>
+          <defaultValue>true</defaultValue>
       </requiredProperty>
   </requiredProperties>
 
   <fileSets>
+ 
+
+    <fileSet encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.sql</include>
+      </includes>
+    </fileSet>
     <fileSet filtered="true" encoding="UTF-8">
       <directory></directory>
       <includes>
@@ -57,6 +65,8 @@
           <directory>src/main/webapp</directory>
           <includes>
             <include>**/*.jsp</include>
+            <include>**/*.xml</include>
+            <include>**/*.html</include>
           </includes>
         </fileSet>
         <fileSet filtered="true" encoding="UTF-8">
@@ -65,6 +75,15 @@
             <include>**/*.html</include>
             <include>**/*.xml</include>
             <include>**/*.properties</include>
+          </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+          <directory>src/main/webapp</directory>
+          <includes>
+            <include>**/*.png</include>
+            <include>**/*.js</include>
+            <include>**/*.gif</include>
+            <include>**/*.css</include>
           </includes>
         </fileSet>
         <fileSet encoding="UTF-8">

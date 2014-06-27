@@ -170,7 +170,6 @@
     </properties>
 
 	<build>
-		<finalName>org-appverse-app-banking</finalName>
 
 		<filters>
 			<filter>src/main/filters/${env}.properties</filter>
@@ -272,6 +271,7 @@
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
         </dependency>
+        #if ( $swagger == "true" )
         <!--swagger -->
         <dependency>
             <groupId>com.wordnik</groupId>
@@ -288,6 +288,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        #end
 
         <dependency>
             <groupId>javax.servlet</groupId>
