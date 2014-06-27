@@ -182,5 +182,6 @@
 		<module>gwt-eclipselink</module>
         <module>gwt-hibernate</module>
 		<module>jsf2</module>
+        <module>rest-eclipselink</module>
 	</modules>
 </project>
