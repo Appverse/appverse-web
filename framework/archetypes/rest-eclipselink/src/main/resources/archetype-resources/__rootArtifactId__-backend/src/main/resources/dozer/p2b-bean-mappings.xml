@@ -1,0 +1,26 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+<!-- Presentation to Business Mappings (Sort in alphabetical order)-->
+
+    <mapping map-id="accounts-p2b">
+        <class-a>${package}.model.presentation.customer.AccountsDataVO</class-a>
+        <class-b>${package}.model.business.customer.AccountsData</class-b>
+    </mapping>
+
+    <mapping map-id="customerInfo-p2b">
+        <class-a>${package}.model.presentation.customer.CustomerInfoVO</class-a>
+        <class-b>${package}.model.business.customer.User</class-b>
+    </mapping>
+
+    <mapping map-id="user-p2b">
+        <class-a>${package}.model.presentation.common.UserVO</class-a>
+        <class-b>${package}.model.business.customer.User</class-b>
+    </mapping>
+
+
+</mappings>

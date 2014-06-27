@@ -1,0 +1,65 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+<!-- Business to Integration Mappings (Sort in alphabetical order)-->
+
+
+    <mapping map-id="account-b2i-complete" relationship-type="non-cumulative">
+        <class-a>${package}.model.business.customer.Account</class-a>
+        <class-b>${package}.model.integration.jpa.AccountDTO</class-b>
+        <field>
+            <a>alias</a>
+            <b>accountUser.alias</b>
+        </field>
+        <field>
+            <a>owner</a>
+            <b>accountUser.owner</b>
+        </field>
+        <field>
+            <a>familyCode</a>
+            <b>accountType.code</b>
+        </field>
+    </mapping>
+
+    <mapping map-id="account-b2i-without-dependencies">
+        <class-a>${package}.model.business.customer.Account</class-a>
+        <class-b>${package}.model.integration.jpa.AccountDTO</class-b>
+        <field>
+            <a>alias</a>
+            <b>accountUser.alias</b>
+        </field>
+        <field>
+            <a>owner</a>
+            <b>accountUser.owner</b>
+        </field>
+        <field>
+            <a>familyCode</a>
+            <b>accountType.code</b>
+        </field>
+    </mapping>
+
+    <mapping map-id="user-b2i-complete" relationship-type="non-cumulative">
+        <class-a>${package}.model.business.customer.User</class-a>
+        <class-b>${package}.model.integration.jpa.UserDTO</class-b>
+        <field>
+            <a>surname</a>
+            <b>lastName</b>
+        </field>
+    </mapping>
+
+
+    <mapping map-id="user-b2i-without-dependencies">
+        <class-a>${package}.model.business.customer.User</class-a>
+        <class-b>${package}.model.integration.jpa.UserDTO</class-b>
+        <field>
+            <a>surname</a>
+            <b>lastName</b>
+        </field>
+    </mapping>
+
+
+</mappings>
