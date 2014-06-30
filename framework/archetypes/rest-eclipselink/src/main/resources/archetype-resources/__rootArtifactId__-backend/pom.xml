@@ -26,7 +26,7 @@
 			<comments>Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 			
 			 This Source Code Form is subject to the terms of the Appverse Public License 
-			 Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this 
+			 Version 2.0 ("APL v2.0"). If a copy of the APL was not distributed with this
 			 file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
 			
 			 Redistribution and use in source and binary forms, with or without modification, 
@@ -175,10 +175,10 @@
 			<filter>src/main/filters/${env}.properties</filter>
 		</filters>
 
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
                 <includes>
                     <include>**/*.xml</include>
                     <include>**/*.properties</include>
@@ -187,10 +187,11 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>**/*.p12</exclude>
+                    <exclude>**/*.xml</exclude>
+                    <exclude>**/*.properties</exclude>
                 </excludes>
-			</resource>
-		</resources>
+            </resource>
+        </resources>
 
 		<plugins>
 			<plugin>
@@ -271,7 +272,7 @@
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
         </dependency>
-        #if ( $swagger == "true" )
+        #if ( !$null.isNull($swagger) && $swagger == 'true' )
         <!--swagger -->
         <dependency>
             <groupId>com.wordnik</groupId>

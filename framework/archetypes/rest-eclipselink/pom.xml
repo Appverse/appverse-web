@@ -195,6 +195,7 @@
             <activation>
                 <property>
                     <name>swagger</name>
+                    <value>true</value>
                 </property>
             </activation>
             <build>

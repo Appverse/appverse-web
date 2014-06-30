@@ -51,7 +51,7 @@
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
 
-    #if ( $swagger == "true" )
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     <servlet>
         <servlet-name>JerseyJaxrsConfig</servlet-name>
         <servlet-class>com.wordnik.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
