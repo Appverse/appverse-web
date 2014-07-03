@@ -39,7 +39,7 @@
 	<!-- Google Gin -->
 	<inherits name="com.google.gwt.inject.Inject"/>
 
-	<!-- RIAFramework Backend Shared Classes -->
+	<!-- Framework Backend Shared Classes -->
 	<inherits name="org.appverse.web.framework.backend.frontfacade.gxt.API"/>
 	<inherits name="org.appverse.web.framework.backend.frontfacade.json.API"/>
 

@@ -245,7 +245,7 @@ public abstract class RestPersistenceService<T extends AbstractIntegrationBean> 
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.gft.riaframework.backend.services.integration.IRestPersistenceService
+	 * org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService
 	 * #retrieveList()
 	 */
 	/* (non-Javadoc)
