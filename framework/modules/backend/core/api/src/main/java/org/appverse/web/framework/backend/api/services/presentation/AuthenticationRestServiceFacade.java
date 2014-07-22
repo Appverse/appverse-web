@@ -25,30 +25,48 @@ package org.appverse.web.framework.backend.api.services.presentation;
 
 import java.util.List;
 
-import javax.ws.rs.POST;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.RestService;
+import org.fusesource.restygwt.client.TextCallback;
 
+
+/**
+ * This is the interface that RestyGWT, and only RestyGWT, will use to access the AuthenticationService.
+ * The annotations needed by Jersey to publish the service are in the corresponding interface.
+ * @author RRBL
+ *
+ */
+
+@Path("authenticationServiceFacade")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public interface AuthenticationRestServiceFacade extends RestService {
 
 //	@POST
 //	public void authenticatePrincipal(String username, List<String> authorities);
 
-	@POST
+    @POST
+    @Path("authenticatePrincipal")
 	public void  authenticatePrincipal(UserInfoVO userInfo, MethodCallback<AuthorizationDataVO> callback);
 
 	@POST
+    @Path("getAuthorities")
 	public void getAuthorities(MethodCallback<List<String>> callback);
 
 	@POST
-	public void getPrincipal(MethodCallback<String> callback);
+    @Path("getPrincipal")
+	public void getPrincipal(TextCallback callback);
 
 	@POST
-	public void getXSRFSessionToken(MethodCallback<String> callback);
+    @Path("getXSRFSessionToken")
+	public void getXSRFSessionToken(TextCallback callback);
 
 	@POST
+    @Path("isPrincipalAuthenticated")
 	public void isPrincipalAuthenticated(MethodCallback<Boolean> callback);
 }
