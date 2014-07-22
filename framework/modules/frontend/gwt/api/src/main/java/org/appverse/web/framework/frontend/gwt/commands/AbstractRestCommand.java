@@ -22,7 +22,7 @@ public abstract class AbstractRestCommand<E extends EventBusWithLookup, T extend
 			instance = createService();
 		}
 		((RestServiceProxy) instance).setResource(new Resource(GWT
-				.getModuleBaseURL() + "rest/jsonservices/"+serviceName+"/"+ methodName));
+				.getModuleBaseURL() + "rest/kk/"+serviceName+"/"+ methodName));
         ((RestServiceProxy) instance).setDispatcher(AppverseDispatcher.INSTANCE);
 		return instance;
 	}

@@ -51,7 +51,18 @@ public class XSRFCheckFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        if (isXsrfCheckEligible(req)){
+        if( isXsrfGenerate(req) ) {
+        	try {
+        		String xsrfToken = SecurityHelper.createXSRFToken(req);
+        		response.getOutputStream().write(xsrfToken.getBytes());
+        		response.flushBuffer();
+        		return;
+        	} catch (Exception e) {
+                res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                /*return;*/
+        	}
+        }
+        else if (isXsrfCheckEligible(req)){
             try{
                 SecurityHelper.checkXSRFToken(req);
             }
@@ -105,6 +116,18 @@ public class XSRFCheckFilter implements Filter {
         excludes = null;
     }
 
+    private boolean isXsrfGenerate(HttpServletRequest req) {
+        String uri = req.getRequestURI();
+        if (uri == null) {
+            return false;
+        }
+        for (String exclude : excludes) {
+            if (uri.contains(exclude)) {
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Determine if uri is eligible for being checked against XSRF attacks
      */

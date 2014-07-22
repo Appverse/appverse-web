@@ -23,9 +23,19 @@
  */
 package org.appverse.web.framework.backend.api.services.presentation;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
+import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 
 public interface AuthenticationServiceFacade extends IPresentationService {
 
@@ -34,11 +44,16 @@ public interface AuthenticationServiceFacade extends IPresentationService {
 	public AuthorizationDataVO authenticatePrincipal(String username,
 			String password);
 
+	/**
+	 * This is a convenience method for making Rest and RPC interfaces of this service compatible.
+	 */
+	public AuthorizationDataVO authenticatePrincipal(UserInfoVO userInfo);
+	
 	public List<String> getAuthorities();
 
 	public String getPrincipal();
 
-	public String getXSRFSessionToken();
+	public String getXSRFSessionToken() throws IOException;
 
 	public boolean isPrincipalAuthenticated();
 }

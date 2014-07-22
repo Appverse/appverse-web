@@ -23,10 +23,15 @@
  */
 package org.appverse.web.framework.backend.api.services.presentation.impl.mock;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
+
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
+import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 import org.appverse.web.framework.backend.api.services.presentation.AbstractPresentationService;
 import org.appverse.web.framework.backend.api.services.presentation.AuthenticationServiceFacade;
 import org.springframework.stereotype.Service;
@@ -81,7 +86,7 @@ public class AuthenticationServiceFacadeMockImpl extends AbstractPresentationSer
 	 *         for current session
 	 */
 	@Override
-	public String getXSRFSessionToken() {
+	public String getXSRFSessionToken() throws IOException {
 
 		return "";
 	}
@@ -95,5 +100,10 @@ public class AuthenticationServiceFacadeMockImpl extends AbstractPresentationSer
 	@Override
 	public boolean isPrincipalAuthenticated() {
 		return true;
+	}
+
+	@Override
+	public AuthorizationDataVO authenticatePrincipal(UserInfoVO userInfo) {
+		return authenticatePrincipal(userInfo.getUser(), userInfo.getPassword());
 	}
 }
