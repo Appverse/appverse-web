@@ -37,9 +37,10 @@ import org.fusesource.restygwt.client.TextCallback;
 
 /**
  * This is the interface that RestyGWT, and only RestyGWT, will use to access the AuthenticationService.
- * The annotations needed by Jersey to publish the service are in the corresponding interface.
+ * The annotations in this interface are required by RestyGWT.
+ * The annotations needed by Jersey to publish the service are in the corresponding service implementation.
+ * @see org.appverse.web.framework.backend.api.services.presentation.impl.live.AuthenticationServiceFacadeImpl
  * @author RRBL
- *
  */
 
 @Path("authenticationServiceFacade")
@@ -58,6 +59,7 @@ public interface AuthenticationRestServiceFacade extends RestService {
     @Path("getAuthorities")
 	public void getAuthorities(MethodCallback<List<String>> callback);
 
+	//TextCallback are needed when method return type is just String.
 	@POST
     @Path("getPrincipal")
 	public void getPrincipal(TextCallback callback);
