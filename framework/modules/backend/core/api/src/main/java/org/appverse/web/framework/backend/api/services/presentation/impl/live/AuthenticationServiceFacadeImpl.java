@@ -28,16 +28,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-
-import org.appverse.web.framework.backend.api.helpers.security.SecurityHelper;
 import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDataVO;
 import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 import org.appverse.web.framework.backend.api.services.presentation.AbstractPresentationService;
@@ -52,8 +48,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+
+/**
+ * Authentication Service Implementation.
+ * It is being used by gwt api in the module initialization phase.
+ * @author RRBL
+ *
+ */
 
 @Service("authenticationServiceFacade")
 @Path("authenticationServiceFacade")
@@ -152,7 +153,12 @@ public class AuthenticationServiceFacadeImpl extends
 	 * Geneates a cross site request forgivery token, saves it at the current
 	 * session and returns the token to the frontend site.
 	 * 
-	 * This method is intercepted by the spring gwtrpc controller
+	 * This method is intercepted by:
+	 * - the spring gwtrpc controller
+	 * - the spring json controller
+	 * - XSRFCheckFilter
+	 * 
+	 * Reason for this interception is to decouple these spring beans from the servlet context.
 	 * 
 	 * @return String object with cross site request forgivery generated token
 	 *         for current session
@@ -163,18 +169,7 @@ public class AuthenticationServiceFacadeImpl extends
     @Path("getXSRFSessionToken")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getXSRFSessionToken() throws IOException {
-		/**
-		 * In order to have a Rest interface, without the tactical JSONController, we do need to implement this method.
-		 * GWTRpcController and JSONController intercepts this method (don't know exactly why -> MLFD).
-		 * With a Rest interface we propose not to use JSONController but instead annotate Presentation Services with JAX-RS annotations.
-		 * In order to provide this scenario with XSRF protection, and als 
-		 */
-		/*System.out.println("sth");
-		String xsrfToken = "";
-		if( request != null ) {
-			xsrfToken = SecurityHelper.createXSRFToken(request);
-		}
-		return xsrfToken;*/
+		//See Javadoc to understand this method.
 		return "";
 	}
 
