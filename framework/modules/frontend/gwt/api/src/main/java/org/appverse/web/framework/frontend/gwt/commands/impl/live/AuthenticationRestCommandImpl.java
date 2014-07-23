@@ -37,6 +37,7 @@ import org.appverse.web.framework.frontend.gwt.commands.AuthenticationCommand;
 import org.appverse.web.framework.frontend.gwt.common.FrameworkEventBus;
 import org.appverse.web.framework.frontend.gwt.helpers.security.PrincipalInformation;
 import org.appverse.web.framework.frontend.gwt.json.ApplicationJsonAsyncCallback;
+import org.appverse.web.framework.frontend.gwt.json.ApplicationJsonTextAsyncCallback;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.TextCallback;
 
@@ -45,10 +46,14 @@ import com.google.gwt.core.client.GWT;
 public class AuthenticationRestCommandImpl extends
 		AbstractRestCommand<FrameworkEventBus, AuthenticationRestServiceFacade> implements AuthenticationCommand {
 
+	/**
+	 * AuthenticationRestServiceFacade gets directly injected thanks to GIN and RestyGWT
+	 */
 	@Inject
 	AuthenticationRestServiceFacade authServiceFacade;
 	
-	static final String SERVICE_NAME = "authenticationServiceFacade";
+	//static final String SERVICE_NAME = "authenticationServiceFacade";
+
 	@Override
 	public AuthenticationRestServiceFacade createService() {
 		if( true ) 
@@ -58,39 +63,24 @@ public class AuthenticationRestCommandImpl extends
 
 
 
-	//private final ApplicationJsonAsyncCallback<String> authenticationCallback = new ApplicationJsonAsyncCallback<String>() {
-	private final TextCallback authenticationCallback = new TextCallback() {
+	/**
+	 * AuthenticationCallback is of JsonText subtype because it is calling a String return type method.
+	 * 
+	 */
+	private final ApplicationJsonTextAsyncCallback authenticationCallback = new ApplicationJsonTextAsyncCallback() {
 		@Override
 		public void onSuccess(Method method, String response) {
-			// TODO XSRF token comes into response...
+			//XSRF token comes into response...
             AppverseDispatcher.setXSRFToken(response);
-            /*authServiceFacade.getPrincipal(
-					wrapCallback(principalCallback));*/
             authServiceFacade.getPrincipal(principalCallback);
-			/*getRestService(SERVICE_NAME,"getPrincipal").getPrincipal(
-					wrapCallback(principalCallback));*/
-		}
-
-		@Override
-		public void onFailure(Method method, Throwable exception) {
-			// TODO Auto-generated method stub
-			
 		}
 	};
 
-	//private final ApplicationJsonAsyncCallback<String> principalCallback = new ApplicationJsonAsyncCallback<String>() {
-	private final TextCallback principalCallback = new TextCallback() {
+	private final ApplicationJsonTextAsyncCallback principalCallback = new ApplicationJsonTextAsyncCallback() {
 		@Override
 		public void onSuccess(Method method, String response) {
 			PrincipalInformation.setPrincipal(response);
 			authServiceFacade.getAuthorities(wrapCallback(authoritiesCallback));
-			/*getRestService(SERVICE_NAME,"getAuthorities")
-					.getAuthorities(wrapCallback(authoritiesCallback));*/
-		}
-		@Override
-		public void onFailure(Method method, Throwable exception) {
-			// TODO Auto-generated method stub
-			
 		}
 	};
 
@@ -105,9 +95,6 @@ public class AuthenticationRestCommandImpl extends
 	@Override
 	public void onAuthenticate() {
 		authServiceFacade.getXSRFSessionToken(authenticationCallback);
-		/*getRestService(
-                SERVICE_NAME,"getXSRFSessionToken")
-				.getXSRFSessionToken(authenticationCallback);*/
 	}
 
 	@Override
@@ -116,29 +103,18 @@ public class AuthenticationRestCommandImpl extends
 		authServiceFacade.authenticatePrincipal(
 				userInfo, 
 				wrapCallback((ApplicationJsonAsyncCallback) callback));
-		/*getRestService(
-                SERVICE_NAME,"authenticatePrincipal")
-				.authenticatePrincipal(userInfo, wrapCallback((ApplicationJsonAsyncCallback) callback));*/
 	}
 
 	@Override
 	public void onGetXSRFSessionToken() {
 		authServiceFacade
 		.getXSRFSessionToken(authenticationCallback);
-		/*authServiceFacade
-			.getXSRFSessionToken(wrapCallback(authenticationCallback));*/
-		/*getRestService(
-                SERVICE_NAME,"getXSRFSessionToken")
-				.getXSRFSessionToken(wrapCallback(authenticationCallback));*/
 	}
 
 	@Override
 	public void onIsPrincipalAuthenticated(AppverseCallback<Boolean> callback) {
 		authServiceFacade
 				.isPrincipalAuthenticated(wrapCallback((ApplicationJsonAsyncCallback) callback));
-		/*getRestService(
-                SERVICE_NAME,"isPrincipalAuthenticated")
-				.isPrincipalAuthenticated(wrapCallback((ApplicationJsonAsyncCallback) callback));*/
 	}
 
 	@Override
