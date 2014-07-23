@@ -52,7 +52,7 @@ public class ApplicationAsyncCallback<T> extends AppverseCallback<T> implements 
 	 */
 	@Override
 	public void onFailure(final Throwable ex) {
-        super.onFailure(ex);
+        super.processFailure(ex);
 	}
 
 	@Override
