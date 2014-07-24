@@ -48,6 +48,7 @@
     <source path="callback" />
     <source path="commands" />
     <source path="common"/>
+    <source path="entrypoint"/>
     <source path="helpers"/>
     <source path="history"/>
     <source path="json"/>
