@@ -50,6 +50,7 @@ import org.glassfish.jersey.test.TestProperties;
 import org.glassfish.jersey.test.spi.TestContainerException;
 import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -64,7 +65,6 @@ import org.test.app.web.framework.backend.rest.services.integration.SampleReposi
 
 import server.org.appverse.service.rest.sample.ExtendedGrizzlyTestContainerFactory;
 import server.org.appverse.service.rest.sample.SampleRestApplication;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -169,6 +169,7 @@ public class SampleDeleteTest extends JerseyTest {
 	}
 
 	@Test
+	@Ignore
 	public void deleteSampleExceptionXml() throws Exception {
 		try
 		{
