@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.appverse.web.framework.poms</groupId>
 		<artifactId>appverse-web-masterpom</artifactId>
-		<version>1.4.1-SNAPSHOT</version>
+		<version>1.4.1-MILESTONE_1</version>
 		<relativePath>../../../..</relativePath>
 	</parent>
 
@@ -115,7 +115,7 @@
 	<scm>
 		<connection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</connection>
 		<developerConnection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</developerConnection>
-		<tag>master</tag>
+		<tag>appverse-web-masterpom-1.4.1-MILESTONE_1_10</tag>
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 

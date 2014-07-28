@@ -10,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms</groupId>
 	<artifactId>appverse-web-masterpom</artifactId>
-	<version>1.4.1-SNAPSHOT</version>
+	<version>1.4.1-MILESTONE_1</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Master POM</name>
@@ -187,12 +187,12 @@
 	<scm>
 		<connection>scm:git:https://github.com/Appverse/appverse-web.git</connection>
 		<developerConnection>scm:git:https://github.com/Appverse/appverse-web.git</developerConnection>
-		<tag>master</tag>
+		<tag>appverse-web-masterpom-1.4.1-MILESTONE_1_10</tag>
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
 	<properties>
-		<framework.version>1.4.1-SNAPSHOT</framework.version>
+		<framework.version>1.4.1-MILESTONE_1</framework.version>
 		<spring.version>3.2.8.RELEASE</spring.version>
         <spring.security.version>3.2.3.RELEASE</spring.security.version>
         <spring.oauth2.version>2.0.2.RELEASE</spring.oauth2.version>
