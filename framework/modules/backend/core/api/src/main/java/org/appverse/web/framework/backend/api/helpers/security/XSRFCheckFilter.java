@@ -45,6 +45,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * Params initialization and url patterns treatment (matches, nocaches and wildcards) is inspired by jodd.servlet.filter.GzipFilter.java
  * http://jodd.org/doc/htmlstapler/enabling-gzip.html#GZIP-filter
+ * 
+ * Those params are:
+ * - match: comma separated string patterns to be found in the uri for using XSRFCheckFilter. Only uris that match these patterns will be checked. Use '*' to enable default matching.
+ * - widlcards {true|false}  boolean that specifies wildcard matching for string patterns. by default false. 
+ * - exludes: comma separated string patterns to be excluded if found in uri for using XSRFCheckFilter. It is applied only if all urls are matched.
+ * - genXsrfPath: Single path which will generate the XSRF Token.
  */
 public class XSRFCheckFilter implements Filter {
 
@@ -77,6 +83,7 @@ public class XSRFCheckFilter implements Filter {
     protected String[] matches;
     protected String[] excludes;
     protected boolean wildcards;
+    protected String getXsrfPath;
 
 
     /**
@@ -109,6 +116,9 @@ public class XSRFCheckFilter implements Filter {
                 excludes[i] = excludes[i].trim();
             }
         }
+        
+        // getXsrfPath
+        getXsrfPath = config.getInitParameter("getXsrfPath");
     }
 
     public void destroy() {
@@ -121,10 +131,8 @@ public class XSRFCheckFilter implements Filter {
         if (uri == null) {
             return false;
         }
-        for (String exclude : excludes) {
-            if (uri.contains(exclude)) {
-                return true;
-            }
+        if (uri.contains(getXsrfPath)) {
+            return true;
         }
         return false;
     }

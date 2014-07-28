@@ -59,7 +59,7 @@ public interface AuthenticationRestServiceFacade extends RestService {
     @Path("getAuthorities")
 	public void getAuthorities(MethodCallback<List<String>> callback);
 
-	//TextCallback are needed when method return type is just String.
+	//TextCallback are needed when method return type is just String. See https://github.com/resty-gwt/resty-gwt/issues/63
 	@POST
     @Path("getPrincipal")
 	public void getPrincipal(TextCallback callback);
