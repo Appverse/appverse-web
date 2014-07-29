@@ -203,12 +203,10 @@
         <jdk.source>1.6</jdk.source>
         <jdk.target>1.6</jdk.target>
         <ehcache.version>2.4.5</ehcache.version>
-        <bonita.engine.version>6.2.2</bonita.engine.version>	
         <owasp.esapi.version>2.1.0</owasp.esapi.version>
         <org.jsoup.version>1.7.3</org.jsoup.version>
-        <nimbus.version>2.25</nimbus.version>    
-        <org.jsoup.version>1.7.3</org.jsoup.version>    
-        <bonita.engine.version>6.2.2</bonita.engine.version>
+        <nimbus.version>2.25</nimbus.version>
+        <bonita.engine.version>6.3.1</bonita.engine.version>
         <mockito.version>1.9.5</mockito.version>
     </properties>
 
