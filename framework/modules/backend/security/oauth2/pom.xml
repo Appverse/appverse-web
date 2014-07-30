@@ -186,6 +186,13 @@
             <artifactId>spring-security-oauth2</artifactId>
         </dependency>
 
+        <!-- Servlet API dependency -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Junit -->
         <dependency>
             <groupId>junit</groupId>

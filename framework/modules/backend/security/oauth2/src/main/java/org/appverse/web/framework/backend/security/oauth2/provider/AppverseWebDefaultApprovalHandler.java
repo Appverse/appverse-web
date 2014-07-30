@@ -54,7 +54,7 @@
   limitations under the License.
  */
 
-package org.appverse.web.framework.backend.security.oauth2;
+package org.appverse.web.framework.backend.security.oauth2.provider;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.AuthorizationRequest;
