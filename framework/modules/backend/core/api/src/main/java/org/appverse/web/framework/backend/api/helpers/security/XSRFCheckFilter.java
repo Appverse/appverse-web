@@ -131,7 +131,7 @@ public class XSRFCheckFilter implements Filter {
         if (uri == null) {
             return false;
         }
-        if (uri.contains(getXsrfPath)) {
+        if (getXsrfPath!=null && uri.contains(getXsrfPath)) {
             return true;
         }
         return false;
