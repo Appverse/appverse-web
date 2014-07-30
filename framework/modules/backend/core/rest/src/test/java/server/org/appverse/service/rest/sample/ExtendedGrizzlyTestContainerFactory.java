@@ -33,15 +33,22 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.grizzly2.servlet.GrizzlyWebContainerFactory;
 import org.glassfish.jersey.server.ApplicationHandler;
+import org.glassfish.jersey.test.DeploymentContext;
 import org.glassfish.jersey.test.spi.TestContainer;
 import org.glassfish.jersey.test.spi.TestContainerException;
 import org.glassfish.jersey.test.spi.TestContainerFactory;
 
 public class ExtendedGrizzlyTestContainerFactory implements TestContainerFactory {
 
+//	@Override
+//	public TestContainer create(final URI baseUri, final ApplicationHandler application)
+//			throws IllegalArgumentException {
+//		
+//
+//	}
+
 	@Override
-	public TestContainer create(final URI baseUri, final ApplicationHandler application)
-			throws IllegalArgumentException {
+	public TestContainer create(final URI baseUri, DeploymentContext arg1) {
 		return new TestContainer() {
 			private HttpServer server;
 
@@ -77,8 +84,7 @@ public class ExtendedGrizzlyTestContainerFactory implements TestContainerFactory
 			public void stop() {
 				this.server.stop();
 			}
-		};
-
-	}
+		};	
+		}
 
 }
