@@ -65,7 +65,7 @@ import org.springframework.security.oauth2.provider.approval.ApprovalStoreUserAp
 
 import java.util.Collection;
 
-public class AppverseWebDefaultApprovalHandler extends ApprovalStoreUserApprovalHandler {
+public class AutomaticApprovalHandler extends ApprovalStoreUserApprovalHandler {
 
 	private boolean useApprovalStore = true;
 

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-public class AppverseWebOath2TokenRevokeLogoutHandler implements LogoutHandler {
+public class Oath2TokenRevokeLogoutHandler implements LogoutHandler {
 
 
     @Override
