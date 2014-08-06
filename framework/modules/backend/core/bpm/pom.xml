@@ -212,7 +212,7 @@
             <groupId>org.bonitasoft.engine</groupId>
             <artifactId>bonita-client</artifactId>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.bonitasoft.engine</groupId>
             <artifactId>bonita-server</artifactId>
             <exclusions>
@@ -221,6 +221,6 @@
                     <artifactId>spring-asm</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency-->
     </dependencies>
 </project>

@@ -225,7 +225,7 @@
         <dependency>
             <groupId>com.notnoop.apns</groupId>
             <artifactId>apns</artifactId>
-            <version>0.2.3</version>
+            <version>1.0.0.Beta3</version>
         </dependency>
         <!-- end -->
         <!--facebook4j-->

@@ -197,16 +197,16 @@
 		<spring.security.version>3.1.3.RELEASE</spring.security.version>
 		<slf4j.version>1.5.11</slf4j.version>
 		<gwt.version>2.5.0</gwt.version>
-		<restygwt.version>1.3</restygwt.version>
+		<restygwt.version>1.4</restygwt.version>
 		<jsr311.version>2.0</jsr311.version>
-		<jersey.version>2.5</jersey.version>
+		<jersey.version>2.6</jersey.version>
         <jdk.source>1.6</jdk.source>
         <jdk.target>1.6</jdk.target>
         <ehcache.version>2.4.5</ehcache.version>
         <owasp.esapi.version>2.1.0</owasp.esapi.version>
         <org.jsoup.version>1.7.3</org.jsoup.version>
         <nimbus.version>2.25</nimbus.version>
-        <bonita.engine.version>6.3.1</bonita.engine.version>
+        <bonita.engine.version>6.2.6</bonita.engine.version>
         <mockito.version>1.9.5</mockito.version>
     </properties>
 
@@ -1228,7 +1228,6 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>4.3.1</version>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
