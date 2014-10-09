@@ -214,7 +214,8 @@
 			<groupId>com.googlecode.mvp4g</groupId>
 			<artifactId>mvp4g</artifactId>
 		</dependency>
-
+		
+<!-- https://agema.gft.com/jira/browse/APPWEB-250
 		<dependency>
 			<groupId>com.googlecode.gwt-validation</groupId>
 			<artifactId>gwt-validation</artifactId>
@@ -235,7 +236,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+-->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>

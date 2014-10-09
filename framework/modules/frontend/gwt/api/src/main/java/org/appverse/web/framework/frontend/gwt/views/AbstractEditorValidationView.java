@@ -48,8 +48,7 @@ public abstract class AbstractEditorValidationView<T, M, E extends Editor<? supe
 	public AbstractEditorValidationView() {
 
 		createDriver();
-		factory = Validation.byDefaultProvider().configure()
-				.buildValidatorFactory();
+		factory = Validation.buildDefaultValidatorFactory();		
 	}
 
 	/**

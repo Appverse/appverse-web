@@ -196,7 +196,8 @@
 		<spring.version>3.2.8.RELEASE</spring.version>
         <spring.security.version>3.2.3.RELEASE</spring.security.version>
         <spring.oauth2.version>2.0.2.RELEASE</spring.oauth2.version>
-		<slf4j.version>1.5.11</slf4j.version>
+<!-- 		<slf4j.version>1.5.11</slf4j.version>  -->
+		<slf4j.version>1.6.1</slf4j.version>
 		<gwt.version>2.5.1</gwt.version>
 		<restygwt.version>1.4</restygwt.version>
 		<gin.version>1.5.0</gin.version>
@@ -847,11 +848,12 @@
 				<artifactId>jcl-over-slf4j</artifactId>
 				<version>${slf4j.version}</version>
 			</dependency>
-
+			
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>1.2.17</version>
+<!--     		<version>1.2.16</version> -->				
 			</dependency>
 			<!-- END OF LOGGING MANAGED DEPENDENCIES -->
 
@@ -922,6 +924,7 @@
 				<version>${gwt.version}</version>
 			</dependency>
 
+<!-- https://agema.gft.com/jira/browse/APPWEB-250 
 			<dependency>
 				<groupId>com.googlecode.gwt-validation</groupId>
 				<artifactId>gwt-validation</artifactId>
@@ -933,17 +936,20 @@
                     </exclusion>
                 </exclusions>
 			</dependency>
+-->			
 			<dependency>
             	<groupId>com.google.gwt.inject</groupId>
             	<artifactId>gin</artifactId>
             	<version>${gin.version}</version>
             </dependency>
 			
+<!-- https://agema.gft.com/jira/browse/APPWEB-250 
             <dependency>
                 <groupId>org.reflections</groupId>
                 <artifactId>reflections</artifactId>
                 <version>0.9.8</version>
             </dependency>
+-->            
             <dependency>
             	<groupId>com.google.guava</groupId>
             	<artifactId>guava</artifactId>
@@ -1149,7 +1155,8 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>4.3.1.Final</version>
+<!-- Not compatible with gwt native validation <version>4.3.1.Final</version>  -->
+				<version>4.1.0.Final</version>
 			</dependency>
 
 			<dependency>
