@@ -215,33 +215,47 @@
 			<artifactId>mvp4g</artifactId>
 		</dependency>
 		
-<!-- https://agema.gft.com/jira/browse/APPWEB-250
+<!-- GWT NATIVE VALIDATION DEPENDENCIES -->
+
+		<!-- Hibernate validator is required by GWT native validation, 
+			versions greater than 4.1.0 are not currently supported by GWT
+			https://code.google.com/p/google-web-toolkit/issues/detail?id=7661			
+			--> 
 		<dependency>
-			<groupId>com.googlecode.gwt-validation</groupId>
-			<artifactId>gwt-validation</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
-            </exclusions>
+        	<groupId>org.hibernate</groupId>
+        	<artifactId>hibernate-validator</artifactId>
+         	<!--  <scope>provided</scope> -->
+      	</dependency>
+      	
+		<!-- Hibernate validator sources are required by GWT native validation, 
+			versions greater than 4.1.0 are not currently supported by GWT
+			https://code.google.com/p/google-web-toolkit/issues/detail?id=7661
+			Version is managed in appverse-web-masterpom --> 
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-validator</artifactId>
+     		<classifier>sources</classifier>
 		</dependency>
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
--->
+		
+		<!--  Next slf4j 1.6.1 and log4j 1.2.16+ libraries are required by GWT native validation,
+			see: http://www.gwtproject.org/doc/latest/DevGuideValidation.html
+			Version is managed in appverse-web-masterpom
+		 -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<scope>provided</scope>
+    		<groupId>org.slf4j</groupId>
+    		<artifactId>slf4j-api</artifactId>
 		</dependency>		
+		<dependency>
+    		<groupId>org.slf4j</groupId>
+    		<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+    		<groupId>log4j</groupId>
+    		<artifactId>log4j</artifactId>
+		</dependency>
+
+<!-- END GWT NATIVE VALIDATION DEPENDENCIES -->		
+	
 		<dependency>
 			<groupId>org.fusesource.restygwt</groupId>
 			<artifactId>restygwt</artifactId>

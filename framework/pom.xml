@@ -196,7 +196,7 @@
 		<spring.version>3.2.8.RELEASE</spring.version>
         <spring.security.version>3.2.3.RELEASE</spring.security.version>
         <spring.oauth2.version>2.0.2.RELEASE</spring.oauth2.version>
-<!-- 		<slf4j.version>1.5.11</slf4j.version>  -->
+		<!--  GWT Native validation requires slf4j vresion 1.6.1, if this is changed, module frontend-gwt-api needs to be reviewed and tested -->
 		<slf4j.version>1.6.1</slf4j.version>
 		<gwt.version>2.5.1</gwt.version>
 		<restygwt.version>1.4</restygwt.version>
@@ -852,8 +852,7 @@
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
-				<version>1.2.17</version>
-<!--     		<version>1.2.16</version> -->				
+ 				<version>1.2.17</version>
 			</dependency>
 			<!-- END OF LOGGING MANAGED DEPENDENCIES -->
 
@@ -1152,12 +1151,25 @@
 				<version>5.4.0</version>
 			</dependency>
 
+			<!--  GWT Native validation does not work currently with hibernate-validator 4.1+.
+				If this is changed, module frontend-gwt-api needs to be reviewed and tested.
+				See: https://code.google.com/p/google-web-toolkit/issues/detail?id=7661 -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-<!-- Not compatible with gwt native validation <version>4.3.1.Final</version>  -->
 				<version>4.1.0.Final</version>
 			</dependency>
+
+			<!--  GWT Native validation requires hibernate-validator sources and does not work 
+				currently with hibernate-validator 4.1+.
+				If this is changed, module frontend-gwt-api needs to be reviewed and tested.
+				See: https://code.google.com/p/google-web-toolkit/issues/detail?id=7661 -->			
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<classifier>sources</classifier>
+				<version>4.1.0.Final</version>
+			</dependency>			
 
 			<dependency>
 				<groupId>org.codehaus.jackson</groupId>
