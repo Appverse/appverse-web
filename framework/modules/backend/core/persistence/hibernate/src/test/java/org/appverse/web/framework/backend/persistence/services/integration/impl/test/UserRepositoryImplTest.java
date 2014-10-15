@@ -29,6 +29,10 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.appverse.web.framework.backend.api.helpers.test.AbstractTransactionalTest;
 import org.appverse.web.framework.backend.api.helpers.test.JPATest;
@@ -162,6 +166,20 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 		userDTORetrieved = userRepository.retrieve(userDTO.getId());
 		Assert.notNull(userDTORetrieved);
 	}
+
+	@Override
+	@Test
+	public void useCriteriaBuilder() throws Exception {
+		persist();
+		CriteriaBuilder cb = userRepository.getCriteriaBuilder();		 
+		CriteriaQuery<UserDTO> cq = cb.createQuery(UserDTO.class);
+		Root<UserDTO> u = cq.from(UserDTO.class);
+		cq.select(u);
+		TypedQuery<UserDTO> q = userRepository.createQuery(cq);
+		List<UserDTO> allUsers = q.getResultList();		
+		Assert.notEmpty(allUsers, "allUsers should not be empty or null");
+	}
+	
 
     /*  Tests optimistic locking. This can not be uncommented because even though it is possible to assert that
         certain exception is thrown, the transaction fails anyway and the test is flaged as 'failed'.

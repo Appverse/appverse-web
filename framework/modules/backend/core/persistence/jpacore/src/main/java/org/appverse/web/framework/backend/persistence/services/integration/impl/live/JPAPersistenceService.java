@@ -32,6 +32,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
@@ -1196,4 +1199,31 @@ public class JPAPersistenceService<T extends AbstractIntegrationBean> extends
     public <S> S unwrap(Class<S> cls) {
         return em.unwrap(cls);
     }
+    
+    /**
+     * Create an instance of <code>TypedQuery</code> for executing a
+     * criteria query. This method delegates directly to the corresponding
+     * underlying JPA EntityManager method. 
+     * @param criteriaQuery  a criteria query object
+     * @return the new query instance
+     * @throws IllegalArgumentException if the criteria query is
+     *         found to be invalid
+     * @since Java Persistence 2.0
+     */    
+    public <TQ> TypedQuery<TQ> createQuery(CriteriaQuery<TQ> criteriaQuery){
+    	return em.createQuery(criteriaQuery);
+    }
+    
+    /**
+     * Return an instance of <code>CriteriaBuilder</code> for the creation of
+     * <code>CriteriaQuery</code> objects.
+	 * This method delegates directly to the corresponding underlying JPA 
+	 * EntityManager method.      
+     * @return CriteriaBuilder instance
+     * @throws IllegalStateException if the entity manager has
+     *         been closed
+     */
+    public CriteriaBuilder getCriteriaBuilder(){
+    	return em.getCriteriaBuilder();
+    }   
 }
