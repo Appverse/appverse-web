@@ -162,6 +162,12 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 		userDTORetrieved = userRepository.retrieve(userDTO.getId());
 		Assert.notNull(userDTORetrieved);
 	}
+	
+	@Test
+	public void testSingleResultWithoutResults() throws Exception {
+		UserDTO userDTORetrieved = userRepository.retrieve("select u from UserDTO u");
+		Assert.isNull(userDTORetrieved);
+	}
 
     /*  Tests optimistic locking. This can not be uncommented because even though it is possible to assert that
         certain exception is thrown, the transaction fails anyway and the test is flaged as 'failed'.
