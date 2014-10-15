@@ -166,6 +166,12 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 		userDTORetrieved = userRepository.retrieve(userDTO.getId());
 		Assert.notNull(userDTORetrieved);
 	}
+	
+	@Test
+	public void testSingleResultWithoutResults() throws Exception {
+		UserDTO userDTORetrieved = userRepository.retrieve("select u from UserDTO u");
+		Assert.isNull(userDTORetrieved);
+	}
 
 	@Override
 	@Test

@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -105,7 +106,12 @@ public class QueryJpaCallback<T> {
 	@SuppressWarnings("unchecked")
 	public T doInJpaSingleResult(EntityManager em) throws PersistenceException {
 		prepareQuery(em);
-		return (T) query.getSingleResult();
+		try{
+			return (T) query.getSingleResult();
+		}
+		catch(NoResultException e){
+			return null;
+		}
 	}	
 	
 	private void prepareQuery(EntityManager em){
