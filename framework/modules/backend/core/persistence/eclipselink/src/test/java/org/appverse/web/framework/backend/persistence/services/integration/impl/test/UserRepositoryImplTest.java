@@ -163,7 +163,6 @@ public class UserRepositoryImplTest extends AbstractTransactionalTest implements
 		Assert.notNull(userDTORetrieved);
 	}
 	
-	@Override
 	@Test
 	public void useCriteriaBuilder() throws Exception {
 		persist();

@@ -41,7 +41,5 @@ public interface JPATest {
 
 	void retrieveByFilter() throws Exception;
 
-	void retrieveByPk() throws Exception;
-	
-	void useCriteriaBuilder() throws Exception;
+	void retrieveByPk() throws Exception;	
 }
