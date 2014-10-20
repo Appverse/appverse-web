@@ -46,21 +46,16 @@ public class ExceptionManagerImpl implements ExceptionManager {
 			throws Throwable {
 
 		if (target instanceof AbstractIntegrationService) {
-			logger.error(
-					"Integration Exception Executing Service: "
-							+ target.getClass().getSimpleName() + " Method: "
-							+ method.getName(), ex);
 			if (!(ex instanceof IntegrationException)) {
+				logger.error(
+						"Integration Exception Executing Service: "
+								+ target.getClass().getSimpleName() + " Method: "
+								+ method.getName(), ex);
 				throw new IntegrationException(ex);
 			} else {
 				throw ex;
 			}
 		} else if (target instanceof AbstractBusinessService) {
-			if (!(ex instanceof IntegrationException)) {
-				logger.error("Business Exception Executing Service: "
-						+ target.getClass().getSimpleName() + " Method: "
-						+ method.getName(), ex);
-			}
 			if (ex instanceof IntegrationException) {
 				IntegrationException iex = (IntegrationException) ex;
 				BusinessException bex = new BusinessException(iex.getCode(),
@@ -70,15 +65,14 @@ public class ExceptionManagerImpl implements ExceptionManager {
 			} else if (ex instanceof BusinessException) {
 				throw ex;
 			} else {
-				BusinessException bex = new BusinessException(ex);
-				bex.setStackTrace(ex.getStackTrace());
-			}
-		} else if (target instanceof AbstractPresentationService) {
-			if (!(ex instanceof BusinessException)) {
-				logger.error("Presentation Exception Executing Service: "
+				logger.error("Business Exception Executing Service: "
 						+ target.getClass().getSimpleName() + " Method: "
 						+ method.getName(), ex);
+				BusinessException bex = new BusinessException(ex);
+				bex.setStackTrace(ex.getStackTrace());
+				throw bex;
 			}
+		} else if (target instanceof AbstractPresentationService) {
 			if (ex instanceof BusinessException) {
 				BusinessException bex = (BusinessException) ex;
 				PresentationException pex = new PresentationException(
@@ -88,6 +82,9 @@ public class ExceptionManagerImpl implements ExceptionManager {
 			} else if (ex instanceof PresentationException) {
 				throw ex;
 			} else {
+				logger.error("Presentation Exception Executing Service: "
+						+ target.getClass().getSimpleName() + " Method: "
+						+ method.getName(), ex);
 				throw new PresentationException(ex.getMessage(), ex);
 			}
 		}
