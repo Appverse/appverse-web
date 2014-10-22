@@ -198,7 +198,7 @@
         <spring.oauth2.version>2.0.2.RELEASE</spring.oauth2.version>
 		<!--  GWT Native validation requires slf4j vresion 1.6.1, if this is changed, module frontend-gwt-api needs to be reviewed and tested -->
 		<slf4j.version>1.6.1</slf4j.version>
-		<gwt.version>2.5.1</gwt.version>
+		<gwt.version>2.6.1</gwt.version>
 		<restygwt.version>1.4</restygwt.version>
 		<gin.version>1.5.0</gin.version>
 		<guava.version>14.0</guava.version>
@@ -958,7 +958,7 @@
 			<dependency>
 				<groupId>com.sencha.gxt</groupId>
 				<artifactId>gxt</artifactId>
-				<version>3.0.1</version>
+				<version>3.1.1</version>
 			</dependency>
 
 			<dependency>
