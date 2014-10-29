@@ -13,8 +13,8 @@
 	<artifactId>${artifactId}</artifactId>
 	<packaging>war</packaging>
 
-	<name>AppBanking Backend Module</name>
-	<description>AppBanking Backend Module</description>
+	<name>${artifactId} Backend Module</name>
+	<description>${artifactId} Backend Module</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2013</inceptionYear>
 
@@ -170,14 +170,14 @@
         <swagger>${swagger}</swagger>
     </properties>
 
+    #if ( !$null.isNull($swagger) && $swagger == 'false' )
     <profiles>
         <profile>
             <id>no-swagger</id>
             <activation>
-                <property>
-                    <name>swagger</name>
-                    <value>false</value>
-                </property>
+                <file>
+                    <exists>target/configuration.properties</exists>
+                </file>
             </activation>
             <build>
                 <plugins>
@@ -198,6 +198,9 @@
                                                 <exclude name="WEB-INF/**" /> <!-- skip .svn folders otherwise it will cause SVN conflicts -->
                                                 <exclude name="*.jsp" /> <!-- skip .svn folders otherwise it will cause SVN conflicts -->
                                             </fileset>
+                                            <fileset dir="target">
+                                                <include name="configuration.properties"/>
+                                            </fileset>
                                         </delete>
                                     </target>
                                 </configuration>
@@ -208,6 +211,7 @@
             </build>
         </profile>
     </profiles>
+    #end
 
 	<build>
 
