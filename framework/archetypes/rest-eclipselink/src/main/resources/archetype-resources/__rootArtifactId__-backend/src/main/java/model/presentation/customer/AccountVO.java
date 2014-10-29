@@ -1,69 +1,83 @@
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ${package}.model.presentation.customer;
 
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+#end
 import org.appverse.web.framework.backend.api.model.presentation.AbstractPresentationBean;
 
-/**
- *
- * @author maps
- */
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 @ApiModel(value="AccountVO Model")
+#end
 public class AccountVO extends AbstractPresentationBean{
 
     /**
      * AccountVO number (unique identifier)
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "number")
+    #end
     private String number;
     
     /**
      * Another account identifier used in some countries
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "id")
+    #end
     private String id;
     
     /**
      * AccountVO alias (name)
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "alias")
+    #end
     private String alias;
     
     /**
      * Current AccountVO balance
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "balance")
+    #end
     private double balance;
     
     /**
      * Current AccountVO balance currency
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "balanceCurrency")
+    #end
     private String balanceCurrency;
     
     /**
      * The account type (mainly used for accounts grouping)
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "familyCode")
+    #end
     private String familyCode;
     
     /**
      * AccountVO owner
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "owner")
+    #end
     private String owner;
 
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "lastMothBalance")
+    #end
     private double lastMothBalance;
 
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "lastMonthBalanceCurrency")
+    #end
     private String lastMonthBalanceCurrency;
     
     /**

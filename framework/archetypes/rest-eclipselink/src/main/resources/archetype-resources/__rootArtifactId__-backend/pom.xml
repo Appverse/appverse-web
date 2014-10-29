@@ -167,7 +167,47 @@
 
     <properties>
         <app.context.root>${project.artifactId}</app.context.root>
+        <swagger>${swagger}</swagger>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>no-swagger</id>
+            <activation>
+                <property>
+                    <name>swagger</name>
+                    <value>false</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <echo>deleting swagger files ...</echo>
+                                        <delete includeEmptyDirs="true">
+                                            <fileset dir="src/main/webapp">
+                                                <include name="**" />
+                                                <exclude name="WEB-INF/**" /> <!-- skip .svn folders otherwise it will cause SVN conflicts -->
+                                                <exclude name="*.jsp" /> <!-- skip .svn folders otherwise it will cause SVN conflicts -->
+                                            </fileset>
+                                        </delete>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 	<build>
 

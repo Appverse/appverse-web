@@ -3,21 +3,17 @@
 #set( $symbol_escape = '\' )
 package ${package}.model.presentation.common;
 
-/**
- * Created by MCRZ on 3/03/14.
- */
 
-
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 import com.wordnik.swagger.annotations.ApiModel;
+#end
 import org.appverse.web.framework.backend.api.model.presentation.AbstractPresentationBean;
-
 import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author maps
- */
+
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 @ApiModel(value = "LoginRequestDataVO model")
+#end
 public class LoginRequestDataVO extends AbstractPresentationBean {
 
     //@ApiModelProperty(value = "Credentials", required=true)

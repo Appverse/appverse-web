@@ -3,34 +3,44 @@
 #set( $symbol_escape = '\' )
 package ${package}.model.presentation.customer;
 
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+#end
 import ${package}.model.presentation.common.UserVO;
 
 import javax.validation.constraints.Pattern;
 
-/**
- * Created by MCRZ on 20/03/2014.
- */
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 @ApiModel(value="CustomerInfoVO Model")
+#end
 public class CustomerInfoVO extends UserVO{
 
-
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty("email")
+    #end
     private String email;
 
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty("idCard")
+    #end
     @Pattern(message="valid idCard please" , regexp="^[0-9]{8}([a-zA-Z]{1})${symbol_dollar}")
     private String idCard;
 
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty("address")
+    #end
     private String address;
 
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty("mobileNumber")
+    #end
     @Pattern(message="valid phone number please" , regexp="^[+]?[0-9]*${symbol_dollar}")
     private String mobileNumber;
 
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty("phoneNumber")
+    #end
     @Pattern(message="valid phone number please" , regexp="^[+]?[0-9]*${symbol_dollar}")
     private String phoneNumber;
 

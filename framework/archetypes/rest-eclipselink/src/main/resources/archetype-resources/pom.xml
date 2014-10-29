@@ -358,7 +358,7 @@
     	</plugins>
   	</reporting>
   
-	<profiles> 
+	<profiles>
 		<profile> 
 			<id>development</id> 
 			<activation> 

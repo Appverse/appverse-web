@@ -3,27 +3,31 @@
 #set( $symbol_escape = '\' )
 package ${package}.model.presentation.common;
 
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+#end
 
-/**
- * @author maps
- * @version 1.0
- * @created 08-may-2012 9:45:23
- */
+
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 @ApiModel(value = "ErrorVO model")
+#end
 public class ErrorVO {
 
     /**
      * Error Code for error handling. 0 for success.
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value="code")
+    #end
     private long code;
 
     /**
      * Error Message to be displayed
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value="message")
+    #end
     private String message;
 
     /**

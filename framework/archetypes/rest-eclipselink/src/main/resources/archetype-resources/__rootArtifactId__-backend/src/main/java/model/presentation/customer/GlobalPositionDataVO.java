@@ -1,20 +1,16 @@
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ${package}.model.presentation.customer;
 
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 import com.wordnik.swagger.annotations.ApiModel;
+#end
 import ${package}.model.presentation.common.ResultDataVO;
 
-/**
- *
- * @author maps
- */
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 @ApiModel(value="GlobalPositonDataVO Model")
+#end
 public class GlobalPositionDataVO extends ResultDataVO {
 
     /**

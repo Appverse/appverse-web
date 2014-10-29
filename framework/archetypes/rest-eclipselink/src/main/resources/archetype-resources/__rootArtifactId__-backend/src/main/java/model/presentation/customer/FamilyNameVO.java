@@ -10,10 +10,6 @@ package ${package}.model.presentation.customer;
 import ${package}.helpers.StringEnumSerializer;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-/**
- *
- * @author maps
- */
 @JsonSerialize(using=StringEnumSerializer.class)
 public enum FamilyNameVO {
     ALL, 

@@ -3,33 +3,32 @@
 #set( $symbol_escape = '\' )
 package ${package}.model.presentation.common;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+#end
 
-/**
- *
- * @author maps
- */
+
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 @ApiModel(value = "AuthDataVO model")
+#end
 public class AuthDataVO extends ResultDataVO {
 
     /**
      * A token (random number or seed) that will be passed to the client (to be used on the authentication security tasks)
      * This token has a predefined expiration time.
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "Seed", required=false)
+    #end
     private String seed;
 
     /**
      * An array containing the positions to use to create the buttons for a virtual keyboard.
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "Virtual Keyboard position", required=false)
+    #end
     private String[] virtualKeyboardPosition;
 
     /**

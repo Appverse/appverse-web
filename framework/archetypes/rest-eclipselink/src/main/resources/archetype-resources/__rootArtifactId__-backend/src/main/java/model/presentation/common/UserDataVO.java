@@ -3,22 +3,19 @@
 #set( $symbol_escape = '\' )
 package ${package}.model.presentation.common;
 
-/**
- * Created by MCRZ on 3/03/14.
- */
-
-
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+#end
 
-/**
- *
- * @author maps
- */
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 @ApiModel(value = "UserDataVO model")
+#end
 public class UserDataVO extends ResultDataVO {
 
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "result")
+    #end
     private UserVO result;
 
     // optional value, only filled in case of small business customers in certain countries

@@ -3,36 +3,43 @@
 #set( $symbol_escape = '\' )
 package ${package}.model.presentation.common;
 
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+#end
 import org.appverse.web.framework.backend.api.model.presentation.AbstractPresentationBean;
 
 import java.util.Date;
 
-/**
- * Created by MCRZ on 3/03/14.
- */
-
-
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 @ApiModel(value = "UserVO model")
+#end
 public class UserVO extends AbstractPresentationBean{
 
     private Long id;
 
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "name")
+    #end
     private String name;
 
     private String username;
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "surname")
+    #end
     private String surname;
 
     /**
      * Mr, Mrs.. etc
      */
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "title")
+    #end
     private String title;
 
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "lastLoggedDate")
+    #end
     private Date lastLoggedDate;
 
     public UserVO() {

@@ -2,22 +2,24 @@
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
 package ${package}.model.presentation.common;
-
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+#end
 import org.appverse.web.framework.backend.api.model.presentation.AbstractPresentationBean;
 
-/**
- *
- * @author MCLT
- */
+#if ( !$null.isNull($swagger) && $swagger == 'true' )
 @ApiModel(value = "AuthDataVO model")
+#end
 public class ApplicationRequestDataVO extends AbstractPresentationBean{
-
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "Language", required=true)
+    #end
     private String language;
 
+    #if ( !$null.isNull($swagger) && $swagger == 'true' )
     @ApiModelProperty(value = "appVersion", required=true)
+    #end
     private String appVersion;
 
     public ApplicationRequestDataVO() {
