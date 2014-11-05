@@ -180,7 +180,11 @@
 
 	<modules>
 		<module>api</module>
-		<module>theme</module>
+		<!--  Old Appverse Web Sencha 3.1- (version previous to 3.1 - theme builder) is not 
+		compatible anymore with Sencha 3.1+. If we want a particular theme for Appverse Web compatible
+		with 3.1+ the new theme has to be developed
+			<module>theme</module>
+		-->
 	</modules>
 	
 </project>
