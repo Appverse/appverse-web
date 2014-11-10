@@ -42,6 +42,7 @@ import javapns.notification.PushedNotification;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 
 import org.appverse.web.framework.backend.api.services.business.AbstractBusinessService;
+import org.appverse.web.framework.backend.api.services.integration.IntegrationException;
 import org.appverse.web.framework.backend.notification.services.integration.INotificationService;
 import org.slf4j.Logger;
 
@@ -66,6 +67,9 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
     @AutowiredLogger
     private static Logger logger;
+
+    //IOS params limit in bytes
+    private static final int IOS_SIZE_LIMIT = 256;
 
     private Sender googleSender = null;
     private ApnsService appleSender = null;
@@ -142,21 +146,23 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
             try {
                 List<PushedNotification> notifications = new ArrayList<PushedNotification>();
+                //create a payload
+                PushNotificationPayload payload = PushNotificationPayload.complex();
+                payload.addBadge(1);
+                payload.addAlert(body);
+                //add special parameters
                 if (params != null && !params.isEmpty()) {
-                    //create a payload
-                    PushNotificationPayload payload = PushNotificationPayload.complex();
-                    payload.addBadge(1);
-                    payload.addAlert(body);
-                    //add special parameters
-                    for (Map.Entry<String, String> entry : params.entrySet()) {
-                        payload.addCustomDictionary(entry.getKey(), entry.getValue());
-                    }
-                    //send
-                    notifications = Push.payload(payload, resource.getURL().getPath(), appleP12Password, true, token);
-                } else{
-                    notifications = Push.combined(body,1,null, resource.getURL().getPath(), appleP12Password, true, token);
 
+                    for (Map.Entry<String, String> entry : params.entrySet()) {
+                        if (entry.getValue().getBytes().length < IOS_SIZE_LIMIT) {
+                            payload.addCustomDictionary(entry.getKey(), entry.getValue());
+                        } else {
+                            throw new IntegrationException("param exceeds " + IOS_SIZE_LIMIT + "bytes limit");
+                        }
+                    }
                 }
+                //send
+                notifications = Push.payload(payload, resource.getURL().getPath(), appleP12Password, true, token);
                 //Check notification's statuses
                 for (PushedNotification notification : notifications) {
                     String tokenSend = notification.getDevice().getToken();
