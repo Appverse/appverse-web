@@ -83,7 +83,8 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
     @Value("${apple.p12.path}")
     private String appleP12Path = "";
-
+    @Value("${apple.p12.production}")
+    private boolean appleProduction = true;
     @Value("${apple.p12.pwd}")
     private String appleP12Password = "";
 
@@ -172,7 +173,8 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
                         logger.info("Message delivered:{}",tokenSend);
                     } else {
                         //Add code here to remove invalidToken from your database
-                        logger.warn("Invalid token:{}",tokenSend);
+                        logger.warn("Invalid token:{}", tokenSend, notification.getException());
+                        throw notification.getException();
                     }
                 }
             } catch (CommunicationException ex) {
@@ -233,7 +235,7 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             Resource resource = resourceLoader.getResource(appleP12Path);
             appleSender = APNS.newService()
                     .withCert(resource.getURL().getPath(), appleP12Password)
-                    .withProductionDestination()
+                    .withAppleDestination(appleProduction)
                     .build();
             logger.info("IOS ok.");
         }else if ("facebook".equals(platform) && facebookSender == null){
