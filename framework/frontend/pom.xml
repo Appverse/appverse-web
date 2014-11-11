@@ -355,12 +355,15 @@
 	<dependencyManagement>
 		<dependencies>
 			<!-- APPVERSE WEB FRAMEWORK MANAGED DEPENDENCIES -->
+			
+			<!-- TODO: This does not exist anymore, for this we use the masterpom
 			<dependency>
 				<groupId>org.appverse.web.framework.poms.modules.backend.dependencies</groupId>
 				<artifactId>appverse-web-modules-backend-dependencies-pom</artifactId>
 				<version>${framework.version}</version>
 				<type>pom</type>
 			</dependency>
+			-->
 
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.aspect</groupId>
