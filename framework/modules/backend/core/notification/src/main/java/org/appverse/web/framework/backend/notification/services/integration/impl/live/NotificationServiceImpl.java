@@ -150,6 +150,7 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
                 PushNotificationPayload payload = PushNotificationPayload.complex();
                 payload.addBadge(1);
                 payload.addAlert(body);
+                payload.addSound("default");
                 //add special parameters
                 if (params != null && !params.isEmpty()) {
 
