@@ -484,6 +484,7 @@
             </dependency>
 -->
 
+<!-- Moved to gwt frontend
             <dependency>
 				<groupId>org.appverse.web.framework.modules.frontend.gwt.theme</groupId>
 				<artifactId>appverse-web-modules-frontend-gwt-theme</artifactId>
@@ -495,7 +496,8 @@
 				<artifactId>appverse-web-modules-frontend-gwt-api</artifactId>
 				<version>${framework.version}</version>
 				<scope>provided</scope>
-			</dependency>			
+			</dependency>
+ -->						
 			<!-- END OF APPVERSE WEB FRAMEWORK MANAGED DEPENDENCIES -->
 
 			<!-- SPRING FRAMEWORK MANAGED DEPENDENCIES -->

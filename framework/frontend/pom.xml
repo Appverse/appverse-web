@@ -8,13 +8,14 @@
 		<version>7</version>
 	</parent>
 
-	<groupId>org.appverse.web.framework.poms.modules.frontend</groupId>
-	<artifactId>appverse-web-modules-frontend-pom</artifactId>
-	<version>1.4.1-SNAPSHOT</version>
+	<groupId>org.appverse.web.framework.poms.frontend.gwt</groupId>
+	<artifactId>appverse-web-frontend-gwt-masterpom</artifactId>
+	<version>0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Appverse Web Framework Modules Frontend POM</name>
-	<description>Appverse Web Framework Modules Frontend POM</description>
+	<name>Appverse Web Framework Frontend Master POM</name>
+	<description>Appverse Web Framework Frontend Master POM</description>
+        <!-- TODO: Update this when moved to new repo -->
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2011</inceptionYear>
 
@@ -177,9 +178,1120 @@
 		<tag>master</tag>
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
-
+	
+	<properties>
+		<framework.version>1.4.1-SNAPSHOT</framework.version>
+		<framework.gwtfrontend.version>0.1-SNAPSHOT</framework.gwtfrontend.version>
+		<spring.version>3.2.9.RELEASE</spring.version>
+        <spring.security.version>3.2.5.RELEASE</spring.security.version>
+        <spring.oauth2.version>2.0.3.RELEASE</spring.oauth2.version>
+		<!--  GWT Native validation requires slf4j vresion 1.6.1, if this is changed, module frontend-gwt-api needs to be reviewed and tested -->
+		<slf4j.version>1.6.1</slf4j.version>
+		<gwt.version>2.6.1</gwt.version>
+		<restygwt.version>1.4</restygwt.version>
+		<gin.version>1.5.0</gin.version>
+		<guava.version>14.0</guava.version>
+		<jsr311.version>2.0</jsr311.version>
+		<jersey.version>2.13</jersey.version>
+        <jdk.source>1.6</jdk.source>
+        <jdk.target>1.6</jdk.target>
+        <ehcache.version>2.4.5</ehcache.version>
+        <owasp.esapi.version>2.1.0</owasp.esapi.version>
+        <org.jsoup.version>1.7.3</org.jsoup.version>
+        <nimbus.version>2.25</nimbus.version>
+        <mockito.version>1.9.5</mockito.version>
+        <skipEcmTests>true</skipEcmTests>
+    </properties>
+    
 	<modules>
 		<module>gwt</module>
-	</modules>
+	</modules>    
+    
+	<build>
+		<defaultGoal>clean install</defaultGoal>
 
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<mavenExecutorId>forked-path</mavenExecutorId>
+				</configuration>
+			</plugin>
+			
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.0</version>
+					<configuration>
+						<source>${jdk.source}</source>
+						<target>${jdk.target}</target>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+						<includeEmptyDirs>true</includeEmptyDirs>
+						<encoding>UTF-8</encoding>
+						<nonFilteredFileExtensions>
+							<nonFilteredFileExtension>jasper</nonFilteredFileExtension>
+						</nonFilteredFileExtensions>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.13</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.7</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.4</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.7</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.2.1</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-archetype-plugin</artifactId>
+					<version>2.2</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<version>2.9</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>gwt-maven-plugin</artifactId>
+					<version>${gwt.version}</version>
+					<configuration>
+						<servicePattern>**/*ServiceFacade.java</servicePattern>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.7</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>add-source</goal>
+							</goals>
+							<configuration>
+								<sources>
+									<source>target/generated-sources/gwt</source>
+								</sources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>aspectj-maven-plugin</artifactId>
+					<version>1.4</version>
+					<configuration>
+						<source>${jdk.source}</source>
+						<target>${jdk.target}</target>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>test-compile</goal>
+							</goals>
+							<phase>process-sources</phase>
+						</execution>
+					</executions>
+				</plugin>
+				
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- APPVERSE WEB FRAMEWORK MANAGED DEPENDENCIES -->
+			<dependency>
+				<groupId>org.appverse.web.framework.poms.modules.backend.dependencies</groupId>
+				<artifactId>appverse-web-modules-backend-dependencies-pom</artifactId>
+				<version>${framework.version}</version>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.aspect</groupId>
+				<artifactId>appverse-web-modules-backend-aspect</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.batch</groupId>
+				<artifactId>appverse-web-modules-backend-batch</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
+				<artifactId>appverse-web-modules-backend-core-api</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.core.persistence.eclipselink</groupId>
+				<artifactId>appverse-web-modules-backend-core-persistence-eclipselink</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.core.persistence.hibernate</groupId>
+                <artifactId>appverse-web-modules-backend-core-persistence-hibernate</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.core.cache</groupId>
+				<artifactId>appverse-web-modules-backend-core-cache</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.core.ws</groupId>
+				<artifactId>appverse-web-modules-backend-core-ws</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.core.rest</groupId>
+                <artifactId>appverse-web-modules-backend-core-rest</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.ecm.core</groupId>
+                <artifactId>appverse-web-modules-backend-ecm-core</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.ecm.cmis</groupId>
+                <artifactId>appverse-web-modules-backend-ecm-cmis</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.ecm.filesystem</groupId>
+                <artifactId>appverse-web-modules-backend-ecm-cmis-filesystem</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
+				<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.frontfacade.json</groupId>
+				<artifactId>appverse-web-modules-backend-frontfacade-json</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.frontfacade.rest</groupId>
+                <artifactId>appverse-web-modules-backend-frontfacade-rest</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.messaging</groupId>
+				<artifactId>appverse-web-modules-backend-messaging</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.reporting</groupId>
+				<artifactId>appverse-web-modules-backend-reporting</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.security.oauth2</groupId>
+                <artifactId>appverse-web-modules-backend-security-oauth2</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+
+<!--
+            <dependency>
+                <groupId>org.appverse.web.framework.modules.backend.ecm</groupId>
+                <artifactId>appverse-web-modules-backend-ecm</artifactId>
+                <version>${framework.version}</version>
+            </dependency>
+-->
+
+            <dependency>
+				<groupId>org.appverse.web.framework.modules.frontend.gwt.theme</groupId>
+				<artifactId>appverse-web-modules-frontend-gwt-theme</artifactId>
+				<version>${framework.gwtfrontend.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
+				<artifactId>appverse-web-modules-frontend-gwt-api</artifactId>
+				<version>${framework.gwtfrontend.version}</version>
+				<scope>provided</scope>
+			</dependency>			
+			<!-- END OF APPVERSE WEB FRAMEWORK MANAGED DEPENDENCIES -->
+
+			<!-- SPRING FRAMEWORK MANAGED DEPENDENCIES -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-asm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-expression</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jms</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-oxm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>		
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+				<scope>test</scope>
+			</dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.batch</groupId>
+				<artifactId>spring-batch-core</artifactId>
+				<version>2.1.9.RELEASE</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-jpa</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-core</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-ldap</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${spring.oauth2.version}</version>
+            </dependency>
+			<!-- END OF SPRING FRAMEWORK MANAGED DEPENDENCIES -->
+
+			<!-- JEE MANAGED DEPENDENCIES -->
+
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.6</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.management.j2ee</groupId>
+				<artifactId>management-api</artifactId>
+				<version>1.1-rev-1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.xml.stream</groupId>
+				<artifactId>stax-api</artifactId>
+				<version>1.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.jws</groupId>
+				<artifactId>jsr181-api</artifactId>
+				<version>1.0-MR1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>jstl</artifactId>
+				<version>1.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.0.1</version>
+				<scope>provided</scope>
+			</dependency>
+			<!-- END OF JEE MANAGED DEPENDENCIES -->
+
+			<!-- APACHE COMMONS MANAGED DEPENDENCIES -->
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>1.8.3</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>commons-logging</artifactId>
+						<groupId>commons-logging</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>3.2.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-dbcp</groupId>
+				<artifactId>commons-dbcp</artifactId>
+				<version>1.4</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>1.2.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>2.6</version>
+			</dependency>
+			<!-- END OF APACHE COMMONS MANAGED DEPENDENCIES -->
+			<!--  JSR311 DEPENDENCIES -->
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+                <artifactId>javax.ws.rs-api</artifactId>
+				<!--<artifactId>jsr311-api</artifactId>-->
+				<version>${jsr311.version}</version>
+			</dependency>
+			<!--  END JSR311 DEPENDENCIES -->
+			<!-- JERSEY DEPENDENCIES -->
+            <dependency>
+                <groupId>org.glassfish.jersey.containers</groupId>
+                <!-- if your container implements Servlet API older than 3.0, use "jersey-container-servlet-core"  -->
+                <artifactId>jersey-container-servlet</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.ext</groupId>
+                <artifactId>jersey-spring3</artifactId>
+                <version>${jersey.version}</version>
+                <!-- Do we need to exclude something? checkit!
+                <exclusions>
+
+                </exclusions>
+                -->
+            </dependency>
+            
+            <!-- auto registered feature // default JSON support module-->
+			<dependency>
+			    <groupId>org.glassfish.jersey.media</groupId>
+			    <artifactId>jersey-media-moxy</artifactId>
+			    <version>${jersey.version}</version>
+			</dependency>		
+            
+			<dependency>
+    			<groupId>org.glassfish.jersey.media</groupId>
+    			<artifactId>jersey-media-json-jackson</artifactId>
+			    <version>${jersey.version}</version>
+			</dependency>
+            
+            
+            <dependency>
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-multipart</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${nimbus.version}</version>
+            </dependency>
+
+			<!-- JAX-RS 2 client api -->            
+			<dependency>
+	    		<groupId>org.glassfish.jersey.core</groupId>
+	    		<artifactId>jersey-client</artifactId>
+                <version>${jersey.version}</version>	    		
+			</dependency>     
+
+			<!-- EHCache version -->
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache-core</artifactId>
+				<version>${ehcache.version}</version>
+			</dependency>
+			
+			<!-- Spring Instrument version, for aspectj load time weaving -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-instrument</artifactId>
+				<version>${spring.version}</version>
+			</dependency>			
+
+			<!-- Testing support -->			
+			
+			<!-- Use it ONLY if you want to include all Test Factories providers--> 
+	        <dependency>
+	            <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+	            <artifactId>jersey-test-framework-provider-bundle</artifactId>
+	            <type>pom</type>
+                <version>${jersey.version}</version>	    		
+	        </dependency>
+	        
+	        <!--  Include both to use grizzly web container test factory-->
+			<dependency>
+				<groupId>org.glassfish.jersey.containers</groupId>
+				<artifactId>jersey-container-grizzly2-servlet</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+				<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>	     
+			<!--  End Testing Support -->   
+	        
+	        			       
+            
+			<!-- END JERSEY DEPENDENCIES -->
+			<!-- RESTY DEPENDENCIES -->
+			<dependency>
+				<groupId>org.fusesource.restygwt</groupId>
+				<artifactId>restygwt</artifactId>
+				<version>${restygwt.version}</version>
+			</dependency>
+			<!-- END OF RESTY DEPENDENCIES -->
+			<!-- LOGGING MANAGED DEPENDENCIES -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-simple</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+ 				<version>1.2.17</version>
+			</dependency>
+			<!-- END OF LOGGING MANAGED DEPENDENCIES -->
+
+			<!-- WEB SERVICES MANAGED DEPENDENCIES -->
+			<dependency>
+				<groupId>org.apache.axis2</groupId>
+				<artifactId>axis2-adb</artifactId>
+				<version>1.6.2</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-activation_1.1_spec</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.axis2</groupId>
+				<artifactId>axis2-transport-local</artifactId>
+				<version>1.6.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-impl</artifactId>
+				<version>2.2.6</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.axis2</groupId>
+				<artifactId>axis2-transport-http</artifactId>
+				<version>1.6.2</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-javamail_1.4_spec</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-activation_1.1_spec</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-stax-api_1.0_spec</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-ws-metadata_2.0_spec</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-jta_1.1_spec</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<!-- END OF WEB SERVICES MANAGED DEPENDENCIES -->
+
+			<!-- GWT MANAGED DEPENDENCIES -->
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt-servlet</artifactId>
+				<version>${gwt.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt-user</artifactId>
+				<version>${gwt.version}</version>
+			</dependency>
+
+<!-- https://agema.gft.com/jira/browse/APPWEB-250 
+			<dependency>
+				<groupId>com.googlecode.gwt-validation</groupId>
+				<artifactId>gwt-validation</artifactId>
+				<version>2.1</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.reflections</groupId>
+                        <artifactId>reflections</artifactId>
+                    </exclusion>
+                </exclusions>
+			</dependency>
+-->			
+			<dependency>
+            	<groupId>com.google.gwt.inject</groupId>
+            	<artifactId>gin</artifactId>
+            	<version>${gin.version}</version>
+            </dependency>
+			
+<!-- https://agema.gft.com/jira/browse/APPWEB-250 
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>0.9.8</version>
+            </dependency>
+-->            
+            <dependency>
+            	<groupId>com.google.guava</groupId>
+            	<artifactId>guava</artifactId>
+            	<version>${guava.version}</version>
+            </dependency>
+
+			<dependency>
+				<groupId>com.sencha.gxt</groupId>
+				<artifactId>gxt</artifactId>
+				<version>3.1.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.googlecode.mvp4g</groupId>
+				<artifactId>mvp4g</artifactId>
+				<version>1.4.0</version>
+			</dependency>
+			<!-- END OF GWT MANAGED DEPENDENCIES -->
+
+			<!-- REPORTING MANAGED DEPENDENCIES -->
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports</artifactId>
+				<version>5.0.1</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>bcmail-jdk14</artifactId>
+						<groupId>org.bouncycastle</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>bcmail-jdk14</artifactId>
+						<groupId>bouncycastle</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>net.sourceforge.jexcelapi</groupId>
+				<artifactId>jxl</artifactId>
+				<version>2.6.12</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ar.com.fdvs</groupId>
+				<artifactId>DynamicJasper-core-fonts</artifactId>
+				<version>1.0</version>
+			</dependency>
+			<!-- END OF REPORTING MANAGED DEPENDENCIES -->
+
+			<!-- PERSISTENCE MANAGED DEPENDENCIES -->
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>javax.persistence</artifactId>
+				<version>2.0.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>eclipselink</artifactId>
+				<version>2.3.3</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>4.3.0.Final</version>
+            </dependency>
+
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>3.1.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>1.1.1</version>
+			</dependency>
+			<!-- END OF PERSISTENCE MANAGED DEPENDENCIES -->
+
+			<!-- MESSAGING MANAGED DEPENDENCIES -->
+		
+			<dependency>
+				<groupId>org.jboss.shrinkwrap.resolver</groupId>
+				<artifactId>shrinkwrap-resolver-bom</artifactId>
+				<version>2.0.2</version>
+				<scope>test</scope>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>1.1.3.Final</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			
+	        <dependency>
+	            <groupId>org.jboss.arquillian.extension</groupId>
+	            <artifactId>arquillian-service-deployer-spring-3</artifactId>
+	            <version>1.0.0.Beta2</version>
+	        </dependency>
+	
+	        <dependency>
+	            <groupId>org.jboss.arquillian.extension</groupId>
+	            <artifactId>arquillian-service-integration-spring-inject</artifactId>
+	            <version>1.0.0.Beta2</version>
+	        </dependency>
+	        <!--
+		    <dependency>
+				<groupId>org.jboss.as</groupId>
+				<artifactId>jboss-as-arquillian-container-managed</artifactId>
+				<scope>test</scope>
+				<version>7.1.1.Final</version>
+			</dependency>
+			 
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>3.0.2.Final</version>
+				<type>pom</type>
+			</dependency>
+			 -->
+			 
+			<dependency>
+				<groupId>org.wildfly</groupId>
+				<artifactId>wildfly-arquillian-container-managed</artifactId>
+				<version>8.0.0.Final</version>
+				<scope>test</scope>
+			</dependency>
+			
+			<dependency>
+    			<groupId>org.apache.geronimo.specs</groupId>
+    			<artifactId>geronimo-jms_1.1_spec</artifactId>
+    			<version>1.1.1</version>
+  			</dependency>
+			
+			
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-core</artifactId>
+				<version>5.5.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-spring</artifactId>
+				<version>5.8.0</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-jta_1.0.1B_spec</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-jms_1.1_spec</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-j2ee-management_1.1_spec</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			
+			<!-- END OF MESSAGING MANAGED DEPENDENCIES -->
+
+            <!-- CORS FILTER MANAGED DEPENDENCY -->
+            <dependency>
+                <groupId>com.thetransactioncompany</groupId>
+                <artifactId>cors-filter</artifactId>
+                <version>1.9.3</version>
+            </dependency>
+            <!-- END OF CORS FILTER MANAGED DEPENDENCY -->
+
+			<!-- CACHING MANAGED DEPENDENCIES -->
+			<dependency>
+				<groupId>com.googlecode.ehcache-spring-annotations</groupId>
+				<artifactId>ehcache-spring-annotations</artifactId>
+				<version>1.2.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache-jmsreplication</artifactId>
+				<version>0.3</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>ehcache</artifactId>
+						<groupId>net.sf.ehcache</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<!-- END OF CACHING MANAGED DEPENDENCIES -->
+
+			<dependency>
+				<groupId>net.sf.dozer</groupId>
+				<artifactId>dozer</artifactId>
+				<version>5.4.0</version>
+			</dependency>
+
+			<!--  GWT Native validation does not work currently with hibernate-validator 4.1+.
+				If this is changed, module frontend-gwt-api needs to be reviewed and tested.
+				See: https://code.google.com/p/google-web-toolkit/issues/detail?id=7661 -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>4.1.0.Final</version>
+			</dependency>
+
+			<!--  GWT Native validation requires hibernate-validator sources and does not work 
+				currently with hibernate-validator 4.1+.
+				If this is changed, module frontend-gwt-api needs to be reviewed and tested.
+				See: https://code.google.com/p/google-web-toolkit/issues/detail?id=7661 -->			
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<classifier>sources</classifier>
+				<version>4.1.0.Final</version>
+			</dependency>			
+
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>1.9.12</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity</artifactId>
+				<version>1.7</version>
+			</dependency>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>2.2.9</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.0.5</version>
+				<scope>runtime</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>1.6.10</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>1.7.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-plugin-api</artifactId>
+				<version>3.0.3</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-project</artifactId>
+				<version>2.2.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.maven.plugin-tools</groupId>
+				<artifactId>maven-plugin-annotations</artifactId>
+				<version>3.2</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-utils</artifactId>
+				<version>3.0.1</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.jodd</groupId>
+                <artifactId>jodd</artifactId>
+                <version>3.3.8</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.3.1</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.owasp.esapi</groupId>
+                <artifactId>esapi</artifactId>
+                <version>${owasp.esapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${org.jsoup.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.chemistry.opencmis</groupId>
+                <artifactId>chemistry-opencmis-client-impl</artifactId>
+                <version>0.11.0</version>
+            </dependency>
+        </dependencies>
+	</dependencyManagement>
+
+	<repositories>
+		<repository>
+			<id>EclipseLink</id>
+			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
+		</repository>
+		
+		<repository>
+			<id>Maven Central</id>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+				
+		<repository>
+			<id>Dynamic Jasper</id>
+			<url>http://archiva.fdvs.com.ar/repository/public1/</url>
+		</repository>
+        <!-- This repository should not be here as it is not recommended by Maven.
+        OAUT2 module makes use of version 2 of spring-security-oauth2 artiface, and this is not yet released.
+        So the only way of having this artifact available, is to temporarily using spring milestones repo.-->
+        <repository>
+            <id>spring-release</id>
+            <name>Spring Release Repository</name>
+            <url>http://maven.springframework.org/milestone/</url>
+        </repository>
+
+    </repositories>
+    	
 </project>
