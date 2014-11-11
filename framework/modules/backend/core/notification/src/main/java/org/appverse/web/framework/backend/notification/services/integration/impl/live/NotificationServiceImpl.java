@@ -84,7 +84,7 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
     @Value("${apple.p12.path}")
     private String appleP12Path = "";
     @Value("${apple.p12.production}")
-    private boolean appleProduction = true;
+    private String appleProduction = "true";
     @Value("${apple.p12.pwd}")
     private String appleP12Password = "";
 
@@ -231,11 +231,11 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             if( appleP12Path == null || appleP12Password == null || appleP12Path.length()==0 || appleP12Password.length()==0 ) {
                 throw new Exception("Apple certificate path not found.");
             }
-            logger.info("Creating ios sender with path ["+appleP12Path+"]");
+            logger.info("Creating ios sender with path [" + appleP12Path + "] and production[" + appleProduction + "]");
             Resource resource = resourceLoader.getResource(appleP12Path);
             appleSender = APNS.newService()
                     .withCert(resource.getURL().getPath(), appleP12Password)
-                    .withAppleDestination(appleProduction)
+                    .withAppleDestination(new Boolean(appleProduction))
                     .build();
             logger.info("IOS ok.");
         }else if ("facebook".equals(platform) && facebookSender == null){
