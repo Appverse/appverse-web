@@ -87,6 +87,8 @@ public class BpmServiceTest {
             }
         }
     }
+
+    @Ignore
     @Test(expected = IllegalStateException.class)
     public void testLoginException() throws Exception{
         bpmService.executeTaskFlowNode(1L);
@@ -127,6 +129,7 @@ public class BpmServiceTest {
         }
     }
     @Test
+    @Ignore
     public void testGetProcessAPIOnMultipleSessions() throws Exception {
         assertNotNull(bpmService);
         bpmService.login(userName, password);
