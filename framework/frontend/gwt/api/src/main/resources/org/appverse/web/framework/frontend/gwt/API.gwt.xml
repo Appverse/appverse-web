@@ -38,7 +38,9 @@
 
 	<!-- Framework Backend Shared Classes -->
 	<inherits name="org.appverse.web.framework.backend.frontfacade.gxt.API"/>
+	<!-- Not used anymore
 	<inherits name="org.appverse.web.framework.backend.frontfacade.json.API"/>
+	-->
 
 	<inherits name="org.fusesource.restygwt.RestyGWT"/>
 
