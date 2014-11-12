@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+		<groupId>org.appverse.web.framework.poms</groupId>
+		<artifactId>appverse-web-masterpom</artifactId>
+		<version>1.4.1-SNAPSHOT</version>
+		<relativePath>../../../..</relativePath>
 	</parent>
 
-	<groupId>org.appverse.web.framework.poms.modules.backend.frontfacade</groupId>
-	<artifactId>appverse-web-modules-backend-frontfacade-pom</artifactId>
-	<version>1.4.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
+	<artifactId>appverse-web-modules-backend-frontfacade-gwt-json</artifactId>
+	<packaging>jar</packaging>
 
-	<name>Appverse Web Framework Modules Backend Front-Facade POM</name>
-	<description>Appverse Web Framework Modules Backend Front-Facade POM</description>
+	<name>Appverse Web Framework Modules Backend Front-Facade GWT JSON Module</name>
+	<description>Appverse Web Framework Modules Backend Front-Facade GWT JSON Module</description>
 	<url>http://appverse.org/projects/appverse-web/</url>
 	<inceptionYear>2011</inceptionYear>
 
@@ -178,11 +178,50 @@
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
-	<modules>
-		<module>gwt</module>
-                <module>gwt-json</module>
-		<module>json</module>
-                <module>rest</module>
-	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generateAsync</goal>
+							<goal>resources</goal>
+						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
+			<artifactId>appverse-web-modules-backend-core-api</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.fusesource.restygwt</groupId>
+			<artifactId>restygwt</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+	</dependencies>
 </project>
