@@ -91,7 +91,7 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
     @Value("${facebook.oauth.appId}")
     private String appId = "";
     @Value("${facebook.oauth.appSecret}")
-    private String appSecret="";
+    private String appSecret = "";
 
     @Value("${facebook.oauth.permissions}")
     private String facebookPermissions = "";
@@ -99,28 +99,27 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
     @Value("${twitter.oauth.appId}")
     private String twitterAppId = "";
     @Value("${twitter.oauth.appSecret}")
-    private String twitterAppSecret="";
+    private String twitterAppSecret = "";
     @Value("${twitter.oauth.accessToken}")
-    private String twitterAccessToken="";
+    private String twitterAccessToken = "";
     @Value("${twitter.oauth.accessSecret}")
-    private String twitterAccessSecret="";
-
+    private String twitterAccessSecret = "";
 
 
     @Override
     public boolean sendNotification(String platform, String token, String body) throws Exception {
-        return sendNotification(platform,token,body,null);
+        return sendNotification(platform, token, body, null);
     }
 
     @Override
-    public boolean sendNotification(String platform, String token, String body, Map<String,String> params) throws Exception {
-        logger.info("Sending notification to ("+platform+","+token+")");
+    public boolean sendNotification(String platform, String token, String body, Map<String, String> params) throws Exception {
+        logger.info("Sending notification to (" + platform + "," + token + ")");
         checkSenders(platform);
         if ("android".equals(platform)) {
             Message.Builder build = new Message.Builder();
 
             //add special parameters
-            if (params!=null && !params.isEmpty()) {
+            if (params != null && !params.isEmpty()) {
                 //removes an element body
                 params.remove("body");
                 build.setData(params);
@@ -131,10 +130,10 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
             Message msg = build.build();
             Result rs = googleSender.send(msg, token, 1);
-            if( rs != null ) {
-                logger.debug("getCanonicalRegistrationId  :"+rs.getCanonicalRegistrationId());
-                logger.debug("getMessageId                :"+rs.getMessageId());
-                logger.debug("getErrorCodeName            :"+rs.getErrorCodeName());
+            if (rs != null) {
+                logger.debug("getCanonicalRegistrationId  :" + rs.getCanonicalRegistrationId());
+                logger.debug("getMessageId                :" + rs.getMessageId());
+                logger.debug("getErrorCodeName            :" + rs.getErrorCodeName());
                 return true;
             } else {
                 logger.debug(" Send Result is null !");
@@ -149,7 +148,6 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
                 List<PushedNotification> notifications = new ArrayList<PushedNotification>();
                 //create a payload
                 PushNotificationPayload payload = PushNotificationPayload.complex();
-                payload.addBadge(1);
                 payload.addAlert(body);
                 payload.addSound("default");
                 //add special parameters
@@ -170,7 +168,7 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
                     String tokenSend = notification.getDevice().getToken();
                     if (notification.isSuccessful()) {
                         // Apple accepted the notification and should deliver it
-                        logger.info("Message delivered:{}",tokenSend);
+                        logger.info("Message delivered:{}", tokenSend);
                     } else {
                         //Add code here to remove invalidToken from your database
                         logger.warn("Invalid token:{}", tokenSend, notification.getException());
@@ -188,23 +186,23 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             }
 
 
-        }else if("facebook".equals(platform)){
+        } else if ("facebook".equals(platform)) {
             //token=userId
-            String statusId=null;
+            String statusId = null;
             if (StringUtils.isEmpty(token)) {
                 statusId = facebookSender.postStatusMessage(body);
-            }else{
+            } else {
                 statusId = facebookSender.postStatusMessage(token, body);
             }
             logger.debug("Sent: {} to statusId:{}", body, statusId);
-        }else if("twitter".equals(platform)){
+        } else if ("twitter".equals(platform)) {
             //token=recipientId
-            if (StringUtils.isEmpty(token)){
+            if (StringUtils.isEmpty(token)) {
                 Status status = twitterSender.updateStatus(body);
-                logger.debug("Sent: {} ",status.getText());
-            }else {
+                logger.debug("Sent: {} ", status.getText());
+            } else {
                 DirectMessage message = twitterSender.sendDirectMessage(token, body);
-                logger.debug("Sent: {} to @{}",message.getText(),message.getRecipientScreenName());
+                logger.debug("Sent: {} to @{}", message.getText(), message.getRecipientScreenName());
             }
 
         }
@@ -215,20 +213,20 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
     @Override
     public void outputData() throws Exception {
         logger.info("Notification Service data output");
-        logger.info("   google api key ["+googleApiKey+"]");
-        logger.info("   apple path ["+appleP12Path+"]");
+        logger.info("   google api key [" + googleApiKey + "]");
+        logger.info("   apple path [" + appleP12Path + "]");
     }
 
     protected void checkSenders(String platform) throws Exception {
-        if("android".equals(platform) && googleSender == null ) {
-            if( googleApiKey == null || googleApiKey.length()==0) {
+        if ("android".equals(platform) && googleSender == null) {
+            if (googleApiKey == null || googleApiKey.length() == 0) {
                 throw new Exception("Google API KEY not found.");
             }
-            logger.info("Creating android sender with key ["+googleApiKey+"]");
+            logger.info("Creating android sender with key [" + googleApiKey + "]");
             googleSender = new Sender(googleApiKey);
             logger.info("Android ok.");
-        } else if( "ios".equals(platform) && appleSender == null) {
-            if( appleP12Path == null || appleP12Password == null || appleP12Path.length()==0 || appleP12Password.length()==0 ) {
+        } else if ("ios".equals(platform) && appleSender == null) {
+            if (appleP12Path == null || appleP12Password == null || appleP12Path.length() == 0 || appleP12Password.length() == 0) {
                 throw new Exception("Apple certificate path not found.");
             }
             logger.info("Creating ios sender with path [" + appleP12Path + "] and production[" + appleProduction + "]");
@@ -238,7 +236,7 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
                     .withAppleDestination(new Boolean(appleProduction))
                     .build();
             logger.info("IOS ok.");
-        }else if ("facebook".equals(platform) && facebookSender == null){
+        } else if ("facebook".equals(platform) && facebookSender == null) {
             ConfigurationBuilder cb = new ConfigurationBuilder();
             cb.setDebugEnabled(true)
                     .setOAuthAppId(appId)
@@ -252,14 +250,14 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             facebookSender.setOAuthAccessToken(accessToken);
             logger.info("Facebook ok.");
 
-        }else if ("twitter".equals(platform) && twitterSender == null) {
+        } else if ("twitter".equals(platform) && twitterSender == null) {
             logger.info("Creating twitter sender...");
             twitterSender = TwitterFactory.getSingleton();
             twitterSender.setOAuthConsumer(twitterAppId, twitterAppSecret);
             if (StringUtils.isEmpty(twitterAccessToken)) {
                 RequestToken requestToken = twitterSender.getOAuthRequestToken();
                 logger.info("Twitter access token not found: authorize the following url: {}", requestToken.getAuthorizationURL());
-            }else{
+            } else {
 
                 twitter4j.auth.AccessToken accessToken = new twitter4j.auth.AccessToken(twitterAccessToken, twitterAccessSecret);
                 twitterSender.setOAuthAccessToken(accessToken);
