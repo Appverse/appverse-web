@@ -25,6 +25,7 @@ package org.appverse.web.framework.backend.bpm.services.integration;
 
 
 import org.bonitasoft.engine.bpm.data.DataDefinition;
+import org.bonitasoft.engine.bpm.data.DataInstance;
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance;
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance;
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo;
@@ -63,6 +64,7 @@ public interface IBpmService {
                                                              String processVersion,
                                                              String activityName,
                                                              int startIndex, int maxResults) throws Exception;
+    List<DataInstance> getDataByProcessInstance(long processInstanceId, int startIndex, int maxResults) throws Exception;
 
     List<DataDefinition> getDataDefinitionsByProcessDefinition(String processDefinitionName,
                                                                       String processVersion,
