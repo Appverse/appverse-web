@@ -75,13 +75,12 @@ public class BpmServiceTest {
             if (testContext.getApplicationContext() instanceof GenericApplicationContext) {
                 GenericApplicationContext context = (GenericApplicationContext) testContext.getApplicationContext();
                 ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
-                //beanFactory.registerScope(WebApplicationContext.SCOPE_REQUEST,
-                //        new SimpleThreadScope());
                 beanFactory.registerScope(WebApplicationContext.SCOPE_SESSION,
                         new SimpleThreadScope());
             }
         }
     }
+
     @Test(expected = IllegalStateException.class)
     public void testLoginException() throws Exception{
         bpmService.executeTaskFlowNode(1L);
@@ -89,7 +88,7 @@ public class BpmServiceTest {
     }
 
     @Test
-    @Ignore //Tests won't work if bonita is not started.
+    //Tests won't work if bonita is not started.
     public void testGetProcessAPI() throws Exception {
         assertNotNull(bpmService);
         bpmService.login(userName, password);

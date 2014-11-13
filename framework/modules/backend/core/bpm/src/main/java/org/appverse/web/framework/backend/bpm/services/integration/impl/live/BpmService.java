@@ -30,6 +30,7 @@ import org.bonitasoft.engine.api.LoginAPI;
 import org.bonitasoft.engine.api.ProcessAPI;
 import org.bonitasoft.engine.api.TenantAPIAccessor;
 import org.bonitasoft.engine.bpm.data.DataDefinition;
+import org.bonitasoft.engine.bpm.data.DataInstance;
 import org.bonitasoft.engine.bpm.flownode.*;
 import org.bonitasoft.engine.bpm.process.ProcessDefinition;
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo;
@@ -222,6 +223,7 @@ public class BpmService extends AbstractBusinessService implements IBpmService {
         }
         ProcessAPI processAPI = TenantAPIAccessor.getProcessAPI(userSession);
         long processDefinitionId = processAPI.getProcessDefinitionId(processDefinitionName, processVersion);
+
         List<DataDefinition> dataDefinitions = processAPI.getActivityDataDefinitions(processDefinitionId,
                 activityName, startIndex, maxResults);
         for( DataDefinition dataDefinition: dataDefinitions) {
@@ -258,6 +260,15 @@ public class BpmService extends AbstractBusinessService implements IBpmService {
         }
         return dataDefinitions;
     }
+    public List<DataInstance> getDataByProcessInstance(long processInstanceId, int startIndex, int maxResults) throws Exception{
+        if( userSession == null ) {
+            throw new IllegalStateException("UserSession not stablished. Please call loadSession first.");
+        }
+        ProcessAPI processAPI = TenantAPIAccessor.getProcessAPI(userSession);
+        List<DataInstance> list = processAPI.getProcessDataInstances(processInstanceId, startIndex, maxResults);
+        return list;
+    }
+
 
     public void assignTaskToUser(long taskId, long userId) throws Exception {
         if( userSession == null ) {

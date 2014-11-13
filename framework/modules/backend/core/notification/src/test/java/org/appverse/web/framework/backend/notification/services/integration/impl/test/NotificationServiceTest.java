@@ -25,6 +25,7 @@ package org.appverse.web.framework.backend.notification.services.integration.imp
 
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.notification.services.integration.INotificationService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -56,9 +57,6 @@ public class NotificationServiceTest extends AbstractJUnit4SpringContextTests {
     @Autowired
     INotificationService notificationService;
 
-
-
-
     @Test
     public void testSendMessageAndroidOK() throws Exception {
         notificationService.sendNotification("android","APA91bFZbatlcLrqG-mryOjt0tkxDhGMu66vw0qzpsa7nUfvMuguQXGDqj6f0YJWN800cuR-dCGmveyZpo-hkEgRRfO3Yw1z2hjNbf6x986pLSJO9wUsEjvs-oahKc4wdQQoElpqIM3nqYoM6kE3mxJyjjVoqu_G_A",SAMPLE_MESSAGE);
@@ -70,6 +68,7 @@ public class NotificationServiceTest extends AbstractJUnit4SpringContextTests {
         notificationService.sendNotification("android","APA91bFZbatlcLrqG-mryOjt0tkxDhGMu66vw0qzpsa7nUfvMuguQXGDqj6f0YJWN800cuR-dCGmveyZpo-hkEgRRfO3Yw1z2hjNbf6x986pLSJO9wUsEjvs-oahKc4wdQQoElpqIM3nqYoM6kE3mxJyjjVoqu_G_A",SAMPLE_MESSAGE,params);
     }
     @Test
+    @Ignore
     public void testSendMessageFacebookOK()throws Exception{
         notificationService.sendNotification("facebook","",SAMPLE_MESSAGE);
     }
@@ -84,10 +83,6 @@ public class NotificationServiceTest extends AbstractJUnit4SpringContextTests {
         notificationService.sendNotification("twitter","@someone",SAMPLE_MESSAGE);
     }
 
-
-    @Test
-    public void testUpdateToken() throws Exception {
-    }
 
     @Test
     public void testNotificationServiceGoogle() throws Exception {

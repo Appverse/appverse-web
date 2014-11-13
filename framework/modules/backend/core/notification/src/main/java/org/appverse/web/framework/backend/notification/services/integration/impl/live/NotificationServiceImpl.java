@@ -39,6 +39,7 @@ import javapns.notification.PushNotificationPayload;
 import javapns.notification.PushedNotification;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.services.business.AbstractBusinessService;
+import org.appverse.web.framework.backend.api.services.integration.IntegrationException;
 import org.appverse.web.framework.backend.notification.services.integration.INotificationService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -63,6 +64,9 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
     @AutowiredLogger
     private static Logger logger;
 
+    //IOS params limit in bytes
+    private static final int IOS_SIZE_LIMIT = 256;
+
     private Sender googleSender = null;
     private ApnsService appleSender = null;
     private Facebook facebookSender = null;
@@ -75,14 +79,15 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
     @Value("${apple.p12.path}")
     private String appleP12Path = "";
-
+    @Value("${apple.p12.production}")
+    private String appleProduction = "true";
     @Value("${apple.p12.pwd}")
     private String appleP12Password = "";
 
     @Value("${facebook.oauth.appId}")
     private String appId = "";
     @Value("${facebook.oauth.appSecret}")
-    private String appSecret="";
+    private String appSecret = "";
 
     @Value("${facebook.oauth.permissions}")
     private String facebookPermissions = "";
@@ -90,28 +95,27 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
     @Value("${twitter.oauth.appId}")
     private String twitterAppId = "";
     @Value("${twitter.oauth.appSecret}")
-    private String twitterAppSecret="";
+    private String twitterAppSecret = "";
     @Value("${twitter.oauth.accessToken}")
-    private String twitterAccessToken="";
+    private String twitterAccessToken = "";
     @Value("${twitter.oauth.accessSecret}")
-    private String twitterAccessSecret="";
-
+    private String twitterAccessSecret = "";
 
 
     @Override
     public boolean sendNotification(String platform, String token, String body) throws Exception {
-        return sendNotification(platform,token,body,null);
+        return sendNotification(platform, token, body, null);
     }
 
     @Override
-    public boolean sendNotification(String platform, String token, String body, Map<String,String> params) throws Exception {
-        logger.info("Sending notification to ("+platform+","+token+")");
+    public boolean sendNotification(String platform, String token, String body, Map<String, String> params) throws Exception {
+        logger.info("Sending notification to (" + platform + "," + token + ")");
         checkSenders(platform);
         if ("android".equals(platform)) {
             Message.Builder build = new Message.Builder();
 
             //add special parameters
-            if (params!=null && !params.isEmpty()) {
+            if (params != null && !params.isEmpty()) {
                 //removes an element body
                 params.remove("body");
                 build.setData(params);
@@ -122,10 +126,10 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
             Message msg = build.build();
             Result rs = googleSender.send(msg, token, 1);
-            if( rs != null ) {
-                logger.debug("getCanonicalRegistrationId  :"+rs.getCanonicalRegistrationId());
-                logger.debug("getMessageId                :"+rs.getMessageId());
-                logger.debug("getErrorCodeName            :"+rs.getErrorCodeName());
+            if (rs != null) {
+                logger.debug("getCanonicalRegistrationId  :" + rs.getCanonicalRegistrationId());
+                logger.debug("getMessageId                :" + rs.getMessageId());
+                logger.debug("getErrorCodeName            :" + rs.getErrorCodeName());
                 return true;
             } else {
                 logger.debug(" Send Result is null !");
@@ -138,30 +142,33 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
 
             try {
                 List<PushedNotification> notifications = new ArrayList<PushedNotification>();
+                //create a payload
+                PushNotificationPayload payload = PushNotificationPayload.complex();
+                payload.addAlert(body);
+                payload.addSound("default");
+                //add special parameters
                 if (params != null && !params.isEmpty()) {
-                    //create a payload
-                    PushNotificationPayload payload = PushNotificationPayload.complex();
-                    payload.addBadge(1);
-                    payload.addAlert(body);
-                    //add special parameters
-                    for (Map.Entry<String, String> entry : params.entrySet()) {
-                        payload.addCustomDictionary(entry.getKey(), entry.getValue());
-                    }
-                    //send
-                    notifications = Push.payload(payload, resource.getURL().getPath(), appleP12Password, true, token);
-                } else{
-                    notifications = Push.combined(body,1,null, resource.getURL().getPath(), appleP12Password, true, token);
 
+                    for (Map.Entry<String, String> entry : params.entrySet()) {
+                        if (entry.getValue().getBytes().length < IOS_SIZE_LIMIT) {
+                            payload.addCustomDictionary(entry.getKey(), entry.getValue());
+                        } else {
+                            throw new IntegrationException("param exceeds " + IOS_SIZE_LIMIT + "bytes limit");
+                        }
+                    }
                 }
+                //send
+                notifications = Push.payload(payload, resource.getURL().getPath(), appleP12Password, true, token);
                 //Check notification's statuses
                 for (PushedNotification notification : notifications) {
                     String tokenSend = notification.getDevice().getToken();
                     if (notification.isSuccessful()) {
                         // Apple accepted the notification and should deliver it
-                        logger.info("Message delivered:{}",tokenSend);
+                        logger.info("Message delivered:{}", tokenSend);
                     } else {
                         //Add code here to remove invalidToken from your database
-                        logger.warn("Invalid token:{}",tokenSend);
+                        logger.warn("Invalid token:{}", tokenSend, notification.getException());
+                        throw notification.getException();
                     }
                 }
             } catch (CommunicationException ex) {
@@ -175,23 +182,23 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             }
 
 
-        }else if("facebook".equals(platform)){
+        } else if ("facebook".equals(platform)) {
             //token=userId
-            String statusId=null;
+            String statusId = null;
             if (StringUtils.isEmpty(token)) {
                 statusId = facebookSender.postStatusMessage(body);
-            }else{
+            } else {
                 statusId = facebookSender.postStatusMessage(token, body);
             }
             logger.debug("Sent: {} to statusId:{}", body, statusId);
-        }else if("twitter".equals(platform)){
+        } else if ("twitter".equals(platform)) {
             //token=recipientId
-            if (StringUtils.isEmpty(token)){
+            if (StringUtils.isEmpty(token)) {
                 Status status = twitterSender.updateStatus(body);
-                logger.debug("Sent: {} ",status.getText());
-            }else {
+                logger.debug("Sent: {} ", status.getText());
+            } else {
                 DirectMessage message = twitterSender.sendDirectMessage(token, body);
-                logger.debug("Sent: {} to @{}",message.getText(),message.getRecipientScreenName());
+                logger.debug("Sent: {} to @{}", message.getText(), message.getRecipientScreenName());
             }
 
         }
@@ -202,30 +209,30 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
     @Override
     public void outputData() throws Exception {
         logger.info("Notification Service data output");
-        logger.info("   google api key ["+googleApiKey+"]");
-        logger.info("   apple path ["+appleP12Path+"]");
+        logger.info("   google api key [" + googleApiKey + "]");
+        logger.info("   apple path [" + appleP12Path + "]");
     }
 
     protected void checkSenders(String platform) throws Exception {
-        if("android".equals(platform) && googleSender == null ) {
-            if( googleApiKey == null || googleApiKey.length()==0) {
+        if ("android".equals(platform) && googleSender == null) {
+            if (googleApiKey == null || googleApiKey.length() == 0) {
                 throw new Exception("Google API KEY not found.");
             }
-            logger.info("Creating android sender with key ["+googleApiKey+"]");
+            logger.info("Creating android sender with key [" + googleApiKey + "]");
             googleSender = new Sender(googleApiKey);
             logger.info("Android ok.");
-        } else if( "ios".equals(platform) && appleSender == null) {
-            if( appleP12Path == null || appleP12Password == null || appleP12Path.length()==0 || appleP12Password.length()==0 ) {
+        } else if ("ios".equals(platform) && appleSender == null) {
+            if (appleP12Path == null || appleP12Password == null || appleP12Path.length() == 0 || appleP12Password.length() == 0) {
                 throw new Exception("Apple certificate path not found.");
             }
-            logger.info("Creating ios sender with path ["+appleP12Path+"]");
+            logger.info("Creating ios sender with path [" + appleP12Path + "] and production[" + appleProduction + "]");
             Resource resource = resourceLoader.getResource(appleP12Path);
             appleSender = APNS.newService()
                     .withCert(resource.getURL().getPath(), appleP12Password)
-                    .withProductionDestination()
+                    .withAppleDestination(new Boolean(appleProduction))
                     .build();
             logger.info("IOS ok.");
-        }else if ("facebook".equals(platform) && facebookSender == null){
+        } else if ("facebook".equals(platform) && facebookSender == null) {
             ConfigurationBuilder cb = new ConfigurationBuilder();
             cb.setDebugEnabled(true)
                     .setOAuthAppId(appId)
@@ -239,14 +246,14 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
             facebookSender.setOAuthAccessToken(accessToken);
             logger.info("Facebook ok.");
 
-        }else if ("twitter".equals(platform) && twitterSender == null) {
+        } else if ("twitter".equals(platform) && twitterSender == null) {
             logger.info("Creating twitter sender...");
             twitterSender = TwitterFactory.getSingleton();
             twitterSender.setOAuthConsumer(twitterAppId, twitterAppSecret);
             if (StringUtils.isEmpty(twitterAccessToken)) {
                 RequestToken requestToken = twitterSender.getOAuthRequestToken();
                 logger.info("Twitter access token not found: authorize the following url: {}", requestToken.getAuthorizationURL());
-            }else{
+            } else {
 
                 twitter4j.auth.AccessToken accessToken = new twitter4j.auth.AccessToken(twitterAccessToken, twitterAccessSecret);
                 twitterSender.setOAuthAccessToken(accessToken);
