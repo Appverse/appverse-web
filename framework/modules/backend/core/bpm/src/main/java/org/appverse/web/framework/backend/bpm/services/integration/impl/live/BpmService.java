@@ -29,6 +29,7 @@ import org.appverse.web.framework.backend.bpm.services.integration.IBpmService;
 import org.bonitasoft.engine.api.LoginAPI;
 import org.bonitasoft.engine.api.ProcessAPI;
 import org.bonitasoft.engine.api.TenantAPIAccessor;
+import org.bonitasoft.engine.bpm.data.ArchivedDataInstance;
 import org.bonitasoft.engine.bpm.data.DataDefinition;
 import org.bonitasoft.engine.bpm.data.DataInstance;
 import org.bonitasoft.engine.bpm.flownode.*;
@@ -260,12 +261,15 @@ public class BpmService extends AbstractBusinessService implements IBpmService {
         }
         return dataDefinitions;
     }
-    public List<DataInstance> getDataByProcessInstance(long processInstanceId, int startIndex, int maxResults) throws Exception{
+
+    @Override
+    public List<ArchivedDataInstance> getDataByProcessInstance(long processInstanceId, int startIndex, int maxResults) throws Exception {
         if( userSession == null ) {
             throw new IllegalStateException("UserSession not stablished. Please call loadSession first.");
         }
         ProcessAPI processAPI = TenantAPIAccessor.getProcessAPI(userSession);
-        List<DataInstance> list = processAPI.getProcessDataInstances(processInstanceId, startIndex, maxResults);
+        List<ArchivedDataInstance> list = processAPI.getArchivedProcessDataInstances(processInstanceId, startIndex, maxResults);
+
         return list;
     }
 
@@ -369,6 +373,7 @@ public class BpmService extends AbstractBusinessService implements IBpmService {
         }
         long userId = userSession.getUserId();
         ProcessAPI processAPI = TenantAPIAccessor.getProcessAPI(userSession);
+
         List<ActivityInstance> activityInstances = processAPI.getActivities(processInstanceId, 0, 50);
         logger.info("List of activities for Process INSTANCE Id="+processInstanceId);
         for(ActivityInstance activityInstance: activityInstances) {
@@ -380,36 +385,11 @@ public class BpmService extends AbstractBusinessService implements IBpmService {
         //System.out.println("Task Instance is :"+hti.getName());
     }
 
-    public ProcessAPI getProcessAPI (String userName, String password) throws Exception {
+    public ProcessAPI getProcessAPI() throws Exception {
         if( userSession == null ) {
             throw new IllegalStateException("UserSession not stablished. Please call loadSession first.");
         }
-        long userId = userSession.getUserId();
-        ProcessAPI processAPI = TenantAPIAccessor.getProcessAPI(userSession);
-        SearchOptionsBuilder builder = new SearchOptionsBuilder(0,20);
-        final SearchResult<ProcessDeploymentInfo> deploymentInfoResults = processAPI.searchProcessDeploymentInfos(userId, builder.done());
-        List<ProcessDeploymentInfo> lDeployments = deploymentInfoResults.getResult();
-        for( ProcessDeploymentInfo processDeploymentInfo:lDeployments) {
-            System.out.println("   Process deployed" + " id["+processDeploymentInfo.getId()+"]"+
-                    " name ["+processDeploymentInfo.getName()+ "]" +
-                    " description ["+processDeploymentInfo.getDescription()+"]") ;
-            //it is already enabled.... don't know what will happen with a production environment.
-            //System.out.println("   enabling process..."+processDeploymentInfo.getProcessId());
-            //processAPI.enableProcess(processDeploymentInfo.getProcessId());
-            logger.info("   starting process...{}",processDeploymentInfo.getProcessId());
-            ProcessInstance pInstance = processAPI.startProcess(processDeploymentInfo.getProcessId());
-            logger.info("A new process instance was started with id: {}", pInstance.getId());
-        }
-        /*
-        SearchResult<HumanTaskInstance> searchResults = processAPI.searchMyAvailableHumanTasks(userId, builder.done());
-        System.out.println("There are [" + searchResults.getCount() + "] available tasks for user [" + userId + "]");
-        List<HumanTaskInstance> lHumanTask = searchResults.getResult();
-        for( HumanTaskInstance humanTask: lHumanTask) {
-            processAPI.executeFlowNode(humanTask.getId());
-            //this fails saying the activity is not yet assigned.... need a bit more of investigation
-        } */
-//        loginAPI.logout(session);
-        return processAPI;
+        return TenantAPIAccessor.getProcessAPI(userSession);
     }
 
 

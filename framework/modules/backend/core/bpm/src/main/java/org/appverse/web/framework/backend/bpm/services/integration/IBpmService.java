@@ -24,6 +24,8 @@
 package org.appverse.web.framework.backend.bpm.services.integration;
 
 
+import org.bonitasoft.engine.api.ProcessAPI;
+import org.bonitasoft.engine.bpm.data.ArchivedDataInstance;
 import org.bonitasoft.engine.bpm.data.DataDefinition;
 import org.bonitasoft.engine.bpm.data.DataInstance;
 import org.bonitasoft.engine.bpm.flownode.ActivityInstance;
@@ -63,7 +65,8 @@ public interface IBpmService {
                                                              String processVersion,
                                                              String activityName,
                                                              int startIndex, int maxResults) throws Exception;
-    List<DataInstance> getDataByProcessInstance(long processInstanceId, int startIndex, int maxResults) throws Exception;
+
+    List<ArchivedDataInstance> getDataByProcessInstance(long processInstanceId, int startIndex, int maxResults) throws Exception;
 
     List<DataDefinition> getDataDefinitionsByProcessDefinition(String processDefinitionName,
                                                                       String processVersion,
@@ -102,7 +105,8 @@ public interface IBpmService {
 
     void addCommentToProcessInstance(long processInstanceId, String comment) throws Exception;
 
-    //public ProcessAPI getProcessAPI(APISession session, String userName, String password) throws Exception;
+    ProcessAPI getProcessAPI() throws Exception;
+
 
     //public List<ProcessDeploymentInfo> get
 
