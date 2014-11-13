@@ -4,3 +4,4 @@ target
 .classpath
 .settings
 *.iml
+atlassian-ide-plugin.xml
