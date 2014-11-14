@@ -66,7 +66,7 @@ public interface IBpmService {
                                                              String activityName,
                                                              int startIndex, int maxResults) throws Exception;
 
-    List<ArchivedDataInstance> getDataByProcessInstance(long processInstanceId, int startIndex, int maxResults) throws Exception;
+    Map<String, Serializable> getDataByProcessInstance(long processInstanceId, int startIndex, int maxResults) throws Exception;
 
     List<DataDefinition> getDataDefinitionsByProcessDefinition(String processDefinitionName,
                                                                       String processVersion,

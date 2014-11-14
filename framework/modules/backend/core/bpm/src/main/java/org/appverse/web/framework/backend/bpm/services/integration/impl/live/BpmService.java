@@ -263,14 +263,17 @@ public class BpmService extends AbstractBusinessService implements IBpmService {
     }
 
     @Override
-    public List<ArchivedDataInstance> getDataByProcessInstance(long processInstanceId, int startIndex, int maxResults) throws Exception {
+    public Map<String, Serializable> getDataByProcessInstance(long processInstanceId, int startIndex, int maxResults) throws Exception {
         if( userSession == null ) {
             throw new IllegalStateException("UserSession not stablished. Please call loadSession first.");
         }
+        Map<String, Serializable> data = new HashMap<String, Serializable>();
         ProcessAPI processAPI = TenantAPIAccessor.getProcessAPI(userSession);
         List<ArchivedDataInstance> list = processAPI.getArchivedProcessDataInstances(processInstanceId, startIndex, maxResults);
-
-        return list;
+        for (ArchivedDataInstance field : list) {
+            data.put(field.getName(), field.getValue());
+        }
+        return data;
     }
 
 
