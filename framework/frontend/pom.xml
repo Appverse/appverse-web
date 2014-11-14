@@ -371,11 +371,19 @@
 				<version>${framework.version}</version>
 			</dependency>
 
+			<dependency>			
+				<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
+				<artifactId>appverse-web-modules-backend-frontfacade-gwt-json</artifactId>
+				<version>${framework.version}</version>		
+			</dependency>			
+
+<!--  Not used for GWT anymore
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.frontfacade.json</groupId>
 				<artifactId>appverse-web-modules-backend-frontfacade-json</artifactId>
 				<version>${framework.version}</version>
 			</dependency>
+-->			
 
             <dependency>
                 <groupId>org.appverse.web.framework.modules.backend.frontfacade.rest</groupId>

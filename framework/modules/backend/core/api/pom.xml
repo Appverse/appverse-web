@@ -180,6 +180,7 @@
 
 	<build>
 		<plugins>
+			<!-- TODO: Remove this -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
@@ -312,6 +313,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
+		<!-- TODO: Remove this -->
 		<dependency>
 			<groupId>org.fusesource.restygwt</groupId>
 			<artifactId>restygwt</artifactId>

@@ -19,5 +19,5 @@
 	<source path="common" includes="AbstractBean.java,AbstractException.java" />
 	<source path="model/presentation" />
 	<source path="services/presentation"
-		includes="IFileRetrievalPresentationService.java,IFileUploadPresentationService.java,IPresentationService.java,PresentationException.java,AuthenticationServiceFacade.java, AuthenticationRestServiceFacade.java" />
+		includes="IFileRetrievalPresentationService.java,IFileUploadPresentationService.java,IPresentationService.java,PresentationException.java,AuthenticationServiceFacade.java" />
 </module>

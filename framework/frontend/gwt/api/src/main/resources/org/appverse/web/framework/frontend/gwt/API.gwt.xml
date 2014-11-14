@@ -36,13 +36,12 @@
 	<!-- Google Gin -->
 	<inherits name="com.google.gwt.inject.Inject"/>
 
-	<!-- Framework Backend Shared Classes -->
-	<inherits name="org.appverse.web.framework.backend.frontfacade.gxt.API"/>
-	<!-- Not used anymore
-	<inherits name="org.appverse.web.framework.backend.frontfacade.json.API"/>
-	-->
-
 	<inherits name="org.fusesource.restygwt.RestyGWT"/>
+
+	<!-- Framework Backend Shared Classes -->	  	
+	<inherits name="org.appverse.web.framework.backend.frontfacade.gxt.API"/>
+	
+	<inherits name="org.appverse.web.framework.backend.api.GWT-JSON-API"/>
 
     <source path="callback" />
     <source path="commands" />

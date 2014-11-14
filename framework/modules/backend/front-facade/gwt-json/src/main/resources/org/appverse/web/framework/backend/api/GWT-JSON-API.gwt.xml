@@ -23,5 +23,5 @@
  --> 
 <module>
   <inherits name="org.appverse.web.framework.backend.api.API"/>
-  <source path="services/presentation" excludes="impl/**/*Impl.java"/>
+  <source path="services/presentation" includes="AuthenticationRestServiceFacade.java"/>
 </module>
