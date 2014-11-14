@@ -313,11 +313,6 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
-		<!-- TODO: Remove this -->
-		<dependency>
-			<groupId>org.fusesource.restygwt</groupId>
-			<artifactId>restygwt</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
