@@ -2,15 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-<!-- Old parent
-	<parent>
-		<groupId>org.appverse.web.framework.poms</groupId>
-		<artifactId>appverse-web-masterpom</artifactId>
-		<version>1.4.1-SNAPSHOT</version>
-		<relativePath>../../../..</relativePath>
-	</parent>
- -->
- 
 	<parent>	
 		<groupId>org.appverse.web.framework.poms.frontend.gwt</groupId>
 		<artifactId>appverse-web-frontend-gwt-masterpom</artifactId>
@@ -272,10 +263,6 @@
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 			<artifactId>appverse-web-modules-backend-frontfacade-gwt-json</artifactId>		
-		<!-- Not used for GWT JSON anymore 
-			<groupId>org.appverse.web.framework.modules.backend.frontfacade.json</groupId>
-			<artifactId>appverse-web-modules-backend-frontfacade-json</artifactId>
-		-->			
 		</dependency>
 		<dependency>
 			<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>

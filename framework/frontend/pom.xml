@@ -347,24 +347,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<!-- APPVERSE WEB FRAMEWORK MANAGED DEPENDENCIES -->
-			
-			<!-- TODO: This does not exist anymore, for this we use the masterpom
-			<dependency>
-				<groupId>org.appverse.web.framework.poms.modules.backend.dependencies</groupId>
-				<artifactId>appverse-web-modules-backend-dependencies-pom</artifactId>
-				<version>${framework.version}</version>
-				<type>pom</type>
-			</dependency>
-			-->
-
-			<!--  Necessary here!?
-			<dependency>
-				<groupId>org.appverse.web.framework.modules.backend.core.api</groupId>
-				<artifactId>appverse-web-modules-backend-core-api</artifactId>
-				<version>${framework.version}</version>
-			</dependency>
-			-->
-
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
 				<artifactId>appverse-web-modules-backend-frontfacade-gwt</artifactId>
@@ -377,27 +359,11 @@
 				<version>${framework.version}</version>		
 			</dependency>			
 
-<!--  Not used for GWT anymore
-			<dependency>
-				<groupId>org.appverse.web.framework.modules.backend.frontfacade.json</groupId>
-				<artifactId>appverse-web-modules-backend-frontfacade-json</artifactId>
-				<version>${framework.version}</version>
-			</dependency>
--->			
-
             <dependency>
                 <groupId>org.appverse.web.framework.modules.backend.frontfacade.rest</groupId>
                 <artifactId>appverse-web-modules-backend-frontfacade-rest</artifactId>
                 <version>${framework.version}</version>
             </dependency>
-
-			<!-- We are not using this 			
-            <dependency>
-				<groupId>org.appverse.web.framework.modules.frontend.gwt.theme</groupId>
-				<artifactId>appverse-web-modules-frontend-gwt-theme</artifactId>
-				<version>${framework.gwtfrontend.version}</version>
-			</dependency>
-			-->
 
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.frontend.gwt.api</groupId>
@@ -460,32 +426,12 @@
 				<version>${gwt.version}</version>
 			</dependency>
 
-<!-- https://agema.gft.com/jira/browse/APPWEB-250 
-			<dependency>
-				<groupId>com.googlecode.gwt-validation</groupId>
-				<artifactId>gwt-validation</artifactId>
-				<version>2.1</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.reflections</groupId>
-                        <artifactId>reflections</artifactId>
-                    </exclusion>
-                </exclusions>
-			</dependency>
--->			
 			<dependency>
             	<groupId>com.google.gwt.inject</groupId>
             	<artifactId>gin</artifactId>
             	<version>${gin.version}</version>
             </dependency>
 			
-<!-- https://agema.gft.com/jira/browse/APPWEB-250 
-            <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>0.9.8</version>
-            </dependency>
--->            
             <dependency>
             	<groupId>com.google.guava</groupId>
             	<artifactId>guava</artifactId>
