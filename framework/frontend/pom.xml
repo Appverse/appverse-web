@@ -180,7 +180,7 @@
 	</scm>
 	
 	<properties>
-		<framework.version>1.4.1-SNAPSHOT</framework.version>
+		<framework.version>1.5-SNAPSHOT</framework.version>
 		<framework.gwtfrontend.version>0.1-SNAPSHOT</framework.gwtfrontend.version>
 		<!--  GWT Native validation requires slf4j vresion 1.6.1, if this is changed, module frontend-gwt-api needs to be reviewed and tested -->
 		<slf4j.version>1.6.1</slf4j.version>
