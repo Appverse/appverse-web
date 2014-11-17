@@ -5,7 +5,7 @@
 	<parent>	
 		<groupId>org.appverse.web.framework.poms.frontend.gwt</groupId>
 		<artifactId>appverse-web-frontend-gwt-masterpom</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>1.0-SNAPSHOT</version>
 		<relativePath>../..</relativePath>
 	</parent>
 
