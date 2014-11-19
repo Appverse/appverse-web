@@ -10,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms.modules.backend.ecm</groupId>
 	<artifactId>appverse-web-modules-backend-ecm-pom</artifactId>
-	<version>1.5-SNAPSHOT</version>
+	<version>1.5.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Modules Backend ECM POM</name>
