@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.appverse.web.framework.poms</groupId>
-		<artifactId>appverse-web-masterpom</artifactId>
-		<version>1.4.1-SNAPSHOT</version>
-		<relativePath>../../</relativePath>
+		<groupId>org.appverse.web.framework.poms.archetypes</groupId>
+		<artifactId>appverse-web-archetypes-pom</artifactId>
+		<version>1.5.0-SNAPSHOT</version>
+		<relativePath>../</relativePath>
 	</parent>
 
 	<groupId>org.appverse.web.framework.archetypes.jsf2</groupId>
