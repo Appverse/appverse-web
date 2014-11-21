@@ -10,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms.modules.backend.frontfacade</groupId>
 	<artifactId>appverse-web-modules-backend-frontfacade-pom</artifactId>
-	<version>1.5.0-RELEASE</version>
+	<version>1.5.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Modules Backend Front-Facade POM</name>
