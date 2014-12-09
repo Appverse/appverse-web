@@ -24,6 +24,7 @@
 package org.appverse.web.framework.backend.api.helpers.security;
 
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -66,8 +67,9 @@ public class SecurityHelper {
         HttpSession session = request.getSession(false);
         String xsrfSessionToken = (String) session
                 .getAttribute(XSRF_TOKEN_NAME);
-        if (xsrfSessionToken == null) {
-            Random r = new Random(System.currentTimeMillis());
+        if (xsrfSessionToken == null) {        	
+        	SecureRandom r = new SecureRandom();
+        	r.setSeed(System.currentTimeMillis());
             long value = System.currentTimeMillis() + r.nextLong();
             char ids[] = session.getId().toCharArray();
             for (int i = 0; i < ids.length; i++) {
