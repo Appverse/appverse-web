@@ -1223,6 +1223,14 @@
                 <artifactId>chemistry-opencmis-client-impl</artifactId>
                 <version>0.11.0</version>
             </dependency>
+            
+            <!-- APACHE TIKA DEPENDENCY -->
+			<dependency>
+    			<groupId>org.apache.tika</groupId>
+    			<artifactId>tika-app</artifactId>
+    			<version>1.6</version>    		
+			</dependency>            
+            
         </dependencies>
 	</dependencyManagement>
 
