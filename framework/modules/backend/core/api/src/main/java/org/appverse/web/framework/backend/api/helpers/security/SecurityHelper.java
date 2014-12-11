@@ -30,6 +30,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import org.owasp.esapi.ESAPI;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -68,9 +69,7 @@ public class SecurityHelper {
         String xsrfSessionToken = (String) session
                 .getAttribute(XSRF_TOKEN_NAME);
         if (xsrfSessionToken == null) {        	
-        	SecureRandom r = new SecureRandom();
-        	r.setSeed(System.currentTimeMillis());
-            long value = System.currentTimeMillis() + r.nextLong();
+            long value = System.currentTimeMillis() + ESAPI.randomizer().getRandomLong();
             char ids[] = session.getId().toCharArray();
             for (int i = 0; i < ids.length; i++) {
                 value += ids[i] * (i + 1);
