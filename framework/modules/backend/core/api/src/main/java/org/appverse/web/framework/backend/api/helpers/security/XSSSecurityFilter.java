@@ -23,18 +23,8 @@
  */
 package org.appverse.web.framework.backend.api.helpers.security;
 
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
-import org.owasp.esapi.ESAPI;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.core.MultivaluedMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * A Request Filter to filter out possible XSS attacks in the request query parameters or headers.
@@ -42,10 +32,6 @@ import java.util.Map;
 
 public class XSSSecurityFilter implements ContainerRequestFilter
 {
-    //private static final Logger LOG = LoggerFactory.getLogger(XSSSecurityFilter.class);
-    //@AutowiredLogger
-    private Logger logger = LoggerFactory.getLogger(XSSSecurityFilter.class);
-
     /**
      * @see javax.ws.rs.container.ContainerRequestFilter#filter(javax.ws.rs.container.ContainerRequestContext)
      */
@@ -53,60 +39,9 @@ public class XSSSecurityFilter implements ContainerRequestFilter
     public void filter( ContainerRequestContext request )
     {
         // Clean the query strings
-        cleanParams(request.getUriInfo().getQueryParameters());
+    	ESAPIHelper.cleanParams(request.getUriInfo().getQueryParameters());
 
         // Clean the headers
-        cleanParams( request.getHeaders() );
-
-        // Clean the cookies
-        //cleanParams( request.getCookieNameValueMap() );
-
-    }
-
-    /**
-     * Apply the XSS filter to the parameters
-     * @param parameters
-     */
-    private void cleanParams( MultivaluedMap<String, String> parameters )
-    {
-        logger.debug("Checking for XSS Vulnerabilities: {}", parameters);
-
-        for( Map.Entry<String, List<String>> params : parameters.entrySet() )
-        {
-            String key = params.getKey();
-            List<String> values = params.getValue();
-
-            List<String> cleanValues = new ArrayList<String>();
-            for( String value : values )
-            {
-                cleanValues.add( stripXSS( value ) );
-            }
-
-            parameters.put( key, cleanValues );
-        }
-
-        logger.debug( "XSS Vulnerabilities removed: {}", parameters );
-    }
-
-
-    /**
-     * Strips any potential XSS threats out of the value
-     * @param value
-     * @return
-     */
-    public String stripXSS( String value )
-    {
-        if( value != null )
-        {
-            // Use the ESAPI library to avoid encoded attacks.
-            value = ESAPI.encoder().canonicalize( value );
-
-            // Avoid null characters
-            value = value.replaceAll("\0", "");
-
-            // Clean out HTML
-            value = Jsoup.clean(value, Whitelist.none());
-        }
-        return value;
+        ESAPIHelper.cleanParams( request.getHeaders());
     }
 }

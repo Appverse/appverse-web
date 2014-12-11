@@ -23,72 +23,25 @@
  */
 package org.appverse.web.framework.backend.api.helpers.json;
 
+import org.appverse.web.framework.backend.api.helpers.security.ESAPIHelper;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
-import org.owasp.esapi.ESAPI;
-import org.owasp.esapi.Encoder;
-import org.owasp.esapi.reference.DefaultEncoder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * This class is used by Appverse JacksonContextResolver to deserialize JSON String values.
  */
 public class JSONStringXSSDeserializer extends JsonDeserializer<String> {
-    private static Logger logger = LoggerFactory.getLogger(JSONStringXSSDeserializer.class);
 
     @Override
 	public String deserialize(JsonParser jp, DeserializationContext ctxt)
 			throws IOException, JsonProcessingException {
 
         String rawValue = jp.getText();
-        //String encValue = stripXSS(rawValue);
-        String encValue = encodeHtml(rawValue);
-        //System.out.println("JSONStringXSSDeserializer 1["+rawValue+"] to ["+encValue+"]");
+        String encValue = ESAPIHelper.encodeHtml(rawValue);
 		return encValue;
 	}
-
-    /**
-     * Using ESAPI HTML Encoder, encodes the supplied html string.
-     * @param html the string to be encoded.
-     * @return the encoded string.
-     */
-    private String encodeHtml(String html) {
-        Encoder encoder = DefaultEncoder.getInstance();
-        String s = encoder.encodeForHTML(html);
-        //System.out.println("Encoded from ["+html+"] to ["+s+"]");
-        return s;
-    }
-
-    /**
-     * This method removes all html markup from the supplied string.
-     * @param value The string containing possible html tags.
-     * @return The string without html tags.
-     */
-    private String stripXSS( String value )
-    {
-        if( value != null )
-        {
-          //  System.out.println("STRIP XSS -> ["+value+"]");
-            // Use the ESAPI library to avoid encoded attacks.
-            value = ESAPI.encoder().canonicalize( value );
-            //ESAPI.encoder().encodeForHTML()
-
-            // Avoid null characters
-            value = value.replaceAll("\0", "");
-
-            // Clean out HTML
-            //This clean, removes all html tags. so instead of &lt;script&gt;, it simple removes the <script> tag.
-            value = Jsoup.clean(value, Whitelist.none());
-            //System.out.println("STRIPED XSS -> ["+value+"]");
-        }
-        return value;
-    }
 }
