@@ -24,11 +24,9 @@
 package org.appverse.web.framework.backend.api.helpers.security;
 
 import java.io.IOException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 import org.owasp.esapi.ESAPI;
 import org.springframework.security.core.Authentication;
