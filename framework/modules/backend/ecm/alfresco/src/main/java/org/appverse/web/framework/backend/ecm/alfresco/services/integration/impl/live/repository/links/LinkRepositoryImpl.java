@@ -104,7 +104,7 @@ public class LinkRepositoryImpl extends RestPersistenceService<LinkDTO>
             properties.put(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_USERNAME, user);
             properties.put(HttpAuthenticationFeature.HTTP_AUTHENTICATION_BASIC_PASSWORD, password);
         }
-        return this.retrievePagedQuery(alfrescoRestClient.path("links/site/"+ site +"/links"),
+        return this.retrievePagedQuery(alfrescoRestClient.path("links/site/"+ site +"/" + container),
                 filter, null, queryParams, properties);
     }
 
