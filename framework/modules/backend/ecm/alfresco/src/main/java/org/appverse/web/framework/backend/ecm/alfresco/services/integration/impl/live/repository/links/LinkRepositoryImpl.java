@@ -29,7 +29,6 @@ import org.appverse.web.framework.backend.ecm.alfresco.model.integration.reposit
 import org.appverse.web.framework.backend.ecm.alfresco.model.integration.repository.links.PageDTO;
 import org.appverse.web.framework.backend.ecm.alfresco.services.integration.repository.links.LinkRepository;
 import org.appverse.web.framework.backend.rest.model.integration.IntegrationPaginatedResult;
-import org.appverse.web.framework.backend.rest.services.integration.IRestPersistenceService;
 import org.appverse.web.framework.backend.rest.services.integration.impl.live.RestPersistenceService;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.slf4j.Logger;
@@ -50,7 +49,7 @@ import java.util.Map;
  */
 @Repository("linkRepository")
 public class LinkRepositoryImpl extends RestPersistenceService<LinkDTO>
-        implements LinkRepository, IRestPersistenceService<LinkDTO> {
+        implements LinkRepository {
 
 
     @Autowired
