@@ -24,7 +24,9 @@
 package org.appverse.web.framework.backend.bpm.services.integration;
 
 
+import org.bonitasoft.engine.api.IdentityAPI;
 import org.bonitasoft.engine.api.ProcessAPI;
+import org.bonitasoft.engine.api.ProfileAPI;
 import org.bonitasoft.engine.bpm.data.ArchivedDataInstance;
 import org.bonitasoft.engine.bpm.data.DataDefinition;
 import org.bonitasoft.engine.bpm.data.DataInstance;
@@ -105,7 +107,12 @@ public interface IBpmService {
 
     void addCommentToProcessInstance(long processInstanceId, String comment) throws Exception;
 
+    //public api
     ProcessAPI getProcessAPI() throws Exception;
+
+    IdentityAPI getIdentityAPI() throws Exception;
+
+    ProfileAPI getProfileAPI() throws Exception;
 
 
     //public List<ProcessDeploymentInfo> get

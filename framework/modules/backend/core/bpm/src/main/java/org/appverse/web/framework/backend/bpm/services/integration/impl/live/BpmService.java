@@ -26,9 +26,7 @@ package org.appverse.web.framework.backend.bpm.services.integration.impl.live;
 import org.appverse.web.framework.backend.api.helpers.log.AutowiredLogger;
 import org.appverse.web.framework.backend.api.services.business.AbstractBusinessService;
 import org.appverse.web.framework.backend.bpm.services.integration.IBpmService;
-import org.bonitasoft.engine.api.LoginAPI;
-import org.bonitasoft.engine.api.ProcessAPI;
-import org.bonitasoft.engine.api.TenantAPIAccessor;
+import org.bonitasoft.engine.api.*;
 import org.bonitasoft.engine.bpm.data.ArchivedDataInstance;
 import org.bonitasoft.engine.bpm.data.DataDefinition;
 import org.bonitasoft.engine.bpm.data.DataInstance;
@@ -67,6 +65,8 @@ public class BpmService extends AbstractBusinessService implements IBpmService {
     public void login(String userName, String password) throws Exception {
         this.userName = userName;
         final LoginAPI loginAPI = TenantAPIAccessor.getLoginAPI();
+
+
         userSession = loginAPI.login(userName, password);
         userName = userSession.getUserName();
         logger.info("Logged in [{}] to BPM Platform.", userName);
@@ -82,6 +82,10 @@ public class BpmService extends AbstractBusinessService implements IBpmService {
         }
         userSession = null;
         logger.info("Logged out [{}] from BPM Platform.", userName);
+    }
+
+    public User createUser(String username, String password, String firstName, String lastName) throws Exception {
+        return TenantAPIAccessor.getIdentityAPI(userSession).createUser(username, password, firstName, lastName);
     }
 
     @Override
@@ -388,11 +392,22 @@ public class BpmService extends AbstractBusinessService implements IBpmService {
         //System.out.println("Task Instance is :"+hti.getName());
     }
 
+    @Override
     public ProcessAPI getProcessAPI() throws Exception {
         if( userSession == null ) {
             throw new IllegalStateException("UserSession not stablished. Please call loadSession first.");
         }
         return TenantAPIAccessor.getProcessAPI(userSession);
+    }
+
+    @Override
+    public IdentityAPI getIdentityAPI() throws Exception {
+        return TenantAPIAccessor.getIdentityAPI(userSession);
+    }
+
+    @Override
+    public ProfileAPI getProfileAPI() throws Exception {
+        return TenantAPIAccessor.getProfileAPI(userSession);
     }
 
 
