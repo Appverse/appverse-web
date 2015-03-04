@@ -32,8 +32,6 @@ import org.appverse.web.framework.backend.api.model.presentation.AuthorizationDa
 import org.appverse.web.framework.backend.api.model.presentation.UserInfoVO;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.RestService;
-import org.fusesource.restygwt.client.TextCallback;
-
 
 /**
  * This is the interface that RestyGWT, and only RestyGWT, will use to access the AuthenticationService.
@@ -62,11 +60,11 @@ public interface AuthenticationRestServiceFacade extends RestService {
 	//TextCallback are needed when method return type is just String. See https://github.com/resty-gwt/resty-gwt/issues/63
 	@POST
     @Path("getPrincipal")
-	public void getPrincipal(TextCallback callback);
+	public void getPrincipal(MethodCallback callback);
 
 	@POST
     @Path("getXSRFSessionToken")
-	public void getXSRFSessionToken(TextCallback callback);
+	public void getXSRFSessionToken(MethodCallback callback);
 
 	@POST
     @Path("isPrincipalAuthenticated")
