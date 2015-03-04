@@ -267,4 +267,92 @@ public class NotificationServiceImpl extends AbstractBusinessService implements 
     public void setResourceLoader(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
     }
+
+    public String getGoogleApiKey() {
+        return googleApiKey;
+    }
+
+    public void setGoogleApiKey(String googleApiKey) {
+        this.googleApiKey = googleApiKey;
+    }
+
+    public String getAppleP12Path() {
+        return appleP12Path;
+    }
+
+    public void setAppleP12Path(String appleP12Path) {
+        this.appleP12Path = appleP12Path;
+    }
+
+    public String getAppleProduction() {
+        return appleProduction;
+    }
+
+    public void setAppleProduction(String appleProduction) {
+        this.appleProduction = appleProduction;
+    }
+
+    public String getAppleP12Password() {
+        return appleP12Password;
+    }
+
+    public void setAppleP12Password(String appleP12Password) {
+        this.appleP12Password = appleP12Password;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
+    }
+
+    public String getFacebookPermissions() {
+        return facebookPermissions;
+    }
+
+    public void setFacebookPermissions(String facebookPermissions) {
+        this.facebookPermissions = facebookPermissions;
+    }
+
+    public String getTwitterAppId() {
+        return twitterAppId;
+    }
+
+    public void setTwitterAppId(String twitterAppId) {
+        this.twitterAppId = twitterAppId;
+    }
+
+    public String getTwitterAppSecret() {
+        return twitterAppSecret;
+    }
+
+    public void setTwitterAppSecret(String twitterAppSecret) {
+        this.twitterAppSecret = twitterAppSecret;
+    }
+
+    public String getTwitterAccessToken() {
+        return twitterAccessToken;
+    }
+
+    public void setTwitterAccessToken(String twitterAccessToken) {
+        this.twitterAccessToken = twitterAccessToken;
+    }
+
+    public String getTwitterAccessSecret() {
+        return twitterAccessSecret;
+    }
+
+    public void setTwitterAccessSecret(String twitterAccessSecret) {
+        this.twitterAccessSecret = twitterAccessSecret;
+    }
 }

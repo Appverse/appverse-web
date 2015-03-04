@@ -32,4 +32,5 @@ public interface INotificationService {
     boolean sendNotification(String platform, String token, String body, Map<String,String> params) throws Exception;
     void outputData() throws Exception;
 
+
 }
