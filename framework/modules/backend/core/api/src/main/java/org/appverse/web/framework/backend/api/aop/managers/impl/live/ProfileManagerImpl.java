@@ -79,8 +79,8 @@ public class ProfileManagerImpl implements ProfileManager {
 				b.append("  EXCEPTION: ").append(thrown.getMessage())
 						.append("[").append(thrown.getClass()).append("]");
 			}
-			logger.debug(b.toString());
-		}
+            logger.debug(b.toString(), thrown);
+        }
 	}
 
 	public void setShowObjects(boolean showObjects) {
