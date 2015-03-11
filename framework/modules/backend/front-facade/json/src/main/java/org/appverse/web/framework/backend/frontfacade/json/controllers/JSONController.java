@@ -139,6 +139,7 @@ public class JSONController implements ApplicationContextAware {
         }
         if (presentationService instanceof AuthenticationServiceFacade
                 && requestMethodName.equals("getXSRFSessionToken")) {
+        	/*
             ServletServerHttpResponse outputMessage = new ServletServerHttpResponse(
                     response);
             customMappingJacksonHttpMessageConverter.write(
@@ -146,8 +147,10 @@ public class JSONController implements ApplicationContextAware {
                         org.springframework.http.MediaType.APPLICATION_JSON,
                         outputMessage);
             addDefaultResponseHeaders(response);
+            // Not working, then the token is null.. outputMessage.getBody().write(SecurityHelper.createXSRFToken(request).getBytes());
             return "";
-
+            */
+        	return SecurityHelper.createXSRFToken(request);
         }
 
         // Determine if method exist by name.

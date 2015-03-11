@@ -26,6 +26,7 @@ package org.appverse.web.framework.backend.frontfacade.json.application;
 import org.appverse.web.framework.backend.api.helpers.security.XSSSecurityFilter;
 import org.appverse.web.framework.backend.frontfacade.json.controllers.JSONController;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
 /**
  * Due to what seems a bug in Jersey 2.4 (already reported https://java.net/jira/browse/JERSEY-2174)
@@ -36,7 +37,7 @@ import org.glassfish.jersey.server.ResourceConfig;
  */
 public class JerseyInitJsonApplication extends ResourceConfig{
     public JerseyInitJsonApplication() {
-        super(JSONController.class, XSSSecurityFilter.class);
+        super(JSONController.class, JacksonFeature.class, XSSSecurityFilter.class);
 
     }
 }
