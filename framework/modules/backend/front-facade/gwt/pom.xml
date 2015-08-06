@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.appverse.web.framework.poms</groupId>
 		<artifactId>appverse-web-masterpom</artifactId>
-		<version>1.5.1-SNAPSHOT</version>
+		<version>1.5.1</version>
 		<relativePath>../../../..</relativePath>
 	</parent>
 
@@ -169,7 +169,7 @@
 	<scm>
 		<connection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</connection>
 		<developerConnection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</developerConnection>
-		<tag>master</tag>
+		<tag>1.5.1</tag>
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 

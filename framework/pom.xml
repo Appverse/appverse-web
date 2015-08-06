@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -10,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms</groupId>
 	<artifactId>appverse-web-masterpom</artifactId>
-	<version>1.5.1-SNAPSHOT</version>
+	<version>1.5.1</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Master POM</name>
@@ -182,12 +182,12 @@
 	<scm>
 		<connection>scm:git:https://github.com/Appverse/appverse-web.git</connection>
 		<developerConnection>scm:git:https://github.com/Appverse/appverse-web.git</developerConnection>
-		<tag>master</tag>
+		<tag>1.5.1</tag>
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
 	<properties>
-		<framework.version>1.5.1-SNAPSHOT</framework.version>
+		<framework.version>1.5.1</framework.version>
 		<spring.version>3.2.9.RELEASE</spring.version>
         <spring.security.version>3.2.5.RELEASE</spring.security.version>
         <spring.oauth2.version>2.0.3.RELEASE</spring.oauth2.version>
