@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -10,7 +11,7 @@
 
 	<groupId>org.appverse.web.framework.poms</groupId>
 	<artifactId>appverse-web-masterpom</artifactId>
-	<version>1.5.1</version>
+	<version>1.5.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Master POM</name>
@@ -106,19 +107,19 @@
 			</roles>
 			<timezone>Europe/Andorra</timezone>
 		</developer>
-        <developer>
-            <id>mrestivill</id>
-            <name>Marc Rodriguez Estivill</name>
-            <email>mrodriguezestivill@gmail.com</email>
-            <url />
-            <organization>Appverse</organization>
-            <organizationUrl>http://appverse.org</organizationUrl>
-            <roles>
-                <role>Architect</role>
-                <role>Developer</role>
-            </roles>
-            <timezone>Europe/Andorra</timezone>
-        </developer>
+		<developer>
+			<id>mrestivill</id>
+			<name>Marc Rodriguez Estivill</name>
+			<email>mrodriguezestivill@gmail.com</email>
+			<url />
+			<organization>Appverse</organization>
+			<organizationUrl>http://appverse.org</organizationUrl>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>Europe/Andorra</timezone>
+		</developer>
 	</developers>
 
 	<contributors>
@@ -187,11 +188,12 @@
 	</scm>
 
 	<properties>
-		<framework.version>1.5.1</framework.version>
+		<framework.version>1.5.3-SNAPSHOT</framework.version>
 		<spring.version>3.2.9.RELEASE</spring.version>
-        <spring.security.version>3.2.5.RELEASE</spring.security.version>
-        <spring.oauth2.version>2.0.3.RELEASE</spring.oauth2.version>
-		<!--  GWT Native validation requires slf4j vresion 1.6.1, if this is changed, module frontend-gwt-api needs to be reviewed and tested -->
+		<spring.security.version>3.2.5.RELEASE</spring.security.version>
+		<spring.oauth2.version>2.0.3.RELEASE</spring.oauth2.version>
+		<!-- GWT Native validation requires slf4j vresion 1.6.1, if this is changed, 
+			module frontend-gwt-api needs to be reviewed and tested -->
 		<slf4j.version>1.6.1</slf4j.version>
 		<gwt.version>2.6.1</gwt.version>
 		<restygwt.version>1.4</restygwt.version>
@@ -199,15 +201,15 @@
 		<guava.version>14.0</guava.version>
 		<jsr311.version>2.0</jsr311.version>
 		<jersey.version>2.13</jersey.version>
-        <jdk.source>1.6</jdk.source>
-        <jdk.target>1.6</jdk.target>
-        <ehcache.version>2.4.5</ehcache.version>
-        <owasp.esapi.version>2.1.0</owasp.esapi.version>
-        <org.jsoup.version>1.7.3</org.jsoup.version>
-        <nimbus.version>2.25</nimbus.version>
-        <mockito.version>1.9.5</mockito.version>
-        <skipEcmTests>true</skipEcmTests>
-    </properties>
+		<jdk.source>1.6</jdk.source>
+		<jdk.target>1.6</jdk.target>
+		<ehcache.version>2.4.5</ehcache.version>
+		<owasp.esapi.version>2.1.0</owasp.esapi.version>
+		<org.jsoup.version>1.7.3</org.jsoup.version>
+		<nimbus.version>2.25</nimbus.version>
+		<mockito.version>1.9.5</mockito.version>
+		<skipEcmTests>true</skipEcmTests>
+	</properties>
 
 	<modules>
 		<module>modules</module>
@@ -225,7 +227,7 @@
 					<mavenExecutorId>forked-path</mavenExecutorId>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 
 		<pluginManagement>
@@ -353,7 +355,7 @@
 						</execution>
 					</executions>
 				</plugin>
-				
+
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -385,11 +387,11 @@
 				<version>${framework.version}</version>
 			</dependency>
 
-            <dependency>
-                <groupId>org.appverse.web.framework.modules.backend.core.persistence.hibernate</groupId>
-                <artifactId>appverse-web-modules-backend-core-persistence-hibernate</artifactId>
-                <version>${framework.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.core.persistence.hibernate</groupId>
+				<artifactId>appverse-web-modules-backend-core-persistence-hibernate</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.core.cache</groupId>
@@ -403,29 +405,29 @@
 				<version>${framework.version}</version>
 			</dependency>
 
-            <dependency>
-                <groupId>org.appverse.web.framework.modules.backend.core.rest</groupId>
-                <artifactId>appverse-web-modules-backend-core-rest</artifactId>
-                <version>${framework.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.core.rest</groupId>
+				<artifactId>appverse-web-modules-backend-core-rest</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>org.appverse.web.framework.modules.backend.ecm.core</groupId>
-                <artifactId>appverse-web-modules-backend-ecm-core</artifactId>
-                <version>${framework.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.ecm.core</groupId>
+				<artifactId>appverse-web-modules-backend-ecm-core</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>org.appverse.web.framework.modules.backend.ecm.cmis</groupId>
-                <artifactId>appverse-web-modules-backend-ecm-cmis</artifactId>
-                <version>${framework.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.ecm.cmis</groupId>
+				<artifactId>appverse-web-modules-backend-ecm-cmis</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>org.appverse.web.framework.modules.backend.ecm.filesystem</groupId>
-                <artifactId>appverse-web-modules-backend-ecm-cmis-filesystem</artifactId>
-                <version>${framework.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.ecm.filesystem</groupId>
+				<artifactId>appverse-web-modules-backend-ecm-cmis-filesystem</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.frontfacade.gwt</groupId>
@@ -439,11 +441,11 @@
 				<version>${framework.version}</version>
 			</dependency>
 
-            <dependency>
-                <groupId>org.appverse.web.framework.modules.backend.frontfacade.rest</groupId>
-                <artifactId>appverse-web-modules-backend-frontfacade-rest</artifactId>
-                <version>${framework.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.frontfacade.rest</groupId>
+				<artifactId>appverse-web-modules-backend-frontfacade-rest</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.appverse.web.framework.modules.backend.messaging</groupId>
@@ -457,11 +459,11 @@
 				<version>${framework.version}</version>
 			</dependency>
 
-            <dependency>
-                <groupId>org.appverse.web.framework.modules.backend.security.oauth2</groupId>
-                <artifactId>appverse-web-modules-backend-security-oauth2</artifactId>
-                <version>${framework.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>org.appverse.web.framework.modules.backend.security.oauth2</groupId>
+				<artifactId>appverse-web-modules-backend-security-oauth2</artifactId>
+				<version>${framework.version}</version>
+			</dependency>
 			<!-- END OF APPVERSE WEB FRAMEWORK MANAGED DEPENDENCIES -->
 
 			<!-- SPRING FRAMEWORK MANAGED DEPENDENCIES -->
@@ -518,12 +520,12 @@
 				<artifactId>spring-jms</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-oxm</artifactId>
 				<version>${spring.version}</version>
-			</dependency>		
+			</dependency>
 
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -537,12 +539,12 @@
 				<version>${spring.version}</version>
 				<scope>test</scope>
 			</dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
-            </dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
 
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -598,11 +600,11 @@
 				<version>${spring.security.version}</version>
 			</dependency>
 
-            <dependency>
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth2</artifactId>
-                <version>${spring.oauth2.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>org.springframework.security.oauth</groupId>
+				<artifactId>spring-security-oauth2</artifactId>
+				<version>${spring.oauth2.version}</version>
+			</dependency>
 			<!-- END OF SPRING FRAMEWORK MANAGED DEPENDENCIES -->
 
 			<!-- JEE MANAGED DEPENDENCIES -->
@@ -682,64 +684,60 @@
 				<version>2.6</version>
 			</dependency>
 			<!-- END OF APACHE COMMONS MANAGED DEPENDENCIES -->
-			<!--  JSR311 DEPENDENCIES -->
+			<!-- JSR311 DEPENDENCIES -->
 			<dependency>
 				<groupId>javax.ws.rs</groupId>
-                <artifactId>javax.ws.rs-api</artifactId>
-				<!--<artifactId>jsr311-api</artifactId>-->
+				<artifactId>javax.ws.rs-api</artifactId>
+				<!--<artifactId>jsr311-api</artifactId> -->
 				<version>${jsr311.version}</version>
 			</dependency>
-			<!--  END JSR311 DEPENDENCIES -->
+			<!-- END JSR311 DEPENDENCIES -->
 			<!-- JERSEY DEPENDENCIES -->
-            <dependency>
-                <groupId>org.glassfish.jersey.containers</groupId>
-                <!-- if your container implements Servlet API older than 3.0, use "jersey-container-servlet-core"  -->
-                <artifactId>jersey-container-servlet</artifactId>
-                <version>${jersey.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.ext</groupId>
-                <artifactId>jersey-spring3</artifactId>
-                <version>${jersey.version}</version>
-                <!-- Do we need to exclude something? checkit!
-                <exclusions>
-
-                </exclusions>
-                -->
-            </dependency>
-            
-            <!-- auto registered feature // default JSON support module-->
 			<dependency>
-			    <groupId>org.glassfish.jersey.media</groupId>
-			    <artifactId>jersey-media-moxy</artifactId>
-			    <version>${jersey.version}</version>
-			</dependency>		
-            
-			<dependency>
-    			<groupId>org.glassfish.jersey.media</groupId>
-    			<artifactId>jersey-media-json-jackson</artifactId>
-			    <version>${jersey.version}</version>
+				<groupId>org.glassfish.jersey.containers</groupId>
+				<!-- if your container implements Servlet API older than 3.0, use "jersey-container-servlet-core" -->
+				<artifactId>jersey-container-servlet</artifactId>
+				<version>${jersey.version}</version>
 			</dependency>
-            
-            
-            <dependency>
-                <groupId>org.glassfish.jersey.media</groupId>
-                <artifactId>jersey-media-multipart</artifactId>
-                <version>${jersey.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.nimbusds</groupId>
-                <artifactId>nimbus-jose-jwt</artifactId>
-                <version>${nimbus.version}</version>
-            </dependency>
-
-			<!-- JAX-RS 2 client api -->            
 			<dependency>
-	    		<groupId>org.glassfish.jersey.core</groupId>
-	    		<artifactId>jersey-client</artifactId>
-                <version>${jersey.version}</version>	    		
-			</dependency>     
+				<groupId>org.glassfish.jersey.ext</groupId>
+				<artifactId>jersey-spring3</artifactId>
+				<version>${jersey.version}</version>
+				<!-- Do we need to exclude something? checkit! <exclusions> </exclusions> -->
+			</dependency>
+
+			<!-- auto registered feature // default JSON support module -->
+			<dependency>
+				<groupId>org.glassfish.jersey.media</groupId>
+				<artifactId>jersey-media-moxy</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.glassfish.jersey.media</groupId>
+				<artifactId>jersey-media-json-jackson</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>org.glassfish.jersey.media</groupId>
+				<artifactId>jersey-media-multipart</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.nimbusds</groupId>
+				<artifactId>nimbus-jose-jwt</artifactId>
+				<version>${nimbus.version}</version>
+			</dependency>
+
+			<!-- JAX-RS 2 client api -->
+			<dependency>
+				<groupId>org.glassfish.jersey.core</groupId>
+				<artifactId>jersey-client</artifactId>
+				<version>${jersey.version}</version>
+			</dependency>
 
 			<!-- EHCache version -->
 			<dependency>
@@ -747,40 +745,40 @@
 				<artifactId>ehcache-core</artifactId>
 				<version>${ehcache.version}</version>
 			</dependency>
-			
+
 			<!-- Spring Instrument version, for aspectj load time weaving -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-instrument</artifactId>
 				<version>${spring.version}</version>
-			</dependency>			
+			</dependency>
 
-			<!-- Testing support -->			
-			
-			<!-- Use it ONLY if you want to include all Test Factories providers--> 
-	        <dependency>
-	            <groupId>org.glassfish.jersey.test-framework.providers</groupId>
-	            <artifactId>jersey-test-framework-provider-bundle</artifactId>
-	            <type>pom</type>
-                <version>${jersey.version}</version>	    		
-	        </dependency>
-	        
-	        <!--  Include both to use grizzly web container test factory-->
+			<!-- Testing support -->
+
+			<!-- Use it ONLY if you want to include all Test Factories providers -->
+			<dependency>
+				<groupId>org.glassfish.jersey.test-framework.providers</groupId>
+				<artifactId>jersey-test-framework-provider-bundle</artifactId>
+				<type>pom</type>
+				<version>${jersey.version}</version>
+			</dependency>
+
+			<!-- Include both to use grizzly web container test factory -->
 			<dependency>
 				<groupId>org.glassfish.jersey.containers</groupId>
 				<artifactId>jersey-container-grizzly2-servlet</artifactId>
 				<version>${jersey.version}</version>
 			</dependency>
-	
+
 			<dependency>
 				<groupId>org.glassfish.jersey.test-framework.providers</groupId>
 				<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
 				<version>${jersey.version}</version>
-			</dependency>	     
-			<!--  End Testing Support -->   
-	        
-	        			       
-            
+			</dependency>
+			<!-- End Testing Support -->
+
+
+
 			<!-- END JERSEY DEPENDENCIES -->
 			<!-- RESTY DEPENDENCIES -->
 			<dependency>
@@ -814,11 +812,11 @@
 				<artifactId>jcl-over-slf4j</artifactId>
 				<version>${slf4j.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
- 				<version>1.2.17</version>
+				<version>1.2.17</version>
 			</dependency>
 			<!-- END OF LOGGING MANAGED DEPENDENCIES -->
 
@@ -826,7 +824,7 @@
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-adb</artifactId>
-				<version>1.6.2</version>
+				<version>1.6.3</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.apache.geronimo.specs</groupId>
@@ -838,19 +836,43 @@
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-transport-local</artifactId>
-				<version>1.6.2</version>
+				<version>1.6.3</version>
+			</dependency>
+
+			<dependency>
+				<groupId>wsdl4j</groupId>
+				<artifactId>wsdl4j</artifactId>
+				<version>1.6.3</version>
 			</dependency>
 
 			<dependency>
 				<groupId>com.sun.xml.bind</groupId>
 				<artifactId>jaxb-impl</artifactId>
-				<version>2.2.6</version>
+				<version>2.2.10</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-core</artifactId>
+				<version>2.2.10</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-xjc</artifactId>
+				<version>2.2.10</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.sun.xml.ws</groupId>
+				<artifactId>jaxws-rt</artifactId>
+				<version>2.2.10</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-transport-http</artifactId>
-				<version>1.6.2</version>
+				<version>1.6.3</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.apache.geronimo.specs</groupId>
@@ -890,16 +912,16 @@
 			</dependency>
 
 			<dependency>
-            	<groupId>com.google.gwt.inject</groupId>
-            	<artifactId>gin</artifactId>
-            	<version>${gin.version}</version>
-            </dependency>
-			
-            <dependency>
-            	<groupId>com.google.guava</groupId>
-            	<artifactId>guava</artifactId>
-            	<version>${guava.version}</version>
-            </dependency>
+				<groupId>com.google.gwt.inject</groupId>
+				<artifactId>gin</artifactId>
+				<version>${gin.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>com.sencha.gxt</groupId>
@@ -957,11 +979,11 @@
 				<version>2.3.3</version>
 			</dependency>
 
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-                <version>4.3.0.Final</version>
-            </dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>4.3.0.Final</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.mybatis</groupId>
@@ -977,7 +999,7 @@
 			<!-- END OF PERSISTENCE MANAGED DEPENDENCIES -->
 
 			<!-- MESSAGING MANAGED DEPENDENCIES -->
-		
+
 			<dependency>
 				<groupId>org.jboss.shrinkwrap.resolver</groupId>
 				<artifactId>shrinkwrap-resolver-bom</artifactId>
@@ -993,48 +1015,37 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
-			
-	        <dependency>
-	            <groupId>org.jboss.arquillian.extension</groupId>
-	            <artifactId>arquillian-service-deployer-spring-3</artifactId>
-	            <version>1.0.0.Beta2</version>
-	        </dependency>
-	
-	        <dependency>
-	            <groupId>org.jboss.arquillian.extension</groupId>
-	            <artifactId>arquillian-service-integration-spring-inject</artifactId>
-	            <version>1.0.0.Beta2</version>
-	        </dependency>
-	        <!--
-		    <dependency>
-				<groupId>org.jboss.as</groupId>
-				<artifactId>jboss-as-arquillian-container-managed</artifactId>
-				<scope>test</scope>
-				<version>7.1.1.Final</version>
-			</dependency>
-			 
+
 			<dependency>
-				<groupId>org.jboss.spec</groupId>
-				<artifactId>jboss-javaee-6.0</artifactId>
-				<version>3.0.2.Final</version>
-				<type>pom</type>
+				<groupId>org.jboss.arquillian.extension</groupId>
+				<artifactId>arquillian-service-deployer-spring-3</artifactId>
+				<version>1.0.0.Beta2</version>
 			</dependency>
-			 -->
-			 
+
+			<dependency>
+				<groupId>org.jboss.arquillian.extension</groupId>
+				<artifactId>arquillian-service-integration-spring-inject</artifactId>
+				<version>1.0.0.Beta2</version>
+			</dependency>
+			<!-- <dependency> <groupId>org.jboss.as</groupId> <artifactId>jboss-as-arquillian-container-managed</artifactId> 
+				<scope>test</scope> <version>7.1.1.Final</version> </dependency> <dependency> 
+				<groupId>org.jboss.spec</groupId> <artifactId>jboss-javaee-6.0</artifactId> 
+				<version>3.0.2.Final</version> <type>pom</type> </dependency> -->
+
 			<dependency>
 				<groupId>org.wildfly</groupId>
 				<artifactId>wildfly-arquillian-container-managed</artifactId>
 				<version>8.0.0.Final</version>
 				<scope>test</scope>
 			</dependency>
-			
+
 			<dependency>
-    			<groupId>org.apache.geronimo.specs</groupId>
-    			<artifactId>geronimo-jms_1.1_spec</artifactId>
-    			<version>1.1.1</version>
-  			</dependency>
-			
-			
+				<groupId>org.apache.geronimo.specs</groupId>
+				<artifactId>geronimo-jms_1.1_spec</artifactId>
+				<version>1.1.1</version>
+			</dependency>
+
+
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>activemq-core</artifactId>
@@ -1060,16 +1071,16 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			
+
 			<!-- END OF MESSAGING MANAGED DEPENDENCIES -->
 
-            <!-- CORS FILTER MANAGED DEPENDENCY -->
-            <dependency>
-                <groupId>com.thetransactioncompany</groupId>
-                <artifactId>cors-filter</artifactId>
-                <version>1.9.3</version>
-            </dependency>
-            <!-- END OF CORS FILTER MANAGED DEPENDENCY -->
+			<!-- CORS FILTER MANAGED DEPENDENCY -->
+			<dependency>
+				<groupId>com.thetransactioncompany</groupId>
+				<artifactId>cors-filter</artifactId>
+				<version>1.9.3</version>
+			</dependency>
+			<!-- END OF CORS FILTER MANAGED DEPENDENCY -->
 
 			<!-- CACHING MANAGED DEPENDENCIES -->
 			<dependency>
@@ -1097,25 +1108,24 @@
 				<version>5.4.0</version>
 			</dependency>
 
-			<!--  GWT Native validation does not work currently with hibernate-validator 4.1+.
-				If this is changed, module frontend-gwt-api needs to be reviewed and tested.
-				See: https://code.google.com/p/google-web-toolkit/issues/detail?id=7661 -->
+			<!-- GWT Native validation does not work currently with hibernate-validator 
+				4.1+. If this is changed, module frontend-gwt-api needs to be reviewed and 
+				tested. See: https://code.google.com/p/google-web-toolkit/issues/detail?id=7661 -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<version>4.1.0.Final</version>
 			</dependency>
 
-			<!--  GWT Native validation requires hibernate-validator sources and does not work 
-				currently with hibernate-validator 4.1+.
-				If this is changed, module frontend-gwt-api needs to be reviewed and tested.
-				See: https://code.google.com/p/google-web-toolkit/issues/detail?id=7661 -->			
+			<!-- GWT Native validation requires hibernate-validator sources and does 
+				not work currently with hibernate-validator 4.1+. If this is changed, module 
+				frontend-gwt-api needs to be reviewed and tested. See: https://code.google.com/p/google-web-toolkit/issues/detail?id=7661 -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<classifier>sources</classifier>
 				<version>4.1.0.Final</version>
-			</dependency>			
+			</dependency>
 
 			<dependency>
 				<groupId>org.codehaus.jackson</groupId>
@@ -1187,134 +1197,96 @@
 				<version>3.0.1</version>
 			</dependency>
 
-            <dependency>
-                <groupId>org.jodd</groupId>
-                <artifactId>jodd</artifactId>
-                <version>3.3.8</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.3.1</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.owasp.esapi</groupId>
-                <artifactId>esapi</artifactId>
-                <version>${owasp.esapi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jsoup</groupId>
-                <artifactId>jsoup</artifactId>
-                <version>${org.jsoup.version}</version>
-            </dependency>
-
-
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>1.3.2</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.chemistry.opencmis</groupId>
-                <artifactId>chemistry-opencmis-client-impl</artifactId>
-                <version>0.11.0</version>
-            </dependency>
-            
-            <!-- APACHE TIKA DEPENDENCY -->
 			<dependency>
-    			<groupId>org.apache.tika</groupId>
-    			<artifactId>tika-app</artifactId>
-    			<version>1.7</version>    		
-			</dependency>            
-            
-        </dependencies>
+				<groupId>org.jodd</groupId>
+				<artifactId>jodd</artifactId>
+				<version>3.3.8</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.3.1</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.owasp.esapi</groupId>
+				<artifactId>esapi</artifactId>
+				<version>${owasp.esapi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>${org.jsoup.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>1.3.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.chemistry.opencmis</groupId>
+				<artifactId>chemistry-opencmis-client-impl</artifactId>
+				<version>0.11.0</version>
+			</dependency>
+
+			<!-- APACHE TIKA DEPENDENCY -->
+			<dependency>
+				<groupId>org.apache.tika</groupId>
+				<artifactId>tika-app</artifactId>
+				<version>1.7</version>
+			</dependency>
+
+		</dependencies>
 	</dependencyManagement>
 
-	<!--<reporting>
-		<outputDirectory>${basedir}/target/site</outputDirectory>
-		<plugins>
-			<plugin>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>index</report>
-							<report>summary</report>
-							<report>license</report>
-							<report>project-team</report>
-							<report>mailing-list</report>
-							<report>scm</report>
-							<report>issue-tracking</report>
-							<report>cim</report>
-							<report>modules</report>
-							<report>plugins</report>
-							<report>plugin-management</report>
-							<report>help</report>
-							<report>dependencies</report>
-							<report>dependency-convergence</report>
-							<report>dependency-info</report>
-							<report>dependency-management</report>
-							<report>distribution-management</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-			<plugin>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.14</version>
-			</plugin>
-			<plugin>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.0</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.10</version>
-			</plugin>
-			<plugin>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jxr-plugin</artifactId>
-				<version>2.3</version>
-			</plugin>
-		</plugins>
-	</reporting>-->
+	<!--<reporting> <outputDirectory>${basedir}/target/site</outputDirectory> 
+		<plugins> <plugin> <artifactId>maven-project-info-reports-plugin</artifactId> 
+		<reportSets> <reportSet> <reports> <report>index</report> <report>summary</report> 
+		<report>license</report> <report>project-team</report> <report>mailing-list</report> 
+		<report>scm</report> <report>issue-tracking</report> <report>cim</report> 
+		<report>modules</report> <report>plugins</report> <report>plugin-management</report> 
+		<report>help</report> <report>dependencies</report> <report>dependency-convergence</report> 
+		<report>dependency-info</report> <report>dependency-management</report> <report>distribution-management</report> 
+		</reports> </reportSet> </reportSets> </plugin> <plugin> <artifactId>maven-surefire-report-plugin</artifactId> 
+		<version>2.14</version> </plugin> <plugin> <artifactId>maven-pmd-plugin</artifactId> 
+		<version>3.0</version> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+		<artifactId>maven-checkstyle-plugin</artifactId> <version>2.10</version> 
+		</plugin> <plugin> <artifactId>maven-javadoc-plugin</artifactId> <configuration> 
+		<encoding>UTF-8</encoding> </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+		<artifactId>maven-jxr-plugin</artifactId> <version>2.3</version> </plugin> 
+		</plugins> </reporting> -->
 
 	<repositories>
 		<repository>
 			<id>EclipseLink</id>
 			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
 		</repository>
-		
+
 		<repository>
 			<id>Maven Central</id>
 			<url>http://repo1.maven.org/maven2</url>
 		</repository>
-				
+
 		<repository>
 			<id>Dynamic Jasper</id>
 			<url>http://archiva.fdvs.com.ar/repository/public1/</url>
 		</repository>
-        <!-- This repository should not be here as it is not recommended by Maven.
-        OAUT2 module makes use of version 2 of spring-security-oauth2 artiface, and this is not yet released.
-        So the only way of having this artifact available, is to temporarily using spring milestones repo.-->
-        <repository>
-            <id>spring-release</id>
-            <name>Spring Release Repository</name>
-            <url>http://maven.springframework.org/milestone/</url>
-        </repository>
+		<!-- This repository should not be here as it is not recommended by Maven. 
+			OAUT2 module makes use of version 2 of spring-security-oauth2 artiface, and 
+			this is not yet released. So the only way of having this artifact available, 
+			is to temporarily using spring milestones repo. -->
+		<repository>
+			<id>spring-release</id>
+			<name>Spring Release Repository</name>
+			<url>http://maven.springframework.org/milestone/</url>
+		</repository>
 
-    </repositories>
+	</repositories>
 
 	<!-- <distributionManagement> -->
 	<!-- <site> -->
