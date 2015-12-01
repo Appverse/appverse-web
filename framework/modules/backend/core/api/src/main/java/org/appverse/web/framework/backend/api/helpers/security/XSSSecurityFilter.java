@@ -23,25 +23,43 @@
  */
 package org.appverse.web.framework.backend.api.helpers.security;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriBuilder;
 
 /**
- * A Request Filter to filter out possible XSS attacks in the request query parameters or headers.
+ * A Request Filter to filter out possible XSS attacks in the request query
+ * parameters or headers.
  */
+public class XSSSecurityFilter implements ContainerRequestFilter {
+	/**
+	 * @see javax.ws.rs.container.ContainerRequestFilter#filter(javax.ws.rs.container.ContainerRequestContext)
+	 */
+	@Override
+	public void filter(ContainerRequestContext request) {
+		// Clean the query string
+		// The query string parameters come in an inmutable data structure, so they cannot be modified.
+		// It will be necessary to copy the query string parameters to a brand new hash, clean them and later 
+		// rebuild the request URI with the cleaned parameters.    
+		final MultivaluedMap<String, String> parameters = request.getUriInfo().getQueryParameters();
+		MultivaluedHashMap<String, String> parametersToClean = new MultivaluedHashMap<String, String>();
+		parametersToClean.putAll(parameters);
+		ESAPIHelper.cleanParams(parametersToClean);
+		UriBuilder query = request.getUriInfo().getRequestUriBuilder().replaceQuery("");
+		for (Map.Entry<String, List<String>> e : parametersToClean.entrySet()) {
+			final String key = e.getKey();
+			for (String v : e.getValue()) {
+				query = query.queryParam(key, v);
+			}
+		}
+		request.setRequestUri(query.build());
 
-public class XSSSecurityFilter implements ContainerRequestFilter
-{
-    /**
-     * @see javax.ws.rs.container.ContainerRequestFilter#filter(javax.ws.rs.container.ContainerRequestContext)
-     */
-    @Override
-    public void filter( ContainerRequestContext request )
-    {
-        // Clean the query strings
-    	ESAPIHelper.cleanParams(request.getUriInfo().getQueryParameters());
-
-        // Clean the headers
-        ESAPIHelper.cleanParams( request.getHeaders());
-    }
+		// Clean the headers
+		ESAPIHelper.cleanParams(request.getHeaders());
+	}
 }
