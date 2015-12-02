@@ -10,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms.modules.backend.security</groupId>
 	<artifactId>appverse-web-modules-backend-security-pom</artifactId>
-	<version>1.5.3-SNAPSHOT</version>
+	<version>1.5.4-RELEASE</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Modules Backend Security POM</name>
@@ -169,7 +169,7 @@
 	<scm>
 		<connection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</connection>
 		<developerConnection>scm:git:https://${appverseweb.user.name}:${appverseweb.user.password}@github.com/Appverse/appverse-web.git</developerConnection>
-		<tag>1.5.1</tag>
+		<tag>1.5.4-RELEASE</tag>
 		<url>https://github.com/Appverse/appverse-web</url>
 	</scm>
 
