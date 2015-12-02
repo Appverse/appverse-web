@@ -10,7 +10,7 @@
 
 	<groupId>org.appverse.web.framework.poms</groupId>
 	<artifactId>appverse-web-masterpom</artifactId>
-	<version>1.5.4-RELEASE</version>
+	<version>1.5.5-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Appverse Web Framework Master POM</name>
@@ -187,7 +187,7 @@
 	</scm>
 
 	<properties>
-		<framework.version>1.5.4-RELEASE</framework.version>
+		<framework.version>1.5.5-SNAPSHOT</framework.version>
 		<spring.version>3.2.9.RELEASE</spring.version>
 		<spring.security.version>3.2.5.RELEASE</spring.security.version>
 		<spring.oauth2.version>2.0.3.RELEASE</spring.oauth2.version>
